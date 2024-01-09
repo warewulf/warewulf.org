@@ -54,7 +54,7 @@ function Header({ siteTitle }) {
         <ul className="flex items-center hidden space-x-8 lg:flex">
           <li>
             <Link
-              to="https://github.com/hpcng/warewulf"
+              to="https://github.com/warewulf/warewulf"
               aria-label="GitHub"
               title="GitHub"
               className="text-gray-700 hover:text-green-500 transition-colors duration-200"

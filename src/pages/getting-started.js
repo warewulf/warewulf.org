@@ -9,7 +9,7 @@ import Seo from "../components/seo"
 const gettingStartedLinks = [
   {
     name: 'GitHub Project',
-    href: 'https://github.com/hpcng/warewulf',
+    href: 'https://github.com/warewulf/warewulf',
     description:
       'Grab the latest stable release of Warewulf, submit issues, and contribute to the project at the official GitHub repository.',
     icon: DownloadIcon,
@@ -25,7 +25,7 @@ const gettingStartedLinks = [
   },
   {
     name: 'Binary Packages',
-    href: 'https://github.com/hpcng/warewulf/releases',
+    href: 'https://github.com/warewulf/warewulf/releases',
     description:
       'Warewulf Binary packages for Enterprise Linux and SUSE are available in the GitHub releases.',
     icon: SupportIcon,

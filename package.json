@@ -38,7 +38,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "deploy": "gh-pages -t -d public -r git@github.com:hpcng/warewulf-web.git",
+    "deploy": "gh-pages -t -d public -r git@github.com:warewulf/warewulf.org.git",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",

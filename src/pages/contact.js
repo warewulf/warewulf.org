@@ -7,15 +7,15 @@ import Seo from "../components/seo"
 const contacts = [
     {
         name: 'Project Leads',
-        email: 'warewulf-leads@hpcng.org',
+        email: 'leads@warewulf.org',
     },
     {
         name: 'Web',
-        email: 'warewulf-web@hpcng.org',
+        email: 'web@warewulf.org',
     },
     {
         name: 'Security',
-        email: 'warewulf-security@hpcng.org',
+        email: 'security@warewulf.org',
     },
     // More teams...
 ]

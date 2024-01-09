@@ -84,7 +84,7 @@ const HelpPage = () => (
             </p>
           </div>
           <Link
-            to="https://github.com/hpcng/warewulf"
+            to="https://github.com/warewulf/warewulf"
             aria-label="GitHub Repository"
             className="inline-flex items-center font-semibold transition-colors duration-200 text-green-900 hover:text-green-700"
           >
