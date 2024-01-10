@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Templating &mdash; Warewulf User Guide development documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=249f3023"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="EL7 Quickstart (CentOS and RHEL)" href="../quickstart/el7.html" />
+    <link rel="prev" title="Security" href="security.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stateless.html">Stateless Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Control Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Warewulf Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overlays.html">Warewulf Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioning.html">Node Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Templating</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#comment">Comment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#range">Range</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#increment-variable-in-loop">Increment Variable In Loop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#decrement">Decrement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#access-tag">Access Tag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-multiple-files">Create Multiple Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#special-commands">Special Commands</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#include">Include</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#includefrom">IncludeFrom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#includeblock">IncludeBlock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#abort">Abort</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nobackup">Nobackup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#split">Split</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#node-specific-files">Node specific files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vagrant.html">Development Environment (Vagrant)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-kvm.html">Development Environment (KVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vbox.html">Development Environment (VirtualBox)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Templating</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/hpcng/warewulf/blob/development/userdocs/contents/templating.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="templating">
+<h1>Templating<a class="headerlink" href="#templating" title="Link to this heading"></a></h1>
+<p>Warewulf uses the <code class="docutils literal notranslate"><span class="pre">text/template</span></code> engine to convert dynamic content
+into static content and auto-populate files with the appropriate data
+on demand.</p>
+<p>In Warewulf, you can find templates both for the provisioning services
+(e.g. <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/ipxe/</span></code>, <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/dhcp/</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">/etc/warewulf/hosts.tmpl</span></code>) as well as within the runtime and system
+overlays.</p>
+<p>(more documentation coming soon)</p>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<section id="comment">
+<h3>Comment<a class="headerlink" href="#comment" title="Link to this heading"></a></h3>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="w">  </span><span class="o">/*</span><span class="w"> </span><span class="nx">This</span><span class="w"> </span><span class="nx">comment</span><span class="w"> </span><span class="nx">won</span><span class="err">&#39;</span><span class="nx">t</span><span class="w"> </span><span class="nx">show</span><span class="w"> </span><span class="nx">up</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">file</span><span class="p">,</span><span class="w"> </span><span class="nx">but</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">empty</span><span class="w"> </span><span class="nx">line</span><span class="w"> </span><span class="o">/*</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{{</span><span class="w">  </span><span class="o">/*</span><span class="w"> </span><span class="nx">No</span><span class="w"> </span><span class="nx">empty</span><span class="w"> </span><span class="nx">line</span><span class="p">,</span><span class="w"> </span><span class="nx">line</span><span class="w"> </span><span class="k">break</span><span class="w"> </span><span class="nx">removed</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">line</span><span class="w"> </span><span class="o">/*</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span><span class="w">  </span><span class="o">/*</span><span class="w"> </span><span class="nx">No</span><span class="w"> </span><span class="nx">empty</span><span class="w"> </span><span class="nx">line</span><span class="p">,</span><span class="w"> </span><span class="nx">line</span><span class="w"> </span><span class="k">break</span><span class="w"> </span><span class="nx">removed</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="nx">front</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">line</span><span class="w"> </span><span class="o">/*</span><span class="w"> </span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="range">
+<h3>Range<a class="headerlink" href="#range" title="Link to this heading"></a></h3>
+<p>iterate over elements of an array</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="err">$</span><span class="nx">devname</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">.</span><span class="nx">NetDevs</span><span class="w"> </span><span class="p">}}</span>
+<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="nx">netdev</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Hwaddr</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{{</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="p">}}</span>
+</pre></div>
+</div>
+<section id="increment-variable-in-loop">
+<h4>Increment Variable In Loop<a class="headerlink" href="#increment-variable-in-loop" title="Link to this heading"></a></h4>
+<p>iterate over elements of an array and increment <code class="docutils literal notranslate"><span class="pre">i</span></code> each loop cycle</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{{</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="err">$</span><span class="nx">devname</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">.</span><span class="nx">NetDevs</span><span class="w"> </span><span class="p">}}</span>
+<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="nx">netdev</span><span class="p">{{</span><span class="err">$</span><span class="nx">i</span><span class="p">}}</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Hwaddr</span><span class="w"> </span><span class="p">}}</span>
+<span class="w">    </span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">inc</span><span class="w"> </span><span class="err">$</span><span class="nx">i</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{{</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="decrement">
+<h4>Decrement<a class="headerlink" href="#decrement" title="Link to this heading"></a></h4>
+<p>iterate over elements of an array and decrement <code class="docutils literal notranslate"><span class="pre">i</span></code> each loop cycle</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{{</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="err">$</span><span class="nx">devname</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">.</span><span class="nx">NetDevs</span><span class="w"> </span><span class="p">}}</span>
+<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="nx">netdev</span><span class="p">{{</span><span class="err">$</span><span class="nx">i</span><span class="p">}}</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Hwaddr</span><span class="w"> </span><span class="p">}}</span>
+<span class="w">    </span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">dec</span><span class="w"> </span><span class="err">$</span><span class="nx">i</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{{</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="access-tag">
+<h3>Access Tag<a class="headerlink" href="#access-tag" title="Link to this heading"></a></h3>
+<p>Acces the value of an individual tag <code class="docutils literal notranslate"><span class="pre">foo</span></code></p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">foo</span><span class="p">:</span><span class="w"> </span><span class="p">{{</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="p">.</span><span class="nx">Tags</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{{</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">eq</span><span class="w"> </span><span class="p">(</span><span class="nx">index</span><span class="w"> </span><span class="p">.</span><span class="nx">Tags</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;baar&quot;</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span>
+<span class="nx">foo</span><span class="p">:</span><span class="w"> </span><span class="p">{{</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="p">.</span><span class="nx">Tags</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{{</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="create-multiple-files">
+<h3>Create Multiple Files<a class="headerlink" href="#create-multiple-files" title="Link to this heading"></a></h3>
+<p>The following template will create a file called
+<code class="docutils literal notranslate"><span class="pre">ifcfg-NETWORKNAME.xml</span></code> for every network present on the node</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="nx">host</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">.</span><span class="nx">BuildHost</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="nx">time</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">.</span><span class="nx">BuildTime</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="nx">source</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">.</span><span class="nx">BuildSource</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{{</span><span class="k">range</span><span class="w"> </span><span class="err">$</span><span class="nx">devname</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">.</span><span class="nx">NetDevs</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="nx">filename</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">print</span><span class="w"> </span><span class="s">&quot;ifcfg-&quot;</span><span class="w"> </span><span class="err">$</span><span class="nx">devname</span><span class="w"> </span><span class="s">&quot;.xml&quot;</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="err">$</span><span class="nx">filename</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">&lt;!</span><span class="o">--</span>
+<span class="nx">This</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">autogenerated</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">warewulf</span>
+<span class="nx">Host</span><span class="p">:</span><span class="w">   </span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">host</span><span class="w"> </span><span class="p">}}</span>
+<span class="nx">Time</span><span class="p">:</span><span class="w">   </span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">time</span><span class="w"> </span><span class="p">}}</span>
+<span class="nx">Source</span><span class="p">:</span><span class="w"> </span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">source</span><span class="w"> </span><span class="p">}}</span>
+<span class="o">--</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="kd">interface</span><span class="w"> </span><span class="nx">origin</span><span class="p">=</span><span class="s">&quot;static generated warewulf config&quot;</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nx">name</span><span class="p">&gt;{{</span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Device</span><span class="p">}}&lt;</span><span class="o">/</span><span class="nx">name</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">{{</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Type</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nx">link</span><span class="o">-</span><span class="kd">type</span><span class="p">&gt;{{</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Type</span><span class="w"> </span><span class="p">}}&lt;</span><span class="o">/</span><span class="nx">link</span><span class="o">-</span><span class="kd">type</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">{{</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nx">control</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nx">mode</span><span class="p">&gt;</span><span class="nx">boot</span><span class="p">&lt;</span><span class="o">/</span><span class="nx">mode</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="o">/</span><span class="nx">control</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nx">firewall</span><span class="o">/</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nx">link</span><span class="o">/</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nx">ipv4</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nx">enabled</span><span class="p">&gt;</span><span class="kc">true</span><span class="p">&lt;</span><span class="o">/</span><span class="nx">enabled</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nx">arp</span><span class="o">-</span><span class="nx">verify</span><span class="p">&gt;</span><span class="kc">true</span><span class="p">&lt;</span><span class="o">/</span><span class="nx">arp</span><span class="o">-</span><span class="nx">verify</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="o">/</span><span class="nx">ipv4</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nx">ipv4</span><span class="p">:</span><span class="nx">static</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nx">address</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nx">local</span><span class="p">&gt;{{</span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">IpCIDR</span><span class="p">}}&lt;</span><span class="o">/</span><span class="nx">local</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="o">/</span><span class="nx">address</span><span class="p">&gt;</span>
+<span class="p">{{</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Gateway</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nx">route</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nx">nexthop</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nx">gateway</span><span class="p">&gt;{{</span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Gateway</span><span class="p">}}&lt;</span><span class="o">/</span><span class="nx">gateway</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="o">/</span><span class="nx">nexthop</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="o">/</span><span class="nx">route</span><span class="p">&gt;</span>
+<span class="p">{{</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="o">/</span><span class="nx">ipv4</span><span class="p">:</span><span class="nx">static</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nx">ipv6</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nx">enabled</span><span class="p">&gt;</span><span class="kc">true</span><span class="p">&lt;</span><span class="o">/</span><span class="nx">enabled</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nx">privacy</span><span class="p">&gt;</span><span class="nx">prefer</span><span class="o">-</span><span class="nx">public</span><span class="p">&lt;</span><span class="o">/</span><span class="nx">privacy</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nx">accept</span><span class="o">-</span><span class="nx">redirects</span><span class="p">&gt;</span><span class="kc">false</span><span class="p">&lt;</span><span class="o">/</span><span class="nx">accept</span><span class="o">-</span><span class="nx">redirects</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="o">/</span><span class="nx">ipv6</span><span class="p">&gt;</span>
+<span class="p">{{</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Ipaddr6</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nx">ipv6</span><span class="p">:</span><span class="nx">static</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nx">address</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nx">local</span><span class="p">&gt;{{</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Ipaddr6</span><span class="w"> </span><span class="p">}}&lt;</span><span class="o">/</span><span class="nx">local</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="o">/</span><span class="nx">address</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="o">/</span><span class="nx">ipv6</span><span class="p">:</span><span class="nx">static</span><span class="p">&gt;</span>
+<span class="p">{{</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span>
+<span class="p">&lt;</span><span class="o">/</span><span class="kd">interface</span><span class="p">&gt;</span>
+<span class="p">{{</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="special-commands">
+<h3>Special Commands<a class="headerlink" href="#special-commands" title="Link to this heading"></a></h3>
+<section id="include">
+<h4>Include<a class="headerlink" href="#include" title="Link to this heading"></a></h4>
+<p>A file from the host can be include with following template</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="w"> </span><span class="nx">Include</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="includefrom">
+<h4>IncludeFrom<a class="headerlink" href="#includefrom" title="Link to this heading"></a></h4>
+<p>With following snippet a file from a given container can be included</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="w"> </span><span class="nx">IncludeFrom</span><span class="w"> </span><span class="nx">container</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="includeblock">
+<h4>IncludeBlock<a class="headerlink" href="#includeblock" title="Link to this heading"></a></h4>
+<p>Includes a file up to the line where a abort string is found. This is
+useful, e.g., for the hosts file, which can have local modifications
+which are not controlled by warewulf. For this example the abort
+string is “# Do not edit after this line”</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="w"> </span><span class="nx">IncludeBlock</span><span class="w"> </span><span class="s">&quot;/etc/hosts&quot;</span><span class="w"> </span><span class="s">&quot;# Do not edit after this line&quot;</span><span class="w"> </span><span class="p">}}</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">This</span><span class="w"> </span><span class="nx">block</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">autogenerated</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">warewulf</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">Host</span><span class="p">:</span><span class="w">   </span><span class="p">{{.</span><span class="nx">BuildHost</span><span class="p">}}</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">Time</span><span class="p">:</span><span class="w">   </span><span class="p">{{.</span><span class="nx">BuildTime</span><span class="p">}}</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">Source</span><span class="p">:</span><span class="w"> </span><span class="p">{{.</span><span class="nx">BuildSource</span><span class="p">}}</span>
+
+
+<span class="err">#</span><span class="w"> </span><span class="nx">Warewulf</span><span class="w"> </span><span class="nx">Server</span>
+<span class="p">{{</span><span class="err">$</span><span class="p">.</span><span class="nx">Ipaddr</span><span class="p">}}</span><span class="w"> </span><span class="nx">warewulf</span><span class="w"> </span><span class="p">{{</span><span class="err">$</span><span class="p">.</span><span class="nx">BuildHost</span><span class="p">}}</span>
+
+<span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="err">$</span><span class="nx">node</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="err">$</span><span class="p">.</span><span class="nx">AllNodes</span><span class="p">}}</span><span class="w">                  </span><span class="p">{{</span><span class="cm">/* for each node */</span><span class="p">}}</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">Entry</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">{{</span><span class="err">$</span><span class="nx">node</span><span class="p">.</span><span class="nx">Id</span><span class="p">.</span><span class="nx">Get</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="err">$</span><span class="nx">devname</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="err">$</span><span class="nx">node</span><span class="p">.</span><span class="nx">NetDevs</span><span class="p">}}</span><span class="w"> </span><span class="p">{{</span><span class="cm">/* for each network device on the node */</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Ipaddr</span><span class="p">.</span><span class="nx">Defined</span><span class="p">}}</span><span class="w">                </span><span class="p">{{</span><span class="cm">/* if we have an ip address on this network device */</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="cm">/* emit the node name as hostname if this is the primary */</span><span class="p">}}</span>
+<span class="p">{{</span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Ipaddr</span><span class="p">.</span><span class="nx">Get</span><span class="p">}}</span><span class="w"> </span><span class="p">{{</span><span class="err">$</span><span class="nx">node</span><span class="p">.</span><span class="nx">Id</span><span class="p">.</span><span class="nx">Get</span><span class="p">}}</span><span class="o">-</span><span class="p">{{</span><span class="err">$</span><span class="nx">devname</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Device</span><span class="p">.</span><span class="nx">Defined</span><span class="p">}}</span><span class="w"> </span><span class="p">{{</span><span class="err">$</span><span class="nx">node</span><span class="p">.</span><span class="nx">Id</span><span class="p">.</span><span class="nx">Get</span><span class="p">}}</span><span class="o">-</span><span class="p">{{</span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Device</span><span class="p">.</span><span class="nx">Get</span><span class="p">}}{{</span><span class="nx">end</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="err">$</span><span class="nx">netdev</span><span class="p">.</span><span class="nx">Primary</span><span class="p">.</span><span class="nx">GetB</span><span class="p">}}</span><span class="w"> </span><span class="p">{{</span><span class="err">$</span><span class="nx">node</span><span class="p">.</span><span class="nx">Id</span><span class="p">.</span><span class="nx">Get</span><span class="p">}}{{</span><span class="nx">end</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nx">end</span><span class="p">}}</span><span class="w"> </span><span class="p">{{</span><span class="cm">/* end if ip */</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nx">end</span><span class="p">}}</span><span class="w"> </span><span class="p">{{</span><span class="cm">/* end for each network device */</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="nx">end</span><span class="p">}}</span><span class="w"> </span><span class="p">{{</span><span class="cm">/* end for each node */</span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="abort">
+<h4>Abort<a class="headerlink" href="#abort" title="Link to this heading"></a></h4>
+<p>If <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">abort</span> <span class="pre">}}</span></code> is found in a template, the resulting file isn’t written.</p>
+</section>
+<section id="nobackup">
+<h4>Nobackup<a class="headerlink" href="#nobackup" title="Link to this heading"></a></h4>
+<p>If a file exists on the target, a backup file is written with the
+suffix <code class="docutils literal notranslate"><span class="pre">.wwbackup</span></code>. This only happens for the <code class="docutils literal notranslate"><span class="pre">host</span></code> overlay, as
+e.g. the <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> exists on the host. If this is not the
+intended behavior, the <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">nobackup</span> <span class="pre">}}</span></code> flag can be added to a
+template.</p>
+</section>
+<section id="split">
+<h4>Split<a class="headerlink" href="#split" title="Link to this heading"></a></h4>
+<p>A given string can be split into substrings.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;a:b:c&quot;</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span>
+<span class="p">{{</span><span class="w"> </span><span class="err">$</span><span class="nx">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="nx">split</span><span class="w"> </span><span class="err">$</span><span class="nx">x</span><span class="w"> </span><span class="s">&quot;:&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="p">}}</span>
+<span class="p">{{</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="err">$</span><span class="nx">y</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="p">{{.}}</span><span class="w"> </span><span class="p">{{</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="node-specific-files">
+<h3>Node specific files<a class="headerlink" href="#node-specific-files" title="Link to this heading"></a></h3>
+<p>Sometimes there is the need to have specific files for every node
+which can’t be generated by a template. You can include these files
+with following template:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="o">-</span><span class="w"> </span><span class="err">$</span><span class="nx">filename</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">print</span><span class="w"> </span><span class="s">&quot;/root/&quot;</span><span class="w"> </span><span class="p">.</span><span class="nx">Id</span><span class="w"> </span><span class="s">&quot;-payload&quot;</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{{</span><span class="w"> </span><span class="nx">Include</span><span class="w"> </span><span class="err">$</span><span class="nx">filename</span><span class="w"> </span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="security.html" class="btn btn-neutral float-left" title="Security" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../quickstart/el7.html" class="btn btn-neutral float-right" title="EL7 Quickstart (CentOS and RHEL)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

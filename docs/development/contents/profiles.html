@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Node Profiles &mdash; Warewulf User Guide development documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=249f3023"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Warewulf Overlays" href="overlays.html" />
+    <link rel="prev" title="Node Configuration" href="nodeconfig.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stateless.html">Stateless Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Control Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Warewulf Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Node Profiles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#an-introduction-to-profiles">An Introduction To Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiple-profiles">Multiple Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cascading-profiles">Cascading Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overriding-profiles">Overriding Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-use-profiles-effectively">How To Use Profiles Effectively</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="overlays.html">Warewulf Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioning.html">Node Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templating.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vagrant.html">Development Environment (Vagrant)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-kvm.html">Development Environment (KVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vbox.html">Development Environment (VirtualBox)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Node Profiles</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/hpcng/warewulf/blob/development/userdocs/contents/profiles.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="node-profiles">
+<h1>Node Profiles<a class="headerlink" href="#node-profiles" title="Link to this heading"></a></h1>
+<p>Profiles provide a way to scalably group node configurations
+together. Instead of redundant configurations for each node, you can
+put that into a profile and the nodes will inherit these
+configurations. This is very handy if you have groups of node specific
+customizations. For example, a few hundred nodes that are running a
+particular container or kernel, and another group of nodes that are
+running a different kernel or container.</p>
+<p>Any node configuration attributes can be applied to a profile, but
+there are always going to be some node configurations which must be
+specific to a node, like a network HW/MAC address or an IP address.</p>
+<section id="an-introduction-to-profiles">
+<h2>An Introduction To Profiles<a class="headerlink" href="#an-introduction-to-profiles" title="Link to this heading"></a></h2>
+<p>Every new node is automatically added to a profile called
+<code class="docutils literal notranslate"><span class="pre">default</span></code>. You can view the configuration attributes of this profile
+by using the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">profile</span> <span class="pre">list</span></code> command. Like the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span>
+<span class="pre">list</span></code> command, this will provide a summary, but you can see <strong>all</strong>
+configuration attributes by using the <code class="docutils literal notranslate"><span class="pre">--all</span></code> or <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag as
+follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span>list
+<span class="go">PROFILE NAME         COMMENT/DESCRIPTION</span>
+<span class="go">================================================================================</span>
+<span class="go">default              This profile is automatically included for each node</span>
+</pre></div>
+</div>
+<p>And with the <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span>list<span class="w"> </span>-a
+<span class="gp">#</span><span class="c1">###############################################################################</span>
+<span class="go">PROFILE NAME         FIELD              VALUE</span>
+<span class="go">default              Id                 default</span>
+<span class="go">default              Comment            This profile is automatically included for each node</span>
+<span class="go">default              Cluster            --</span>
+<span class="go">default              Container          --</span>
+<span class="go">default              Kernel             --</span>
+<span class="go">default              KernelArgs         --</span>
+<span class="go">default              Init               --</span>
+<span class="go">default              Root               --</span>
+<span class="go">default              RuntimeOverlay     --</span>
+<span class="go">default              SystemOverlay      --</span>
+<span class="go">default              Ipxe               --</span>
+<span class="go">default              IpmiIpaddr         --</span>
+<span class="go">default              IpmiNetmask        --</span>
+<span class="go">default              IpmiPort           --</span>
+<span class="go">default              IpmiGateway        --</span>
+<span class="go">default              IpmiUserName       --</span>
+<span class="go">default              IpmiInterface      --</span>
+</pre></div>
+</div>
+<p>As you can see here, there is only one attribute set by default in
+this profile, and that is the “Comment” field. That Comment is
+inherited by any nodes that are configured to use this profile. So if
+we look at the node we configured in the last section, we can see that
+configuration attribute there:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span>
+<span class="gp">#</span><span class="c1">###############################################################################</span>
+<span class="go">NODE                 FIELD              PROFILE      VALUE</span>
+<span class="go">n0000                Id                 --           n0000</span>
+<span class="go">n0000                Comment            default      This profile is automatically included for each node</span>
+<span class="go">n0000                Cluster            --           --</span>
+</pre></div>
+</div>
+<p>Here you can see that the “Comment” attribute was inherited by this
+node, and it also provides you with the information of which profile
+this attribute was inherited from. This is very useful information as
+nodes can be part of multiple profiles with inheritance being
+cascading.</p>
+</section>
+<section id="multiple-profiles">
+<h2>Multiple Profiles<a class="headerlink" href="#multiple-profiles" title="Link to this heading"></a></h2>
+<p>For demonstration purposes, let’s create another profile and
+demonstrate how to use this second profile.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span>add<span class="w"> </span>test_profile
+<span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span>list
+<span class="go">PROFILE NAME         COMMENT/DESCRIPTION</span>
+<span class="go">================================================================================</span>
+<span class="go">default              This profile is automatically included for each node</span>
+<span class="go">test_profile         --</span>
+</pre></div>
+</div>
+<p>Now that we’ve created a new profile, let’s create a configuration
+attribute in this profile:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--cluster<span class="w"> </span>cluster01<span class="w"> </span>test_profile
+<span class="go">? Are you sure you want to modify 1 profile(s)? [y/N] y</span>
+
+<span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span>test_profile<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Cluster
+<span class="go">test_profile         Cluster            cluster01</span>
+</pre></div>
+</div>
+<p>Lastly we just need to configure this profile to our node(s):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--addprofile<span class="w"> </span>test_profile<span class="w"> </span>n0000
+<span class="go">Are you sure you want to modify 1 nodes(s): y</span>
+</pre></div>
+</div>
+<p>And you can now verify that the node has both profile configurations:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">6</span>
+<span class="gp">#</span><span class="c1">###############################################################################</span>
+<span class="go">NODE                 FIELD              PROFILE      VALUE</span>
+<span class="go">n0000                Id                 --           n0000</span>
+<span class="go">n0000                Comment            default      This profile is automatically included for each node</span>
+<span class="go">n0000                Cluster            test_profile cluster01</span>
+<span class="go">n0000                Profiles           --           default,test_profile</span>
+</pre></div>
+</div>
+</section>
+<section id="cascading-profiles">
+<h2>Cascading Profiles<a class="headerlink" href="#cascading-profiles" title="Link to this heading"></a></h2>
+<p>In the previous example, we set a single node to have two profile
+configurations. We can also overwrite configurations as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--comment<span class="w"> </span><span class="s2">&quot;test comment&quot;</span><span class="w"> </span>test_profile
+<span class="go">Are you sure you want to modify 1 profile(s): y</span>
+
+<span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">6</span>
+<span class="gp">#</span><span class="c1">###############################################################################</span>
+<span class="go">NODE                 FIELD              PROFILE      VALUE</span>
+<span class="go">n0000                Id                 --           n0000</span>
+<span class="go">n0000                Comment            test_profile test comment</span>
+<span class="go">n0000                Cluster            test_profile cluster01</span>
+<span class="go">n0000                Profiles           --           default,test_profile</span>
+</pre></div>
+</div>
+<p>And if we delete the superseded profile attribute from
+<code class="docutils literal notranslate"><span class="pre">test_profile</span></code> we can now see the previous configuration:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--comment<span class="w"> </span>UNDEF<span class="w"> </span>test_profile
+<span class="go">Are you sure you want to modify 1 profile(s): y</span>
+
+<span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">6</span>
+<span class="gp">#</span><span class="c1">###############################################################################</span>
+<span class="go">NODE                 FIELD              PROFILE      VALUE</span>
+<span class="go">n0000                Id                 --           n0000</span>
+<span class="go">n0000                Comment            default      This profile is automatically included for each node</span>
+<span class="go">n0000                Cluster            test_profile cluster01</span>
+<span class="go">n0000                Profiles           --           default,test_profile</span>
+</pre></div>
+</div>
+<p>This is a very useful feature for dealing with many groups of cluster
+nodes and/or testing new configurations on smaller subsets of cluster
+nodes. For example, you can use this method to run a different kernel
+on only a subset or group of cluster nodes without changing any other
+node attributes.</p>
+</section>
+<section id="overriding-profiles">
+<h2>Overriding Profiles<a class="headerlink" href="#overriding-profiles" title="Link to this heading"></a></h2>
+<p>All profile configurations can be overwritten by a node configuration
+as can be seen here:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--comment<span class="w"> </span><span class="s2">&quot;This value takes precedent&quot;</span><span class="w"> </span>n0000
+<span class="go">Are you sure you want to modify 1 nodes(s): y</span>
+
+<span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">6</span>
+<span class="gp">#</span><span class="c1">###############################################################################</span>
+<span class="go">NODE                 FIELD              PROFILE      VALUE</span>
+<span class="go">n0000                Id                 --           n0000</span>
+<span class="go">n0000                Comment            SUPERSEDED   This value takes precedent</span>
+<span class="go">n0000                Cluster            test_profile cluster01</span>
+<span class="go">n0000                Profiles           --           default,test_profile</span>
+</pre></div>
+</div>
+</section>
+<section id="how-to-use-profiles-effectively">
+<h2>How To Use Profiles Effectively<a class="headerlink" href="#how-to-use-profiles-effectively" title="Link to this heading"></a></h2>
+<p>There are a lot of ways to use profiles to facilitate the management
+of large cluster node attributes, but there is nothing inherent in the
+design of Warewulf that requires use of them for anything. It is
+completely reasonable to not use profiles at all to help with node
+configuration attributes.</p>
+<p>But if you do wish to use profiles, the best way to use them is to
+manage “fixed” configurations of groups of cluster nodes. For example,
+if you have multiple sub-clusters in your cluster, it might be
+advantageous to have a <code class="docutils literal notranslate"><span class="pre">cluster_name</span></code> profile which includes things
+like network configurations, and/or a specific kernel, container, boot
+arguments, etc.</p>
+<p>Node specific information, like HW/MAC addresses and IP addresses
+should always be put in a node configuration rather than a profile
+configuration.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nodeconfig.html" class="btn btn-neutral float-left" title="Node Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="overlays.html" class="btn btn-neutral float-right" title="Warewulf Overlays" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Development Environment (Vagrant) &mdash; Warewulf User Guide development documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=249f3023"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Development Environment (KVM)" href="development-environment-kvm.html" />
+    <link rel="prev" title="Documentation" href="documentation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contents/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/background.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/stateless.html">Stateless Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/setup.html">Control Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/installation.html">Warewulf Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/configuration.html">Warewulf Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/initialization.html">Warewulf Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/kernel.html">Kernel Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/nodeconfig.html">Node Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/overlays.html">Warewulf Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/provisioning.html">Node Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/templating.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development Environment (Vagrant)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#host-system-requirements">Host system requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cpu-h-w-virtualization-support">CPU H/W Virtualization support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kvm-kernel-module">KVM kernel module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#setup-development-environment-on-rocky-linux-9">Setup development environment on Rocky Linux 9</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-qemu-libvirt">Install QEMU, libvirt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-cockpit-optional">Install Cockpit (Optional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-vagrant-vagrant-libvirt-plug-in-and-vagrant-reload-plug-in">Install Vagrant, vagrant-libvirt plug-in and vagrant-reload plug-in</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#vagrant-box-and-vagrantfile-for-warewulf-sandbox">Vagrant box and Vagrantfile for Warewulf sandbox</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-rocky-linux-9-2-vagrant-box">Create Rocky Linux 9.2 vagrant box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vagrantfile">Vagrantfile</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#spin-up-head-node">Spin up head node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spin-up-compute-nodes">Spin up compute nodes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development-environment-kvm.html">Development Environment (KVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development-environment-vbox.html">Development Environment (VirtualBox)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Development Environment (Vagrant)</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/hpcng/warewulf/blob/development/userdocs/contributing/development-environment-vagrant.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="development-environment-vagrant">
+<h1>Development Environment (Vagrant)<a class="headerlink" href="#development-environment-vagrant" title="Link to this heading"></a></h1>
+<p>Create Rocky Linux 9 virtual machine for Warewulf testbed using Vagrant</p>
+<section id="host-system-requirements">
+<h2>Host system requirements<a class="headerlink" href="#host-system-requirements" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>CPU supports H/W virtualization.</p></li>
+<li><p>KVM kernel module available and loaded.</p></li>
+</ol>
+<section id="cpu-h-w-virtualization-support">
+<h3>CPU H/W Virtualization support<a class="headerlink" href="#cpu-h-w-virtualization-support" title="Link to this heading"></a></h3>
+<p>Check CPU virtualization capability using following command. If your system has Intel CPU, you will see <code class="code docutils literal notranslate"><span class="pre">Intel</span> <span class="pre">VT</span></code> here, and if your system has AMD CPU, you will see <code class="code docutils literal notranslate"><span class="pre">AMD-V</span></code> here.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lscpu<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Virtualization
+Virtualization:<span class="w">                  </span>AMD-V
+Virtualization<span class="w"> </span>type:<span class="w">             </span>full
+</pre></div>
+</div>
+</section>
+<section id="kvm-kernel-module">
+<h3>KVM kernel module<a class="headerlink" href="#kvm-kernel-module" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kvm
+ccp<span class="w">                   </span><span class="m">118784</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>kvm_amd
+kvm<span class="w">                  </span><span class="m">1105920</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>kvm_amd
+irqbypass<span class="w">              </span><span class="m">16384</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>kvm
+</pre></div>
+</div>
+</section>
+</section>
+<section id="setup-development-environment-on-rocky-linux-9">
+<h2>Setup development environment on Rocky Linux 9<a class="headerlink" href="#setup-development-environment-on-rocky-linux-9" title="Link to this heading"></a></h2>
+<section id="install-qemu-libvirt">
+<h3>Install QEMU, libvirt<a class="headerlink" href="#install-qemu-libvirt" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install packages</span>
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>libvirt<span class="w"> </span>qemu-kvm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libguestfs<span class="w"> </span>virtio-win<span class="w"> </span>guestfs-tools<span class="w"> </span>libguestfs-inspect-icons<span class="w"> </span>virt-win-reg<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>virt-install<span class="w"> </span>virt-top
+
+<span class="c1"># Enable and start libvirtd</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>libvirtd
+
+<span class="c1"># Add user to libvirt group</span>
+sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>libvirt<span class="w"> </span>rocky
+</pre></div>
+</div>
+</section>
+<section id="install-cockpit-optional">
+<h3>Install Cockpit (Optional)<a class="headerlink" href="#install-cockpit-optional" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install packages</span>
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>cockpit<span class="w"> </span>cockpit-machines
+
+<span class="c1"># Enable and start cockpit (http://localhost:9090)</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>cockpit.socket
+</pre></div>
+</div>
+</section>
+<section id="install-vagrant-vagrant-libvirt-plug-in-and-vagrant-reload-plug-in">
+<h3>Install Vagrant, vagrant-libvirt plug-in and vagrant-reload plug-in<a class="headerlink" href="#install-vagrant-vagrant-libvirt-plug-in-and-vagrant-reload-plug-in" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>config-manager<span class="w"> </span>--add-repo<span class="w"> </span>https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>vagrant
+
+sudo<span class="w"> </span>dnf<span class="w"> </span>group<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="s2">&quot;Development tools&quot;</span>
+sudo<span class="w"> </span>dnf<span class="w"> </span>config-manager<span class="w"> </span>--set-enabled<span class="w"> </span>crb
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>libvirt-devel
+
+vagrant<span class="w"> </span>plugin<span class="w"> </span>install<span class="w"> </span>vagrant-libvirt
+vagrant<span class="w"> </span>plugin<span class="w"> </span>install<span class="w"> </span>vagrant-reload
+</pre></div>
+</div>
+</section>
+</section>
+<section id="vagrant-box-and-vagrantfile-for-warewulf-sandbox">
+<h2>Vagrant box and Vagrantfile for Warewulf sandbox<a class="headerlink" href="#vagrant-box-and-vagrantfile-for-warewulf-sandbox" title="Link to this heading"></a></h2>
+<section id="create-rocky-linux-9-2-vagrant-box">
+<h3>Create Rocky Linux 9.2 vagrant box<a class="headerlink" href="#create-rocky-linux-9-2-vagrant-box" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39; &gt; box-metadata.json</span>
+<span class="s">{</span>
+<span class="s">&quot;name&quot; : &quot;rockylinux/9&quot;,</span>
+<span class="s">&quot;description&quot; : &quot;Rocky Linux 9 2.0.0&quot;,</span>
+<span class="s">&quot;versions&quot; : [</span>
+<span class="s">    {</span>
+<span class="s">    &quot;version&quot; : &quot;2.0.0-20230513.0&quot;,</span>
+<span class="s">    &quot;providers&quot; : [</span>
+<span class="s">        {</span>
+<span class="s">        &quot;name&quot; : &quot;libvirt&quot;,</span>
+<span class="s">        &quot;url&quot; : &quot;https://dl.rockylinux.org/pub/rocky/9.2/images/x86_64/Rocky-9-Vagrant-Libvirt-9.2-20230513.0.x86_64.box&quot;</span>
+<span class="s">        }</span>
+<span class="s">    ]</span>
+<span class="s">    }</span>
+<span class="s">]</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+
+vagrant<span class="w"> </span>box<span class="w"> </span>add<span class="w"> </span>box-metadata.json
+</pre></div>
+</div>
+</section>
+<section id="vagrantfile">
+<h3>Vagrantfile<a class="headerlink" href="#vagrantfile" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/warewulf-sandbox
+<span class="nb">cd</span><span class="w"> </span>~/warewulf-sandbox
+
+cat<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39; &gt; Vagrantfile</span>
+<span class="s">Vagrant.configure(&quot;2&quot;) do |config|</span>
+<span class="s">    number_of_node = ENV[&quot;NODES&quot;] || 2</span>
+<span class="s">    branch = ENV[&quot;BRANCH&quot;] || &quot;v4.4.0&quot;</span>
+
+<span class="s">    config.vm.define :head do |head|</span>
+<span class="s">        head.vm.box = &quot;rockylinux/9&quot;</span>
+<span class="s">        head.vm.box_version = &quot;2.0.0-20230513.0&quot;</span>
+<span class="s">        head.vm.hostname = &quot;warewulf&quot;</span>
+
+<span class="s">        head.vm.network &quot;private_network&quot;,</span>
+<span class="s">            ip: &quot;192.168.200.254&quot;,</span>
+<span class="s">            netmask: &quot;255.255.255.0&quot;,</span>
+<span class="s">            libvirt__network_name: &quot;pxe&quot;,</span>
+<span class="s">            libvirt__dhcp_enabled: false</span>
+
+<span class="s">        head.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, type: &quot;nfs&quot;, nfs_version: 4, nfs_udp: false</span>
+
+<span class="s">        head.vm.provider :libvirt do |libvirt|</span>
+<span class="s">            libvirt.cpu_mode = &quot;host-passthrough&quot;</span>
+<span class="s">            libvirt.memory = &#39;8192&#39;</span>
+<span class="s">            libvirt.cpus = &#39;2&#39;</span>
+<span class="s">            libvirt.machine_virtual_size = 40</span>
+<span class="s">        end</span>
+
+<span class="s">        head.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL</span>
+<span class="s">            dnf install -y cloud-utils-growpart</span>
+<span class="s">            growpart /dev/vda 5</span>
+<span class="s">            xfs_growfs /dev/vda5</span>
+<span class="s">        SHELL</span>
+
+<span class="s">        head.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL</span>
+<span class="s">            dnf groupinstall -y &quot;Development Tools&quot;</span>
+<span class="s">            dnf install -y epel-release</span>
+<span class="s">            dnf config-manager --set-enabled crb</span>
+<span class="s">            dnf install -y golang tftp-server dhcp-server nfs-utils gpgme-devel libassuan-devel</span>
+
+<span class="s">            cd /tmp</span>
+<span class="s">            git clone https://github.com/hpcng/warewulf.git</span>
+<span class="s">            cd warewulf</span>
+<span class="s">            git checkout v4.4.0</span>
+<span class="s">            make clean defaults \</span>
+<span class="s">                PREFIX=/usr \</span>
+<span class="s">                BINDIR=/usr/bin \</span>
+<span class="s">                SYSCONFDIR=/etc \</span>
+<span class="s">                DATADIR=/usr/share \</span>
+<span class="s">                LOCALSTATEDIR=/var/lib \</span>
+<span class="s">                SHAREDSTATEDIR=/var/lib \</span>
+<span class="s">                MANDIR=/usr/share/man \</span>
+<span class="s">                INFODIR=/usr/share/info \</span>
+<span class="s">                DOCDIR=/usr/share/doc \</span>
+<span class="s">                SRVDIR=/var/lib \</span>
+<span class="s">                TFTPDIR=/var/lib/tftpboot \</span>
+<span class="s">                SYSTEMDDIR=/usr/lib/systemd/system \</span>
+<span class="s">                BASHCOMPDIR=/etc/bash_completion.d/ \</span>
+<span class="s">                FIREWALLDDIR=/usr/lib/firewalld/services \</span>
+<span class="s">                WWCLIENTDIR=/warewulf</span>
+<span class="s">            make all</span>
+<span class="s">            make install</span>
+
+<span class="s">            systemctl disable --now firewalld</span>
+
+<span class="s">            sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/&#39; /etc/selinux/config</span>
+<span class="s">        SHELL</span>
+
+<span class="s">        head.vm.provision &quot;reload&quot;</span>
+
+<span class="s">        head.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL</span>
+<span class="s">            cat &lt;&lt; &#39;CONF&#39; | sudo tee /etc/warewulf/warewulf.conf</span>
+<span class="s">WW_INTERNAL: 43</span>
+<span class="s">ipaddr: 192.168.200.254</span>
+<span class="s">netmask: 255.255.255.0</span>
+<span class="s">network: 192.168.200.0</span>
+<span class="s">warewulf:</span>
+<span class="s">  port: 9873</span>
+<span class="s">  secure: false</span>
+<span class="s">  update interval: 60</span>
+<span class="s">  autobuild overlays: true</span>
+<span class="s">  host overlay: true</span>
+<span class="s">  syslog: false</span>
+<span class="s">dhcp:</span>
+<span class="s">  enabled: true</span>
+<span class="s">  range start: 192.168.200.50</span>
+<span class="s">  range end: 192.168.200.99</span>
+<span class="s">  systemd name: dhcpd</span>
+<span class="s">tftp:</span>
+<span class="s">  enabled: true</span>
+<span class="s">  systemd name: tftp</span>
+<span class="s">nfs:</span>
+<span class="s">  enabled: true</span>
+<span class="s">  export paths:</span>
+<span class="s">  - path: /home</span>
+<span class="s">    export options: rw,sync</span>
+<span class="s">    mount options: defaults</span>
+<span class="s">    mount: true</span>
+<span class="s">  - path: /opt</span>
+<span class="s">    export options: ro,sync,no_root_squash</span>
+<span class="s">    mount options: defaults</span>
+<span class="s">    mount: false</span>
+<span class="s">  systemd name: nfs-server</span>
+<span class="s">CONF</span>
+
+<span class="s">            sed -i &#39;s@ExecStart=/usr/bin/wwctl server start@ExecStart=/usr/bin/wwctl server start -d -v@&#39; /usr/lib/systemd/system/warewulfd.service</span>
+<span class="s">            systemctl enable --now warewulfd</span>
+
+<span class="s">            wwctl configure --all</span>
+
+<span class="s">            wwctl container import docker://ghcr.io/hpcng/warewulf-rockylinux:9 rocky-9</span>
+<span class="s">            wwctl profile set --yes --container rocky-9 &quot;default&quot;</span>
+<span class="s">            wwctl profile set --yes --netdev eth1 --netmask 255.255.255.0 --gateway 192.168.200.254 &quot;default&quot;</span>
+
+<span class="s">            wwctl node add n0001.cluster -I 192.168.200.101 --discoverable true</span>
+<span class="s">            wwctl node add n0002.cluster -I 192.168.200.102 --discoverable true</span>
+<span class="s">        SHELL</span>
+<span class="s">    end</span>
+
+<span class="s">    (1..number_of_node).each do |i|</span>
+<span class="s">        config.vm.define :&quot;n000#{i}&quot;, autostart: false do |node|</span>
+<span class="s">            node.vm.hostname = &quot;n000#{i}&quot;</span>
+<span class="s">            node.vm.network &quot;private_network&quot;,</span>
+<span class="s">            libvirt__network_name: &quot;pxe&quot;</span>
+
+<span class="s">            node.vm.provider :libvirt do |compute|</span>
+<span class="s">                compute.cpu_mode = &#39;host-passthrough&#39;</span>
+<span class="s">                compute.memory = &#39;8192&#39;</span>
+<span class="s">                compute.cpus = &#39;2&#39;</span>
+<span class="s">                boot_network = {&#39;network&#39; =&gt; &#39;pxe&#39;}</span>
+<span class="s">                compute.boot boot_network</span>
+<span class="s">            end</span>
+<span class="s">        end</span>
+<span class="s">    end</span>
+<span class="s">end</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="spin-up-head-node">
+<h2>Spin up head node<a class="headerlink" href="#spin-up-head-node" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vagrant<span class="w"> </span>up
+</pre></div>
+</div>
+</section>
+<section id="spin-up-compute-nodes">
+<h2>Spin up compute nodes<a class="headerlink" href="#spin-up-compute-nodes" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vagrant<span class="w"> </span>up<span class="w"> </span>n0001
+
+<span class="c1"># Wait until n0001 becomes ready</span>
+
+vagrant<span class="w"> </span>up<span class="w"> </span>n0002
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="documentation.html" class="btn btn-neutral float-left" title="Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="development-environment-kvm.html" class="btn btn-neutral float-right" title="Development Environment (KVM)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warewulf Configuration &mdash; Warewulf User Guide development documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=249f3023"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Controlling Warewulf (wwctl)" href="wwctl.html" />
+    <link rel="prev" title="Warewulf Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stateless.html">Stateless Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Control Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Warewulf Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Warewulf Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#warewulf-conf">warewulf.conf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nodes-conf">nodes.conf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#defaults-conf">defaults.conf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#directories">Directories</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overlays.html">Warewulf Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioning.html">Node Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templating.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vagrant.html">Development Environment (Vagrant)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-kvm.html">Development Environment (KVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vbox.html">Development Environment (VirtualBox)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Warewulf Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/hpcng/warewulf/blob/development/userdocs/contents/configuration.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="warewulf-configuration">
+<h1>Warewulf Configuration<a class="headerlink" href="#warewulf-configuration" title="Link to this heading"></a></h1>
+<p>The default installation of Warewulf will put all of the configuration
+files into <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/</span></code>. In that directory, you will find the
+primary configuration files needed by Warewulf.</p>
+<section id="warewulf-conf">
+<h2>warewulf.conf<a class="headerlink" href="#warewulf-conf" title="Link to this heading"></a></h2>
+<p>The Warewulf configuration exists as follows in the current version of
+Warewulf (4.3.0):</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">WW_INTERNAL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">43</span>
+<span class="nt">ipaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.200.1</span>
+<span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
+<span class="nt">network</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.200.0</span>
+<span class="nt">warewulf</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9873</span>
+<span class="w">  </span><span class="nt">secure</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">update interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+<span class="w">  </span><span class="nt">autobuild overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">host overlay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">syslog</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">dhcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">range start</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.200.50</span>
+<span class="w">  </span><span class="nt">range end</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.200.99</span>
+<span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dhcpd</span>
+<span class="nt">tftp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tftp</span>
+<span class="nt">nfs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">export paths</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home</span>
+<span class="w">    </span><span class="nt">export options</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rw,sync</span>
+<span class="w">    </span><span class="nt">mount options</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults</span>
+<span class="w">    </span><span class="nt">mount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt</span>
+<span class="w">    </span><span class="nt">export options</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ro,sync,no_root_squash</span>
+<span class="w">    </span><span class="nt">mount options</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults</span>
+<span class="w">    </span><span class="nt">mount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfs-server</span>
+</pre></div>
+</div>
+<p>Generally you can leave this file as is, as long as you set the
+appropriate networking information. Specifically the following
+configurations:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ipaddr</span></code>: This is the control node’s networking interface
+connecting to the cluster’s <strong>PRIVATE</strong> network. This configuration
+must match the host’s network IP address for the cluster’s private
+interface.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">netmask</span></code>: Similar to the <code class="docutils literal notranslate"><span class="pre">ipaddr</span></code>, this is the subnet mask for
+the cluster’s <strong>PRIVATE</strong> network and it must also match the host’s
+subnet mask for the cluster’s private interface.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dhcp:range</span> <span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">dhcp:range</span> <span class="pre">end</span></code>: This address range must
+exist in the network defined above. If it is outside of this
+network, failures will occur. This specifies the range of addresses
+you want DHCP to use.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The network configuration listed above assumes the network layout
+in the [Background](background.md) portion of the documentation.</p>
+</div>
+<p>The other configuration options are usually not touched, but they are
+explained as follows:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">*:enabled</span></code>: This disables Warewulf’s control of an external
+service. This is useful if you want to manage that service directly.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*:systemd</span> <span class="pre">name</span></code>: This is so Warewulf can control some of the
+host’s services. For the distributions that we’ve built and tested
+this on, these will require no changes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">warewulf:port</span></code>: This is the port that the Warewulf web server
+will be listening on. It is recommended not to change this so there
+is no misalignment with node’s expectations of how to contact the
+Warewulf service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">warewulf:secure</span></code>: When <code class="docutils literal notranslate"><span class="pre">true</span></code>, this limits the Warewulf server
+to only respond to runtime overlay requests originating from a
+privileged port. This prevents non-root users from requesting the
+runtime overlay, which may contain sensitive information.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> uses TCP port 987.</p>
+<p>Changing this option requires rebuilding node overlays and rebooting
+compute nodes, to configure them to use a privileged port.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">warewulf:update</span> <span class="pre">interval</span></code>: This defines the frequency (in
+seconds) with which the Warewulf client on the compute node fetches
+overlay updates.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">warewulf:autobuild</span> <span class="pre">overlays</span></code>: This determines whether per-node
+overlays will automatically be rebuilt, e.g., when an underlying
+overlay is changed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">warewulf:host</span> <span class="pre">overlay</span></code>: This determines whether the special
+<code class="docutils literal notranslate"><span class="pre">host</span></code> overlay is applied to the Warewulf server during
+configuration. (The host overlay is used to configure the dependent
+services.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">warewulf:syslog</span></code>: This determines whether Warewulf server logs go
+to syslog or are written directly to a log file. (e.g.,
+<code class="docutils literal notranslate"><span class="pre">/var/log/warewulfd.log</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nfs:export</span> <span class="pre">paths</span></code>: Warewulf will automatically set up the NFS
+exports if you wish for it to do this.</p></li>
+</ul>
+</section>
+<section id="nodes-conf">
+<h2>nodes.conf<a class="headerlink" href="#nodes-conf" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> file is the primary database file for all compute
+nodes. It is a flat text YAML configuration file that is managed by
+the <code class="docutils literal notranslate"><span class="pre">wwctl</span></code> command, but some sites manage the compute nodes and
+infrastructure via configuration management. This file being flat text
+and very light weight makes management of the node configurations very
+easy no matter what your configuration paradigm is.</p>
+<p>For the purpose of this document, we will not go into the detailed
+format of this file as it is recommended to edit with the <code class="docutils literal notranslate"><span class="pre">wwctl</span></code>
+command.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This configuration is not written at install time, but the
+first time you attempt to run <code class="docutils literal notranslate"><span class="pre">wwctl</span></code>, this file will be generated
+if it does not exist already.</p>
+</div>
+</section>
+<section id="defaults-conf">
+<h2>defaults.conf<a class="headerlink" href="#defaults-conf" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">defaults.conf</span></code> file configures default values used when none
+are specified. For example: if a node does not have a “runtime
+overlay” specified, the respective value from <code class="docutils literal notranslate"><span class="pre">defaultnode</span></code> is
+used. If a network device does not specify a “device,” the device
+value of the <code class="docutils literal notranslate"><span class="pre">dummy</span></code> device is used.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">defaults.conf</span></code> does not exist, the following values are used as
+compiled into Warewulf at build-time:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">--</span>
+<span class="l l-Scalar l-Scalar-Plain">defaultnode</span><span class="p p-Indicator">:</span>
+<span class="w">  </span><span class="nt">runtime overlay</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generic</span>
+<span class="w">  </span><span class="nt">system overlay</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wwinit</span>
+<span class="w">  </span><span class="nt">kernel</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quiet crashkernel=no vga=791 net.naming-scheme=v238</span>
+<span class="w">  </span><span class="nt">init</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/sbin/init</span>
+<span class="w">  </span><span class="nt">root</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">initramfs</span>
+<span class="w">  </span><span class="nt">ipxe template</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">  </span><span class="nt">profiles</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">  </span><span class="nt">network devices</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dummy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eth0</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ethernet</span>
+<span class="w">      </span><span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
+</pre></div>
+</div>
+<p>There should never be a need to change this file: all site-local
+parameters should be specified using either nodes or profiles.</p>
+</section>
+<section id="directories">
+<h2>Directories<a class="headerlink" href="#directories" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/ipxe/</span></code> directory contains <em>text/templates</em> that
+are used by the Warewulf configuration process to configure the
+<code class="docutils literal notranslate"><span class="pre">ipxe</span></code> service.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Warewulf Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="wwctl.html" class="btn btn-neutral float-right" title="Controlling Warewulf (wwctl)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

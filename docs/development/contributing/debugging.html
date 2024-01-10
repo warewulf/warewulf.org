@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Debugging &mdash; Warewulf User Guide development documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=249f3023"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Documentation" href="documentation.html" />
+    <link rel="prev" title="Contributing" href="contributing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contents/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/background.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/stateless.html">Stateless Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/setup.html">Control Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/installation.html">Warewulf Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/configuration.html">Warewulf Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/initialization.html">Warewulf Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/kernel.html">Kernel Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/nodeconfig.html">Node Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/overlays.html">Warewulf Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/provisioning.html">Node Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/templating.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#validating-the-code-with-vet">Validating the code with vet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-full-test-suite">Running the full test suite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-delve">Using delve</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing-delve">Installing delve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-delve-against-a-specific-test">Running delve against a specific test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development-environment-vagrant.html">Development Environment (Vagrant)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development-environment-kvm.html">Development Environment (KVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development-environment-vbox.html">Development Environment (VirtualBox)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Debugging</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/hpcng/warewulf/blob/development/userdocs/contributing/debugging.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="debugging">
+<h1>Debugging<a class="headerlink" href="#debugging" title="Link to this heading"></a></h1>
+<p>Whether developing a new feature or fixing a bug, using the automated
+test suite together with a debugger is a potent combination. This
+guide here can’t substitute for full documentation on a given
+debugger; but it might help you get started debugging Warewulf.</p>
+<section id="validating-the-code-with-vet">
+<h2>Validating the code with vet<a class="headerlink" href="#validating-the-code-with-vet" title="Link to this heading"></a></h2>
+<p>The Warewulf <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> includes a <code class="docutils literal notranslate"><span class="pre">vet</span></code> target which runs <code class="docutils literal notranslate"><span class="pre">go</span>
+<span class="pre">vet</span></code> on the full codebase.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>make<span class="w"> </span>vet
+</pre></div>
+</div>
+</section>
+<section id="running-the-full-test-suite">
+<h2>Running the full test suite<a class="headerlink" href="#running-the-full-test-suite" title="Link to this heading"></a></h2>
+<p>The Warewulf <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> includes a <code class="docutils literal notranslate"><span class="pre">test</span></code> target which runs the
+full test suite.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>make<span class="w"> </span><span class="nb">test</span>
+</pre></div>
+</div>
+</section>
+<section id="using-delve">
+<h2>Using delve<a class="headerlink" href="#using-delve" title="Link to this heading"></a></h2>
+<p>If you have a failing test but you’re having trouble tracking down
+why, try using a debugger to step through the test. These instructions
+use delve.</p>
+<section id="installing-delve">
+<h3>Installing delve<a class="headerlink" href="#installing-delve" title="Link to this heading"></a></h3>
+<p>You can install delve as a regular user directly with Go.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>go<span class="w"> </span>install<span class="w"> </span>github.com/go-delve/delve/cmd/dlv@latest
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">dlv</span></code> binary will be installed by default at
+<code class="docutils literal notranslate"><span class="pre">$HOME/go/bin/dlv</span></code>. You can, of course, add <code class="docutils literal notranslate"><span class="pre">$HOME/go/bin</span></code> to your
+path if you prefer.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/go/bin:<span class="nv">$PATH</span>
+</pre></div>
+</div>
+</section>
+<section id="running-delve-against-a-specific-test">
+<h3>Running delve against a specific test<a class="headerlink" href="#running-delve-against-a-specific-test" title="Link to this heading"></a></h3>
+<p>You can use delve to specifically run the test suite and, even more
+specifically, a single failing test. In this example delve is
+instructed to run the tests for Warewulf’s <code class="docutils literal notranslate"><span class="pre">node</span></code> package, and
+specifically the <code class="docutils literal notranslate"><span class="pre">Test_GetAllNodeInfoDefaults</span></code> test.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>dlv<span class="w"> </span><span class="nb">test</span><span class="w"> </span>github.com/hpcng/warewulf/internal/pkg/node<span class="w"> </span>--<span class="w"> </span>-test.v<span class="w"> </span>-test.run<span class="w"> </span>Test_GetAllNodeInfoDefaults
+<span class="go">Type &#39;help&#39; for list of commands.</span>
+<span class="gp gp-VirtualEnv">(dlv)</span> <span class="go">break node.Test_GetAllNodeInfoDefaults</span>
+<span class="go">Breakpoint 1 set at 0x26c0d0 for github.com/hpcng/warewulf/internal/pkg/node.Test_GetAllNodeInfoDefaults() ./internal/pkg/node/nodeyaml_test.go:51</span>
+</pre></div>
+</div>
+<p>Setting a breakpoint at <code class="docutils literal notranslate"><span class="pre">node.Test_GetAllNodeInfoDefaults</span></code> pauses
+execution once the test starts, and allows us to <code class="docutils literal notranslate"><span class="pre">continue</span></code> through
+all the setup prior to that point.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(dlv)</span> <span class="go">continue</span>
+<span class="go">=== RUN   Test_GetAllNodeInfoDefaults</span>
+<span class="go">&gt; github.com/hpcng/warewulf/internal/pkg/node.Test_GetAllNodeInfoDefaults() ./internal/pkg/node/nodeyaml_test.go:51 (hits goroutine(35):1 total:1) (PC: 0x26c0d0)</span>
+<span class="go">    46:              assert.Contains(t, nodeYaml.Nodes, &quot;test_node&quot;)</span>
+<span class="go">    47:              assert.Equal(t, &quot;A single node&quot;, nodeYaml.Nodes[&quot;test_node&quot;].Comment)</span>
+<span class="go">    48:      }</span>
+<span class="go">    49:</span>
+<span class="go">    50:</span>
+<span class="go">=&gt;  51:      func Test_GetAllNodeInfoDefaults(t *testing.T) {</span>
+<span class="go">    52:              file, writeErr := writeTestConfigFile(`</span>
+<span class="go">    53:      nodes:</span>
+<span class="go">    54:        test_node: {}`)</span>
+<span class="go">    55:              if file != nil {</span>
+<span class="go">    56:                      defer os.Remove(file.Name())</span>
+</pre></div>
+</div>
+<p>Helpful commands from here include</p>
+<p><code class="docutils literal notranslate"><span class="pre">next</span></code></p>
+<blockquote>
+<div><p>Execute the current line (marked by <code class="docutils literal notranslate"><span class="pre">=&gt;</span></code>) and proceed to the next
+line.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">step</span></code></p>
+<blockquote>
+<div><p>Execute the current line (marked by <code class="docutils literal notranslate"><span class="pre">=&gt;</span></code>) and proceed to the next
+line, potentially moving into a function call.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">list</span></code></p>
+<blockquote>
+<div><p>Display a contextual Go code listing, marking the next instruction.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">locals</span></code></p>
+<blockquote>
+<div><p>Display all local variables in the current scope.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">print</span></code></p>
+<blockquote>
+<div><p>Display (in detail) the value of a single variable from the current
+scope.</p>
+</div></blockquote>
+<p>Read about other commands available within delve using the <code class="docutils literal notranslate"><span class="pre">help</span></code>
+command.</p>
+</section>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>~/go/bin/dlv<span class="w"> </span><span class="nb">test</span><span class="w"> </span>github.com/hpcng/warewulf/internal/pkg/node<span class="w"> </span>--<span class="w"> </span>-test.v<span class="w"> </span>-test.run<span class="w"> </span>Test_GetAllNodeInfoDefaults
+<span class="go">Type &#39;help&#39; for list of commands.</span>
+
+<span class="gp gp-VirtualEnv">(dlv)</span> <span class="go">break node.Test_GetAllNodeInfoDefaults</span>
+<span class="go">Breakpoint 1 set at 0x26c0d0 for github.com/hpcng/warewulf/internal/pkg/node.Test_GetAllNodeInfoDefaults() ./internal/pkg/node/nodeyaml_test.go:51</span>
+
+<span class="gp gp-VirtualEnv">(dlv)</span> <span class="go">break nodeinfo.go:417</span>
+<span class="go">Breakpoint 2 set at 0x267f18 for github.com/hpcng/warewulf/internal/pkg/node.NewNodeInfo() ./internal/pkg/node/nodeinfo.go:417</span>
+
+<span class="gp gp-VirtualEnv">(dlv)</span> <span class="go">continue</span>
+<span class="go">=== RUN   Test_GetAllNodeInfoDefaults</span>
+<span class="go">&gt; github.com/hpcng/warewulf/internal/pkg/node.Test_GetAllNodeInfoDefaults() ./internal/pkg/node/nodeyaml_test.go:51 (hits goroutine(19):1 total:1) (PC: 0x26c0d0)</span>
+<span class="go">46:          assert.Contains(t, nodeYaml.Nodes, &quot;test_node&quot;)</span>
+<span class="go">47:          assert.Equal(t, &quot;A single node&quot;, nodeYaml.Nodes[&quot;test_node&quot;].Comment)</span>
+<span class="go">48:  }</span>
+<span class="go">49:</span>
+<span class="go">50:</span>
+<span class="go">=&gt;  51:      func Test_GetAllNodeInfoDefaults(t *testing.T) {</span>
+<span class="go">52:          file, writeErr := writeTestConfigFile(`</span>
+<span class="go">53:  nodes:</span>
+<span class="go">54:    test_node: {}`)</span>
+<span class="go">55:          if file != nil {</span>
+<span class="go">56:                  defer os.Remove(file.Name())</span>
+
+<span class="gp gp-VirtualEnv">(dlv)</span> <span class="go">continue</span>
+<span class="go">WARN   : Error reading UNDEF/warewulf/defaults.conf: open UNDEF/warewulf/defaults.conf: no such file or directory</span>
+<span class="go">&gt; github.com/hpcng/warewulf/internal/pkg/node.NewNodeInfo() ./internal/pkg/node/nodeinfo.go:417 (hits goroutine(19):1 total:1) (PC: 0x267f18)</span>
+<span class="go">412:                 defaultNodeConf.NetDevs = nil</span>
+<span class="go">413:                 nodeInfo.SetDefFrom(defaultNodeConf)</span>
+<span class="go">414:         }</span>
+<span class="go">415:</span>
+<span class="go">416:         // Load normal attributes</span>
+<span class="go">=&gt; 417:              if nodeConf != nil {</span>
+<span class="go">418:                 // If no profiles are included, automatically include the</span>
+<span class="go">419:                 // default profile.</span>
+<span class="go">420:                 if len(nodeConf.Profiles) == 0 {</span>
+<span class="go">421:                         nodeInfo.Profiles.SetSlice([]string{&quot;default&quot;})</span>
+<span class="go">422:                 } else {</span>
+
+<span class="gp gp-VirtualEnv">(dlv)</span> <span class="go">next</span>
+<span class="go">&gt; github.com/hpcng/warewulf/internal/pkg/node.NewNodeInfo() ./internal/pkg/node/nodeinfo.go:420 (PC: 0x267f24)</span>
+<span class="go">415:</span>
+<span class="go">416:         // Load normal attributes</span>
+<span class="go">417:         if nodeConf != nil {</span>
+<span class="go">418:                 // If no profiles are included, automatically include the</span>
+<span class="go">419:                 // default profile.</span>
+<span class="go">=&gt; 420:                      if len(nodeConf.Profiles) == 0 {</span>
+<span class="go">421:                         nodeInfo.Profiles.SetSlice([]string{&quot;default&quot;})</span>
+<span class="go">422:                 } else {</span>
+<span class="go">423:                         nodeInfo.Profiles.SetSlice(nodeConf.Profiles)</span>
+<span class="go">424:                 }</span>
+<span class="go">425:</span>
+
+<span class="gp gp-VirtualEnv">(dlv)</span> <span class="go">next</span>
+<span class="go">&gt; github.com/hpcng/warewulf/internal/pkg/node.NewNodeInfo() ./internal/pkg/node/nodeinfo.go:421 (PC: 0x267f3c)</span>
+<span class="go">416:         // Load normal attributes</span>
+<span class="go">417:         if nodeConf != nil {</span>
+<span class="go">418:                 // If no profiles are included, automatically include the</span>
+<span class="go">419:                 // default profile.</span>
+<span class="go">420:                 if len(nodeConf.Profiles) == 0 {</span>
+<span class="go">=&gt; 421:                              nodeInfo.Profiles.SetSlice([]string{&quot;default&quot;})</span>
+<span class="go">422:                 } else {</span>
+<span class="go">423:                         nodeInfo.Profiles.SetSlice(nodeConf.Profiles)</span>
+<span class="go">424:                 }</span>
+<span class="go">425:</span>
+<span class="go">426:                 nodeInfo.SetFrom(nodeConf)</span>
+
+<span class="gp gp-VirtualEnv">(dlv)</span> <span class="go">next</span>
+<span class="go">&gt; github.com/hpcng/warewulf/internal/pkg/node.NewNodeInfo() ./internal/pkg/node/nodeinfo.go:426 (PC: 0x267fec)</span>
+<span class="go">421:                         nodeInfo.Profiles.SetSlice([]string{&quot;default&quot;})</span>
+<span class="go">422:                 } else {</span>
+<span class="go">423:                         nodeInfo.Profiles.SetSlice(nodeConf.Profiles)</span>
+<span class="go">424:                 }</span>
+<span class="go">425:</span>
+<span class="go">=&gt; 426:                      nodeInfo.SetFrom(nodeConf)</span>
+<span class="go">427:         }</span>
+<span class="go">428:</span>
+<span class="go">429:         // Load default attributes for each NetDev</span>
+<span class="go">430:         if defaultNetDevConf != nil {</span>
+<span class="go">431:                 for _, netdev := range nodeInfo.NetDevs {</span>
+
+<span class="gp gp-VirtualEnv">(dlv)</span> <span class="go">next</span>
+<span class="go">&gt; github.com/hpcng/warewulf/internal/pkg/node.NewNodeInfo() ./internal/pkg/node/nodeinfo.go:430 (PC: 0x268000)</span>
+<span class="go">425:</span>
+<span class="go">426:                 nodeInfo.SetFrom(nodeConf)</span>
+<span class="go">427:         }</span>
+<span class="go">428:</span>
+<span class="go">429:         // Load default attributes for each NetDev</span>
+<span class="go">=&gt; 430:              if defaultNetDevConf != nil {</span>
+<span class="go">431:                 for _, netdev := range nodeInfo.NetDevs {</span>
+<span class="go">432:                         netdev.SetDefFrom(defaultNetDevConf)</span>
+<span class="go">433:                 }</span>
+<span class="go">434:         }</span>
+<span class="go">435:</span>
+
+<span class="gp gp-VirtualEnv">(dlv)</span> <span class="go">print nodeInfo</span>
+<span class="go">github.com/hpcng/warewulf/internal/pkg/node.NodeInfo {</span>
+<span class="go">Id: github.com/hpcng/warewulf/internal/pkg/node.Entry {</span>
+<span class="go">value: []string len: 1, cap: 1, [</span>
+<span class="go">&quot;test_node&quot;,</span>
+<span class="go">],</span>
+<span class="go">altvalue: []string len: 0, cap: 0, nil,</span>
+<span class="go">from: &quot;&quot;,</span>
+<span class="go">def: []string len: 0, cap: 0, nil,},</span>
+<span class="go">Comment: github.com/hpcng/warewulf/internal/pkg/node.Entry {</span>
+<span class="go">value: []string len: 0, cap: 0, nil,</span>
+<span class="go">altvalue: []string len: 0, cap: 0, nil,</span>
+<span class="go">from: &quot;&quot;,</span>
+<span class="go">def: []string len: 0, cap: 0, nil,},</span>
+<span class="go">ClusterName: github.com/hpcng/warewulf/internal/pkg/node.Entry {</span>
+<span class="go">value: []string len: 0, cap: 0, nil,</span>
+<span class="go">altvalue: []string len: 0, cap: 0, nil,</span>
+<span class="go">from: &quot;&quot;,</span>
+<span class="go">def: []string len: 0, cap: 0, nil,},</span>
+<span class="go">ContainerName: github.com/hpcng/warewulf/internal/pkg/node.Entry {</span>
+<span class="go">value: []string len: 0, cap: 0, nil,</span>
+<span class="go">altvalue: []string len: 0, cap: 0, nil,</span>
+<span class="go">from: &quot;&quot;,</span>
+<span class="go">def: []string len: 0, cap: 0, nil,},</span>
+<span class="go">Ipxe: github.com/hpcng/warewulf/internal/pkg/node.Entry {</span>
+<span class="go">value: []string len: 0, cap: 0, nil,</span>
+<span class="go">altvalue: []string len: 0, cap: 0, nil,</span>
+<span class="go">from: &quot;&quot;,</span>
+<span class="go">def: []string len: 1, cap: 1, [&quot;default&quot;],},</span>
+<span class="go">RuntimeOverlay: github.com/hpcng/warewulf/internal/pkg/node.Entry {</span>
+<span class="go">value: []string len: 0, cap: 0, nil,</span>
+<span class="go">altvalue: []string len: 0, cap: 0, nil,</span>
+<span class="go">from: &quot;&quot;,</span>
+<span class="go">def: []string len: 1, cap: 1, [&quot;generic&quot;],},</span>
+<span class="go">SystemOverlay: github.com/hpcng/warewulf/internal/pkg/node.Entry {</span>
+<span class="go">value: []string len: 0, cap: 0, nil,</span>
+<span class="go">altvalue: []string len: 0, cap: 0, nil,</span>
+<span class="go">from: &quot;&quot;,</span>
+<span class="go">def: []string len: 1, cap: 1, [&quot;wwinit&quot;],},</span>
+<span class="go">Root: github.com/hpcng/warewulf/internal/pkg/node.Entry {</span>
+<span class="go">value: []string len: 0, cap: 0, nil,</span>
+<span class="go">altvalue: []string len: 0, cap: 0, nil,</span>
+<span class="go">from: &quot;&quot;,</span>
+<span class="go">def: []string len: 1, cap: 1, [</span>
+<span class="go">&quot;initramfs&quot;,</span>
+<span class="go">],},</span>
+<span class="go">Discoverable: github.com/hpcng/warewulf/internal/pkg/node.Entry {</span>
+<span class="go">value: []string len: 0, cap: 0, nil,</span>
+<span class="go">altvalue: []string len: 0, cap: 0, nil,</span>
+<span class="go">from: &quot;&quot;,</span>
+<span class="go">def: []string len: 0, cap: 0, nil,},</span>
+<span class="go">Init: github.com/hpcng/warewulf/internal/pkg/node.Entry {</span>
+<span class="go">value: []string len: 0, cap: 0, nil,</span>
+<span class="go">altvalue: []string len: 0, cap: 0, nil,</span>
+<span class="go">from: &quot;&quot;,</span>
+<span class="go">def: []string len: 1, cap: 1, [</span>
+<span class="go">&quot;/sbin/init&quot;,</span>
+<span class="go">],},</span>
+<span class="go">AssetKey: github.com/hpcng/warewulf/internal/pkg/node.Entry {</span>
+<span class="go">value: []string len: 0, cap: 0, nil,</span>
+<span class="go">altvalue: []string len: 0, cap: 0, nil,</span>
+<span class="go">from: &quot;&quot;,</span>
+<span class="go">def: []string len: 0, cap: 0, nil,},</span>
+<span class="go">Kernel: *github.com/hpcng/warewulf/internal/pkg/node.KernelEntry {</span>
+<span class="go">Override: (*&quot;github.com/hpcng/warewulf/internal/pkg/node.Entry&quot;)(0x4000158370),</span>
+<span class="go">Args: (*&quot;github.com/hpcng/warewulf/internal/pkg/node.Entry&quot;)(0x40001583c8),},</span>
+<span class="go">Ipmi: *github.com/hpcng/warewulf/internal/pkg/node.IpmiEntry {</span>
+<span class="go">Ipaddr: (*&quot;github.com/hpcng/warewulf/internal/pkg/node.Entry&quot;)(0x40001b6600),</span>
+<span class="go">Netmask: (*&quot;github.com/hpcng/warewulf/internal/pkg/node.Entry&quot;)(0x40001b6658),</span>
+<span class="go">Port: (*&quot;github.com/hpcng/warewulf/internal/pkg/node.Entry&quot;)(0x40001b66b0),</span>
+<span class="go">Gateway: (*&quot;github.com/hpcng/warewulf/internal/pkg/node.Entry&quot;)(0x40001b6708),</span>
+<span class="go">UserName: (*&quot;github.com/hpcng/warewulf/internal/pkg/node.Entry&quot;)(0x40001b6760),</span>
+<span class="go">Password: (*&quot;github.com/hpcng/warewulf/internal/pkg/node.Entry&quot;)(0x40001b67b8),</span>
+<span class="go">Interface: (*&quot;github.com/hpcng/warewulf/internal/pkg/node.Entry&quot;)(0x40001b6810),</span>
+<span class="go">Write: (*&quot;github.com/hpcng/warewulf/internal/pkg/node.Entry&quot;)(0x40001b6868),</span>
+<span class="go">Tags: map[string]*github.com/hpcng/warewulf/internal/pkg/node.Entry [],},</span>
+<span class="go">Profiles: github.com/hpcng/warewulf/internal/pkg/node.Entry {</span>
+<span class="go">value: []string len: 1, cap: 1, [&quot;default&quot;],</span>
+<span class="go">altvalue: []string len: 0, cap: 0, nil,</span>
+<span class="go">from: &quot;&quot;,</span>
+<span class="go">def: []string len: 1, cap: 1, [&quot;default&quot;],},</span>
+<span class="go">PrimaryNetDev: github.com/hpcng/warewulf/internal/pkg/node.Entry {</span>
+<span class="go">value: []string len: 0, cap: 0, nil,</span>
+<span class="go">altvalue: []string len: 0, cap: 0, nil,</span>
+<span class="go">from: &quot;&quot;,</span>
+<span class="go">def: []string len: 0, cap: 0, nil,},</span>
+<span class="go">NetDevs: map[string]*github.com/hpcng/warewulf/internal/pkg/node.NetDevEntry [],</span>
+<span class="go">Tags: map[string]*github.com/hpcng/warewulf/internal/pkg/node.Entry [],}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="contributing.html" class="btn btn-neutral float-left" title="Contributing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="documentation.html" class="btn btn-neutral float-right" title="Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
