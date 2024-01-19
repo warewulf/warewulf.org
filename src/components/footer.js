@@ -25,7 +25,7 @@ const Footer = () => {
             </div>
           ))}
         </nav>
-        <p className="mt-8 text-center text-base text-gray-500">&copy; 2023 Warewulf developers. All rights reserved.</p>
+        <p className="mt-8 text-center text-base text-gray-500">&copy; 2024 The Warewulf Project. All rights reserved.</p>
       </div>
     </footer>
   );
