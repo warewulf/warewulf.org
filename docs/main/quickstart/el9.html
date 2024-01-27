@@ -114,7 +114,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">EL9 Quickstart (Rocky Linux and RHEL)</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/hpcng/warewulf/blob/main/userdocs/quickstart/el9.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/quickstart/el9.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -131,7 +131,7 @@ sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> <
 sudo<span class="w"> </span>dnf<span class="w"> </span>config-manager<span class="w"> </span>--set-enabled<span class="w"> </span>crb
 sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>golang<span class="w"> </span>tftp-server<span class="w"> </span>dhcp-server<span class="w"> </span>nfs-utils<span class="w"> </span>gpgme-devel<span class="w"> </span>libassuan-devel
 
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/hpcng/warewulf.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf.git
 <span class="nb">cd</span><span class="w"> </span>warewulf
 make<span class="w"> </span>clean<span class="w"> </span>defaults<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span><span class="nv">PREFIX</span><span class="o">=</span>/usr<span class="w"> </span><span class="se">\</span>
@@ -246,7 +246,7 @@ errors with TFTP still.</p>
 <p>This will pull a basic VNFS container from Docker Hub and import the
 default running kernel from the controller node and set both in the
 “default” node profile.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/hpcng/warewulf-rockylinux:9<span class="w"> </span>rocky-9
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:9<span class="w"> </span>rocky-9
 </pre></div>
 </div>
 </section>

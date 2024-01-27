@@ -124,7 +124,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Development Environment (Vagrant)</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/hpcng/warewulf/blob/main/userdocs/contributing/development-environment-vagrant.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/contributing/development-environment-vagrant.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -271,7 +271,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39; &gt; Vagrantfi
 <span class="s">            dnf install -y golang tftp-server dhcp-server nfs-utils gpgme-devel libassuan-devel</span>
 
 <span class="s">            cd /tmp</span>
-<span class="s">            git clone https://github.com/hpcng/warewulf.git</span>
+<span class="s">            git clone https://github.com/warewulf/warewulf.git</span>
 <span class="s">            cd warewulf</span>
 <span class="s">            git checkout v4.4.0</span>
 <span class="s">            make clean defaults \</span>
@@ -340,7 +340,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39; &gt; Vagrantfi
 
 <span class="s">            wwctl configure --all</span>
 
-<span class="s">            wwctl container import docker://ghcr.io/hpcng/warewulf-rockylinux:9 rocky-9</span>
+<span class="s">            wwctl container import docker://ghcr.io/warewulf/warewulf-rockylinux:9 rocky-9</span>
 <span class="s">            wwctl profile set --yes --container rocky-9 &quot;default&quot;</span>
 <span class="s">            wwctl profile set --yes --netdev eth1 --netmask 255.255.255.0 --gateway 192.168.200.254 &quot;default&quot;</span>
 

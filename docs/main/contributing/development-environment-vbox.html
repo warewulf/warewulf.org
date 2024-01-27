@@ -104,7 +104,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Development Environment (VirtualBox)</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/hpcng/warewulf/blob/main/userdocs/contributing/development-environment-vbox.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/contributing/development-environment-vbox.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -177,7 +177,7 @@ the VM.</p></li>
 <span class="go">sudo yum install nfs-utils</span>
 
 <span class="gp"># </span>Install<span class="w"> </span>Warewulf<span class="w"> </span>and<span class="w"> </span>dependencies
-<span class="go">git clone https://github.com/hpcng/warewulf.git</span>
+<span class="go">git clone https://github.com/warewulf/warewulf.git</span>
 <span class="go">cd warewulf</span>
 
 <span class="go">make all</span>
@@ -227,7 +227,7 @@ the VM.</p></li>
 <span class="go">sudo wwctl configure ssh  --persist # Build the basic ssh keys to be included by the default system overlay</span>
 
 <span class="gp"># </span>Pull<span class="w"> </span>and<span class="w"> </span>build<span class="w"> </span>the<span class="w"> </span>VNFS<span class="w"> </span>container<span class="w"> </span>and<span class="w"> </span>kernel
-<span class="go">sudo wwctl container import docker://ghcr.io/hpcng/warewulf-centos:7 centos-7 --setdefault</span>
+<span class="go">sudo wwctl container import docker://ghcr.io/warewulf/warewulf-centos:7 centos-7 --setdefault</span>
 <span class="go">sudo wwctl kernel import build $(uname -r) --setdefault</span>
 
 <span class="gp"># </span>Set<span class="w"> </span>up<span class="w"> </span>the<span class="w"> </span>default<span class="w"> </span>node<span class="w"> </span>profile
