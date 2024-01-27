@@ -127,7 +127,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Container Management</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/hpcng/warewulf/blob/main/userdocs/contents/containers.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/contents/containers.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -173,7 +173,7 @@ into Warewulf.</p>
 registry. This means you can import from a public registry or from a
 private registry.</p>
 <p>Here is an example of importing from Docker Hub.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/hpcng/warewulf-rockylinux:8<span class="w"> </span>rocky-8
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:8<span class="w"> </span>rocky-8
 <span class="go">Getting image source signatures</span>
 <span class="go">Copying blob d7f16ed6f451 done</span>
 <span class="go">Copying config da2ca70704 done</span>
@@ -235,7 +235,7 @@ registry required.</p>
 </div>
 <p>Chroot directories and Apptainer sandbox images can also be imported
 directly.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>./rockylinux-8/<span class="w"> </span>docker://ghcr.io/hpcng/warewulf-rockylinux:8
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>./rockylinux-8/<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:8
 <span class="gp">$ </span>sudo<span class="w"> </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>./rockylinux-8/<span class="w"> </span>rockylinux-8
 </pre></div>
 </div>
@@ -369,7 +369,7 @@ import it into Warewulf with the following command:</p>
 applications, can also be used to create node containers for
 Warewulf. There are several Apptainer container recipes in the
 <code class="docutils literal notranslate"><span class="pre">containers/Apptainer/</span></code> directory and can be found on GitHub at
-<a class="reference external" href="https://github.com/hpcng/warewulf/tree/main/containers/Apptainer">https://github.com/hpcng/warewulf/tree/main/containers/Apptainer</a>.</p>
+<a class="reference external" href="https://github.com/warewulf/warewulf/tree/main/containers/Apptainer">https://github.com/warewulf/warewulf/tree/main/containers/Apptainer</a>.</p>
 <p>You can use these as starting points and adding any additional steps
 you want in the <code class="docutils literal notranslate"><span class="pre">%post</span></code> section of the recipe file. Once you’ve done
 that, installing Apptainer, building a container sandbox and importing

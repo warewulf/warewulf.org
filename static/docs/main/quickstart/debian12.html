@@ -115,7 +115,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Debian 12 Quickstart</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/hpcng/warewulf/blob/main/userdocs/quickstart/debian12.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/quickstart/debian12.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -147,7 +147,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 
 mkdir<span class="w"> </span>~/git
 <span class="nb">cd</span><span class="w"> </span>~/git
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/hpcng/warewulf.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf.git
 <span class="nb">cd</span><span class="w"> </span>warewulf
 git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="c1"># or switch to a tag like &#39;v4.4.0&#39;</span>
 make<span class="w"> </span>all<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
@@ -242,7 +242,7 @@ errors with TFTP still.</p>
 <p>This will pull a basic VNFS container from Docker Hub and import the
 default running kernel from the controller node and set both in the
 “default” node profile.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/hpcng/warewulf-debian:12.0<span class="w"> </span>debian-12.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-debian:12.0<span class="w"> </span>debian-12.0
 </pre></div>
 </div>
 </section>
