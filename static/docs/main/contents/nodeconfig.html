@@ -333,6 +333,13 @@ container, kernel, and network:</p>
 <span class="go">n001                 cluster            --           cluster01</span>
 </pre></div>
 </div>
+<p>To configure a bonded (link aggreagtion) network interface the following commands can be used:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--netname<span class="o">=</span>bond0_member_1<span class="w"> </span>--netdev<span class="o">=</span>eth2<span class="w"> </span>--type<span class="o">=</span>bond-slave<span class="w"> </span>n001
+<span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--netname<span class="o">=</span>bond0_member_2<span class="w"> </span>--netdev<span class="o">=</span>eth3<span class="w"> </span>--type<span class="o">=</span>bond-slave<span class="w"> </span>n001
+<span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--netname<span class="o">=</span>bond0<span class="w"> </span>--netdev<span class="o">=</span>bond0<span class="w"> </span>--onboot<span class="o">=</span><span class="nb">true</span><span class="w"> </span>--type<span class="o">=</span>bond<span class="w"> </span>--ipaddr<span class="w"> </span><span class="m">10</span>.0.3.1<span class="w"> </span>--netmask<span class="o">=</span><span class="m">255</span>.255.255.0<span class="w"> </span>--mtu<span class="o">=</span><span class="m">9000</span><span class="w"> </span>n001
+</pre></div>
+</div>
+<p>Note: the netnames of the member interterfaces need to match the “netname” of the bonded interface until the first “_” (in the example bond0)</p>
 </section>
 <section id="node-discovery">
 <h3>Node Discovery<a class="headerlink" href="#node-discovery" title="Link to this heading"></a></h3>
