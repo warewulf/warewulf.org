@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Storage objects &mdash; Warewulf User Guide main documentation</title>
+  <title>Disk Management &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
@@ -65,9 +65,18 @@
 <li class="toctree-l1"><a class="reference internal" href="overlays.html">Warewulf Overlays</a></li>
 <li class="toctree-l1"><a class="reference internal" href="provisioning.html">Node Provisioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Storage objects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#ignition-implementation">Ignition Implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#example-disk-configuration">Example disk configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Disk Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rocky-linux">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensuse-leap">openSuse Leap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#storage-objects">Storage objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ignition-implementation">Ignition Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-disk-configuration">Example disk configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="templating.html">Templating</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dnsmasq.html">dnsmasq</a></li>
@@ -104,7 +113,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Storage objects</li>
+      <li class="breadcrumb-item active">Disk Management</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/contents/disks.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -114,65 +123,61 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <p>/Exa===============
-Disk Management
-===============</p>
-<p>Warewulf itself does not manage disks, partitions, or file systems
-directly, but provides structures in the configuration for these
-objects. At the moment warewulf supports <cite>ignition</cite> to create the
-partitions and file systems.</p>
+  <section id="disk-management">
+<h1>Disk Management<a class="headerlink" href="#disk-management" title="Link to this heading"></a></h1>
+<p>Warewulf itself does not manage disks, partitions, or file systems directly, but provides structures in the configuration for these objects.
+At the moment warewulf supports <a class="reference external" href="https://coreos.github.io/ignition/">ignition</a> to create the partitions and file systems.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It is not currently possible to manage the root file system with
 Warewulf.</p>
 </div>
-<p>Warewulf can be used, for example, to create <cite>swap</cite> partitions or
-<cite>/scratch</cite> file systems.</p>
+<p>Warewulf can be used, for example, to create <code class="docutils literal notranslate"><span class="pre">swap</span></code> partitions or <code class="docutils literal notranslate"><span class="pre">/scratch</span></code> file systems.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<p>Partition and file system creation requires both <code class="docutils literal notranslate"><span class="pre">ignition</span></code> and <code class="docutils literal notranslate"><span class="pre">sgdisk</span></code> to be installed in the container image.</p>
+<section id="rocky-linux">
+<h3>Rocky Linux<a class="headerlink" href="#rocky-linux" title="Link to this heading"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>ignition<span class="w"> </span>gdisk
+</pre></div>
+</div>
+</section>
+<section id="opensuse-leap">
+<h3>openSuse Leap<a class="headerlink" href="#opensuse-leap" title="Link to this heading"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>zypper<span class="w"> </span>install<span class="w"> </span>ignition<span class="w"> </span>gptfdisk
+</pre></div>
+</div>
+</section>
+</section>
 <section id="storage-objects">
-<h1>Storage objects<a class="headerlink" href="#storage-objects" title="Link to this heading"></a></h1>
-<p>The format of the storage objects is inspired by <cite>butane/ignition</cite>;
-but, where <cite>butane/ignition</cite> uses lists for holding disks, partitions
-and file systems, Warewulf uses maps instead.</p>
-<p>A node or profile can have several disks, where each disk is
-identified by the path to its block device. Every disks holds a map to
-its partitions and a <cite>bool</cite> switch to indicate if an existing
-partition table should be overwritten if it does not matched the
-desired configuration.</p>
-<p>Each partition is identified by its label. The partition number can be
-omitted, but specifying it is recommended as <cite>ignition</cite> may fail
-without it. Partition sizes should also be set (specified in MiB),
-except of the last partition: if no size is given, the maximum
-available size is used. Each partition has the switches <cite>should_exist</cite>
-and <cite>wipe_partition_entry</cite> which control the partition creation
-process.</p>
-<p>File systems are identified by their underlying block device,
-preferably using the <cite>/dev/by-partlabel</cite> format. Except for a <cite>swap</cite>
-partition, an absolute path for the mount point must be specified for
-each file system. Depending on the container used, valid formats are
-<cite>btrfs</cite>, <cite>ext3</cite>, <cite>ext4</cite>, and <cite>xfs</cite>. Each file system has the switch
-<cite>wipe_filesystem</cite> to control whether an existing file system is wiped.</p>
+<h2>Storage objects<a class="headerlink" href="#storage-objects" title="Link to this heading"></a></h2>
+<p>The format of the storage objects is inspired by <code class="docutils literal notranslate"><span class="pre">butane/ignition</span></code>;
+but, where <code class="docutils literal notranslate"><span class="pre">butane/ignition</span></code> uses lists for holding disks, partitions and file systems, Warewulf uses maps instead.</p>
+<p>A node or profile can have several disks, where each disk is identified by the path to its block device.
+Every disks holds a map to its partitions and a <code class="docutils literal notranslate"><span class="pre">bool</span></code> switch to indicate if an existing partition table should be overwritten if it does not matched the desired configuration.</p>
+<p>Each partition is identified by its label.
+The partition number can be omitted, but specifying it is recommended as <code class="docutils literal notranslate"><span class="pre">ignition</span></code> may fail without it.
+Partition sizes should also be set (specified in MiB), except of the last partition:
+if no size is given, the maximum available size is used.
+Each partition has the switches <code class="docutils literal notranslate"><span class="pre">should_exist</span></code> and <code class="docutils literal notranslate"><span class="pre">wipe_partition_entry</span></code> which control the partition creation process.</p>
+<p>File systems are identified by their underlying block device, preferably using the <code class="docutils literal notranslate"><span class="pre">/dev/by-partlabel</span></code> format.
+Except for a <code class="docutils literal notranslate"><span class="pre">swap</span></code> partition, an absolute path for the mount point must be specified for each file system.
+Depending on the container used, valid formats are <code class="docutils literal notranslate"><span class="pre">btrfs</span></code>, <code class="docutils literal notranslate"><span class="pre">ext3</span></code>, <code class="docutils literal notranslate"><span class="pre">ext4</span></code>, and <code class="docutils literal notranslate"><span class="pre">xfs</span></code>.
+Each file system has the switch <code class="docutils literal notranslate"><span class="pre">wipe_filesystem</span></code> to control whether an existing file system is wiped.</p>
 </section>
 <section id="ignition-implementation">
-<h1>Ignition Implementation<a class="headerlink" href="#ignition-implementation" title="Link to this heading"></a></h1>
-<p>The ignition implementation uses systemd services, as the underlying
-<cite>sgdisk</cite> command relies on dbus notifications. All necessary services
-are distributed by the <cite>wwinit</cite> overlay and depends on the existence
-of the file <cite>/warewulf/ignition.json</cite>. This file is created by the
-template function <cite>{{ createIgnitionJson }}</cite> only if the configuration
-contains necessary specifications for disks, partitions, and file
-systems.  If the file <cite>/warewulf/ignition.json</cite> exists, the service
-<cite>ignition-disks-ww4.service</cite> calls the ignition binary which takes
-creates partitions and file systems. A systemd <cite>.mount</cite> unit is
-created for each configured file system, which also creates the
-necessary mount points in the root file system. These mount units are
-required by the enabled <cite>ww4-disks.target</cite>. Entries in <cite>/etc/fstab</cite>
-are created with the <cite>no_auto</cite> option so that file systems can be
-easily mounted.</p>
+<h2>Ignition Implementation<a class="headerlink" href="#ignition-implementation" title="Link to this heading"></a></h2>
+<p>The ignition implementation uses systemd services, as the underlying <code class="docutils literal notranslate"><span class="pre">sgdisk</span></code> command relies on dbus notifications.
+All necessary services are distributed by the <code class="docutils literal notranslate"><span class="pre">wwinit</span></code> overlay and depends on the existence of the file <code class="docutils literal notranslate"><span class="pre">/warewulf/ignition.json</span></code>.
+This file is created by the template function <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">createIgnitionJson</span> <span class="pre">}}</span></code> only if the configuration contains necessary specifications for disks, partitions, and file systems.
+If the file <code class="docutils literal notranslate"><span class="pre">/warewulf/ignition.json</span></code> exists, the service <code class="docutils literal notranslate"><span class="pre">ignition-disks-ww4.service</span></code> calls the ignition binary which takes creates partitions and file systems.
+A systemd <code class="docutils literal notranslate"><span class="pre">.mount</span></code> unit is created for each configured file system, which also creates the necessary mount points in the root file system.
+These mount units are required by the enabled <code class="docutils literal notranslate"><span class="pre">ww4-disks.target</span></code>.
+Entries in <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code> are created with the <code class="docutils literal notranslate"><span class="pre">no_auto</span></code> option so that file systems can be easily mounted.</p>
 </section>
 <section id="example-disk-configuration">
-<h1>Example disk configuration<a class="headerlink" href="#example-disk-configuration" title="Link to this heading"></a></h1>
-<p>The following command will create a <cite>/scratch</cite> file system on the node
-<cite>n01</cite></p>
+<h2>Example disk configuration<a class="headerlink" href="#example-disk-configuration" title="Link to this heading"></a></h2>
+<p>The following command will create a <code class="docutils literal notranslate"><span class="pre">/scratch</span></code> file system on the node <code class="docutils literal notranslate"><span class="pre">n01</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n01<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--diskname<span class="w"> </span>/dev/vda<span class="w"> </span>--diskwipe<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--partname<span class="w"> </span>scratch<span class="w"> </span>--partcreate<span class="w"> </span><span class="se">\</span>
@@ -187,8 +192,30 @@ easily mounted.</p>
 <span class="w">  </span>--fsname<span class="w"> </span>swap<span class="w"> </span>--fsformat<span class="w"> </span>swap<span class="w"> </span>--fspath<span class="w"> </span>swap
 </pre></div>
 </div>
-<p>which has the partition number <cite>1</cite> so that it will be added before the
-<cite>/scratch</cite> partition.</p>
+<p>which has the partition number <code class="docutils literal notranslate"><span class="pre">1</span></code> so that it will be added before the
+<code class="docutils literal notranslate"><span class="pre">/scratch</span></code> partition.</p>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<p>If the partition creation didn’t work as expected you have a few options to investigate:</p>
+<ul>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">systemd.log_level=debug</span></code> and or <code class="docutils literal notranslate"><span class="pre">rd.debug</span></code> to the kernelArgs of the node you’re working on.</p></li>
+<li><p>After the next boot you should be able to find verbose information on the node with <code class="docutils literal notranslate"><span class="pre">journalctl</span> <span class="pre">-u</span> <span class="pre">ignition-ww4-disks.service</span></code>.</p></li>
+<li><p>You could also check the content of <code class="docutils literal notranslate"><span class="pre">/warewulf/ignition.json</span></code>.</p></li>
+<li><p>You could try to tinker with <code class="docutils literal notranslate"><span class="pre">/warewulf/ignition.json</span></code> calling</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>/usr/lib/dracut/modules.d/30ignition/ignition<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--platform<span class="o">=</span>metal<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--stage<span class="o">=</span>disks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--config-cache<span class="o">=</span>/warewulf/ignition.json<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--log-to-stdout
+</pre></div>
+</div>
+<p>after each iteration on the node directly until you find the settings you need.
+(Make sure to unmount all partitions if <code class="docutils literal notranslate"><span class="pre">ignition</span></code> was partially successful.)</p>
+</li>
+<li><p>Sometimes you need to add <code class="docutils literal notranslate"><span class="pre">should_exist:</span> <span class="pre">&quot;true&quot;</span></code> for the swap partiton as well.</p></li>
+</ul>
+</section>
 </section>
 
 
