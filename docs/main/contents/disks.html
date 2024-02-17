@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Disk Management &mdash; Warewulf User Guide main documentation</title>
+  <title>Storage objects &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
@@ -65,18 +65,15 @@
 <li class="toctree-l1"><a class="reference internal" href="overlays.html">Warewulf Overlays</a></li>
 <li class="toctree-l1"><a class="reference internal" href="provisioning.html">Node Provisioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Disk Management</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#storage-objects">Storage objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ignition-implementation">Ignition Implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Storage objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#ignition-implementation">Ignition Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#example-disk-configuration">Example disk configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="templating.html">Templating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dnsmasq.html">dnsmasq</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
@@ -107,7 +104,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Disk Management</li>
+      <li class="breadcrumb-item active">Storage objects</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/contents/disks.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -117,8 +114,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="disk-management">
-<h1>Disk Management<a class="headerlink" href="#disk-management" title="Link to this heading"></a></h1>
+  <p>/Exa===============
+Disk Management
+===============</p>
 <p>Warewulf itself does not manage disks, partitions, or file systems
 directly, but provides structures in the configuration for these
 objects. At the moment warewulf supports <cite>ignition</cite> to create the
@@ -131,7 +129,7 @@ Warewulf.</p>
 <p>Warewulf can be used, for example, to create <cite>swap</cite> partitions or
 <cite>/scratch</cite> file systems.</p>
 <section id="storage-objects">
-<h2>Storage objects<a class="headerlink" href="#storage-objects" title="Link to this heading"></a></h2>
+<h1>Storage objects<a class="headerlink" href="#storage-objects" title="Link to this heading"></a></h1>
 <p>The format of the storage objects is inspired by <cite>butane/ignition</cite>;
 but, where <cite>butane/ignition</cite> uses lists for holding disks, partitions
 and file systems, Warewulf uses maps instead.</p>
@@ -155,7 +153,7 @@ each file system. Depending on the container used, valid formats are
 <cite>wipe_filesystem</cite> to control whether an existing file system is wiped.</p>
 </section>
 <section id="ignition-implementation">
-<h2>Ignition Implementation<a class="headerlink" href="#ignition-implementation" title="Link to this heading"></a></h2>
+<h1>Ignition Implementation<a class="headerlink" href="#ignition-implementation" title="Link to this heading"></a></h1>
 <p>The ignition implementation uses systemd services, as the underlying
 <cite>sgdisk</cite> command relies on dbus notifications. All necessary services
 are distributed by the <cite>wwinit</cite> overlay and depends on the existence
@@ -171,8 +169,8 @@ required by the enabled <cite>ww4-disks.target</cite>. Entries in <cite>/etc/fst
 are created with the <cite>no_auto</cite> option so that file systems can be
 easily mounted.</p>
 </section>
-<section id="example">
-<h2>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h2>
+<section id="example-disk-configuration">
+<h1>Example disk configuration<a class="headerlink" href="#example-disk-configuration" title="Link to this heading"></a></h1>
 <p>The following command will create a <cite>/scratch</cite> file system on the node
 <cite>n01</cite></p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n01<span class="w"> </span><span class="se">\</span>
@@ -191,7 +189,6 @@ easily mounted.</p>
 </div>
 <p>which has the partition number <cite>1</cite> so that it will be added before the
 <cite>/scratch</cite> partition.</p>
-</section>
 </section>
 
 

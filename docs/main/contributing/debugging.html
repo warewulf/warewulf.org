@@ -65,13 +65,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../contents/overlays.html">Warewulf Overlays</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/provisioning.html">Node Provisioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/ipmi.html">IPMI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html">Storage objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html#ignition-implementation">Ignition Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html#example-disk-configuration">Example disk configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/templating.html">Templating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/dnsmasq.html">dnsmasq</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
@@ -86,7 +88,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#using-delve">Using delve</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#installing-delve">Installing delve</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#running-delve-against-a-specific-test">Running delve against a specific test</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-debugging-session">Example debugging session</a></li>
 </ul>
 </li>
 </ul>
@@ -220,8 +222,8 @@ scope.</p>
 <p>Read about other commands available within delve using the <code class="docutils literal notranslate"><span class="pre">help</span></code>
 command.</p>
 </section>
-<section id="example">
-<h3>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h3>
+<section id="example-debugging-session">
+<h3>Example debugging session<a class="headerlink" href="#example-debugging-session" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>~/go/bin/dlv<span class="w"> </span><span class="nb">test</span><span class="w"> </span>github.com/warewulf/warewulf/internal/pkg/node<span class="w"> </span>--<span class="w"> </span>-test.v<span class="w"> </span>-test.run<span class="w"> </span>Test_GetAllNodeInfoDefaults
 <span class="go">Type &#39;help&#39; for list of commands.</span>
 
