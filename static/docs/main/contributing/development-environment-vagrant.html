@@ -65,13 +65,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../contents/overlays.html">Warewulf Overlays</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/provisioning.html">Node Provisioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/ipmi.html">IPMI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html">Storage objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html#ignition-implementation">Ignition Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html#example-disk-configuration">Example disk configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/templating.html">Templating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/dnsmasq.html">dnsmasq</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
@@ -143,7 +145,8 @@
 </ol>
 <section id="cpu-h-w-virtualization-support">
 <h3>CPU H/W Virtualization support<a class="headerlink" href="#cpu-h-w-virtualization-support" title="Link to this heading"></a></h3>
-<p>Check CPU virtualization capability using following command. If your system has Intel CPU, you will see <code class="code docutils literal notranslate"><span class="pre">Intel</span> <span class="pre">VT</span></code> here, and if your system has AMD CPU, you will see <code class="code docutils literal notranslate"><span class="pre">AMD-V</span></code> here.</p>
+<p>Check CPU virtualization capability using following command.
+If your system has Intel CPU, you will see <code class="code docutils literal notranslate"><span class="pre">Intel</span> <span class="pre">VT</span></code> here, and if your system has AMD CPU, you will see <code class="code docutils literal notranslate"><span class="pre">AMD-V</span></code> here.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lscpu<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Virtualization
 Virtualization:<span class="w">                  </span>AMD-V
 Virtualization<span class="w"> </span>type:<span class="w">             </span>full

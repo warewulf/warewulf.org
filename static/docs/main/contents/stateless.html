@@ -54,7 +54,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Stateless Provisioning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#why-is-provisioning-important">Why is Provisioning Important</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#provisioning-overview">Provisioning Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Stateless Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-stateless-provisioning">Why Stateless Provisioning</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Control Server Setup</a></li>
@@ -70,13 +70,15 @@
 <li class="toctree-l1"><a class="reference internal" href="overlays.html">Warewulf Overlays</a></li>
 <li class="toctree-l1"><a class="reference internal" href="provisioning.html">Node Provisioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disks.html">Storage objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disks.html#ignition-implementation">Ignition Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disks.html#example-disk-configuration">Example disk configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="templating.html">Templating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dnsmasq.html">dnsmasq</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
@@ -154,8 +156,8 @@ available when Warewulf was created and while these tools absolutely
 helped, there was even more optimization to be had. Stateless
 computing.</p>
 </section>
-<section id="id1">
-<h2>Stateless Provisioning<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="why-stateless-provisioning">
+<h2>Why Stateless Provisioning<a class="headerlink" href="#why-stateless-provisioning" title="Link to this heading"></a></h2>
 <p>The next step past automated installs is to just skip the installation
 completely; boot directly into the runtime operating system without
 ever doing an installation.</p>

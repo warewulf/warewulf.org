@@ -65,13 +65,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../contents/overlays.html">Warewulf Overlays</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/provisioning.html">Node Provisioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/ipmi.html">IPMI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html">Storage objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html#ignition-implementation">Ignition Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html#example-disk-configuration">Example disk configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/templating.html">Templating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/dnsmasq.html">dnsmasq</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
@@ -148,108 +150,108 @@ the VM.</p></li>
 <ol class="arabic simple" start="3">
 <li><p>Build and install Warewulf on wwdev</p></li>
 </ol>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Login<span class="w"> </span>to<span class="w"> </span>wwdev<span class="w"> </span>VM<span class="w"> </span>and<span class="w"> </span>install<span class="w"> </span>@development<span class="w"> </span>group<span class="w"> </span>and<span class="w"> </span>go<span class="w"> </span>language
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Login to wwdev VM and install @development group and go language
 
-<span class="go">ssh localhost -p 2222 #(should prompt for a user account password on wwdev VM)</span>
+ssh localhost -p 2222 #(should prompt for a user account password on wwdev VM)
 
-<span class="gp"># </span>Disable<span class="w"> </span>selinux<span class="w"> </span>by<span class="w"> </span>modifying<span class="w"> </span>/etc/sysconfig/selinux
-<span class="go">vi /etc/sysconfig/selinux</span>
+# Disable selinux by modifying /etc/sysconfig/selinux
+vi /etc/sysconfig/selinux
 
-<span class="go">    SELINUX=disabled</span>
+    SELINUX=disabled
 
-<span class="gp"># </span>Disable<span class="w"> </span>firewall
-<span class="go">systemctl stop firewalld</span>
-<span class="go">systemctl disable firewalld</span>
+# Disable firewall
+systemctl stop firewalld
+systemctl disable firewalld
 
-<span class="gp"># </span>Centos<span class="w"> </span>prerequisites
-<span class="go">sudo yum -y install tftp-server tftp</span>
-<span class="go">sudo yum -y install dhcp</span>
-<span class="go">sudo yum -y install ipmitool</span>
-<span class="go">sudo yum install http://repo.ctrliq.com/packages/rhel7/ctrl-release.rpm</span>
-<span class="go">sudo yum install singularityplus</span>
-<span class="go">sudo yum install gpgme-devel</span>
-<span class="go">sudo yum install libassuan.x86_64 libassuan-devel.x86_64</span>
+# Centos prerequisites
+sudo yum -y install tftp-server tftp
+sudo yum -y install dhcp
+sudo yum -y install ipmitool
+sudo yum install http://repo.ctrliq.com/packages/rhel7/ctrl-release.rpm
+sudo yum install singularityplus
+sudo yum install gpgme-devel
+sudo yum install libassuan.x86_64 libassuan-devel.x86_64
 
-<span class="gp"># </span>Upgrade<span class="w"> </span>git<span class="w"> </span>to<span class="w"> </span>v2+
-<span class="go">sudo yum install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm</span>
-<span class="go">sudo yum install git</span>
-<span class="go">sudo yum install golang</span>
-<span class="go">sudo yum install nfs-utils</span>
+# Upgrade git to v2+
+sudo yum install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
+sudo yum install git
+sudo yum install golang
+sudo yum install nfs-utils
 
-<span class="gp"># </span>Install<span class="w"> </span>Warewulf<span class="w"> </span>and<span class="w"> </span>dependencies
-<span class="go">git clone https://github.com/warewulf/warewulf.git</span>
-<span class="go">cd warewulf</span>
+# Install Warewulf and dependencies
+git clone https://github.com/warewulf/warewulf.git
+cd warewulf
 
-<span class="go">make all</span>
-<span class="go">sudo make install</span>
+make all
+sudo make install
 
-<span class="gp"># </span>Static<span class="w"> </span>assign<span class="w"> </span>an<span class="w"> </span>IP<span class="w"> </span>to<span class="w"> </span>adapter<span class="w"> </span><span class="c1">#2 which is in the wwnatnetwork.</span>
-<span class="gp">$ </span>Edit<span class="w"> </span>the<span class="w"> </span>file<span class="w"> </span>/etc/sysconfig/networking-scripts/ifcfg-enp0s9<span class="w"> </span><span class="c1"># adapter name at the end might be different for you</span>
-<span class="gp"># </span>Add<span class="w"> </span>lines<span class="w"> </span>like<span class="w"> </span>to<span class="w"> </span>below<span class="w"> </span>to<span class="w"> </span>assign<span class="w"> </span>an<span class="w"> </span>ip<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">10</span>.0.8.0/24<span class="w"> </span>wwnatnetwork,<span class="w"> </span>I<span class="w"> </span>choose<span class="w"> </span><span class="m">10</span>.0.8.4
-<span class="go">BOOTPROTO=static</span>
-<span class="go">ONBOOT=yes</span>
-<span class="go">NAME=enp0s9</span>
-<span class="go">DEVICE=enp0s9</span>
-<span class="go">IPADDR=10.0.8.4</span>
-<span class="go">NETMASK=255.255.255.0</span>
-<span class="go">GATEWAY=10.0.8.1</span>
-<span class="gp"># </span>Bring<span class="w"> </span>the<span class="w"> </span>enp0s9<span class="w"> </span>interface<span class="w"> </span>online<span class="w"> </span>and<span class="w"> </span>verify<span class="w"> </span>ip<span class="w"> </span>assignment
+# Static assign an IP to adapter #2 which is in the wwnatnetwork.
+$ Edit the file /etc/sysconfig/networking-scripts/ifcfg-enp0s9 # adapter name at the end might be different for you
+# Add lines like to below to assign an ip in 10.0.8.0/24 wwnatnetwork, I choose 10.0.8.4
+BOOTPROTO=static
+ONBOOT=yes
+NAME=enp0s9
+DEVICE=enp0s9
+IPADDR=10.0.8.4
+NETMASK=255.255.255.0
+GATEWAY=10.0.8.1
+# Bring the enp0s9 interface online and verify ip assignment
 
-<span class="gp"># </span>Configure<span class="w"> </span>the<span class="w"> </span>Warewulf<span class="w"> </span>controller
-<span class="gp">$ </span>Edit<span class="w"> </span>the<span class="w"> </span>file<span class="w"> </span>/etc/warewulf/warewulf.conf<span class="w"> </span>and<span class="w"> </span>ensure<span class="w"> </span>that<span class="w"> </span>you<span class="err">&#39;</span>ve<span class="w"> </span><span class="nb">set</span><span class="w"> </span>the<span class="w"> </span>approprite<span class="w"> </span>configuration<span class="w"> </span>parameters.
-<span class="gp"># </span>My<span class="w"> </span>conf<span class="w"> </span>file<span class="w"> </span>looks<span class="w"> </span>like<span class="w"> </span>below:
-<span class="go">    ipaddr: 10.0.8.4</span>
-<span class="go">    netmask: 255.255.255.0</span>
-<span class="go">    warewulf:</span>
-<span class="go">      port: 9873</span>
-<span class="go">      secure: true</span>
-<span class="go">      update interval: 60</span>
-<span class="go">    dhcp:</span>
-<span class="go">      enabled: true</span>
-<span class="go">      range start: 10.0.8.150</span>
-<span class="go">      range end: 10.0.8.200</span>
-<span class="go">      template: default</span>
-<span class="go">      systemd name: dhcpd</span>
-<span class="go">    tftp:</span>
-<span class="go">      enabled: true</span>
-<span class="go">      tftproot: /var/lib/tftpboot</span>
-<span class="go">      systemd name: tftp</span>
-<span class="go">    nfs:</span>
-<span class="go">      systemd name: nfs-server</span>
-<span class="go">      exports:</span>
-<span class="go">      - /home</span>
-<span class="go">      - /var/warewulf</span>
+# Configure the Warewulf controller
+$ Edit the file /etc/warewulf/warewulf.conf and ensure that you&#39;ve set the approprite configuration parameters.
+# My conf file looks like below:
+    ipaddr: 10.0.8.4
+    netmask: 255.255.255.0
+    warewulf:
+      port: 9873
+      secure: true
+      update interval: 60
+    dhcp:
+      enabled: true
+      range start: 10.0.8.150
+      range end: 10.0.8.200
+      template: default
+      systemd name: dhcpd
+    tftp:
+      enabled: true
+      tftproot: /var/lib/tftpboot
+      systemd name: tftp
+    nfs:
+      systemd name: nfs-server
+      exports:
+      - /home
+      - /var/warewulf
 
-<span class="gp"># </span>Configure<span class="w"> </span>system<span class="w"> </span>service<span class="w"> </span>automatically
-<span class="go">sudo wwctl configure dhcp --persist # Create the default dhcpd.conf file and start/enable service</span>
-<span class="go">sudo wwctl configure tftp --persist # Install the base tftp/PXE boot files and start/enable service</span>
-<span class="go">sudo wwctl configure nfs  --persist # Configure the exports and create an fstab in the default system overlay</span>
-<span class="go">sudo wwctl configure ssh  --persist # Build the basic ssh keys to be included by the default system overlay</span>
+# Configure system service automatically
+sudo wwctl configure dhcp --persist # Create the default dhcpd.conf file and start/enable service
+sudo wwctl configure tftp --persist # Install the base tftp/PXE boot files and start/enable service
+sudo wwctl configure nfs  --persist # Configure the exports and create an fstab in the default system overlay
+sudo wwctl configure ssh  --persist # Build the basic ssh keys to be included by the default system overlay
 
-<span class="gp"># </span>Pull<span class="w"> </span>and<span class="w"> </span>build<span class="w"> </span>the<span class="w"> </span>VNFS<span class="w"> </span>container<span class="w"> </span>and<span class="w"> </span>kernel
-<span class="go">sudo wwctl container import docker://ghcr.io/warewulf/warewulf-centos:7 centos-7 --setdefault</span>
-<span class="go">sudo wwctl kernel import build $(uname -r) --setdefault</span>
+# Pull and build the VNFS container and kernel
+sudo wwctl container import docker://ghcr.io/warewulf/warewulf-centos:7 centos-7 --setdefault
+sudo wwctl kernel import build $(uname -r) --setdefault
 
-<span class="gp"># </span>Set<span class="w"> </span>up<span class="w"> </span>the<span class="w"> </span>default<span class="w"> </span>node<span class="w"> </span>profile
-<span class="go">sudo wwctl profile set default -K $(uname -r) -C centos-7</span>
-<span class="go">sudo wwctl profile set default --netdev eth0 -M 255.255.255.0 -G 10.0.8.4</span>
-<span class="go">sudo wwctl profile list</span>
+# Set up the default node profile
+sudo wwctl profile set default -K $(uname -r) -C centos-7
+sudo wwctl profile set default --netdev eth0 -M 255.255.255.0 -G 10.0.8.4
+sudo wwctl profile list
 
-<span class="gp"># </span>Add<span class="w"> </span>a<span class="w"> </span>node<span class="w"> </span>and<span class="w"> </span>build<span class="w"> </span>node<span class="w"> </span>specific<span class="w"> </span>overlays
-<span class="gp"># </span>IP<span class="w"> </span>address<span class="w"> </span>of<span class="w"> </span>my<span class="w"> </span>nodes<span class="w"> </span>start<span class="w"> </span>from<span class="w"> </span><span class="m">150</span><span class="w"> </span>as<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>warewulf.conf<span class="w"> </span>file<span class="w"> </span>above
-<span class="go">sudo wwctl node add n0000.cluster --netdev eth0 -I 10.0.8.150 --discoverable</span>
-<span class="go">sudo wwctl node list -a n0000</span>
+# Add a node and build node specific overlays
+# IP address of my nodes start from 150 as set in the warewulf.conf file above
+sudo wwctl node add n0000.cluster --netdev eth0 -I 10.0.8.150 --discoverable
+sudo wwctl node list -a n0000
 
-<span class="gp"># </span>Review<span class="w"> </span>Warewulf<span class="w"> </span>overlays
-<span class="go">sudo wwctl overlay list -l</span>
-<span class="go">sudo wwctl overlay list -ls</span>
-<span class="go">sudo wwctl overlay edit default /etc/hello_world.ww</span>
-<span class="go">sudo wwctl overlay build -a</span>
+# Review Warewulf overlays
+sudo wwctl overlay list -l
+sudo wwctl overlay list -ls
+sudo wwctl overlay edit default /etc/hello_world.ww
+sudo wwctl overlay build -a
 
-<span class="gp"># </span>Start<span class="w"> </span>the<span class="w"> </span>Warewulf<span class="w"> </span>daemon
-<span class="go">sudo wwctl ready</span>
-<span class="go">sudo wwctl server start</span>
-<span class="go">sudo wwctl server status</span>
+# Start the Warewulf daemon
+sudo wwctl ready
+sudo wwctl server start
+sudo wwctl server status
 </pre></div>
 </div>
 <ol class="arabic simple" start="4">

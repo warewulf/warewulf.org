@@ -70,13 +70,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disks.html">Storage objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disks.html#ignition-implementation">Ignition Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disks.html#example-disk-configuration">Example disk configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="templating.html">Templating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dnsmasq.html">dnsmasq</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
@@ -147,7 +149,7 @@ Warewulf, Debian, OpenSuSE, and Rocky Linux.</p>
 <h2>The Provisioning Process<a class="headerlink" href="#the-provisioning-process" title="Link to this heading"></a></h2>
 <p>When the cluster node boots, the following order of operations will
 occur:</p>
-<ol class="arabic">
+<ol class="arabic simple">
 <li><dl class="simple">
 <dt>BIOS:</dt><dd><ol class="arabic simple">
 <li><p>The system BIOS will bootstrap the initialization of the
@@ -175,8 +177,8 @@ out to the Warewulf server for it’s configuration</p></li>
 </dd>
 </dl>
 </li>
-<li><dl>
-<dt>Bootstrap:</dt><dd><ol class="arabic">
+<li><dl class="simple">
+<dt>Bootstrap:</dt><dd><ol class="arabic simple">
 <li><p>The Warewulf server will generate the iPXE configuration which
 will include directions of what else is necessary to download
 and how to boot.</p></li>
@@ -185,16 +187,10 @@ are all downloaded over REST HTTP from the Warewulf Server</p></li>
 <li><p>iPXE executes the kernel and processes the overlays to provide
 a unified root file system</p></li>
 <li><p>Warewulf bootstraps the initialization of cluster node’s
-operating system</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>File System (re)configuration</p></li>
-<li><p>SELinux</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">wwclient</span></code> is called as a background daemon and sleeps
-until network is ready</p></li>
-</ol>
-</div></blockquote>
-</li>
+operating system
+#. File System (re)configuration
+#. SELinux
+#. <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> is called as a background daemon and sleeps until network is ready</p></li>
 <li><p>The Warewulf bootstrap execs the container’s <code class="docutils literal notranslate"><span class="pre">/sbin/init</span></code></p></li>
 </ol>
 </dd>

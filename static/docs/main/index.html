@@ -64,13 +64,15 @@
 <li class="toctree-l1"><a class="reference internal" href="contents/overlays.html">Warewulf Overlays</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/provisioning.html">Node Provisioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/ipmi.html">IPMI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/disks.html">Storage objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/disks.html#ignition-implementation">Ignition Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/disks.html#example-disk-configuration">Example disk configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/templating.html">Templating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/dnsmasq.html">dnsmasq</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
@@ -127,7 +129,7 @@
 <li class="toctree-l1"><a class="reference internal" href="contents/stateless.html">Stateless Provisioning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="contents/stateless.html#why-is-provisioning-important">Why is Provisioning Important</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contents/stateless.html#provisioning-overview">Provisioning Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/stateless.html#id1">Stateless Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/stateless.html#why-stateless-provisioning">Why Stateless Provisioning</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contents/setup.html">Control Server Setup</a><ul>
@@ -215,12 +217,9 @@
 <li class="toctree-l2"><a class="reference internal" href="contents/ipmi.html#console">Console</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="contents/disks.html">Disk Management</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="contents/disks.html#storage-objects">Storage objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/disks.html#ignition-implementation">Ignition Implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/disks.html#example">Example</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="contents/disks.html">Storage objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/disks.html#ignition-implementation">Ignition Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/disks.html#example-disk-configuration">Example disk configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/security.html">Security</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="contents/security.html#selinux">SELinux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contents/security.html#provisioning-security">Provisioning Security</a></li>
@@ -231,22 +230,15 @@
 <li class="toctree-l2"><a class="reference internal" href="contents/templating.html#examples">Examples</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="contents/dnsmasq.html">dnsmasq</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contents/dnsmasq.html#usage">Usage</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="quickstart/el7.html">EL7 (CentOS and RHEL)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/el7.html#install-warewulf-and-dependencies">Install Warewulf and dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/el7.html#configure-firewalld">Configure firewalld</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/el7.html#configure-the-controller">Configure the controller</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/el7.html#start-and-enable-the-warewulf-service">Start and enable the Warewulf service</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/el7.html#configure-system-services-automatically">Configure system services automatically</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/el7.html#pull-and-build-the-vnfs-container-and-kernel">Pull and build the VNFS container and kernel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/el7.html#set-up-the-default-node-profile">Set up the default node profile</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/el7.html#add-a-node">Add a node</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/el8.html#install-warewulf-and-dependencies">Install Warewulf and dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/el8.html#configure-firewalld">Configure firewalld</a></li>

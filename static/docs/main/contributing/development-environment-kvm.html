@@ -65,13 +65,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../contents/overlays.html">Warewulf Overlays</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/provisioning.html">Node Provisioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/ipmi.html">IPMI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html">Storage objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html#ignition-implementation">Ignition Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html#example-disk-configuration">Example disk configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/templating.html">Templating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/dnsmasq.html">dnsmasq</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
@@ -173,69 +175,69 @@ sudo<span class="w"> </span>virsh<span class="w"> </span>net-start<span class="w
 </section>
 <section id="build-and-install-warewulf-on-wwdev">
 <h2>Build and install Warewulf on wwdev<a class="headerlink" href="#build-and-install-warewulf-on-wwdev" title="Link to this heading"></a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>wwdev
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ssh wwdev
 
-<span class="c1"># Fedora prerequisites</span>
-sudo<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>tftp-server<span class="w"> </span>tftp
-sudo<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>dhcp
-sudo<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>ipmitool
-sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>singularity
-sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>gpgme-devel
-sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>libassuan.x86_64<span class="w"> </span>libassuan-devel.x86_64
-sudo<span class="w"> </span>dnf<span class="w"> </span>golang
-sudo<span class="w"> </span>dnf<span class="w"> </span>nfs-utils
+# Fedora prerequisites
+sudo dnf -y install tftp-server tftp
+sudo dnf -y install dhcp
+sudo dnf -y install ipmitool
+sudo dnf install singularity
+sudo dnf install gpgme-devel
+sudo dnf install libassuan.x86_64 libassuan-devel.x86_64
+sudo dnf golang
+sudo dnf nfs-utils
 
-<span class="c1"># Centos prerequisites</span>
-sudo<span class="w"> </span>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>tftp-server<span class="w"> </span>tftp
-sudo<span class="w"> </span>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>dhcp
-sudo<span class="w"> </span>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>ipmitool
-sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>http://repo.ctrliq.com/packages/rhel7/ctrl-release.rpm
-sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>singularityplus
-sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>gpgme-devel
-sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>libassuan.x86_64<span class="w"> </span>libassuan-devel.x86_64
-sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
-sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>golang
-sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>nfs-utils
+# Centos prerequisites
+sudo yum -y install tftp-server tftp
+sudo yum -y install dhcp
+sudo yum -y install ipmitool
+sudo yum install http://repo.ctrliq.com/packages/rhel7/ctrl-release.rpm
+sudo yum install singularityplus
+sudo yum install gpgme-devel
+sudo yum install libassuan.x86_64 libassuan-devel.x86_64
+sudo yum install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
+sudo yum install golang
+sudo yum install nfs-utils
 
-<span class="c1"># Install Warewulf and dependencies</span>
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf.git
-<span class="nb">cd</span><span class="w"> </span>warewulf
+# Install Warewulf and dependencies
+git clone https://github.com/warewulf/warewulf.git
+cd warewulf
 
-make<span class="w"> </span>all
-sudo<span class="w"> </span>make<span class="w"> </span>install
+make all
+sudo make install
 
-<span class="c1"># Configure the controller</span>
-Edit<span class="w"> </span>the<span class="w"> </span>file<span class="w"> </span>/etc/warewulf/warewulf.conf<span class="w"> </span>and<span class="w"> </span>ensure<span class="w"> </span>that<span class="w"> </span>you<span class="err">&#39;</span>ve<span class="w"> </span>ser<span class="w"> </span>the<span class="w"> </span>approprite<span class="w"> </span>configuration<span class="w"> </span>parameters
+# Configure the controller
+Edit the file /etc/warewulf/warewulf.conf and ensure that you&#39;ve ser the approprite configuration parameters
 
-<span class="c1"># Configure system service automatically</span>
-sudo<span class="w"> </span>wwctl<span class="w"> </span>configure<span class="w"> </span>dhcp<span class="w"> </span><span class="c1"># Create the default dhcpd.conf file and start/enable service</span>
-sudo<span class="w"> </span>wwctl<span class="w"> </span>configure<span class="w"> </span>tftp<span class="w"> </span><span class="c1"># Install the base tftp/PXE boot files and start/enable service</span>
-sudo<span class="w"> </span>wwctl<span class="w"> </span>configure<span class="w"> </span>nfs<span class="w">  </span><span class="c1"># Configure the exports and create an fstab in the default system overlay</span>
-sudo<span class="w"> </span>wwctl<span class="w"> </span>configure<span class="w"> </span>ssh<span class="w">  </span><span class="c1"># Build the basic ssh keys to be included by the default system overlay</span>
+# Configure system service automatically
+sudo wwctl configure dhcp # Create the default dhcpd.conf file and start/enable service
+sudo wwctl configure tftp # Install the base tftp/PXE boot files and start/enable service
+sudo wwctl configure nfs  # Configure the exports and create an fstab in the default system overlay
+sudo wwctl configure ssh  # Build the basic ssh keys to be included by the default system overlay
 
-<span class="c1"># Pull and build the VNFS container and kernel</span>
-sudo<span class="w"> </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-centos:7<span class="w"> </span>centos-7<span class="w"> </span>--setdefault
-sudo<span class="w"> </span>wwctl<span class="w"> </span>kernel<span class="w"> </span>import<span class="w"> </span>build<span class="w"> </span><span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="w"> </span>--setdefault
+# Pull and build the VNFS container and kernel
+sudo wwctl container import docker://ghcr.io/warewulf/warewulf-centos:7 centos-7 --setdefault
+sudo wwctl kernel import build $(uname -r) --setdefault
 
-<span class="c1"># Set up the default node profile</span>
-sudo<span class="w"> </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>-K<span class="w"> </span><span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="w"> </span>-C<span class="w"> </span>centos-7
-sudo<span class="w"> </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--netdev<span class="w"> </span>eth0<span class="w"> </span>-M<span class="w"> </span>WW_server_subnet_mask<span class="w"> </span>-G<span class="w"> </span>WW_server_ip
-sudo<span class="w"> </span>wwctl<span class="w"> </span>profile<span class="w"> </span>list
+# Set up the default node profile
+sudo wwctl profile set default -K $(uname -r) -C centos-7
+sudo wwctl profile set default --netdev eth0 -M WW_server_subnet_mask -G WW_server_ip
+sudo wwctl profile list
 
-<span class="c1"># Add a node and build node specific overlays</span>
-sudo<span class="w"> </span>wwctl<span class="w"> </span>node<span class="w"> </span>add<span class="w"> </span>n0000.cluster<span class="w"> </span>--netdev<span class="w"> </span>eth0<span class="w"> </span>-I<span class="w"> </span>n0000_ip<span class="w"> </span>--discoverable
-sudo<span class="w"> </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span>n0000
+# Add a node and build node specific overlays
+sudo wwctl node add n0000.cluster --netdev eth0 -I n0000_ip --discoverable
+sudo wwctl node list -a n0000
 
-<span class="c1"># Review Warewulf overlays</span>
-sudo<span class="w"> </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>list<span class="w"> </span>-l
-sudo<span class="w"> </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>list<span class="w"> </span>-ls
-sudo<span class="w"> </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>edit<span class="w"> </span>default<span class="w"> </span>/etc/hello_world.ww
-sudo<span class="w"> </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>build<span class="w"> </span>-a
+# Review Warewulf overlays
+sudo wwctl overlay list -l
+sudo wwctl overlay list -ls
+sudo wwctl overlay edit default /etc/hello_world.ww
+sudo wwctl overlay build -a
 
-<span class="c1"># Start the Warewulf daemon</span>
-sudo<span class="w"> </span>wwctl<span class="w"> </span>ready
-sudo<span class="w"> </span>wwctl<span class="w"> </span>server<span class="w"> </span>start
-sudo<span class="w"> </span>wwctl<span class="w"> </span>server<span class="w"> </span>status
+# Start the Warewulf daemon
+sudo wwctl ready
+sudo wwctl server start
+sudo wwctl server status
 </pre></div>
 </div>
 <p>Boot your node and watch the bash and the output of the Warewulfd process</p>
