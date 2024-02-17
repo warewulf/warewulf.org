@@ -141,31 +141,29 @@ configuration attributes by using the <code class="docutils literal notranslate"
 follows:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span>list
 <span class="go">PROFILE NAME         COMMENT/DESCRIPTION</span>
-<span class="go">================================================================================</span>
 <span class="go">default              This profile is automatically included for each node</span>
 </pre></div>
 </div>
 <p>And with the <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span>list<span class="w"> </span>-a
-<span class="gp">#</span><span class="c1">###############################################################################</span>
-<span class="go">PROFILE NAME         FIELD              VALUE</span>
-<span class="go">default              Id                 default</span>
-<span class="go">default              Comment            This profile is automatically included for each node</span>
-<span class="go">default              Cluster            --</span>
-<span class="go">default              Container          --</span>
-<span class="go">default              Kernel             --</span>
-<span class="go">default              KernelArgs         --</span>
-<span class="go">default              Init               --</span>
-<span class="go">default              Root               --</span>
-<span class="go">default              RuntimeOverlay     --</span>
-<span class="go">default              SystemOverlay      --</span>
-<span class="go">default              Ipxe               --</span>
-<span class="go">default              IpmiIpaddr         --</span>
-<span class="go">default              IpmiNetmask        --</span>
-<span class="go">default              IpmiPort           --</span>
-<span class="go">default              IpmiGateway        --</span>
-<span class="go">default              IpmiUserName       --</span>
-<span class="go">default              IpmiInterface      --</span>
+<span class="go">PROFILE              FIELD              PROFILE  VALUE</span>
+<span class="go">default              Id                 --       default</span>
+<span class="go">default              Comment            --       This profile is automatically included for each node</span>
+<span class="go">default              Cluster            --       --</span>
+<span class="go">default              Container          --       --</span>
+<span class="go">default              Kernel             --       --</span>
+<span class="go">default              KernelArgs         --       --</span>
+<span class="go">default              Init               --       --</span>
+<span class="go">default              Root               --       --</span>
+<span class="go">default              RuntimeOverlay     --       --</span>
+<span class="go">default              SystemOverlay      --       --</span>
+<span class="go">default              Ipxe               --       --</span>
+<span class="go">default              IpmiIpaddr         --       --</span>
+<span class="go">default              IpmiNetmask        --       --</span>
+<span class="go">default              IpmiPort           --       --</span>
+<span class="go">default              IpmiGateway        --       --</span>
+<span class="go">default              IpmiUserName       --       --</span>
+<span class="go">default              IpmiInterface      --       --</span>
 </pre></div>
 </div>
 <p>As you can see here, there is only one attribute set by default in
@@ -174,7 +172,6 @@ inherited by any nodes that are configured to use this profile. So if
 we look at the node we configured in the last section, we can see that
 configuration attribute there:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span>
-<span class="gp">#</span><span class="c1">###############################################################################</span>
 <span class="go">NODE                 FIELD              PROFILE      VALUE</span>
 <span class="go">n0000                Id                 --           n0000</span>
 <span class="go">n0000                Comment            default      This profile is automatically included for each node</span>
@@ -194,7 +191,6 @@ demonstrate how to use this second profile.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span>add<span class="w"> </span>test_profile
 <span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span>list
 <span class="go">PROFILE NAME         COMMENT/DESCRIPTION</span>
-<span class="go">================================================================================</span>
 <span class="go">default              This profile is automatically included for each node</span>
 <span class="go">test_profile         --</span>
 </pre></div>
@@ -215,7 +211,6 @@ attribute in this profile:</p>
 </div>
 <p>And you can now verify that the node has both profile configurations:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">6</span>
-<span class="gp">#</span><span class="c1">###############################################################################</span>
 <span class="go">NODE                 FIELD              PROFILE      VALUE</span>
 <span class="go">n0000                Id                 --           n0000</span>
 <span class="go">n0000                Comment            default      This profile is automatically included for each node</span>
@@ -232,7 +227,6 @@ configurations. We can also overwrite configurations as follows:</p>
 <span class="go">Are you sure you want to modify 1 profile(s): y</span>
 
 <span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">6</span>
-<span class="gp">#</span><span class="c1">###############################################################################</span>
 <span class="go">NODE                 FIELD              PROFILE      VALUE</span>
 <span class="go">n0000                Id                 --           n0000</span>
 <span class="go">n0000                Comment            test_profile test comment</span>
@@ -246,7 +240,6 @@ configurations. We can also overwrite configurations as follows:</p>
 <span class="go">Are you sure you want to modify 1 profile(s): y</span>
 
 <span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">6</span>
-<span class="gp">#</span><span class="c1">###############################################################################</span>
 <span class="go">NODE                 FIELD              PROFILE      VALUE</span>
 <span class="go">n0000                Id                 --           n0000</span>
 <span class="go">n0000                Comment            default      This profile is automatically included for each node</span>
@@ -268,7 +261,6 @@ as can be seen here:</p>
 <span class="go">Are you sure you want to modify 1 nodes(s): y</span>
 
 <span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">6</span>
-<span class="gp">#</span><span class="c1">###############################################################################</span>
 <span class="go">NODE                 FIELD              PROFILE      VALUE</span>
 <span class="go">n0000                Id                 --           n0000</span>
 <span class="go">n0000                Comment            SUPERSEDED   This value takes precedent</span>

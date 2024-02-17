@@ -146,7 +146,7 @@ which we felt was both tolerable and advantageous.</p>
 <section id="adding-a-new-node">
 <h2>Adding a New Node<a class="headerlink" href="#adding-a-new-node" title="Link to this heading"></a></h2>
 <p>Creating a new node is as simple as running the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>add<span class="w"> </span>n001<span class="w"> </span>-I<span class="w"> </span><span class="m">172</span>.16.1.11
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>add<span class="w"> </span>n001<span class="w"> </span>-I<span class="w"> </span><span class="m">10</span>.0.2.1
 <span class="go">Added node: n001</span>
 </pre></div>
 </div>
@@ -154,18 +154,17 @@ which we felt was both tolerable and advantageous.</p>
 <h3>Adding several nodes<a class="headerlink" href="#adding-several-nodes" title="Link to this heading"></a></h3>
 <p>Several nodes can be added with a single command if a node range is
 given. An additional IP address will incremented. So the command</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>add<span class="w"> </span>n00<span class="o">[</span><span class="m">2</span>-4<span class="o">]</span><span class="w"> </span>-I<span class="w"> </span><span class="m">172</span>.16.1.12
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>add<span class="w"> </span>n00<span class="o">[</span><span class="m">2</span>-4<span class="o">]</span><span class="w"> </span>-I<span class="w"> </span><span class="m">10</span>.0.2.2
 <span class="go">Added node: n002</span>
 <span class="go">Added node: n003</span>
 <span class="go">Added node: n004</span>
 
 <span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-n<span class="w"> </span>n00<span class="o">[</span><span class="m">1</span>-4<span class="o">]</span>
 <span class="go">NODE NAME              NAME     HWADDR             IPADDR          GATEWAY         DEVICE</span>
-<span class="go">==========================================================================================</span>
-<span class="go">n001                   default  --                 172.16.1.11     --              (eth0)</span>
-<span class="go">n002                   default  --                 172.16.1.12     --              (eth0)</span>
-<span class="go">n003                   default  --                 172.16.1.13     --              (eth0)</span>
-<span class="go">n004                   default  --                 172.16.1.14     --              (eth0)</span>
+<span class="go">n001                   default  --                 10.0.2.1        --              (eth0)</span>
+<span class="go">n002                   default  --                 10.0.2.2        --              (eth0)</span>
+<span class="go">n003                   default  --                 10.0.2.3        --              (eth0)</span>
+<span class="go">n004                   default  --                 10.0.2.4        --              (eth0)</span>
 </pre></div>
 </div>
 <p>has added 4 nodes with the incremented IP addresses.</p>
@@ -191,47 +190,45 @@ valuable for other <code class="docutils literal notranslate"><span class="pre">
 their attributes as follows:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list
 <span class="go">NODE NAME              PROFILES                   NETWORK</span>
-<span class="go">================================================================================</span>
-<span class="go">n001                            default</span>
+<span class="go">n001                                              default</span>
 </pre></div>
 </div>
 <p>You can also see the node’s full attribute list by specifying the
 <code class="docutils literal notranslate"><span class="pre">-a</span></code> option (all):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># wwctl node list -a n001</span>
-NODE<span class="w">                 </span>FIELD<span class="w">              </span>PROFILE<span class="w">      </span><span class="nv">VALUE</span>
-<span class="o">=====================================================================================</span>
-n001<span class="w">                 </span>Id<span class="w">                 </span>--<span class="w">           </span>n001
-n001<span class="w">                 </span>comment<span class="w">            </span>default<span class="w">      </span>This<span class="w"> </span>profile<span class="w"> </span>is<span class="w"> </span>automatically<span class="w"> </span>included<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>node
-n001<span class="w">                 </span>cluster<span class="w">            </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>container<span class="w">          </span>default<span class="w">      </span>sle-micro-5.3
-n001<span class="w">                 </span>ipxe<span class="w">               </span>--<span class="w">           </span><span class="o">(</span>default<span class="o">)</span>
-n001<span class="w">                 </span>runtime<span class="w">            </span>--<span class="w">           </span><span class="o">(</span>generic<span class="o">)</span>
-n001<span class="w">                 </span>wwinit<span class="w">             </span>--<span class="w">           </span><span class="o">(</span>wwinit<span class="o">)</span>
-n001<span class="w">                 </span>root<span class="w">               </span>--<span class="w">           </span><span class="o">(</span>initramfs<span class="o">)</span>
-n001<span class="w">                 </span>discoverable<span class="w">       </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>init<span class="w">               </span>--<span class="w">           </span><span class="o">(</span>/sbin/init<span class="o">)</span>
-n001<span class="w">                 </span>asset<span class="w">              </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>kerneloverride<span class="w">     </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>kernelargs<span class="w">         </span>--<span class="w">           </span><span class="o">(</span>quiet<span class="w"> </span><span class="nv">crashkernel</span><span class="o">=</span>no<span class="w"> </span><span class="nv">vga</span><span class="o">=</span><span class="m">791</span><span class="w"> </span>net.naming-scheme<span class="o">=</span>v238<span class="o">)</span>
-n001<span class="w">                 </span>ipmiaddr<span class="w">           </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>ipminetmask<span class="w">        </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>ipmiport<span class="w">           </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>ipmigateway<span class="w">        </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>ipmiuser<span class="w">           </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>ipmipass<span class="w">           </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>ipmiinterface<span class="w">      </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>ipmiwrite<span class="w">          </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>profile<span class="w">            </span>--<span class="w">           </span>default
-n001<span class="w">                 </span>default:type<span class="w">       </span>--<span class="w">           </span><span class="o">(</span>ethernet<span class="o">)</span>
-n001<span class="w">                 </span>default:onboot<span class="w">     </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>default:netdev<span class="w">     </span>--<span class="w">           </span><span class="o">(</span>eth0<span class="o">)</span>
-n001<span class="w">                 </span>default:hwaddr<span class="w">     </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>default:ipaddr<span class="w">     </span>--<span class="w">           </span><span class="m">172</span>.16.1.11
-n001<span class="w">                 </span>default:ipaddr6<span class="w">    </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>default:netmask<span class="w">    </span>--<span class="w">           </span><span class="o">(</span><span class="m">255</span>.255.255.0<span class="o">)</span>
-n001<span class="w">                 </span>default:gateway<span class="w">    </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>default:mtu<span class="w">        </span>--<span class="w">           </span>--
-n001<span class="w">                 </span>default:primary<span class="w">    </span>--<span class="w">           </span><span class="nb">true</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span>n001
+<span class="go">NODE                 FIELD              PROFILE      VALUE</span>
+<span class="go">n001                 Id                 --           n001</span>
+<span class="go">n001                 comment            default      This profile is automatically included for each node</span>
+<span class="go">n001                 cluster            --           --</span>
+<span class="go">n001                 container          default      sle-micro-5.3</span>
+<span class="go">n001                 ipxe               --           (default)</span>
+<span class="go">n001                 runtime            --           (generic)</span>
+<span class="go">n001                 wwinit             --           (wwinit)</span>
+<span class="go">n001                 root               --           (initramfs)</span>
+<span class="go">n001                 discoverable       --           --</span>
+<span class="go">n001                 init               --           (/sbin/init)</span>
+<span class="go">n001                 asset              --           --</span>
+<span class="go">n001                 kerneloverride     --           --</span>
+<span class="go">n001                 kernelargs         --           (quiet crashkernel=no vga=791 net.naming-scheme=v238)</span>
+<span class="go">n001                 ipmiaddr           --           --</span>
+<span class="go">n001                 ipminetmask        --           --</span>
+<span class="go">n001                 ipmiport           --           --</span>
+<span class="go">n001                 ipmigateway        --           --</span>
+<span class="go">n001                 ipmiuser           --           --</span>
+<span class="go">n001                 ipmipass           --           --</span>
+<span class="go">n001                 ipmiinterface      --           --</span>
+<span class="go">n001                 ipmiwrite          --           --</span>
+<span class="go">n001                 profile            --           default</span>
+<span class="go">n001                 default:type       --           (ethernet)</span>
+<span class="go">n001                 default:onboot     --           --</span>
+<span class="go">n001                 default:netdev     --           (eth0)</span>
+<span class="go">n001                 default:hwaddr     --           --</span>
+<span class="go">n001                 default:ipaddr     --           172.16.1.11</span>
+<span class="go">n001                 default:ipaddr6    --           --</span>
+<span class="go">n001                 default:netmask    --           (255.255.255.0)</span>
+<span class="go">n001                 default:gateway    --           --</span>
+<span class="go">n001                 default:mtu        --           --</span>
+<span class="go">n001                 default:primary    --           true</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -265,7 +262,7 @@ see a list of all configuration attributes, use the command <code class="docutil
 </div>
 <section id="configuring-the-node-s-kernel">
 <h3>Configuring the Node’s Kernel<a class="headerlink" href="#configuring-the-node-s-kernel" title="Link to this heading"></a></h3>
-<p>While the recommended method for assigning a kernel in 4.3 and beyond
+<p>While the recommended method for assigning a kernel in v4.3 and beyond
 is to include it in the container / node image, a kernel can still be
 specified as an override at the node or profile.  To illustrate this,
 we import the most recent kernel from a openSUSE Tumbleweed release.</p>
@@ -293,7 +290,7 @@ provide the network information as follows:</p>
 <p>You can now see that the node contains configuration attributes for
 container, kernel, and network:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span>n001
-<span class="go">=====================================================================================</span>
+<span class="go">NODE                 FIELD              PROFILE      VALUE</span>
 <span class="go">n001                 Id                 --           n001</span>
 <span class="go">n001                 comment            default      This profile is automatically included for each node</span>
 <span class="go">n001                 cluster            --           --</span>
@@ -360,7 +357,7 @@ You will have provide all the necessary network information.</p>
 <section id="node-discovery">
 <h3>Node Discovery<a class="headerlink" href="#node-discovery" title="Link to this heading"></a></h3>
 <p>The hwaddr of a node can be automatically discovered by setting
-<cite>–discoverable</cite> on a node. If a node attempts to provision against
+<code class="docutils literal notranslate"><span class="pre">--discoverable</span></code> on a node. If a node attempts to provision against
 Warewulf using an interface that is unknown to Warewulf, that address
 is associated with the first discoverable node. (Multiple discoverable
 nodes are sorted lexically, first by cluster, then by ID.)</p>
