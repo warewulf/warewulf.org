@@ -127,8 +127,8 @@
              
   <section id="warewulf-installation">
 <h1>Warewulf Installation<a class="headerlink" href="#warewulf-installation" title="Link to this heading"></a></h1>
-<p>There are multiple methods to install Warewulf, this page describes
-the installation process of multiple methods:</p>
+<p>There are multiple methods to install Warewulf. This page describes
+the installation process for some of those methods.</p>
 <section id="binary-rpms">
 <h2>Binary RPMs<a class="headerlink" href="#binary-rpms" title="Link to this heading"></a></h2>
 <p>The Warewulf project builds binary RPMs as part of its CI/CD
@@ -165,20 +165,14 @@ entire development group like <code class="docutils literal notranslate"><span c
 source code as follows:</p>
 <section id="release-tarball">
 <h3>Release Tarball<a class="headerlink" href="#release-tarball" title="Link to this heading"></a></h3>
-<p>When the Warewulf project releases stable versions, they are available
-via source form here:</p>
-<p><a class="reference external" href="https://github.com/warewulf/warewulf/tags/">https://github.com/warewulf/warewulf/tags</a></p>
+<p>The Warewulf project releases source distributions alongside its
+binary RPMs. You can obtain them from the <a class="reference external" href="https://github.com/hpcng/warewulf/releases">GitHub releases</a> page.</p>
 <p>Select the version you wish to install and download the tarball to any
 location on the server, then follow these directions making the
 appropriate substitutions:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># EDIT HERE</span>
-<span class="nv">VERSION</span><span class="o">=</span><span class="m">4</span>.2.0
-<span class="nv">DOWNLOAD</span><span class="o">=</span>/tmp/warewulf-<span class="si">${</span><span class="nv">4</span><span class="p">.2.0</span><span class="si">}</span>.tar.gz
-
-<span class="c1"># COPY/PASTE THIS</span>
-mkdir<span class="w"> </span>~/src
-<span class="nb">cd</span><span class="w"> </span>~/src
-tar<span class="w"> </span>xvf<span class="w"> </span><span class="si">${</span><span class="nv">DOWNLOAD</span><span class="si">}</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">VERSION</span><span class="o">=</span><span class="m">4</span>.4.0
+curl<span class="w"> </span>-LO<span class="w"> </span>https://github.com/hpcng/warewulf/releases/download/v<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>/warewulf-<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>.tar.gz
+tar<span class="w"> </span>-xf<span class="w"> </span>warewulf-<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>.tar.gz
 <span class="nb">cd</span><span class="w"> </span>warewulf-<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>
 make<span class="w"> </span>all<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
@@ -186,22 +180,24 @@ make<span class="w"> </span>all<span class="w"> </span><span class="o">&amp;&amp
 </section>
 <section id="git">
 <h3>Git<a class="headerlink" href="#git" title="Link to this heading"></a></h3>
-<p>Warewulf is developed in “Git”, a source code management platform that
-allows collaborative development and revision control. From the Git
-repository, you can download different versions of the project either
-from tags or branches. By default, when you go to the GitHub page, you
-will find the default branch entitled <code class="docutils literal notranslate"><span class="pre">main</span></code>. The <code class="docutils literal notranslate"><span class="pre">main</span></code> branch is
-where most of the active development occurs, so if you want to obtain
-the latest and greatest version of Warewulf, this is where to go. But
-be forewarned, using a snapshot from <code class="docutils literal notranslate"><span class="pre">main</span></code> is not guaranteed to be
-stable or generally supported for production. If you are building for
-production, it is best to download a release tarball from the main
-site, the GitHub releases page, or from a Git tag.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>~/git
-<span class="nb">cd</span><span class="w"> </span>~/git
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf.git
+<p>Warewulf is developed in GitHub, a source code management platform
+that allows collaborative development and revision control. From the
+Git repository, you can download different versions of the project
+either from tags or branches. By default, when you go to the GitHub
+page, you will find the default branch entitled <code class="docutils literal notranslate"><span class="pre">development</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">development</span></code> branch is where most of the active development occurs,
+so if you want to obtain the latest and greatest version of Warewulf,
+this is where to go. But be forewarned, using a snapshot from
+<code class="docutils literal notranslate"><span class="pre">development</span></code> is not guaranteed to be stable or generally supported
+for production.</p>
+<p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch is more stable and is used as a
+staging area for pending releases.</p>
+<p>If you are building for production, it is best to download a release
+tarball from the main site, the GitHub releases page, or from a Git
+tag.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/hpcng/warewulf.git
 <span class="nb">cd</span><span class="w"> </span>warewulf
-git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="c1"># or switch to a tag like &#39;4.2.0&#39;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>development<span class="w"> </span><span class="c1"># or switch to a tag like &#39;v4.4.0&#39;</span>
 make<span class="w"> </span>all<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
 </div>

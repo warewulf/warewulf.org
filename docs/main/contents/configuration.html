@@ -126,11 +126,11 @@ primary configuration files needed by Warewulf.</p>
 <section id="warewulf-conf">
 <h2>warewulf.conf<a class="headerlink" href="#warewulf-conf" title="Link to this heading"></a></h2>
 <p>The Warewulf configuration exists as follows in the current version of
-Warewulf (4.3.0):</p>
+Warewulf (4.4.0):</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">WW_INTERNAL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">43</span>
-<span class="nt">ipaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.200.1</span>
-<span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
-<span class="nt">network</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.200.0</span>
+<span class="nt">ipaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.1</span>
+<span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.252.0</span>
+<span class="nt">network</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.0</span>
 <span class="nt">warewulf</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9873</span>
 <span class="w">  </span><span class="nt">secure</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
@@ -140,8 +140,8 @@ Warewulf (4.3.0):</p>
 <span class="w">  </span><span class="nt">syslog</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="nt">dhcp</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">range start</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.200.50</span>
-<span class="w">  </span><span class="nt">range end</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.200.99</span>
+<span class="w">  </span><span class="nt">range start</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.1.1</span>
+<span class="w">  </span><span class="nt">range end</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.1.255</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dhcpd</span>
 <span class="nt">tftp</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -158,6 +158,10 @@ Warewulf (4.3.0):</p>
 <span class="w">    </span><span class="nt">mount options</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults</span>
 <span class="w">    </span><span class="nt">mount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfs-server</span>
+<span class="nt">container mounts</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
+<span class="w">    </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
+<span class="w">    </span><span class="nt">readonly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
 <p>Generally you can leave this file as is, as long as you set the
@@ -176,16 +180,12 @@ exist in the network defined above. If it is outside of this
 network, failures will occur. This specifies the range of addresses
 you want DHCP to use.</p></li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The network configuration listed above assumes the network layout
-in the [Background](background.md) portion of the documentation.</p>
-</div>
 <p>The other configuration options are usually not touched, but they are
 explained as follows:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">*:enabled</span></code>: This disables Warewulf’s control of an external
-service. This is useful if you want to manage that service directly.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*:enabled</span></code>: This can be used to disable Warewulf’s control of a
+system service. This is useful if you want to manage that service
+directly.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">*:systemd</span> <span class="pre">name</span></code>: This is so Warewulf can control some of the
 host’s services. For the distributions that we’ve built and tested
 this on, these will require no changes.</p></li>
@@ -214,8 +214,11 @@ services.)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">warewulf:syslog</span></code>: This determines whether Warewulf server logs go
 to syslog or are written directly to a log file. (e.g.,
 <code class="docutils literal notranslate"><span class="pre">/var/log/warewulfd.log</span></code>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nfs:export</span> <span class="pre">paths</span></code>: Warewulf will automatically set up the NFS
-exports if you wish for it to do this.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nfs:export</span> <span class="pre">paths</span></code>: Warewulf can automatically set up these NFS
+exports.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">mounts</span></code>: These paths are mounted into the container
+during <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">exec</span></code> or <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">shell</span></code>, typically to allow
+them to operate in the host environment prior to deployment.</p></li>
 </ul>
 </section>
 <section id="nodes-conf">
@@ -231,18 +234,18 @@ format of this file as it is recommended to edit with the <code class="docutils 
 command.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This configuration is not written at install time, but the
-first time you attempt to run <code class="docutils literal notranslate"><span class="pre">wwctl</span></code>, this file will be generated
-if it does not exist already.</p>
+<p>This configuration is not written at install time; but, the first
+time you attempt to run <code class="docutils literal notranslate"><span class="pre">wwctl</span></code>, this file will be generated if
+it does not exist already.</p>
 </div>
 </section>
 <section id="defaults-conf">
 <h2>defaults.conf<a class="headerlink" href="#defaults-conf" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">defaults.conf</span></code> file configures default values used when none
-are specified. For example: if a node does not have a “runtime
-overlay” specified, the respective value from <code class="docutils literal notranslate"><span class="pre">defaultnode</span></code> is
-used. If a network device does not specify a “device,” the device
-value of the <code class="docutils literal notranslate"><span class="pre">dummy</span></code> device is used.</p>
+are specified in <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code>. For example: if a node does not have
+a “runtime overlay” specified, the respective value from
+<code class="docutils literal notranslate"><span class="pre">defaultnode</span></code> is used. If a network device does not specify a
+“device,” the device value of the <code class="docutils literal notranslate"><span class="pre">dummy</span></code> device is used.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">defaults.conf</span></code> does not exist, the following values are used as
 compiled into Warewulf at build-time:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">--</span>
