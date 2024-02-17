@@ -72,6 +72,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#configuring-the-node-s-container-image">Configuring the Node’s Container Image</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#configuring-the-node-s-kernel">Configuring the Node’s Kernel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#configuring-the-node-s-network">Configuring the Node’s Network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-networks">Additional networks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#node-discovery">Node Discovery</a></li>
 </ul>
 </li>
@@ -340,6 +341,21 @@ container, kernel, and network:</p>
 </pre></div>
 </div>
 <p>Note: the netnames of the member interterfaces need to match the “netname” of the bonded interface until the first “_” (in the example bond0)</p>
+</section>
+<section id="additional-networks">
+<h3>Additional networks<a class="headerlink" href="#additional-networks" title="Link to this heading"></a></h3>
+<p>Additional networks for the node can also be configured.
+You will have provide all the necessary network information.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netdev<span class="w"> </span>ib0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--hwaddr<span class="w"> </span>aa:bb:cc:dd:ee:ff<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ipaddr<span class="w"> </span><span class="m">10</span>.0.20.1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netmask<span class="w"> </span><span class="m">255</span>.255.252.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netname<span class="w"> </span>iband<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>infiniband<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>n001
+</pre></div>
+</div>
 </section>
 <section id="node-discovery">
 <h3>Node Discovery<a class="headerlink" href="#node-discovery" title="Link to this heading"></a></h3>
