@@ -76,16 +76,16 @@ const ContactPage = () => (
         </div>
         <div className="max-w-2xl mb-10 mt-20 md:mx-auto sm:text-center lg:max-w-3xl md:mb-12">
             <h2 className="max-w-lg mb-6 font-sans text-4xl font-extrabold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
-                Looking for the mailing list?
+                Looking for the community?
             </h2>
 
             <Link
-                to="https://groups.google.com/a/lbl.gov/g/warewulf"
+                to="https://join.slack.com/t/warewulf/shared_invite/zt-27moxdo1x-f1ztmeUU5OgmVtdwJVH9Xg"
                 class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-900 hover:bg-green-800 focus:shadow-outline focus:outline-none"
-                aria-label="Join Mailing List"
-                title="Join Mailing List"
+                aria-label="Join Slack"
+                title="Join Slack"
             >
-                Join Mailing List
+                Join Slack
             </Link>
 
         </div>
