@@ -18,7 +18,7 @@ const HelpPage = () => (
           Warewulf has freely available support resources to help.
         </p>
       </div>
-      <div className="grid gap-4 row-gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 row-gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <div className="flex flex-col justify-between p-5 border rounded shadow-sm">
           <div>
             <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-green-50">
@@ -53,24 +53,6 @@ const HelpPage = () => (
             className="inline-flex items-center font-semibold transition-colors duration-200 text-green-900 hover:text-green-700"
           >
             Join Slack
-          </Link>
-        </div>
-        <div className="flex flex-col justify-between p-5 border rounded shadow-sm">
-          <div>
-            <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-green-50">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-green-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
-            </div>
-            <h6 className="mb-2 font-semibold leading-5">Mailing List</h6>
-            <p className="mb-3 text-sm text-gray-900">
-              The Warewulf project uses a Google Group hosted by LBNL. Join to engage in discussions and receive announcements from the project.
-            </p>
-          </div>
-          <Link
-            to="https://groups.google.com/a/lbl.gov/g/warewulf"
-            aria-label=""
-            className="inline-flex items-center font-semibold transition-colors duration-200 text-green-900 hover:text-green-700"
-          >
-            Join Mailing List
           </Link>
         </div>
         <div className="flex flex-col justify-between p-5 border rounded shadow-sm">
