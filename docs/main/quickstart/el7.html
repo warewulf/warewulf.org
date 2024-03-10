@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EL9 Quickstart (Rocky Linux and RHEL) &mdash; Warewulf User Guide main documentation</title>
+  <title>EL7 Quickstart (CentOS and RHEL) &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
@@ -23,8 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="openSUSE Leap and SLES 15 Quickstart" href="suse15.html" />
-    <link rel="prev" title="EL8 Quickstart (Rocky Linux and RHEL)" href="el8.html" /> 
+    <link rel="next" title="EL8 Quickstart (Rocky Linux and RHEL)" href="el8.html" />
+    <link rel="prev" title="Dnsmasq" href="../contents/dnsmasq.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -72,19 +72,19 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="el7.html">EL7 (Rocky Linux and RHEL)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="el8.html">EL8 (Rocky Linux and RHEL)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">EL9 (Rocky Linux and RHEL)</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">EL7 (Rocky Linux and RHEL)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#install-warewulf-and-dependencies">Install Warewulf and dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-firewalld">Configure firewalld</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-the-controller">Configure the controller</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#start-and-enable-the-warewulf-service">Start and enable the Warewulf service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-system-services-automatically">Configure system services automatically</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pull-and-build-the-vnfs-container-including-the-kernel">Pull and build the VNFS container (including the kernel)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pull-and-build-the-vnfs-container-and-kernel">Pull and build the VNFS container and kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#set-up-the-default-node-profile">Set up the default node profile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#add-a-node">Add a node</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="el8.html">EL8 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="el9.html">EL9 (Rocky Linux and RHEL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="suse15.html">openSUSE Leap and SLES 15</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debian12.html">Debian 12</a></li>
 </ul>
@@ -113,9 +113,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">EL9 Quickstart (Rocky Linux and RHEL)</li>
+      <li class="breadcrumb-item active">EL7 Quickstart (CentOS and RHEL)</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/quickstart/el9.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/quickstart/el7.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -123,33 +123,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="el9-quickstart-rocky-linux-and-rhel">
-<h1>EL9 Quickstart (Rocky Linux and RHEL)<a class="headerlink" href="#el9-quickstart-rocky-linux-and-rhel" title="Link to this heading"></a></h1>
+  <section id="el7-quickstart-centos-and-rhel">
+<h1>EL7 Quickstart (CentOS and RHEL)<a class="headerlink" href="#el7-quickstart-centos-and-rhel" title="Link to this heading"></a></h1>
 <section id="install-warewulf-and-dependencies">
 <h2>Install Warewulf and dependencies<a class="headerlink" href="#install-warewulf-and-dependencies" title="Link to this heading"></a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>groupinstall<span class="w"> </span><span class="s2">&quot;Development Tools&quot;</span>
-sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>epel-release
-sudo<span class="w"> </span>dnf<span class="w"> </span>config-manager<span class="w"> </span>--set-enabled<span class="w"> </span>crb
-sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>golang<span class="w"> </span>tftp-server<span class="w"> </span>dhcp-server<span class="w"> </span>nfs-utils<span class="w"> </span>gpgme-devel<span class="w"> </span>libassuan-devel
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>golang<span class="w"> </span>tftp-server<span class="w"> </span>dhcp<span class="w"> </span>nfs-utils
 
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf.git
 <span class="nb">cd</span><span class="w"> </span>warewulf
-make<span class="w"> </span>clean<span class="w"> </span>defaults<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">PREFIX</span><span class="o">=</span>/usr<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">BINDIR</span><span class="o">=</span>/usr/bin<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">SYSCONFDIR</span><span class="o">=</span>/etc<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">DATADIR</span><span class="o">=</span>/usr/share<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">LOCALSTATEDIR</span><span class="o">=</span>/var/lib<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">SHAREDSTATEDIR</span><span class="o">=</span>/var/lib<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">MANDIR</span><span class="o">=</span>/usr/share/man<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">INFODIR</span><span class="o">=</span>/usr/share/info<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">DOCDIR</span><span class="o">=</span>/usr/share/doc<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">SRVDIR</span><span class="o">=</span>/var/lib<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">TFTPDIR</span><span class="o">=</span>/var/lib/tftpboot<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">SYSTEMDDIR</span><span class="o">=</span>/usr/lib/systemd/system<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">BASHCOMPDIR</span><span class="o">=</span>/etc/bash_completion.d/<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">FIREWALLDDIR</span><span class="o">=</span>/usr/lib/firewalld/services<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span><span class="nv">WWCLIENTDIR</span><span class="o">=</span>/warewulf
 make<span class="w"> </span>all
 sudo<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
@@ -173,7 +154,7 @@ sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
 set the appropriate configuration parameters. Here are some of the
 defaults for reference assuming that <code class="docutils literal notranslate"><span class="pre">192.168.200.1</span></code> is the IP
 address of your cluster’s private network interface:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">WW_INTERNAL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">WW_INTERNAL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">43</span>
 <span class="nt">ipaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.200.1</span>
 <span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
 <span class="nt">network</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.200.0</span>
@@ -238,27 +219,26 @@ instructions.</p>
 <p>If you just installed the system fresh and have SELinux enforcing,
 you may need to reboot the system at this stage to properly set the
 contexts of the TFTP contents. After rebooting, you might also need
-to run <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">restorecon</span> <span class="pre">-Rv</span> <span class="pre">/var/lib/tftpboot/</span></code> if there are
+to run <code class="docutils literal notranslate"><span class="pre">restorecon</span> <span class="pre">-Rv</span> <span class="pre">/var/lib/tftpboot/</span></code> if there are
 errors with TFTP still.</p>
 </div>
 </section>
-<section id="pull-and-build-the-vnfs-container-including-the-kernel">
-<h2>Pull and build the VNFS container (including the kernel)<a class="headerlink" href="#pull-and-build-the-vnfs-container-including-the-kernel" title="Link to this heading"></a></h2>
+<section id="pull-and-build-the-vnfs-container-and-kernel">
+<h2>Pull and build the VNFS container and kernel<a class="headerlink" href="#pull-and-build-the-vnfs-container-and-kernel" title="Link to this heading"></a></h2>
 <p>This will pull a basic VNFS container from Docker Hub and import the
 default running kernel from the controller node and set both in the
 “default” node profile.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:9<span class="w"> </span>rocky-9
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-centos:7<span class="w"> </span>centos-7<span class="w"> </span>--setdefault
+sudo<span class="w"> </span>wwctl<span class="w"> </span>kernel<span class="w"> </span>import<span class="w"> </span><span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="w"> </span>--setdefault
 </pre></div>
 </div>
 </section>
 <section id="set-up-the-default-node-profile">
 <h2>Set up the default node profile<a class="headerlink" href="#set-up-the-default-node-profile" title="Link to this heading"></a></h2>
-<p>Node configurations can be set via node profiles. Each node by default
-is configured to be part of the <code class="docutils literal notranslate"><span class="pre">default</span></code> node profile, so any
-changes you make to that profile will affect all nodes.</p>
-<p>The following command will set the container we just imported above to
-the <code class="docutils literal notranslate"><span class="pre">default</span></code> node profile:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--yes<span class="w"> </span>--container<span class="w"> </span>rocky-9<span class="w"> </span><span class="s2">&quot;default&quot;</span>
+<p>The <code class="docutils literal notranslate"><span class="pre">--setdefault</span></code> arguments above will automatically set those
+entries in the default profile, but if you wanted to set them by hand
+to something different, you can do the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-y<span class="w"> </span>default<span class="w"> </span>-K<span class="w"> </span><span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="w"> </span>-C<span class="w"> </span>centos-7
 </pre></div>
 </div>
 <p>Next we set some default networking configurations for the first
@@ -266,12 +246,8 @@ ethernet device. On modern Linux distributions, the name of the device
 is not critical, as it will be setup according to the HW
 address. Because all nodes will share the netmask and gateway
 configuration, we can set them in the default profile as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--yes<span class="w"> </span>--netdev<span class="w"> </span>eth0<span class="w"> </span>--netmask<span class="w"> </span><span class="m">255</span>.255.255.0<span class="w"> </span>--gateway<span class="w"> </span><span class="m">192</span>.168.200.1<span class="w"> </span><span class="s2">&quot;default&quot;</span>
-</pre></div>
-</div>
-<p>Once those configurations have been set, you can view the changes by
-listing the profiles as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>profile<span class="w"> </span>list<span class="w"> </span>-a
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-y<span class="w"> </span>default<span class="w"> </span>--netdev<span class="w"> </span>eth0<span class="w"> </span>--netmask<span class="w"> </span><span class="m">255</span>.255.255.0<span class="w"> </span>--gateway<span class="w"> </span><span class="m">192</span>.168.200.1
+sudo<span class="w"> </span>wwctl<span class="w"> </span>profile<span class="w"> </span>list
 </pre></div>
 </div>
 </section>
@@ -287,11 +263,7 @@ clusters, designate them using dot notation.</p>
 profiles and node configurations which always supersede profile
 configurations.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>node<span class="w"> </span>add<span class="w"> </span>n0000.cluster<span class="w"> </span>--ipaddr<span class="w"> </span><span class="m">192</span>.168.200.100<span class="w"> </span>--discoverable<span class="w"> </span><span class="nb">true</span>
-</pre></div>
-</div>
-<p>At this point you can view the basic configuration of this node by
-typing the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span>n0000.cluster
+sudo<span class="w"> </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span>n0000
 </pre></div>
 </div>
 <p>Turn on your compute node and watch it boot!</p>
@@ -302,8 +274,8 @@ typing the following:</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="el8.html" class="btn btn-neutral float-left" title="EL8 Quickstart (Rocky Linux and RHEL)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="suse15.html" class="btn btn-neutral float-right" title="openSUSE Leap and SLES 15 Quickstart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../contents/dnsmasq.html" class="btn btn-neutral float-left" title="Dnsmasq" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="el8.html" class="btn btn-neutral float-right" title="EL8 Quickstart (Rocky Linux and RHEL)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
