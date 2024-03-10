@@ -127,7 +127,7 @@
 for GRUB is also available, which adds support for secure boot.</p>
 <section id="booting-with-ipxe">
 <h2>Booting with iPXE<a class="headerlink" href="#booting-with-ipxe" title="Link to this heading"></a></h2>
-digraph G{
+<div class="graphviz"><img src="../_images/graphviz-8be43717679b33953ee198ed82f1999c0ddd0b61.png" alt="digraph G{
     node [shape=box];
     compound=true;
     edge [label2node=true]
@@ -144,12 +144,13 @@ digraph G{
 
     kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from node container&quot;];
     ipxe_cfg-&gt;kernel[ltail=cluster0,label=&quot;http&quot;];
-}</section>
+}" class="graphviz" /></div>
+</section>
 <section id="booting-with-grub">
 <h2>Booting with GRUB<a class="headerlink" href="#booting-with-grub" title="Link to this heading"></a></h2>
 <p>Support for GRUB as a network bootloader (replacing iPXE) is available in
 Warewulf as a technology preview.</p>
-digraph G{
+<div class="graphviz"><img src="../_images/graphviz-5cb5701ea7fd182b13828ac567d21b2e09945929.png" alt="digraph G{
     node [shape=box];
     compound=true;
     edge [label2node=true]
@@ -166,7 +167,8 @@ digraph G{
     }
     kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from node container&quot;];
     grubcfg-&gt;kernel[ltail=cluster1,label=&quot;http&quot;];
-}<p>Instead of the iPXE starter a combination of <a class="reference external" href="https://www.suse.com/c/uefi-secure-boot-details/">shim and GRUB</a> can be used with the
+}" class="graphviz" /></div>
+<p>Instead of the iPXE starter a combination of <a class="reference external" href="https://www.suse.com/c/uefi-secure-boot-details/">shim and GRUB</a> can be used with the
 advantage that secure boot can be used. That means that only the signed kernel
 of a distribution can be booted. This can be a huge security benefit for some
 scenarios.</p>
@@ -175,7 +177,7 @@ scenarios.</p>
 Warewulf server host.</p>
 <section id="secure-boot">
 <h3>Secure boot<a class="headerlink" href="#secure-boot" title="Link to this heading"></a></h3>
-digraph foo {
+<div class="graphviz"><img src="../_images/graphviz-87f2b5a9fa342f42cc8028f4a60d24c3ea795fd3.png" alt="digraph foo {
    node [shape=box];
    subgraph boot {
      &quot;EFI&quot; [label=&quot;EFI&quot;,row=boot];
@@ -186,7 +188,8 @@ digraph foo {
      Shim -&gt; Grub[label=&quot;Check for Distribution signature&quot;];
      Grub-&gt;Kernel[label=&quot;Check for Distribution or MOK signature&quot;];
    }
- }<p>If secure boot is enabled at every step a signature is checked and the boot
+ }" class="graphviz" /></div>
+<p>If secure boot is enabled at every step a signature is checked and the boot
 process fails if this check fails. The shim typically only includes the key for
 a single operating system, which means that each distribution needs separate
 <cite>shim</cite> and <cite>grub</cite> executables. Warewulf extracts these binaries from the
@@ -212,7 +215,7 @@ node discovery using GRUB.</p>
 <h3>http boot<a class="headerlink" href="#http-boot" title="Link to this heading"></a></h3>
 <p>Modern EFI systems have the possibility to directly boot per http. The flow diagram
 is the following:</p>
-digraph G{
+<div class="graphviz"><img src="../_images/graphviz-45530e0b437388de246c86a5b4638e7b3654235b.png" alt="digraph G{
     node [shape=box];
     efi [shape=record label=&quot;{EFI|boots from URI defined in filename}&quot;];
     shim [shape=record label=&quot;{shim.efi|replaces shim.efi with grubx64.efi in URI|extracted from node container}&quot;];
@@ -221,7 +224,8 @@ digraph G{
     efi-&gt;shim [label=&quot;http&quot;];
     shim-&gt;grub [label=&quot;http&quot;];
     grub-&gt;kernel [label=&quot;http&quot;];
-  }<p>Warewulf delivers the initial <cite>shim.efi</cite> and <cite>grub.efi</cite> via http as taken
+  }" class="graphviz" /></div>
+<p>Warewulf delivers the initial <cite>shim.efi</cite> and <cite>grub.efi</cite> via http as taken
 directly from the node’s assigned container.</p>
 </section>
 </section>
