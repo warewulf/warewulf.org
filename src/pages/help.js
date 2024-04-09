@@ -5,6 +5,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 
 import CtrlIQLogo from "../images/ctrliq.png"
+import SUSELogo from "../images/suse.svg"
 
 const HelpPage = () => (
   <Layout>
@@ -93,6 +94,28 @@ const HelpPage = () => (
 
         <Link
           to="https://ciq.com/products/warewulf/"
+          class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-900 hover:bg-green-800 focus:shadow-outline focus:outline-none"
+          aria-label="Warewulf Support"
+          title="Warewulf Support"
+        >
+          Get Support
+        </Link>
+        <p className="mb-5 text-base text-gray-700 md:text-lg">
+	As an active member and contributor of the open source community and
+	recognized enterprise Linux leader, SUSE offers commercial support and
+	services for Warewulf as part of the SUSE Linux Enterprise Server /
+	SUSE Linux Enterprise HPC products.
+        </p>
+        <img src={SUSELogo} className="inline-flex justify-center items-center w-24 mb-5" /><br />
+        <p className="mb-10 text-sm text-gray-900">
+	SUSE is a core contributor the the development of Warewulf. With more
+	than 30 years of open source and Enterprise Linux expertise, SUSE
+	offers commerical support and services for key	HPC components
+	including Warewulf, Slurm, Spack and soon to come, Apptainer.
+        </p>
+
+        <Link
+          to="https://www.suse.com/products/server/"
           class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-900 hover:bg-green-800 focus:shadow-outline focus:outline-none"
           aria-label="Warewulf Support"
           title="Warewulf Support"
