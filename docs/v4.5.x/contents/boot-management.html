@@ -172,6 +172,10 @@ advantage that secure boot can be used. That means that only the signed kernel
 of a distribution can be booted. This can be a huge security benefit for some
 scenarios.</p>
 <p>In order to enable the grub boot method it has to be enabled in <cite>warewulf.conf</cite>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">warewulf</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">grubboot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
 <p>Nodes which are not known to Warewulf are booted with the shim/grub from the
 Warewulf server host.</p>
 <section id="secure-boot">
