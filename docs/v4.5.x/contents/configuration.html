@@ -55,7 +55,10 @@
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Control Server Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Warewulf Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Warewulf Configuration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#warewulf-conf">warewulf.conf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#warewulf-conf">warewulf.conf</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#paths">Paths</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#nodes-conf">nodes.conf</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#defaults-conf">defaults.conf</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#directories">Directories</a></li>
@@ -125,7 +128,7 @@ primary configuration files needed by Warewulf.</p>
 <section id="warewulf-conf">
 <h2>warewulf.conf<a class="headerlink" href="#warewulf-conf" title="Link to this heading"></a></h2>
 <p>The Warewulf configuration exists as follows in the current version of
-Warewulf (4.4.0):</p>
+Warewulf (4.5.0):</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">WW_INTERNAL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45</span>
 <span class="nt">ipaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.1</span>
 <span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.252.0</span>
@@ -219,6 +222,32 @@ exports.</p></li>
 during <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">exec</span></code> or <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">shell</span></code>, typically to allow
 them to operate in the host environment prior to deployment.</p></li>
 </ul>
+<section id="paths">
+<h3>Paths<a class="headerlink" href="#paths" title="Link to this heading"></a></h3>
+<p><em>New in Warewulf v4.5.0</em></p>
+<p>Default paths to containers, overlays, and other Warewulf components
+may be overridden using <code class="docutils literal notranslate"><span class="pre">warewulf.conf:paths</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">paths</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">sysconfdir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc</span>
+<span class="w">  </span><span class="nt">localstatedir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib</span>
+<span class="w">  </span><span class="nt">ipxesource</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/share/ipxe</span>
+<span class="w">  </span><span class="nt">wwoverlaydir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/warewulf/overlays</span>
+<span class="w">  </span><span class="nt">wwchrootdir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/warewulf/chroots</span>
+<span class="w">  </span><span class="nt">wwprovisiondir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/warewulf/provision</span>
+<span class="w">  </span><span class="nt">wwclientdir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/warewulf</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sysconfdir</span></code>: The parent directory for the <code class="docutils literal notranslate"><span class="pre">warewulf</span></code> configuration directory,
+which stores <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> and <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ipxesource</span></code>: Where to get iPXE binaries.
+These files are copied to <code class="docutils literal notranslate"><span class="pre">warewulf.conf:tftp:tftproot</span></code> by <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wwoverlaydir</span></code>: The source for Warewulf overlays.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wwchrootdir</span></code>: The source for Warewulf containers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wwprovisiondir</span></code>: Where to store built overlays, built containers, and imported kernels.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wwclientdir</span></code>: Where the Warewulf client looks for its configuration on a provisioned node.</p></li>
+</ul>
+</section>
 </section>
 <section id="nodes-conf">
 <h2>nodes.conf<a class="headerlink" href="#nodes-conf" title="Link to this heading"></a></h2>
