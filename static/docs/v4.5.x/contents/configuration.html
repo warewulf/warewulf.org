@@ -57,6 +57,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Warewulf Configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#warewulf-conf">warewulf.conf</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#paths">Paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssh-key-types">SSH key types</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#nodes-conf">nodes.conf</a></li>
@@ -164,6 +165,12 @@ Warewulf (4.5.1):</p>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
 <span class="w">    </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
 <span class="w">    </span><span class="nt">readonly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">ssh</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">key types</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rsa</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dsa</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ecdsa</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ed25519</span>
 </pre></div>
 </div>
 <p>Generally you can leave this file as is, as long as you set the
@@ -247,6 +254,21 @@ These files are copied to <code class="docutils literal notranslate"><span class
 <li><p><code class="docutils literal notranslate"><span class="pre">wwprovisiondir</span></code>: Where to store built overlays, built containers, and imported kernels.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">wwclientdir</span></code>: Where the Warewulf client looks for its configuration on a provisioned node.</p></li>
 </ul>
+</section>
+<section id="ssh-key-types">
+<h3>SSH key types<a class="headerlink" href="#ssh-key-types" title="Link to this heading"></a></h3>
+<p><em>New in Warewulf v4.5.1</em></p>
+<p>SSH key types to generate during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">ssh</span></code> may be overridden using <code class="docutils literal notranslate"><span class="pre">warewulf.conf:ssh:key</span> <span class="pre">types</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ssh</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">key types</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rsa</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dsa</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ecdsa</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ed25519</span>
+</pre></div>
+</div>
+<p>Warewulf will generate host keys for each listed key type.
+The first listed key type is used to generate authentication ssh keys.</p>
 </section>
 </section>
 <section id="nodes-conf">
