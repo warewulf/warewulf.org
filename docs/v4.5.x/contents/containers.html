@@ -62,6 +62,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#importing-containers">Importing Containers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#private-registry">Private Registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#local-files">Local Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#http-proxies">HTTP proxies</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#syncuser">Syncuser</a></li>
@@ -237,6 +238,21 @@ directly.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>./rockylinux-8/<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:8
 <span class="gp">$ </span>sudo<span class="w"> </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>./rockylinux-8/<span class="w"> </span>rockylinux-8
 </pre></div>
+</div>
+</section>
+<section id="http-proxies">
+<h3>HTTP proxies<a class="headerlink" href="#http-proxies" title="Link to this heading"></a></h3>
+<p>You can set <code class="docutils literal notranslate"><span class="pre">HTTP_PROXY</span></code>, <code class="docutils literal notranslate"><span class="pre">HTTPS_PROXY</span></code>, and <code class="docutils literal notranslate"><span class="pre">NO_PROXY</span></code> (or their
+lower-case versions) to use a proxy during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">container</span> <span class="pre">import</span></code>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">HTTPS_PROXY</span><span class="o">=</span>squid.localdomain
+wwctl<span class="w"> </span>conatiner<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:8
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://pkg.go.dev/net/http#ProxyFromEnvironment">ProxyFromEnvironment</a> For more information.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>OCI and ORAS registries typically use HTTPS, so you probably need to set
+<code class="docutils literal notranslate"><span class="pre">HTTPS_PROXY</span></code> or <code class="docutils literal notranslate"><span class="pre">https_proxy</span></code> rather than the <code class="docutils literal notranslate"><span class="pre">HTTP</span></code> variants.</p>
 </div>
 </section>
 </section>
