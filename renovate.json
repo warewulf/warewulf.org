@@ -5,16 +5,5 @@
   "prCreation": "immediate",
   "assignees": [
     "brianclemens"
-  ],
-  "packageRules": [
-    {
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "pin",
-        "digest"
-      ],
-      "automerge": true
-    }
   ]
 }
