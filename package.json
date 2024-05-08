@@ -28,7 +28,7 @@
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
-    "@heroicons/react": "^1.0.1",
+    "@heroicons/react": "^2.0.0",
     "gh-pages": "^3.2.0",
     "prettier": "^2.3.1",
     "tailwindcss": "^2.1.4"
