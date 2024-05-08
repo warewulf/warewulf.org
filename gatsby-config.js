@@ -45,5 +45,13 @@ module.exports = {
       },
     },
     `gatsby-plugin-postcss`,
+    {
+      resolve: `@devular/gatsby-plugin-plausible`,
+      options: {
+        domain: `warewulf.org`,
+        proxyScript: `https://img.resf.workers.dev/js/script.outbound-links.js`,
+        proxyApi: `https://img.resf.workers.dev/img/event`,
+      },
+    },
   ],
 }

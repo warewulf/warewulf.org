@@ -6,6 +6,7 @@
   "author": "Kostas Vrouvas <hello@kosvrouvas.com>",
   "dependencies": {
     "@tailwindcss/typography": "^0.5.13",
+    "@devular/gatsby-plugin-plausible": "^0.1.8",
     "autoprefixer": "^10.4.19",
     "gatsby": "^5.13.4",
     "gatsby-cli": "^5.13.3",
