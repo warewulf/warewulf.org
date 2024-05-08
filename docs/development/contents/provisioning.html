@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Node Provisioning &mdash; Warewulf User Guide development documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=249f3023"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="IPMI" href="ipmi.html" />
+    <link rel="prev" title="Warewulf Overlays" href="overlays.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stateless.html">Stateless Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Control Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Warewulf Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overlays.html">Warewulf Overlays</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Node Provisioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#node-hardware-setup">Node Hardware Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-provisioning-process">The Provisioning Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-status">Node status</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templating.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vagrant.html">Development Environment (Vagrant)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-kvm.html">Development Environment (KVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vbox.html">Development Environment (VirtualBox)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Node Provisioning</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/hpcng/warewulf/blob/development/userdocs/contents/provisioning.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="node-provisioning">
+<h1>Node Provisioning<a class="headerlink" href="#node-provisioning" title="Link to this heading"></a></h1>
+<p>Once the nodes are configured in Warewulf, they are ready to boot.</p>
+<section id="node-hardware-setup">
+<h2>Node Hardware Setup<a class="headerlink" href="#node-hardware-setup" title="Link to this heading"></a></h2>
+<p>The only thing that Warewulf requires to provision is that the node is
+set to PXE boot. You may need to change the boot order if there is a
+local disk present and bootable. This is a configuration change you
+will have to make in the BIOS of the cluster node.</p>
+<p>Each vendor does this differently and as a result we won’t go into the
+setup specifics here and if you can not find information on how to PXE
+boot your nodes, please contact your hardware vendor support.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you find that you are going to use Warewulf, or any other
+cluster provisioning tool, it is very helpful to require that
+hardware vendors preconfigure your cluster nodes with values of
+your choosing, and ask them to provide a text file that includes
+all of the HW/MAC addresses of the compute nodes in the order they
+are racked (which most creditable vendors will do). You can also
+ask them to certify their computing stack for the operating system
+you wish to use and the provisioning system. This helps hardware
+vendors to ensure their stack works with open source projects like
+Warewulf, Debian, OpenSuSE, and Rocky Linux.</p>
+</div>
+</section>
+<section id="the-provisioning-process">
+<h2>The Provisioning Process<a class="headerlink" href="#the-provisioning-process" title="Link to this heading"></a></h2>
+<p>When the cluster node boots, the following order of operations will
+occur:</p>
+<ol class="arabic">
+<li><dl class="simple">
+<dt>BIOS:</dt><dd><ol class="arabic simple">
+<li><p>The system BIOS will bootstrap the initialization of the
+hardware</p></li>
+<li><p>The network card will register its option ROM into the BIOS</p></li>
+<li><p>The BIOS will run through all of its functions and finish with
+boot devices</p></li>
+<li><p>The boot devices are attempted in order</p></li>
+<li><p>When it gets to the network boot device, PXE is run from the
+firmware on the network card</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>PXE:</dt><dd><ol class="arabic simple">
+<li><p>PXE will request a BOOTP/DHCP address on the network</p></li>
+<li><p>The Warewulf controller’s DHCP server will respond with a
+network configuration and filename to try and boot</p></li>
+<li><p>PXE will attempt to download the filename referred to in the
+DHCP response via TFTP</p></li>
+<li><p>The downloaded file will execute an iPXE stack which will reach
+out to the Warewulf server for it’s configuration</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Bootstrap:</dt><dd><ol class="arabic">
+<li><p>The Warewulf server will generate the iPXE configuration which
+will include directions of what else is necessary to download
+and how to boot.</p></li>
+<li><p>The kernel, container image, kernel modules, and system overlay
+are all downloaded over REST HTTP from the Warewulf Server</p></li>
+<li><p>iPXE executes the kernel and processes the overlays to provide
+a unified root file system</p></li>
+<li><p>Warewulf bootstraps the initialization of cluster node’s
+operating system</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>File System (re)configuration</p></li>
+<li><p>SELinux</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wwclient</span></code> is called as a background daemon and sleeps
+until network is ready</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>The Warewulf bootstrap execs the container’s <code class="docutils literal notranslate"><span class="pre">/sbin/init</span></code></p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Container:</dt><dd><ol class="arabic simple">
+<li><p>The container now boots exactly as any operating system would
+expect</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+</section>
+<section id="node-status">
+<h2>Node status<a class="headerlink" href="#node-status" title="Link to this heading"></a></h2>
+<p>During the whole provisioning process of your nodes, you can check their status
+through the following command :</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>status
+<span class="go">NODENAME             STAGE                SENT                      LASTSEEN (s)</span>
+<span class="go">================================================================================</span>
+<span class="go">c001                 RUNTIME_OVERLAY      generic.img.gz            16</span>
+</pre></div>
+</div>
+<p>For each node, there is 4 different stages :</p>
+<ul class="simple">
+<li><p><strong>IPXE</strong></p></li>
+<li><p><strong>KERNEL</strong></p></li>
+<li><p><strong>SYSTEM_OVERLAY</strong></p></li>
+<li><p><strong>RUNTIME_OVERLAY</strong></p></li>
+</ul>
+<p>Those stages are directly linked to the The Provisioning Process section and are provided
+by the wwclient</p>
+<p>Thanks to <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">status</span></code> command, you can also check your communication between
+the warewulf client and server.
+Depending on your warewulf version, you should see a reset of the last seen counter every 1 minute due to the
+warewulf runtime overlay update.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="overlays.html" class="btn btn-neutral float-left" title="Warewulf Overlays" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ipmi.html" class="btn btn-neutral float-right" title="IPMI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

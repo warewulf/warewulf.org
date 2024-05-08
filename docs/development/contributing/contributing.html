@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contributing &mdash; Warewulf User Guide development documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=249f3023"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Debugging" href="debugging.html" />
+    <link rel="prev" title="openSUSE Leap and SLES 15 Quickstart" href="../quickstart/suse15.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contents/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/background.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/stateless.html">Stateless Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/setup.html">Control Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/installation.html">Warewulf Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/configuration.html">Warewulf Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/initialization.html">Warewulf Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/kernel.html">Kernel Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/nodeconfig.html">Node Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/overlays.html">Warewulf Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/provisioning.html">Node Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/templating.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#join-the-community">Join the community</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#warewulf-on-slack">Warewulf on Slack</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#raise-an-issue">Raise an Issue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contribute-to-the-code">Contribute to the code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-fork-the-repo">Step 1. Fork the repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-checkout-a-new-branch">Step 2. Checkout a new branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-make-your-changes">Step 3. Make your changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-push-your-branch-to-your-fork">Step 4. Push your branch to your fork</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-5-submit-a-pull-request">Step 5. Submit a Pull Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-6-keep-your-branch-in-sync">Step 6. Keep your branch in sync</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development-environment-vagrant.html">Development Environment (Vagrant)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development-environment-kvm.html">Development Environment (KVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development-environment-vbox.html">Development Environment (VirtualBox)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Contributing</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/hpcng/warewulf/blob/development/userdocs/contributing/contributing.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h1>
+<p>Warewulf is an open source project, meaning we have the challenge of
+limited resources. We are grateful for any support that you can
+offer. Helping other users, raising issues, helping write
+documentation, or contributing code are all ways to help!</p>
+<section id="join-the-community">
+<h2>Join the community<a class="headerlink" href="#join-the-community" title="Link to this heading"></a></h2>
+<p>This is a huge endeavor, and your help would be greatly appreciated!
+Post to online communities about Warewulf, and request that your
+distribution vendor, service provider, and system administrators
+include Warewulf for you!</p>
+<section id="warewulf-on-slack">
+<h3>Warewulf on Slack<a class="headerlink" href="#warewulf-on-slack" title="Link to this heading"></a></h3>
+<p>Many of our users come to Slack for quick help with an issue. You can
+find us at <a class="reference external" href="https://join.slack.com/t/hpcng/shared_invite/zt-k9atb2dj-rnlPjSh5Os3Ks6vlDEOyAA">HPCng</a>.</p>
+</section>
+</section>
+<section id="raise-an-issue">
+<h2>Raise an Issue<a class="headerlink" href="#raise-an-issue" title="Link to this heading"></a></h2>
+<p>For general bugs/issues, you can open an issue <a class="reference external" href="https://github.com/hpcng/warewulf/issues/new">at the GitHub repo</a>. However, if you find
+a security related issue/problem, please email HPCng directly at
+<a class="reference external" href="mailto:security&#37;&#52;&#48;hpcng&#46;org">security<span>&#64;</span>hpcng<span>&#46;</span>org</a>. More information
+about the HPCng security policies and procedures can be found <a class="reference external" href="https://hpcng.org/security-policy">here</a>.</p>
+</section>
+<section id="contribute-to-the-code">
+<h2>Contribute to the code<a class="headerlink" href="#contribute-to-the-code" title="Link to this heading"></a></h2>
+<p>We use the traditional <a class="reference external" href="https://guides.github.com/introduction/flow">GitHub Flow</a> to develop. This means
+that you fork the main repo, create a new branch to make changes, and
+submit a pull request (PR) to the master branch.</p>
+<p>Check out our official <a class="reference external" href="https://github.com/hpcng/warewulf/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>
+document, which also includes a <a class="reference external" href="https://github.com/hpcng/warewulf/blob/master/CONTRIBUTING.md#code-of-conduct">code of conduct</a>.</p>
+<section id="step-1-fork-the-repo">
+<h3>Step 1. Fork the repo<a class="headerlink" href="#step-1-fork-the-repo" title="Link to this heading"></a></h3>
+<p>To contribute to Warewulf, you should obtain a GitHub account and fork
+the <a class="reference external" href="https://github.com/hpcng/warewulf">Warewulf</a> repository. Once
+forked, clone your fork of the repo to your computer. (Obviously, you
+should replace <code class="docutils literal notranslate"><span class="pre">your-username</span></code> with your GitHub username.)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-username/warewulf.git
+<span class="nb">cd</span><span class="w"> </span>warewulf
+</pre></div>
+</div>
+</section>
+<section id="step-2-checkout-a-new-branch">
+<h3>Step 2. Checkout a new branch<a class="headerlink" href="#step-2-checkout-a-new-branch" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://guides.github.com/introduction/flow">Branches</a> are a way
+of isolating your features from the main branch. Given that we’ve just
+cloned the repo, we will probably want to make a new branch from
+master in which to work on our new feature. Lets call that branch
+<code class="docutils literal notranslate"><span class="pre">new-feature</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>master
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>new-feature
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can always check which branch you are in by running <code class="docutils literal notranslate"><span class="pre">git</span>
+<span class="pre">branch</span></code>.</p>
+</div>
+</section>
+<section id="step-3-make-your-changes">
+<h3>Step 3. Make your changes<a class="headerlink" href="#step-3-make-your-changes" title="Link to this heading"></a></h3>
+<p>On your new branch, go nuts! Make changes, test them, and when you are
+happy commit the changes to the branch:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>file-changed1<span class="w"> </span>file-changed2...
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;what changed?&quot;</span>
+</pre></div>
+</div>
+<p>This commit message is important - it should describe exactly the
+changes that you have made. Good commit messages read like so:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;changed function getConfig in functions.go to output csv to fix #2&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;updated docs about shell to close #10&quot;</span>
+</pre></div>
+</div>
+<p>The tags <code class="docutils literal notranslate"><span class="pre">close</span> <span class="pre">#10</span></code> and <code class="docutils literal notranslate"><span class="pre">fix</span> <span class="pre">#2</span></code> are referencing issues that are
+posted on the upstream repo where you will direct your pull
+request. When your PR is merged into the master branch, these messages
+will automatically close the issues, and further, they will link your
+commits directly to the issues they intend to fix. This will help
+future maintainers understand your contribution, or (hopefully not)
+revert the code back to a previous version if necessary.</p>
+</section>
+<section id="step-4-push-your-branch-to-your-fork">
+<h3>Step 4. Push your branch to your fork<a class="headerlink" href="#step-4-push-your-branch-to-your-fork" title="Link to this heading"></a></h3>
+<p>When you are done with your commits, you should push your branch to
+your fork (and you can also continuously push commits here as you
+work):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>new-feature
+</pre></div>
+</div>
+<p>Note that you should always check the status of your branches to see
+what has been pushed (or not):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>status
+</pre></div>
+</div>
+</section>
+<section id="step-5-submit-a-pull-request">
+<h3>Step 5. Submit a Pull Request<a class="headerlink" href="#step-5-submit-a-pull-request" title="Link to this heading"></a></h3>
+<p>Once you have pushed your branch, then you can go to your fork (in the
+web GUI on GitHub) and <a class="reference external" href="https://help.github.com/articles/creating-a-pull-request">submit a Pull Request</a>. Regardless
+of the name of your branch, your PR should be submitted to the
+<code class="docutils literal notranslate"><span class="pre">main</span></code> branch. Submitting your PR will open a conversation thread
+for the maintainers of Warewulf to discuss your contribution. At this
+time, the continuous integration that is linked with the code base
+will also be executed. If there is an issue, or if the maintainers
+suggest changes, you can continue to push commits to your branch and
+they will update the Pull Request.</p>
+</section>
+<section id="step-6-keep-your-branch-in-sync">
+<h3>Step 6. Keep your branch in sync<a class="headerlink" href="#step-6-keep-your-branch-in-sync" title="Link to this heading"></a></h3>
+<p>Cloning the repo will create an exact copy of the Warewulf repository
+at that moment. As you work, your branch may become out of date as
+others merge changesinto the upstream master. In the event that you
+need to update a branch, you will need to follow the next steps:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># add a new remote named &quot;upstream&quot;</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/hpcng/warewulf.git
+<span class="c1"># or another branch to be updated</span>
+git<span class="w"> </span>checkout<span class="w"> </span>master
+git<span class="w"> </span>pull<span class="w"> </span>upstream<span class="w"> </span>master
+<span class="c1"># to update your fork</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
+git<span class="w"> </span>checkout<span class="w"> </span>new-feature
+git<span class="w"> </span>merge<span class="w"> </span>master
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../quickstart/suse15.html" class="btn btn-neutral float-left" title="openSUSE Leap and SLES 15 Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="debugging.html" class="btn btn-neutral float-right" title="Debugging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

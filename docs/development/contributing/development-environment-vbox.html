@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Development Environment (VirtualBox) &mdash; Warewulf User Guide development documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=249f3023"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Glossary" href="../contents/glossary.html" />
+    <link rel="prev" title="Development Environment (KVM)" href="development-environment-kvm.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contents/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/background.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/stateless.html">Stateless Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/setup.html">Control Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/installation.html">Warewulf Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/configuration.html">Warewulf Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/initialization.html">Warewulf Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/kernel.html">Kernel Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/nodeconfig.html">Node Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/overlays.html">Warewulf Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/provisioning.html">Node Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/templating.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development-environment-vagrant.html">Development Environment (Vagrant)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development-environment-kvm.html">Development Environment (KVM)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development Environment (VirtualBox)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Development Environment (VirtualBox)</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/hpcng/warewulf/blob/development/userdocs/contributing/development-environment-vbox.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="development-environment-virtualbox">
+<h1>Development Environment (VirtualBox)<a class="headerlink" href="#development-environment-virtualbox" title="Link to this heading"></a></h1>
+<p>I have VirtualBox running on my desktop.</p>
+<ol class="arabic simple">
+<li><p>Create a NAT Network (a private vlan) to be used for the Warewlf
+Server and compute nodes inside the VirtualBox. Make sure to
+turnoff DHCP service within this NAT Network.</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>On<span class="w"> </span>the<span class="w"> </span>host<span class="w"> </span>with<span class="w"> </span>VirtualBox<span class="w"> </span>execute<span class="w"> </span>below.<span class="w"> </span>In<span class="w"> </span>my<span class="w"> </span>example<span class="w"> </span>using<span class="w"> </span><span class="m">10</span>.0.8.0/24<span class="w"> </span>as<span class="w"> </span>the<span class="w"> </span>private<span class="w"> </span>vlan<span class="w"> </span><span class="k">for</span><span class="w"> </span>my<span class="w"> </span>experiment<span class="w"> </span>with<span class="w"> </span>Warewulf
+
+<span class="go">VBoxManage natnetwork add --netname wwnatnetwork --network &quot;10.0.8.0/24&quot; --enable --dhcp off</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Create a Centos 7 development Virtual machine (wwdev) to be used as
+the Warewulf Server. Enable two Network adapters one with a
+standard NAT and SSH port mapping such that you can access this VM
+from the host machine. Assign the second network adapter to the NAT
+Network created in step #1. Assign sufficient memory (e.g: 4GB) to
+the VM.</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Download<span class="w"> </span>a<span class="w"> </span>Centos7<span class="w"> </span>or<span class="w"> </span>SL7<span class="w"> </span>ISO<span class="w"> </span>and<span class="w"> </span>mount<span class="w"> </span>it<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>optical<span class="w"> </span>drive<span class="w"> </span>to<span class="w"> </span>boot<span class="w"> </span>and<span class="w"> </span>install<span class="w"> </span>OS<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>wwdev<span class="w"> </span>VM.
+<span class="gp"># </span>Attach<span class="w"> </span>Network<span class="w"> </span>adapter<span class="w"> </span><span class="c1">#1 of the wwdev VM to the standard NAT via VM Settings -&gt; Network option.</span>
+<span class="gp"># </span>By<span class="w"> </span>default<span class="w"> </span>VirtualBox<span class="w"> </span>puts<span class="w"> </span>the<span class="w"> </span>Network<span class="w"> </span>Adapter<span class="w"> </span>into<span class="w"> </span><span class="m">10</span>.0.2.0/24<span class="w"> </span>network<span class="w"> </span>and<span class="w"> </span>assigns<span class="w"> </span><span class="m">10</span>.0.2.15<span class="w"> </span>IP<span class="w"> </span>address.
+
+<span class="gp"># </span>Also<span class="w"> </span>add<span class="w"> </span>a<span class="w"> </span>rule<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>port<span class="w"> </span>forwarding<span class="w"> </span>table<span class="w"> </span>under<span class="w"> </span>the<span class="w"> </span>standard<span class="w"> </span>NAT<span class="w"> </span>configuration<span class="w"> </span>to<span class="w"> </span>allow<span class="w"> </span>SSH
+<span class="gp"># </span>from<span class="w"> </span>localhost<span class="w"> </span><span class="o">(</span><span class="m">127</span>.0.0.1<span class="o">)</span><span class="w"> </span>some<span class="w"> </span>high<span class="w"> </span>port<span class="w"> </span>e.g<span class="w"> </span><span class="m">2222</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>guest<span class="w"> </span>IP<span class="w"> </span><span class="m">10</span>.0.2.15<span class="w"> </span>port<span class="w"> </span><span class="m">22</span><span class="w"> </span>such<span class="w"> </span>that
+<span class="gp"># </span>you<span class="w"> </span>can<span class="w"> </span>SSH<span class="w"> </span>from<span class="w"> </span>your<span class="w"> </span>host/desktop<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>wwdev<span class="w"> </span>VM.
+
+<span class="gp"># </span>Next<span class="w"> </span>attach<span class="w"> </span>the<span class="w"> </span>second<span class="w"> </span>Network<span class="w"> </span>adapter<span class="w"> </span><span class="c1">#2 to the NAT Network and you should be able to choose</span>
+<span class="gp"># </span>the<span class="w"> </span><span class="s1">&#39;wwnatnetwork&#39;</span><span class="w"> </span>created<span class="w"> </span>above<span class="w"> </span><span class="k">in</span><span class="w"> </span>step<span class="w"> </span><span class="c1">#1 from the drop down list.</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Build and install Warewulf on wwdev</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Login<span class="w"> </span>to<span class="w"> </span>wwdev<span class="w"> </span>VM<span class="w"> </span>and<span class="w"> </span>install<span class="w"> </span>@development<span class="w"> </span>group<span class="w"> </span>and<span class="w"> </span>go<span class="w"> </span>language
+
+<span class="go">ssh localhost -p 2222 #(should prompt for a user account password on wwdev VM)</span>
+
+<span class="gp"># </span>Disable<span class="w"> </span>selinux<span class="w"> </span>by<span class="w"> </span>modifying<span class="w"> </span>/etc/sysconfig/selinux
+<span class="go">vi /etc/sysconfig/selinux</span>
+
+<span class="go">    SELINUX=disabled</span>
+
+<span class="gp"># </span>Disable<span class="w"> </span>firewall
+<span class="go">systemctl stop firewalld</span>
+<span class="go">systemctl disable firewalld</span>
+
+<span class="gp"># </span>Centos<span class="w"> </span>prerequisites
+<span class="go">sudo yum -y install tftp-server tftp</span>
+<span class="go">sudo yum -y install dhcp</span>
+<span class="go">sudo yum -y install ipmitool</span>
+<span class="go">sudo yum install http://repo.ctrliq.com/packages/rhel7/ctrl-release.rpm</span>
+<span class="go">sudo yum install singularityplus</span>
+<span class="go">sudo yum install gpgme-devel</span>
+<span class="go">sudo yum install libassuan.x86_64 libassuan-devel.x86_64</span>
+
+<span class="gp"># </span>Upgrade<span class="w"> </span>git<span class="w"> </span>to<span class="w"> </span>v2+
+<span class="go">sudo yum install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm</span>
+<span class="go">sudo yum install git</span>
+<span class="go">sudo yum install golang</span>
+<span class="go">sudo yum install nfs-utils</span>
+
+<span class="gp"># </span>Install<span class="w"> </span>Warewulf<span class="w"> </span>and<span class="w"> </span>dependencies
+<span class="go">git clone https://github.com/hpcng/warewulf.git</span>
+<span class="go">cd warewulf</span>
+
+<span class="go">make all</span>
+<span class="go">sudo make install</span>
+
+<span class="gp"># </span>Static<span class="w"> </span>assign<span class="w"> </span>an<span class="w"> </span>IP<span class="w"> </span>to<span class="w"> </span>adapter<span class="w"> </span><span class="c1">#2 which is in the wwnatnetwork.</span>
+<span class="gp">$ </span>Edit<span class="w"> </span>the<span class="w"> </span>file<span class="w"> </span>/etc/sysconfig/networking-scripts/ifcfg-enp0s9<span class="w"> </span><span class="c1"># adapter name at the end might be different for you</span>
+<span class="gp"># </span>Add<span class="w"> </span>lines<span class="w"> </span>like<span class="w"> </span>to<span class="w"> </span>below<span class="w"> </span>to<span class="w"> </span>assign<span class="w"> </span>an<span class="w"> </span>ip<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">10</span>.0.8.0/24<span class="w"> </span>wwnatnetwork,<span class="w"> </span>I<span class="w"> </span>choose<span class="w"> </span><span class="m">10</span>.0.8.4
+<span class="go">BOOTPROTO=static</span>
+<span class="go">ONBOOT=yes</span>
+<span class="go">NAME=enp0s9</span>
+<span class="go">DEVICE=enp0s9</span>
+<span class="go">IPADDR=10.0.8.4</span>
+<span class="go">NETMASK=255.255.255.0</span>
+<span class="go">GATEWAY=10.0.8.1</span>
+<span class="gp"># </span>Bring<span class="w"> </span>the<span class="w"> </span>enp0s9<span class="w"> </span>interface<span class="w"> </span>online<span class="w"> </span>and<span class="w"> </span>verify<span class="w"> </span>ip<span class="w"> </span>assignment
+
+<span class="gp"># </span>Configure<span class="w"> </span>the<span class="w"> </span>Warewulf<span class="w"> </span>controller
+<span class="gp">$ </span>Edit<span class="w"> </span>the<span class="w"> </span>file<span class="w"> </span>/etc/warewulf/warewulf.conf<span class="w"> </span>and<span class="w"> </span>ensure<span class="w"> </span>that<span class="w"> </span>you<span class="err">&#39;</span>ve<span class="w"> </span><span class="nb">set</span><span class="w"> </span>the<span class="w"> </span>approprite<span class="w"> </span>configuration<span class="w"> </span>parameters.
+<span class="gp"># </span>My<span class="w"> </span>conf<span class="w"> </span>file<span class="w"> </span>looks<span class="w"> </span>like<span class="w"> </span>below:
+<span class="go">    ipaddr: 10.0.8.4</span>
+<span class="go">    netmask: 255.255.255.0</span>
+<span class="go">    warewulf:</span>
+<span class="go">      port: 9873</span>
+<span class="go">      secure: true</span>
+<span class="go">      update interval: 60</span>
+<span class="go">    dhcp:</span>
+<span class="go">      enabled: true</span>
+<span class="go">      range start: 10.0.8.150</span>
+<span class="go">      range end: 10.0.8.200</span>
+<span class="go">      template: default</span>
+<span class="go">      systemd name: dhcpd</span>
+<span class="go">    tftp:</span>
+<span class="go">      enabled: true</span>
+<span class="go">      tftproot: /var/lib/tftpboot</span>
+<span class="go">      systemd name: tftp</span>
+<span class="go">    nfs:</span>
+<span class="go">      systemd name: nfs-server</span>
+<span class="go">      exports:</span>
+<span class="go">      - /home</span>
+<span class="go">      - /var/warewulf</span>
+
+<span class="gp"># </span>Configure<span class="w"> </span>system<span class="w"> </span>service<span class="w"> </span>automatically
+<span class="go">sudo wwctl configure dhcp --persist # Create the default dhcpd.conf file and start/enable service</span>
+<span class="go">sudo wwctl configure tftp --persist # Install the base tftp/PXE boot files and start/enable service</span>
+<span class="go">sudo wwctl configure nfs  --persist # Configure the exports and create an fstab in the default system overlay</span>
+<span class="go">sudo wwctl configure ssh  --persist # Build the basic ssh keys to be included by the default system overlay</span>
+
+<span class="gp"># </span>Pull<span class="w"> </span>and<span class="w"> </span>build<span class="w"> </span>the<span class="w"> </span>VNFS<span class="w"> </span>container<span class="w"> </span>and<span class="w"> </span>kernel
+<span class="go">sudo wwctl container import docker://ghcr.io/hpcng/warewulf-centos:7 centos-7 --setdefault</span>
+<span class="go">sudo wwctl kernel import build $(uname -r) --setdefault</span>
+
+<span class="gp"># </span>Set<span class="w"> </span>up<span class="w"> </span>the<span class="w"> </span>default<span class="w"> </span>node<span class="w"> </span>profile
+<span class="go">sudo wwctl profile set default -K $(uname -r) -C centos-7</span>
+<span class="go">sudo wwctl profile set default --netdev eth0 -M 255.255.255.0 -G 10.0.8.4</span>
+<span class="go">sudo wwctl profile list</span>
+
+<span class="gp"># </span>Add<span class="w"> </span>a<span class="w"> </span>node<span class="w"> </span>and<span class="w"> </span>build<span class="w"> </span>node<span class="w"> </span>specific<span class="w"> </span>overlays
+<span class="gp"># </span>IP<span class="w"> </span>address<span class="w"> </span>of<span class="w"> </span>my<span class="w"> </span>nodes<span class="w"> </span>start<span class="w"> </span>from<span class="w"> </span><span class="m">150</span><span class="w"> </span>as<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>warewulf.conf<span class="w"> </span>file<span class="w"> </span>above
+<span class="go">sudo wwctl node add n0000.cluster --netdev eth0 -I 10.0.8.150 --discoverable</span>
+<span class="go">sudo wwctl node list -a n0000</span>
+
+<span class="gp"># </span>Review<span class="w"> </span>Warewulf<span class="w"> </span>overlays
+<span class="go">sudo wwctl overlay list -l</span>
+<span class="go">sudo wwctl overlay list -ls</span>
+<span class="go">sudo wwctl overlay edit default /etc/hello_world.ww</span>
+<span class="go">sudo wwctl overlay build -a</span>
+
+<span class="gp"># </span>Start<span class="w"> </span>the<span class="w"> </span>Warewulf<span class="w"> </span>daemon
+<span class="go">sudo wwctl ready</span>
+<span class="go">sudo wwctl server start</span>
+<span class="go">sudo wwctl server status</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Create a new guest VM instance inside the VirtualBox to be the
+Warewulf client/compute node. Under the system configuration make
+sure to select the optical and network options only for the boot
+order. The default iPXE used by VirtualBox does not come with
+bzImage capability which is needed for Warewulf. Download the
+ipxe.iso available at ipxe.org and mount the ipxe.iso to the
+optical drive. Enable one Network adapter for this VM and assign it
+to the NAT Network created in step #1 above.</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Download<span class="w"> </span>ipxe.so<span class="w"> </span>available<span class="w"> </span>at<span class="w"> </span>http://boot.ipxe.org/ipxe.iso
+<span class="gp"># </span>VM<span class="w"> </span>Settings<span class="w"> </span>-&gt;<span class="w"> </span>System<span class="w"> </span>disable<span class="w"> </span>Floppy,<span class="w"> </span>Hard<span class="w"> </span>Disk<span class="w"> </span>from<span class="w"> </span>Boot<span class="w"> </span>order.<span class="w"> </span>Enable<span class="w"> </span>Optical<span class="w"> </span>and<span class="w"> </span>Network<span class="w"> </span>options.
+<span class="gp"># </span>VM<span class="w"> </span>Settings<span class="w"> </span>-&gt;<span class="w"> </span>Storage<span class="w"> </span>and<span class="w"> </span>mount<span class="w"> </span>the<span class="w"> </span>above<span class="w"> </span>download<span class="w"> </span>ipxe.so<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>Optical<span class="w"> </span>Drive.
+<span class="gp"># </span>VM<span class="w"> </span>Settings<span class="w"> </span>-&gt;<span class="w"> </span>Network<span class="w"> </span>Enable<span class="w"> </span>adapter<span class="w"> </span><span class="c1">#1, attach to &#39;Nat Network&#39; and choose &#39;wwnatnetwork&#39; from the drop down list.</span>
+</pre></div>
+</div>
+<p>Boot your node and watch the console and the output of the Warewulfd
+process.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="development-environment-kvm.html" class="btn btn-neutral float-left" title="Development Environment (KVM)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../contents/glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stateless Provisioning &mdash; Warewulf User Guide development documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=249f3023"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Control Server Setup" href="setup.html" />
+    <link rel="prev" title="Background" href="background.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Stateless Provisioning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-is-provisioning-important">Why is Provisioning Important</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#provisioning-overview">Provisioning Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Stateless Provisioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Control Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Warewulf Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overlays.html">Warewulf Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioning.html">Node Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templating.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vagrant.html">Development Environment (Vagrant)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-kvm.html">Development Environment (KVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vbox.html">Development Environment (VirtualBox)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Stateless Provisioning</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/hpcng/warewulf/blob/development/userdocs/contents/stateless.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="stateless-provisioning">
+<h1>Stateless Provisioning<a class="headerlink" href="#stateless-provisioning" title="Link to this heading"></a></h1>
+<section id="why-is-provisioning-important">
+<h2>Why is Provisioning Important<a class="headerlink" href="#why-is-provisioning-important" title="Link to this heading"></a></h2>
+<p>Clusters are pools of servers bundled together to do a particular job
+or set of jobs. While there are a number of different use cases for
+clustering today, Warewulf was originally designed out of necessity.</p>
+<p>Back in 2000, when Linux clustering was growing up for HPC, the issues
+of scale became apparent. Of course in HPC, there are many scalability
+factors which needed to be overcome as we continued to scale up
+clusters. Pretty early on was the “administrative scaling” which is
+the factor that full time systems administrators could only maintain
+so many servers. While homogenous configurations were able to help
+that, we still had the problem that every installed server became a
+point of administration, version creep, and debugging. The larger the
+cluster, the harder this problem was to solve.</p>
+<p>Warewulf was created to help with exactly this.</p>
+</section>
+<section id="provisioning-overview">
+<h2>Provisioning Overview<a class="headerlink" href="#provisioning-overview" title="Link to this heading"></a></h2>
+<p>Provisioning in this definition is the process of putting an operating
+system onto a system. There are many ways to provision operating
+system images, from copying hard drives, to scripted installs, to
+automated installs. There are many valuable tools to facilitate this
+and they all helped to solve this problem.</p>
+<p>In a cluster environment, this means one could group all of the nodes
+together, to be installed in bulk. Previous to cluster provisioning
+system administrators would go around to each cluster node, and
+install it from scratch, with an ISO or USB thumb drive. This
+obviously is not scalable. But being able to automatically install
+hundreds or thousands of computers in parallel and automate the
+management of these systems completely changed the paradigm.</p>
+<p>There were several cluster provision and management toolkits already
+available when Warewulf was created and while these tools absolutely
+helped, there was even more optimization to be had. Stateless
+computing.</p>
+</section>
+<section id="id1">
+<h2>Stateless Provisioning<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>The next step past automated installs is to just skip the installation
+completely; boot directly into the runtime operating system without
+ever doing an installation.</p>
+<p>This is Warewulf.</p>
+<p>Stateless provisioning is realizing you never have to install another
+compute node. Think of it like booting a LiveOS or LiveISO on nodes
+over the network. This means that no node individually is a point of
+system administration, but rather the entire cluster, inclusively is
+administrated as a single unit.</p>
+<p>If all cluster nodes are booting the same OS image (or set of OS
+images), then any individual nodes that have problems is
+hardware. Debugging software and doing system administration in single
+points within a cluster is not needed. There is no version drift,
+because it is not possible for nodes to fall out of sync. Every reboot
+makes it exactly the same as its neighbors.</p>
+<p>Warewulf provisions the operating system by default to system
+memory. There is no need for hard drives with Warewulf.</p>
+<p>Previous versions of Warewulf had the ability to write the operating
+system to hard disk as well as do hybrid provisioning (the core
+operating system in memory, other pieces overlaid over NFS) but these
+have been obsoleted in Warewulf v4 as there are easier ways to
+accomplish the same thing (e.g. use of swap space).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you wish to provision to the hard drive, we might add that
+feature back based on user requests but in the mean time, you may
+wish to look at an automated or scripted installation platform
+instead of a cluster provisioning system.</p>
+</div>
+<p>In our experience, the Warewulf provisioning model is by far the most
+advantageous, simplest, and most flexible and scalable cluster
+provisioning platform available.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="background.html" class="btn btn-neutral float-left" title="Background" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="setup.html" class="btn btn-neutral float-right" title="Control Server Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Container Management &mdash; Warewulf User Guide development documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=249f3023"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Kernel Management" href="kernel.html" />
+    <link rel="prev" title="Warewulf Initialization" href="initialization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stateless.html">Stateless Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Control Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Warewulf Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Container Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#container-tools">Container Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-containers">Importing Containers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#private-registry">Private Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-files">Local Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#syncuser">Syncuser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#listing-all-imported-containers">Listing All Imported Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#making-changes-to-containers">Making Changes To Containers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#excluding-files-from-a-container">Excluding Files from a Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preparing-a-container-for-build">Preparing a container for build</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-containers-from-scratch">Creating Containers From Scratch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#building-a-container-from-your-host">Building A Container From Your Host</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-a-container-using-apptainer">Building A Container Using Apptainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-a-container-using-podman">Building A Container Using Podman</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#container-size-considerations">Container Size Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#duplicating-a-container">Duplicating a container</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overlays.html">Warewulf Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioning.html">Node Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templating.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el7.html">EL7 (CentOS and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el8.html">EL8 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/el9.html">EL9 (Rocky Linux and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vagrant.html">Development Environment (Vagrant)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-kvm.html">Development Environment (KVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vbox.html">Development Environment (VirtualBox)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Container Management</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/hpcng/warewulf/blob/development/userdocs/contents/containers.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="container-management">
+<h1>Container Management<a class="headerlink" href="#container-management" title="Link to this heading"></a></h1>
+<p>Since the inception of Warewulf over 20 years ago, Warewulf has used
+the model of the “Virtual Node File System” (VNFS) as a template image
+for the compute nodes. This is similar to a golden master image,
+except that the node file system exists within a directory on the
+Warewulf control node (e.g. a <code class="docutils literal notranslate"><span class="pre">chroot()</span></code>).</p>
+<p>In hindsight, we’ve been using containers all along, but the buzzword
+just didn’t exist. Over the last 5-6 years, the enterprise has created
+a lot of tooling and standards around defining, building,
+distributing, securing, and managing containers, so Warewulf (as of
+v4.0) now integrates directly within the container ecosystem to
+facilitate the process of VNFS image management.</p>
+<p>If you are not currently leveraging the container ecosystem in any
+other way, you can still build your own chroot directories and use
+Warewulf as you always have.</p>
+<p>It is important to understand that Warewulf is not running a container
+runtime on the nodes. While that is absolutely possible to run
+containers from the booted hosts, Warewulf is provisioning the
+container image to the bare metal and booting it. This container will
+be used as the base operating system and by default it will run
+stateless in memory. This means when you reboot the node, the node
+persists no information about Warewulf or how it booted.</p>
+<section id="container-tools">
+<h2>Container Tools<a class="headerlink" href="#container-tools" title="Link to this heading"></a></h2>
+<p>There are different container managment tools available. Docker is
+probably the most recognizable one in the enterprise. Podman is
+another one that is gaining traction on the RHEL platforms. In HPC,
+Apptainer is the most utilized container management tool. You can use
+any of these to create and manage the containers to be later imported
+into Warewulf.</p>
+</section>
+<section id="importing-containers">
+<h2>Importing Containers<a class="headerlink" href="#importing-containers" title="Link to this heading"></a></h2>
+<p>Warewulf supports importing an image from any OCI compliant
+registry. This means you can import from a public registry or from a
+private registry.</p>
+<p>Here is an example of importing from Docker Hub.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/hpcng/warewulf-rockylinux:8<span class="w"> </span>rocky-8
+<span class="go">Getting image source signatures</span>
+<span class="go">Copying blob d7f16ed6f451 done</span>
+<span class="go">Copying config da2ca70704 done</span>
+<span class="go">Writing manifest to image destination</span>
+<span class="go">Storing signatures</span>
+<span class="go">[LOG]       info unpack layer: sha256:d7f16ed6f45129c7f4adb3773412def4ba2bf9902de42e86e77379a65d90a984</span>
+<span class="go">Updating the container&#39;s /etc/resolv.conf</span>
+<span class="go">Building container: rocky-8</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Most containers in Docker Hub are not “bootable”, in that, they
+have a limited version of Systemd to make them lighter weight for
+container purposes. For this reason, don’t expect any base Docker
+container (e.g. <code class="docutils literal notranslate"><span class="pre">docker://rockylinux</span></code> or <code class="docutils literal notranslate"><span class="pre">docker://debian</span></code>) to
+boot properly. They will not, as they will get stuck into a single
+user mode. The containers in <a class="reference external" href="https://hub.docker.com/u/warewulf">https://hub.docker.com/u/warewulf</a> are not limited and thus
+they boot as you would expect.</p>
+</div>
+<section id="private-registry">
+<h3>Private Registry<a class="headerlink" href="#private-registry" title="Link to this heading"></a></h3>
+<p>It is possible to use a private registry that is password protected or
+does not have the requirement for TLS. In order to do so, you have two
+choices for handling the credentials.</p>
+<ul class="simple">
+<li><p>Set environmental variables</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">login</span></code> or <code class="docutils literal notranslate"><span class="pre">podman</span> <span class="pre">login</span></code> which will store the
+credentials locally</p></li>
+</ul>
+<p>Please note, there is no requirement to install and use docker or
+podman on your control node just for importing images into Warewulf.</p>
+<p>Here are the environmental variables that can be used.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">WAREWULF_OCI_USERNAME</span>
+<span class="go">WAREWULF_OCI_PASSWORD</span>
+<span class="go">WAREWULF_OCI_NOHTTPS</span>
+</pre></div>
+</div>
+<p>Here is an example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span><span class="nb">export</span><span class="w"> </span><span class="nv">WAREWULF_OCI_USERNAME</span><span class="o">=</span>privateuser
+<span class="gp"># </span><span class="nb">export</span><span class="w"> </span><span class="nv">WAREWULF_OCI_PASSWORD</span><span class="o">=</span>super-secret-password-or-token
+<span class="gp"># </span>wwctl<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/privatereg/rocky:8
+</pre></div>
+</div>
+<p>The above is just an example. Consideration should be done before
+doing it this way if you are in a security sensitive environment or
+shared environments. You would not want these showing up in bash
+history or logs.</p>
+</section>
+<section id="local-files">
+<h3>Local Files<a class="headerlink" href="#local-files" title="Link to this heading"></a></h3>
+<p>It is also possible to import a container from a local file or
+directory. For example, Podman can save a <cite>.tar</cite> archive of an OCI
+image. This archive can be directly imported into Warewulf, no
+registry required.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>podman<span class="w"> </span>save<span class="w"> </span>alpine:latest<span class="w"> </span>&gt;alpine.tar
+<span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>alpine.tar<span class="w"> </span>alpine
+</pre></div>
+</div>
+<p>Chroot directories and Apptainer sandbox images can also be imported
+directly.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>./rockylinux-8/<span class="w"> </span>docker://ghcr.io/hpcng/warewulf-rockylinux:8
+<span class="gp">$ </span>sudo<span class="w"> </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>./rockylinux-8/<span class="w"> </span>rockylinux-8
+</pre></div>
+</div>
+</section>
+</section>
+<section id="syncuser">
+<h2>Syncuser<a class="headerlink" href="#syncuser" title="Link to this heading"></a></h2>
+<p>At import time Warewulf checks if the names of the users on the host
+match the users and UIDs/GIDs in the imported container. If there is
+mismatch, the import command will print out a warning.  By setting the
+<code class="docutils literal notranslate"><span class="pre">--syncuser</span></code> flag you advise Warewulf to try to syncronize the users
+from the host to the container, which means that <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> and
+<code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> of the imported container are updated and all the files
+belonning to these UIDs and GIDs will also be updated.</p>
+<p>A check if the users of the host and container matches can be
+triggered with the <code class="docutils literal notranslate"><span class="pre">syncuser</span></code> command.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>syncuser<span class="w"> </span>container-name
+</pre></div>
+</div>
+<p>With the <code class="docutils literal notranslate"><span class="pre">--write</span></code> flag it will update the container to match the
+user database of the host as described above.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">wwctl container syncuser --write container-name</span>
+</pre></div>
+</div>
+</section>
+<section id="listing-all-imported-containers">
+<h2>Listing All Imported Containers<a class="headerlink" href="#listing-all-imported-containers" title="Link to this heading"></a></h2>
+<p>Once the container has been imported, you can list them all with the
+following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>list
+<span class="go">CONTAINER NAME                      BUILT  NODES</span>
+<span class="go">rocky-8                             true   0</span>
+</pre></div>
+</div>
+<p>Once a container has been imported and showing up in this list you can
+configure it to boot compute nodes.</p>
+</section>
+<section id="making-changes-to-containers">
+<h2>Making Changes To Containers<a class="headerlink" href="#making-changes-to-containers" title="Link to this heading"></a></h2>
+<p>Warewulf has a minimal container runtime built into it. This means you
+can run commands inside of any of the containers and make changes to
+them as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rocky-8<span class="w"> </span>/bin/sh
+<span class="go">[rocky-8] Warewulf&gt; cat /etc/rocky-release</span>
+<span class="go">Rocky Linux release 8.4 (Green Obsidian)</span>
+<span class="go">[rocky-8] Warewulf&gt; exit</span>
+<span class="go">Rebuilding container...</span>
+<span class="go">[INFO]     Skipping (VNFS is current)</span>
+</pre></div>
+</div>
+<p>You can also <code class="docutils literal notranslate"><span class="pre">--bind</span></code> directories from your host into the container
+when using the exec command. This works as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--bind<span class="w"> </span>/tmp:/mnt<span class="w"> </span>rocky-8<span class="w"> </span>/bin/sh
+<span class="go">[rocky-8] Warewulf&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As with any mount command, both the source and the target must
+exist. This is why the example uses the <code class="docutils literal notranslate"><span class="pre">/mnt/</span></code> directory
+location, as it is almost always present and empty in every Linux
+distribution (as prescribed by the LSB file hierarchy standard).</p>
+</div>
+<p>When the command completes, if anything within the container changed,
+the container will be rebuilt into a bootable static object
+automatically.</p>
+<p>If the files <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> or <code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> were updated, there
+will be an additional check to confirm if the users are in sync as
+described in <a class="reference internal" href="#syncuser">Syncuser</a> section.</p>
+<section id="excluding-files-from-a-container">
+<h3>Excluding Files from a Container<a class="headerlink" href="#excluding-files-from-a-container" title="Link to this heading"></a></h3>
+<p>Warewulf can exclude files from a source container to prevent them
+from being delivered to the compute node. This is typically used to
+reduce the size of the image when some files are unnecessary.</p>
+<p>Patterns for excluded files are read from the file
+<code class="docutils literal notranslate"><span class="pre">/etc/warewulf/excludes</span></code> in the container image itself. For example,
+the default Rocky Linux images exclude these paths:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">boot</span><span class="o">/</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">GeoIP</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">/etc/warewulf/excludes</span></code> supports the patterns implemented by
+<a class="reference external" href="https://pkg.go.dev/path/filepath#Match">filepath.Match</a>.</p>
+</section>
+<section id="preparing-a-container-for-build">
+<h3>Preparing a container for build<a class="headerlink" href="#preparing-a-container-for-build" title="Link to this heading"></a></h3>
+<p>Warewulf executes the script <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/container_exit.sh</span></code> after
+a <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">container</span> <span class="pre">shell</span></code> or <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">container</span> <span class="pre">exec</span></code> and prior to
+(re)building the final node image for delivery. This is typically used
+to remove cache or log files that may have been generated by the
+executed command or interactive session.</p>
+<p>For example, the default Rocky Linux images runs <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">clean</span> <span class="pre">all</span></code> to
+remove any package repository caches that may have been generated.</p>
+</section>
+</section>
+<section id="creating-containers-from-scratch">
+<h2>Creating Containers From Scratch<a class="headerlink" href="#creating-containers-from-scratch" title="Link to this heading"></a></h2>
+<p>You can also create containers from scratch and import those
+containers into Warewulf as previous versions of Warewulf did.</p>
+<section id="building-a-container-from-your-host">
+<h3>Building A Container From Your Host<a class="headerlink" href="#building-a-container-from-your-host" title="Link to this heading"></a></h3>
+<p>RPM based distributions, as well as Debian variants can all bootstrap
+mini <code class="docutils literal notranslate"><span class="pre">chroot()</span></code> directories which can then be used to bootstrap your
+node’s container.</p>
+<p>For example, on an RPM based Linux distribution with YUM or DNF, you
+can do something like the following:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>yum<span class="w"> </span>install<span class="w"> </span>--installroot<span class="w"> </span>/tmp/newroot<span class="w"> </span>basesystem<span class="w"> </span>bash<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>chkconfig<span class="w"> </span>coreutils<span class="w"> </span>e2fsprogs<span class="w"> </span>ethtool<span class="w"> </span>filesystem<span class="w"> </span>findutils<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>gawk<span class="w"> </span>grep<span class="w"> </span>initscripts<span class="w"> </span>iproute<span class="w"> </span>iputils<span class="w"> </span>net-tools<span class="w"> </span>nfs-utils<span class="w"> </span>pam<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>psmisc<span class="w"> </span>rsync<span class="w"> </span>sed<span class="w"> </span>setup<span class="w"> </span>shadow-utils<span class="w"> </span>rsyslog<span class="w"> </span>tzdata<span class="w"> </span>util-linux<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>words<span class="w"> </span>zlib<span class="w"> </span>tar<span class="w"> </span>less<span class="w"> </span>gzip<span class="w"> </span>which<span class="w"> </span>util-linux<span class="w"> </span>openssh-clients<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>openssh-server<span class="w"> </span>dhclient<span class="w"> </span>pciutils<span class="w"> </span>vim-minimal<span class="w"> </span>shadow-utils<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>strace<span class="w"> </span>cronie<span class="w"> </span>crontabs<span class="w"> </span>cpio<span class="w"> </span>wget<span class="w"> </span>rocky-release<span class="w"> </span>ipmitool<span class="w"> </span>yum<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>NetworkManager
+</pre></div>
+</div>
+<p>You can do something similar with Debian-based distributions:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>apt-get<span class="w"> </span>install<span class="w"> </span>debootstrap
+<span class="gp"># </span>debootstrap<span class="w"> </span>stable<span class="w"> </span>/tmp/newroot<span class="w"> </span>http://ftp.us.debian.org/debian
+</pre></div>
+</div>
+<p>Once you have created and modified your new <code class="docutils literal notranslate"><span class="pre">chroot()</span></code>, you can
+import it into Warewulf with the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>/tmp/newroot<span class="w"> </span>containername
+</pre></div>
+</div>
+</section>
+<section id="building-a-container-using-apptainer">
+<h3>Building A Container Using Apptainer<a class="headerlink" href="#building-a-container-using-apptainer" title="Link to this heading"></a></h3>
+<p>Apptainer, a container platform for HPC and performance intensive
+applications, can also be used to create node containers for
+Warewulf. There are several Apptainer container recipes in the
+<code class="docutils literal notranslate"><span class="pre">containers/Apptainer/</span></code> directory and can be found on GitHub at
+<a class="reference external" href="https://github.com/hpcng/warewulf/tree/main/containers/Apptainer">https://github.com/hpcng/warewulf/tree/main/containers/Apptainer</a>.</p>
+<p>You can use these as starting points and adding any additional steps
+you want in the <code class="docutils literal notranslate"><span class="pre">%post</span></code> section of the recipe file. Once you’ve done
+that, installing Apptainer, building a container sandbox and importing
+into Warewulf can be done with the following steps:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>yum<span class="w"> </span>install<span class="w"> </span>epel-release
+<span class="gp"># </span>yum<span class="w"> </span>install<span class="w"> </span>Apptainer
+<span class="gp"># </span>Apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>/tmp/newroot<span class="w"> </span>/path/to/Apptainer/recipe.def
+<span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>/tmp/newroot<span class="w"> </span>containername
+</pre></div>
+</div>
+</section>
+<section id="building-a-container-using-podman">
+<h3>Building A Container Using Podman<a class="headerlink" href="#building-a-container-using-podman" title="Link to this heading"></a></h3>
+<p>You can also build a container using podman via a <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>. For
+this step the container must be exported to a tar archive, which then
+can be imported to Warewulf. The following steps will create an
+openSUSE Leap container and import it to Warewulf:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>podman<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>containers/Docker/openSUSE/Containerfile<span class="w"> </span>--tag<span class="w"> </span>leap-ww
+<span class="gp"># </span>podman<span class="w"> </span>save<span class="w"> </span>localhost/leap-ww:latest<span class="w">  </span>-o<span class="w"> </span>~/leap-ww.tar
+<span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>file://root/leap-ww.tar<span class="w"> </span>leap-ww
+</pre></div>
+</div>
+</section>
+</section>
+<section id="container-size-considerations">
+<h2>Container Size Considerations<a class="headerlink" href="#container-size-considerations" title="Link to this heading"></a></h2>
+<p>Base compute node container images start quite small (a few hundred
+megabytes), but can grow quickly as packages and other files are added
+to them. Even these larger images are typically not an issue in modern
+environments; but some architectural limits exist that can impede the
+use of images larger than a few gigabytes. Workarounds exist for these
+issues in most circumstances:</p>
+<ul>
+<li><p>Systems booting in legacy / BIOS mode, being a 32-bit environment,
+cannot boot an image that requires more than 4GB to decompress. This
+means that the compressed image and the decompressed image together
+must be &lt; 4GB. This is typically reported by the system as “No space
+left on device (<a class="reference external" href="https://ipxe.org/34182006">https://ipxe.org/34182006</a>).”</p>
+<p>The best work-around for this limitation is to switch to UEFI. UEFI
+is 64-bit and should support booting significantly larger images,
+though sometimes system-specific implementation details have led to
+artificial limitations on image size.</p>
+</li>
+<li><p>The Linux kernel itself can only decompress an image up to 4GB due
+to the use of 32-bit integers in critical sections of the kernel
+initrd decompression code.</p>
+<p>The best work-around for this limitation is to use an iPXE with
+support for <a class="reference external" href="https://ipxe.org/cmd/imgextract">imgextract</a>. This
+allows iPXE to decompress the image rather than the kernel.</p>
+</li>
+<li><p>Some BIOS / firmware retain a “memory hole” feature for legacy
+devices, e.g., reserving a 1MB block of memory at the 15MB-16MB
+address range. this feature can interfere with booting stateless
+node images.</p>
+<p>If you are still getting “Not enough memory” or “No space left on
+device” errors, try disabling any “memory hole” features or updating
+your system BIOS or firmware.</p>
+</li>
+</ul>
+</section>
+<section id="duplicating-a-container">
+<h2>Duplicating a container<a class="headerlink" href="#duplicating-a-container" title="Link to this heading"></a></h2>
+<p>It is possible to duplicate an installed image by using :</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>copy<span class="w"> </span>CONTAINER_NAME<span class="w"> </span>DUPLICATED_CONTAINER_NAME
+</pre></div>
+</div>
+<p>This kind of duplication can be useful if you are looking for canary tests.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="initialization.html" class="btn btn-neutral float-left" title="Warewulf Initialization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="kernel.html" class="btn btn-neutral float-right" title="Kernel Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
