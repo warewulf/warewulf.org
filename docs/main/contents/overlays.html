@@ -275,6 +275,20 @@ built. With the <code class="docutils literal notranslate"><span class="pre">-N<
 built. Specific overlays can be selected with <code class="docutils literal notranslate"><span class="pre">-O</span></code> flag. For
 debugging purposes the templates can be written to a directory given
 via the <code class="docutils literal notranslate"><span class="pre">-o</span></code> flag.</p>
+<p>On clusters with large numbers of nodes a significant speedup can be achieved
+by building overlays in parallel. Adding parallel overlay building to <cite>wwctl</cite>
+is planned, see issue <a class="reference external" href="https://github.com/warewulf/warewulf/issues/1087">#1087</a>.
+Until parallel overlay building is implemented, builds can be easily done in
+parallel with Gnu <cite>parallel</cite> or <cite>xargs</cite>, for example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Gnu<span class="w"> </span>parallel
+<span class="go">wwctl node list | awk &#39;{print $1}&#39; | grep -v &quot;NODE &quot; | parallel -j 12 \</span>
+<span class="go">  wwctl overlay build -N {}</span>
+
+<span class="gp"># </span>xargs
+<span class="go">wwctl node list | awk &#39;{print $1}&#39; | grep -v &quot;NODE &quot; | xargs -n 1 -P 12 \</span>
+<span class="go">  wwctl overlay build -N</span>
+</pre></div>
+</div>
 <p>By default Warewulf will build/update and cache overlays as needed
 (configurable in the <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>).</p>
 </section>
