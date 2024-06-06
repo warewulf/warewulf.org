@@ -60,7 +60,10 @@
 <li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Boot Management</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#booting-with-ipxe">Booting with iPXE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#booting-with-ipxe">Booting with iPXE</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#booting-with-dracut">Booting with dracut</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#booting-with-grub">Booting with GRUB</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#secure-boot">Secure boot</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-shim-and-efi">Install shim and efi</a></li>
@@ -124,6 +127,8 @@
 <h1>Boot Management<a class="headerlink" href="#boot-management" title="Link to this heading"></a></h1>
 <p>Warewulf uses iPXE to for network boot by default. As a tech preview, support
 for GRUB is also available, which adds support for secure boot.</p>
+<p>Also as a tech preview, Warewulf may also use iPXE to boot a dracut
+initramfs as an initial stage before loading the container image.</p>
 <section id="booting-with-ipxe">
 <h2>Booting with iPXE<a class="headerlink" href="#booting-with-ipxe" title="Link to this heading"></a></h2>
 <div class="graphviz"><img src="../_images/graphviz-8be43717679b33953ee198ed82f1999c0ddd0b61.png" alt="digraph G{
@@ -144,6 +149,71 @@ for GRUB is also available, which adds support for secure boot.</p>
     kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from node container&quot;];
     ipxe_cfg-&gt;kernel[ltail=cluster0,label=&quot;http&quot;];
 }" class="graphviz" /></div>
+<section id="booting-with-dracut">
+<h3>Booting with dracut<a class="headerlink" href="#booting-with-dracut" title="Link to this heading"></a></h3>
+<p>Some systems, typically due to limitations in their BIOS or EFI
+firmware, are unable to load container image of a certain size
+directly with a traditional bootloader, either iPXE or GRUB. As a
+workaround for such systems, Warewulf can be configured to load a
+dracut initramfs from the container and to use that initramfs to load
+the full container image.</p>
+<p>Warewulf provides a dracut module to configure the dracut initramfs to
+load the container image. This module is available in the
+<code class="docutils literal notranslate"><span class="pre">warewulf-dracut</span></code> subpackage, which must be installed in the
+container image.</p>
+<p>With the <code class="docutils literal notranslate"><span class="pre">warewulf-dracut</span></code> package installed, you can build an
+initramfs inside the container.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>warewulf-dracut
+dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--kver<span class="w"> </span><span class="k">$(</span>ls<span class="w"> </span>/lib/modules<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n1<span class="k">)</span>
+</pre></div>
+</div>
+<p>Set the node’s iPXE template to <code class="docutils literal notranslate"><span class="pre">dracut</span></code> to direct iPXE to fetch the
+node’s initramfs image and boot with dracut semantics, rather than
+booting the node image directly.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Warewulf iPXE templates are located at <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/ipxe/</span></code> when
+Warewulf is installed via official packages. You can learn more
+about how dracut booting works by inspecting its iPXE template at
+<code class="docutils literal notranslate"><span class="pre">/etc/warewulf/ipxe/dracut.ipxe</span></code>.</p>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>wwnode1<span class="w"> </span>--ipxe<span class="w"> </span>dracut
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The iPXE template may be set at the node or profile level.</p>
+</div>
+<p>Alternatively, to direct GRUB to fetch the node’s initramfs image and boot with
+dracut semantics, set a <code class="docutils literal notranslate"><span class="pre">GrubMenuEntry</span></code> tag for the node.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Warewulf configures GRUB with a template located at
+<code class="docutils literal notranslate"><span class="pre">/etc/warewulf/grub/grub.cfg.ww</span></code>. Inspect the template to learn more about
+the dracut booting process.</p>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>wwnode1<span class="w"> </span>--tagadd<span class="w"> </span><span class="nv">GrubMenuEntry</span><span class="o">=</span>dracut
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">GrubMenuEntry</span></code> variable may be set at the node or profile level.</p>
+</div>
+<p>During boot, <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> will detect and dynamically serve an
+initramfs from a node’s container image in much the same way that it
+can serve a kernel from a container image. This image is loaded by
+iPXE (or GRUB) which directs dracut to fetch the node’s container image
+during boot.</p>
+<p>The wwinit module provisions to tmpfs. By default, tmpfs is permitted
+to use up to 50% of physical memory. This size limit may be adjustd
+using the kernel argument <cite>wwinit.tmpfs.size</cite>. (This parameter is
+passed to the <cite>size</cite> option during tmpfs mount. See <code class="docutils literal notranslate"><span class="pre">tmpfs(5)</span></code> for
+more details.)</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Kernel overrides are not currently fully supported during dracut initramfs boot.</p>
+</div>
+</section>
 </section>
 <section id="booting-with-grub">
 <h2>Booting with GRUB<a class="headerlink" href="#booting-with-grub" title="Link to this heading"></a></h2>
