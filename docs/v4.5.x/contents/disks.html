@@ -74,6 +74,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#storage-objects">Storage objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ignition-implementation">Ignition Implementation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#example-disk-configuration">Example disk configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wiping-disks">Wiping disks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
@@ -158,7 +159,7 @@ Every disks holds a map to its partitions and a <code class="docutils literal no
 The partition number can be omitted, but specifying it is recommended as <code class="docutils literal notranslate"><span class="pre">ignition</span></code> may fail without it.
 Partition sizes should also be set (specified in MiB), except of the last partition:
 if no size is given, the maximum available size is used.
-Each partition has the switches <code class="docutils literal notranslate"><span class="pre">should_exist</span></code> and <code class="docutils literal notranslate"><span class="pre">wipe_partition_entry</span></code> which control the partition creation process.</p>
+Each partition has the switches <code class="docutils literal notranslate"><span class="pre">should_exist</span></code> and <code class="docutils literal notranslate"><span class="pre">wipe_partition_entry</span></code> which control the partition creation process. When omitting a partition number the <cite>wipe_partition_entry</cite> should be true, as this allows ignition to replace the existing partition.</p>
 <p>File systems are identified by their underlying block device, preferably using the <code class="docutils literal notranslate"><span class="pre">/dev/by-partlabel</span></code> format.
 Except for a <code class="docutils literal notranslate"><span class="pre">swap</span></code> partition, an absolute path for the mount point must be specified for each file system.
 Depending on the container used, valid formats are <code class="docutils literal notranslate"><span class="pre">btrfs</span></code>, <code class="docutils literal notranslate"><span class="pre">ext3</span></code>, <code class="docutils literal notranslate"><span class="pre">ext4</span></code>, and <code class="docutils literal notranslate"><span class="pre">xfs</span></code>.
@@ -179,20 +180,39 @@ Entries in <code class="docutils literal notranslate"><span class="pre">/etc/fst
 <p>The following command will create a <code class="docutils literal notranslate"><span class="pre">/scratch</span></code> file system on the node <code class="docutils literal notranslate"><span class="pre">n01</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n01<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--diskname<span class="w"> </span>/dev/vda<span class="w"> </span>--diskwipe<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--partname<span class="w"> </span>scratch<span class="w"> </span>--partcreate<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--fsname<span class="w"> </span>scratch<span class="w"> </span>--fsformat<span class="w"> </span>btrfs<span class="w"> </span>--fspath<span class="w"> </span>/scratch<span class="w"> </span>--fswipe
+<span class="w">  </span>--partname<span class="w"> </span>scratch<span class="w"> </span>--partcreate<span class="w"> </span>--partnumber<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--fsname<span class="w"> </span>scratch<span class="w"> </span>--fsformat<span class="w"> </span>btrfs<span class="w"> </span>--fspath<span class="w"> </span>/scratch
 </pre></div>
 </div>
 <p>As this is a single file system, the partition number can be omitted.</p>
 <p>A swap partition with 1Gig can be added with</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n01<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--diskname<span class="w"> </span>/dev/vda<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--partname<span class="w"> </span>swap<span class="w"> </span>--partsize<span class="o">=</span><span class="m">1024</span><span class="w"> </span>--partnumber<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--partname<span class="w"> </span>swap<span class="w"> </span>--partsize<span class="o">=</span><span class="m">1024</span><span class="w"> </span>--partnumber<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--fsname<span class="w"> </span>swap<span class="w"> </span>--fsformat<span class="w"> </span>swap<span class="w"> </span>--fspath<span class="w"> </span>swap
 </pre></div>
 </div>
 <p>which has the partition number <code class="docutils literal notranslate"><span class="pre">1</span></code> so that it will be added before the
 <code class="docutils literal notranslate"><span class="pre">/scratch</span></code> partition.</p>
+</section>
+<section id="wiping-disks">
+<h2>Wiping disks<a class="headerlink" href="#wiping-disks" title="Link to this heading"></a></h2>
+<p>Unless you specify the <cite>–fswipe</cite> flag for a filesystem, <cite>ignition</cite> will try to
+reuse existing file systems. For empty disks this means that the desired configuration
+is created and the filesystems are mounted; and so the <cite>–fswipe</cite> can be omitted so
+data is on the disk isn’t wiped.
+If there are pre-existing partitions and filesystem on the disk, omitting the <cite>–fswipe</cite> may lead to the outcome that no filesystems are created and mounted.
+In that case you should:
+* wipe the existing data with the means of tools like <cite>wipefs</cite> or <cite>dd</cite> [#]
+* set the <cite>–fswipe</cite> flag and remove it after one reboot, if you want to keep
+existing data on the disk.</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>With <cite>wipefs</cite> you have to remove the filesystem <em>and</em> parition information. E.g. use <cite>wipefs -fa /dev/vda*</cite> to remove all filesystem information and partition information.</p>
+</aside>
+</aside>
+<p>See also [ignition documentation](<a class="reference external" href="https://coreos.github.io/ignition/operator-notes/#filesystem-reuse-semantics">https://coreos.github.io/ignition/operator-notes/#filesystem-reuse-semantics</a>) for additional information.</p>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
