@@ -236,7 +236,7 @@ vagrant<span class="w"> </span>box<span class="w"> </span>add<span class="w"> </
 cat<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39; &gt; Vagrantfile</span>
 <span class="s">Vagrant.configure(&quot;2&quot;) do |config|</span>
 <span class="s">    number_of_node = ENV[&quot;NODES&quot;] || 2</span>
-<span class="s">    branch = ENV[&quot;BRANCH&quot;] || &quot;v4.5.5&quot;</span>
+<span class="s">    branch = ENV[&quot;BRANCH&quot;] || &quot;v4.5.6&quot;</span>
 
 <span class="s">    config.vm.define :head do |head|</span>
 <span class="s">        head.vm.box = &quot;rockylinux/9&quot;</span>
@@ -273,7 +273,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39; &gt; Vagrantfi
 <span class="s">            cd /tmp</span>
 <span class="s">            git clone https://github.com/warewulf/warewulf.git</span>
 <span class="s">            cd warewulf</span>
-<span class="s">            git checkout v4.5.5</span>
+<span class="s">            git checkout v4.5.6</span>
 <span class="s">            make clean defaults \</span>
 <span class="s">                PREFIX=/usr \</span>
 <span class="s">                BINDIR=/usr/bin \</span>
