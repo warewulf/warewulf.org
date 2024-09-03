@@ -152,10 +152,11 @@ format does not support extended file attributes which are required
 for SELinux. Instead you must configure Warewulf to use <code class="docutils literal notranslate"><span class="pre">tmpfs</span></code>
 for the provisioning file system. That change is made like: <code class="docutils literal notranslate"><span class="pre">$</span>
 <span class="pre">sudo</span> <span class="pre">wwctl</span> <span class="pre">profile</span> <span class="pre">set</span> <span class="pre">--root</span> <span class="pre">tmpfs</span> <span class="pre">default</span></code>.</p></li>
-<li><p>That is all you have to do to ensure that Warewulf will probably
+<li><p>That is all you have to do to ensure that Warewulf will
 support SELinux. Once that is done, you just need to enable SELinux
 in <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/selinux</span></code> and install the appropriate profiles
-into the container.</p></li>
+into the container. <a class="reference external" href="https://github.com/warewulf/warewulf-node-images/tree/main/examples/rockylinux-9-selinux">An example</a> of such a container is in the
+warewulf-node-images repository.</p></li>
 </ol>
 </section>
 <section id="provisioning-security">
