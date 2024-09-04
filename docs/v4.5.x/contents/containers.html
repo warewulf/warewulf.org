@@ -213,16 +213,15 @@ podman on your control node just for importing images into Warewulf.</p>
 <span class="go">WAREWULF_OCI_NOHTTPS</span>
 </pre></div>
 </div>
-<p>Here is an example:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span><span class="nb">export</span><span class="w"> </span><span class="nv">WAREWULF_OCI_USERNAME</span><span class="o">=</span>privateuser
-<span class="gp"># </span><span class="nb">export</span><span class="w"> </span><span class="nv">WAREWULF_OCI_PASSWORD</span><span class="o">=</span>super-secret-password-or-token
-<span class="gp"># </span>wwctl<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/privatereg/rocky:8
-</pre></div>
-</div>
+<p>They can be overwritten with <code class="docutils literal notranslate"><span class="pre">--nohttps</span></code>, <code class="docutils literal notranslate"><span class="pre">--username</span></code> and <code class="docutils literal notranslate"><span class="pre">--password</span></code>.
+.. code-block:: console</p>
+<blockquote>
+<div><p># wwctl import –username tux –password supersecret docker://ghcr.io/privatereg/rocky:8</p>
+</div></blockquote>
 <p>The above is just an example. Consideration should be done before
 doing it this way if you are in a security sensitive environment or
-shared environments. You would not want these showing up in bash
-history or logs.</p>
+shared environments as this command line wil show up in the process
+table.</p>
 </section>
 <section id="local-files">
 <h3>Local Files<a class="headerlink" href="#local-files" title="Link to this heading"></a></h3>
