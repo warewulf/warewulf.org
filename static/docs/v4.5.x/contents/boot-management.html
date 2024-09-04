@@ -250,7 +250,7 @@ container image.</p>
 <p>With the <code class="docutils literal notranslate"><span class="pre">warewulf-dracut</span></code> package installed, you can build an
 initramfs inside the container.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>warewulf-dracut
-dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--kver<span class="w"> </span><span class="k">$(</span>ls<span class="w"> </span>/lib/modules<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n1<span class="k">)</span>
+dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--regenerate-all
 </pre></div>
 </div>
 <p>Set the node’s iPXE template to <code class="docutils literal notranslate"><span class="pre">dracut</span></code> to direct iPXE to fetch the
