@@ -80,6 +80,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#container-size-considerations">Container Size Considerations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#duplicating-a-container">Duplicating a container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multi-arch-container-management">Multi-arch container management</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
@@ -452,6 +453,30 @@ your system BIOS or firmware.</p>
 </pre></div>
 </div>
 <p>This kind of duplication can be useful if you are looking for canary tests.</p>
+</section>
+<section id="multi-arch-container-management">
+<h2>Multi-arch container management<a class="headerlink" href="#multi-arch-container-management" title="Link to this heading"></a></h2>
+<p>It is possible to build, edit, and provision containers of different
+architectures (i.e. aarch64) from an x86_64 host by using QEMU. Simply
+run the appropriate command below based on your container management tools.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>sudo<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>multiarch/qemu-user-static<span class="w"> </span>--reset<span class="w"> </span>-p<span class="w"> </span>yes
+<span class="gp"># </span>sudo<span class="w"> </span>podman<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>multiarch/qemu-user-static<span class="w"> </span>--reset<span class="w"> </span>-p<span class="w"> </span>yes
+<span class="gp"># </span>sudo<span class="w"> </span>singularity<span class="w"> </span>run<span class="w"> </span>docker://multiarch/qemu-user-static<span class="w"> </span>--reset<span class="w"> </span>-p<span class="w"> </span>yes
+</pre></div>
+</div>
+<p>Then, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">container</span> <span class="pre">exec</span></code> will work regardless of the architecture of the container.
+For more information about QEMU, see their <a class="reference external" href="https://github.com/multiarch/qemu-user-static">GitHub</a></p>
+<p>To use wwclient on a booted container using a different architecture,
+wwclient must be compiled for the specific architecture. This requires GOLang build
+tools 1.21 or newer. Below is an example for building wwclient for arm64:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf
+<span class="gp"># </span><span class="nb">cd</span><span class="w"> </span>warewulf
+<span class="gp"># </span><span class="nv">GOARCH</span><span class="o">=</span>arm64<span class="w"> </span><span class="nv">PREFIX</span><span class="o">=</span>/<span class="w"> </span>make<span class="w"> </span>wwclient
+<span class="gp"># </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/lib/warewulf/overlays/wwclient_arm64/rootfs/warewulf
+<span class="gp"># </span>cp<span class="w"> </span>wwclient<span class="w"> </span>/var/lib/warewulf/overlays/wwclient_arm64/rootfs/warewulf
+</pre></div>
+</div>
+<p>Then, apply the new “wwclient_arm64” system overlay to your arm64 node/profile</p>
 </section>
 </section>
 
