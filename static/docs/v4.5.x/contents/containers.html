@@ -314,6 +314,14 @@ exist. This is why the example uses the <code class="docutils literal notranslat
 location, as it is almost always present and empty in every Linux
 distribution (as prescribed by the LSB file hierarchy standard).</p>
 </div>
+<p>Files which should always be present in a container image like <code class="docutils literal notranslate"><span class="pre">resolv.conf</span></code>
+can be specified in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Instead of <code class="docutils literal notranslate"><span class="pre">readonly:</span> <span class="pre">true</span></code> you can set <code class="docutils literal notranslate"><span class="pre">copy:</span> <span class="pre">true</span></code>. This causes the
+source file to be copied to the container and removed if it was not
+modified. This can be useful for files used for registrations.</p>
+</div>
 <p>When the command completes, if anything within the container changed,
 the container will be rebuilt into a bootable static object
 automatically.</p>
