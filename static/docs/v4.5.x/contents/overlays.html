@@ -173,9 +173,9 @@ network configurations for</p>
 <li><p>NetworkManager</p></li>
 <li><p>EL legacy network scripts</p></li>
 </ul>
-<p>it also contains udev rules, which will set the interface name of the
-first network device to <code class="docutils literal notranslate"><span class="pre">eth0</span></code>.  Before the <code class="docutils literal notranslate"><span class="pre">systemd</span></code> init is
-called, the overlay loops through the scripts in
+<p>it also contains udev rules, which will set the interface names
+based on the hardware addresses configured for the node.
+Before the <code class="docutils literal notranslate"><span class="pre">systemd</span></code> init is called, the overlay loops through the scripts in
 <code class="docutils literal notranslate"><span class="pre">/wwinit/warwulf/init.d/*</span></code> which will setup</p>
 <ul class="simple">
 <li><p>Ipmi</p></li>
