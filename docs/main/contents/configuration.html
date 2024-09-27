@@ -209,7 +209,7 @@ privileged port. This prevents non-root users from requesting the
 runtime overlay, which may contain sensitive information.</p>
 <p>When <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> uses TCP port 987.</p>
 <p>Changing this option requires rebuilding node overlays and rebooting
-compute nodes, to configure them to use a privileged port.</p>
+compute nodes to configure them to use a privileged port.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">warewulf:update</span> <span class="pre">interval</span></code>: This defines the frequency (in
 seconds) with which the Warewulf client on the compute node fetches
@@ -297,28 +297,7 @@ are specified in <code class="docutils literal notranslate"><span class="pre">no
 a “runtime overlay” specified, the respective value from
 <code class="docutils literal notranslate"><span class="pre">defaultnode</span></code> is used. If a network device does not specify a
 “device,” the device value of the <code class="docutils literal notranslate"><span class="pre">dummy</span></code> device is used.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">defaults.conf</span></code> does not exist, the following values are used as
-compiled into Warewulf at build-time:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">--</span>
-<span class="l l-Scalar l-Scalar-Plain">defaultnode</span><span class="p p-Indicator">:</span>
-<span class="w">  </span><span class="nt">runtime overlay</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generic</span>
-<span class="w">  </span><span class="nt">system overlay</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wwinit</span>
-<span class="w">  </span><span class="nt">kernel</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quiet crashkernel=no vga=791 net.naming-scheme=v238</span>
-<span class="w">  </span><span class="nt">init</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/sbin/init</span>
-<span class="w">  </span><span class="nt">root</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">initramfs</span>
-<span class="w">  </span><span class="nt">ipxe template</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<span class="w">  </span><span class="nt">profiles</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<span class="w">  </span><span class="nt">network devices</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">dummy</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eth0</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ethernet</span>
-<span class="w">      </span><span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
-</pre></div>
-</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">defaults.conf</span></code> does not exist, compiled-in defaults are used.</p>
 <p>There should never be a need to change this file: all site-local
 parameters should be specified using either nodes or profiles.</p>
 </section>

@@ -180,7 +180,7 @@ out to the Warewulf server for it’s configuration</p></li>
 <li><p>The Warewulf server will generate the iPXE configuration which
 will include directions of what else is necessary to download
 and how to boot.</p></li>
-<li><p>The kernel, container image, kernel modules, and system overlay
+<li><p>The kernel, container image, kernel modules, and overlays
 are all downloaded over REST HTTP from the Warewulf Server</p></li>
 <li><p>iPXE executes the kernel and processes the overlays to provide
 a unified root file system</p></li>
@@ -211,7 +211,7 @@ through the following command :</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>status
 <span class="go">NODENAME             STAGE                SENT                      LASTSEEN (s)</span>
 <span class="go">================================================================================</span>
-<span class="go">c001                 RUNTIME_OVERLAY      generic.img.gz            16</span>
+<span class="go">c001                 RUNTIME_OVERLAY      __RUNTIME__.img.gz        16</span>
 </pre></div>
 </div>
 <p>For each node, there is 4 different stages :</p>
