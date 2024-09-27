@@ -329,6 +329,12 @@ distribution (as prescribed by the LSB file hierarchy standard).</p>
 </div>
 <p>Files which should always be present in a container image like <code class="docutils literal notranslate"><span class="pre">resolv.conf</span></code>
 can be specified in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">container mounts</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
+<span class="w">  </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
+<span class="w">  </span><span class="nt">readonly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Instead of <code class="docutils literal notranslate"><span class="pre">readonly:</span> <span class="pre">true</span></code> you can set <code class="docutils literal notranslate"><span class="pre">copy:</span> <span class="pre">true</span></code>. This causes the
@@ -468,7 +474,7 @@ your system BIOS or firmware.</p>
 </section>
 <section id="duplicating-a-container">
 <h2>Duplicating a container<a class="headerlink" href="#duplicating-a-container" title="Link to this heading"></a></h2>
-<p>It is possible to duplicate an installed image by using :</p>
+<p>It is possible to duplicate an installed image by using:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>copy<span class="w"> </span>CONTAINER_NAME<span class="w"> </span>DUPLICATED_CONTAINER_NAME
 </pre></div>
 </div>
