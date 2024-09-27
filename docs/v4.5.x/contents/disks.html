@@ -204,12 +204,12 @@ is created and the filesystems are mounted; and so the <cite>–fswipe</cite> ca
 data is on the disk isn’t wiped.
 If there are pre-existing partitions and filesystem on the disk, omitting the <cite>–fswipe</cite> may lead to the outcome that no filesystems are created and mounted.
 In that case you should:
-* wipe the existing data with the means of tools like <cite>wipefs</cite> or <cite>dd</cite> [#]
+* wipe the existing data with the means of tools like <cite>wipefs</cite> or <cite>dd</cite> <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>
 * set the <cite>–fswipe</cite> flag and remove it after one reboot, if you want to keep
 existing data on the disk.</p>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id1" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>With <cite>wipefs</cite> you have to remove the filesystem <em>and</em> parition information. E.g. use <cite>wipefs -fa /dev/vda*</cite> to remove all filesystem information and partition information.</p>
 </aside>
 </aside>
