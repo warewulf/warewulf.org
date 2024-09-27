@@ -240,6 +240,18 @@ directly.</p>
 <span class="gp">$ </span>sudo<span class="w"> </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>./rockylinux-8/<span class="w"> </span>rockylinux-8
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If a source directory includes persistent sockets, these sockets may cause the import operation to fail.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Copying sources...</span>
+<span class="go">ERROR  : could not import image: lchown ./rockylinux-8/run/user/0/gnupg/d.kg8ijih5tq41ixoeag4p1qup/S.gpg-agent: no such file or directory</span>
+</pre></div>
+</div>
+<p>To resolve this, remove the sockets from the source directory.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find<span class="w"> </span>./rockylinux-8/<span class="w"> </span>-type<span class="w"> </span>s<span class="w"> </span>-delete
+</pre></div>
+</div>
+</div>
 </section>
 <section id="http-proxies">
 <h3>HTTP proxies<a class="headerlink" href="#http-proxies" title="Link to this heading"></a></h3>
@@ -461,6 +473,18 @@ your system BIOS or firmware.</p>
 </pre></div>
 </div>
 <p>This kind of duplication can be useful if you are looking for canary tests.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If a source container includes persistent sockets, these sockets may cause the copy operation to fail.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Copying sources...</span>
+<span class="go">ERROR  : could not duplicate image: lchown /var/lib/warewulf/chroots/rocky-8/rootfs/run/user/0/gnupg/d.kg8ijih5tq41ixoeag4p1qup/S.gpg-agent: no such file or directory</span>
+</pre></div>
+</div>
+<p>To resolve this, remove the sockets from the source container.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find<span class="w"> </span><span class="k">$(</span>wwctl<span class="w"> </span>container<span class="w"> </span>show<span class="w"> </span>rocky-8<span class="k">)</span><span class="w"> </span>-type<span class="w"> </span>s<span class="w"> </span>-delete
+</pre></div>
+</div>
+</div>
 </section>
 <section id="multi-arch-container-management">
 <h2>Multi-arch container management<a class="headerlink" href="#multi-arch-container-management" title="Link to this heading"></a></h2>
