@@ -83,8 +83,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#enable-and-start-the-warewulf-service">Enable and start the Warewulf service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-system-services-automatically">Configure system services automatically</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#add-a-base-node-image-container">Add a base node image container</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#configure-a-default-node-profile">Configure a default node profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configure-the-default-node-profile">Configure the default node profile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#add-a-node">Add a node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-overlays">Build overlays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#boot">Boot</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="suse15.html">openSUSE Leap and SLES 15</a></li>
@@ -135,11 +137,7 @@ v4.5.7 release on Enterprise Linux 9:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.5.7/warewulf-4.5.7-1.el9.x86_64.rpm
 </pre></div>
 </div>
-<p>Packages are available for el7, el8, and el9.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>CentOS 7 (and el7 in general) uses <code class="docutils literal notranslate"><span class="pre">yum</span></code>, and does not provide <code class="docutils literal notranslate"><span class="pre">dnf</span></code>.</p>
-</div>
+<p>Packages are available for el8 and el9.</p>
 <section id="install-warewulf-from-source">
 <h3>Install Warewulf from source<a class="headerlink" href="#install-warewulf-from-source" title="Link to this heading"></a></h3>
 <p>If you prefer, you can also install Warewulf from source.</p>
@@ -152,10 +150,6 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warew
 make
 make<span class="w"> </span>install
 </pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>CentOS 7 (and el7 in general) only provides a single <code class="docutils literal notranslate"><span class="pre">ipxe-bootimgs</span></code> package.</p>
 </div>
 </section>
 </section>
@@ -271,12 +265,13 @@ files written to q`tftpboot``.</p>
 <p>This will pull a basic node image container from Docker Hub and import the
 default running kernel from the controller node and set both in the
 “default” node profile.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:9<span class="w"> </span>rockylinux-9<span class="w"> </span>--setdefault
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:9<span class="w"> </span>rockylinux-9<span class="w"> </span>--build
+wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--container<span class="w"> </span>rockylinux-9
 </pre></div>
 </div>
 </section>
-<section id="configure-a-default-node-profile">
-<h2>Configure a default node profile<a class="headerlink" href="#configure-a-default-node-profile" title="Link to this heading"></a></h2>
+<section id="configure-the-default-node-profile">
+<h2>Configure the default node profile<a class="headerlink" href="#configure-the-default-node-profile" title="Link to this heading"></a></h2>
 <p>In this example, all nodes share the netmask and gateway
 configuration, so we can set them in the default profile.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-y<span class="w"> </span>default<span class="w"> </span>--netmask<span class="o">=</span><span class="m">255</span>.255.252.0<span class="w"> </span>--gateway<span class="o">=</span><span class="m">10</span>.0.0.1
@@ -298,6 +293,24 @@ wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </
 </div>
 <p>The full node configuration comes from both cascading profiles and
 node configurations which always supersede profile configurations.</p>
+</section>
+<section id="build-overlays">
+<h2>Build overlays<a class="headerlink" href="#build-overlays" title="Link to this heading"></a></h2>
+<p>The default configuration should cause node overlays to be built automatically
+when they are required; but you can build them explicitly, just to be sure.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Overlay autobuild has been broken at various times prior to v4.5.6; so it’s
+a reasonable practice to rebuild overlays manually after changes to the
+cluster.</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># you can also supply an `n1` argument to build for the specific node</span>
+wwctl<span class="w"> </span>overlay<span class="w"> </span>build
+</pre></div>
+</div>
+</section>
+<section id="boot">
+<h2>Boot<a class="headerlink" href="#boot" title="Link to this heading"></a></h2>
 <p>Turn on your compute node and watch it boot!</p>
 </section>
 </section>
