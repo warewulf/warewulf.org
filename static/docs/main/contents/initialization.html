@@ -138,10 +138,10 @@ from the <strong>host</strong> template under <code class="docutils literal notr
 the system service.</p></li>
 <li><p><strong>hostfile</strong>: Update the system’s /etc/hosts file based on the
 <strong>host</strong> template <code class="docutils literal notranslate"><span class="pre">/etc/hosts.ww</span></code>.</p></li>
-<li><p><strong>nfs</strong>: Configure the NFS server on the control node as well as the
-<code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code> in the system overlay based on the configuration in
-<code class="docutils literal notranslate"><span class="pre">/etc/warewulf/warewulf.conf</span></code> and enable the system service. Also
-the file <code class="docutils literal notranslate"><span class="pre">/etc/exports.ww</span></code> from the <strong>host</strong> template is installed.</p></li>
+<li><p><strong>nfs</strong>: Configure the NFS server on the control node based on the
+configuration in <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/warewulf.conf</span></code> and enable the NFS
+service. Also the file <code class="docutils literal notranslate"><span class="pre">/etc/exports.ww</span></code> from the <strong>host</strong> template is
+installed.</p></li>
 <li><p><strong>ssh</strong>: Create the appropriate host keys (stored in
 <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/keys/</span></code>) and user keys for passwordless <code class="docutils literal notranslate"><span class="pre">ssh</span></code> into
 the nodes. Addionally the shell profiles

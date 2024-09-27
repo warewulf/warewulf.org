@@ -221,8 +221,8 @@ You can check the result with <code class="docutils literal notranslate"><span c
 <span class="go">deliverynet  Comment                           default  This profile is automatically included for each node</span>
 <span class="go">deliverynet  ContainerName                     default  leap15.5</span>
 <span class="go">deliverynet  Ipxe                              --       (default)</span>
-<span class="go">deliverynet  RuntimeOverlay                    --       (generic)</span>
-<span class="go">deliverynet  SystemOverlay                     --       (wwinit)</span>
+<span class="go">deliverynet  RuntimeOverlay                    --       (hosts,ssh.authorized_keys,syncuser)</span>
+<span class="go">deliverynet  SystemOverlay                     --       (wwinit,wwclient,fstab,hostname,ssh.host_keys,issue,resolv,udev.netname,systemd.netname,ifcfg,NetworkManager,debian.interfaces,wicked,ignition)</span>
 <span class="go">deliverynet  Root                              --       (initramfs)</span>
 <span class="go">deliverynet  Init                              --       (/sbin/init)</span>
 <span class="go">deliverynet  Kernel.Args                       --       (quiet crashkernel=no vga=791 net.naming-scheme=v238)</span>
