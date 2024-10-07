@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
@@ -6,20 +8,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Warewulf Configuration &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=7ab3649f" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
 
   
     <link rel="shortcut icon" href="../_static/favicon.png"/>
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=a8da1a53"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -288,6 +286,13 @@ command.</p>
 <p>This configuration is not written at install time; but, the first
 time you attempt to run <code class="docutils literal notranslate"><span class="pre">wwctl</span></code>, this file will be generated if
 it does not exist already.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> is edited directly, <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> does not know that the container profile has been changed. Therefore the changes to <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> are not taken into account by <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> until it is restarted.
+Once you restart <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code>, the <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> file is then successfully reloaded.
+This also goes for <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> as well - any changes made also require <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> to be restarted.
+The restart should be done using the following command: <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">restart</span> <span class="pre">warewulfd</span></code></p>
 </div>
 </section>
 <section id="defaults-conf">
