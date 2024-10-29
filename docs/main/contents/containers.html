@@ -58,6 +58,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Container Management</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#container-tools">Container Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#importing-containers">Importing Containers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#platform">Platform</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#private-registry">Private Registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#local-files">Local Files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#http-proxies">HTTP proxies</a></li>
@@ -194,6 +195,16 @@ boot properly. They will not, as they will get stuck into a single
 user mode. The containers in <a class="reference external" href="https://hub.docker.com/u/warewulf">https://hub.docker.com/u/warewulf</a> are not limited and thus
 they boot as you would expect.</p>
 </div>
+<section id="platform">
+<h3>Platform<a class="headerlink" href="#platform" title="Link to this heading"></a></h3>
+<p>By default,
+Warewulf will try to import a container of the same platform
+(e.g., amd64, arm64)
+as the local system.
+To specify the platform to import,
+either specify <cite>WAREWULF_OCI_PLATFORM</cite>
+or use the argument <cite>–platform</cite> during import.</p>
+</section>
 <section id="private-registry">
 <h3>Private Registry<a class="headerlink" href="#private-registry" title="Link to this heading"></a></h3>
 <p>It is possible to use a private registry that is password protected or
