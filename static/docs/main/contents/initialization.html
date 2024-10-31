@@ -56,10 +56,7 @@
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Warewulf Initialization</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#system-services">System Services</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#warewulf-service">Warewulf Service</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#logs">Logs</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#warewulf-service">Warewulf Service</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
@@ -160,22 +157,6 @@ systemd service:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>warewulfd
 </pre></div>
 </div>
-<p>You can also check and control the Warewulf service using the <code class="docutils literal notranslate"><span class="pre">wwctl</span></code>
-command line program as follows:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>server<span class="w"> </span>status
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If the Warewulf service is running via systemd, restarting
-stopping, and starting it from the <code class="docutils literal notranslate"><span class="pre">wwctl</span></code> command may result in
-unexpected results.</p>
-</div>
-<section id="logs">
-<h3>Logs<a class="headerlink" href="#logs" title="Link to this heading"></a></h3>
-<p>The Warewulf server logs are by default written to
-<code class="docutils literal notranslate"><span class="pre">/var/log/warewulfd.log</span></code>.</p>
-</section>
 </section>
 </section>
 
