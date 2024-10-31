@@ -334,7 +334,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39; &gt; Vagrantfi
 <span class="s">  systemd name: nfs-server</span>
 <span class="s">CONF</span>
 
-<span class="s">            sed -i &#39;s@ExecStart=/usr/bin/wwctl server start@ExecStart=/usr/bin/wwctl server start -d -v@&#39; /usr/lib/systemd/system/warewulfd.service</span>
+<span class="s">            sed -i &#39;s@ExecStart=/usr/bin/wwctl server@ExecStart=/usr/bin/wwctl server -d -v@&#39; /usr/lib/systemd/system/warewulfd.service</span>
 <span class="s">            systemctl enable --now warewulfd</span>
 
 <span class="s">            wwctl configure --all</span>
