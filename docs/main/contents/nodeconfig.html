@@ -71,6 +71,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#configuring-the-node-s-kernel">Configuring the Node’s Kernel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#configuring-the-node-s-network">Configuring the Node’s Network</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#additional-networks">Additional networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vlan">VLAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#static-routes">Static Routes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#node-discovery">Node Discovery</a></li>
 </ul>
 </li>
@@ -356,6 +358,37 @@ You will have provide all the necessary network information.</p>
 <span class="w">  </span>--netname<span class="w"> </span>iband<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--type<span class="w"> </span>infiniband<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>n001
+</pre></div>
+</div>
+</section>
+<section id="vlan">
+<h3>VLAN<a class="headerlink" href="#vlan" title="Link to this heading"></a></h3>
+<p>You can set the type also to <code class="docutils literal notranslate"><span class="pre">vlan</span></code>.</p>
+<p>Some network configuration systems use the network device name
+(e.g., of the form <code class="docutils literal notranslate"><span class="pre">eno1.100</span></code>)
+to configure VLANs.
+Other network systems need additional network tags:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vlan_id</span></code>: configures the VLAN ID of the interface</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parent_device</span></code>: configures which physical interface to use</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netdev<span class="w"> </span>vlan42<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ipaddr<span class="w"> </span><span class="m">10</span>.0.42.1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netmask<span class="w"> </span><span class="m">255</span>.255.252.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netname<span class="w"> </span>iband<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>vlan<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--nettagadd<span class="w"> </span><span class="s2">&quot;vlan_id=42,parent_device=eth0&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>n001
+</pre></div>
+</div>
+</section>
+<section id="static-routes">
+<h3>Static Routes<a class="headerlink" href="#static-routes" title="Link to this heading"></a></h3>
+<p>The included Warewulf network overlays support the configuration of static routes
+using a network tag of the form <code class="docutils literal notranslate"><span class="pre">route&lt;N&gt;=&lt;dest&gt;,&lt;gateway&gt;</span></code>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n001<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--nettagadd<span class="w"> </span><span class="s2">&quot;route1=192.168.2.0/24,192.168.1.254&quot;</span>
 </pre></div>
 </div>
 </section>
