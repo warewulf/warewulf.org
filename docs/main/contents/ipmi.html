@@ -72,6 +72,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#power-commands">Power Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#console">Console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ipmi-template">Ipmi template</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="disks.html">Disk Management</a></li>
@@ -125,7 +126,9 @@
 <h1>IPMI<a class="headerlink" href="#ipmi" title="Link to this heading"></a></h1>
 <p>It is possible to control the power or connect a console to your nodes
 being managed by Warewulf by connecting to the BMC through the use of
-IPMI. We will discuss how to set this up below.</p>
+<cite>ipmitool</cite>. Other methods can also configured, but require additional
+configuration.
+We will discuss how to set this up below.</p>
 <section id="ipmi-settings">
 <h2>IPMI Settings<a class="headerlink" href="#ipmi-settings" title="Link to this heading"></a></h2>
 <p>The common settings for the IPMI interfaces on all nodes can be set on
@@ -133,8 +136,8 @@ a Profile level. The only field that would need to be assigned to each
 individual node would be the IP address.</p>
 <p>The settings are only written to the IPMI interface if <code class="docutils literal notranslate"><span class="pre">--ipmiwrite</span></code>
 is set to <cite>true</cite>. The write process happens at every boot of the node
-through the script <code class="docutils literal notranslate"><span class="pre">/warewulf/init.d/50-ipmi</span></code> in the wwinit
-overlay.</p>
+through the script <code class="docutils literal notranslate"><span class="pre">/warewulf/init.d/50-ipmi</span></code> in the <strong>system</strong>
+overlay and are done with <cite>ipmitool</cite>.</p>
 <p>If an individual node has different settings, you can set the IPMI
 settings for that specific node, overriding the default settings.</p>
 <p>Here is a table outlining the fields on a Profile and Node which is
@@ -203,6 +206,12 @@ the same as the parameter that can be used when running <code class="docutils li
 <td><p>true</p></td>
 <td><p>single character</p></td>
 <td><p>~</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--ipmitemplate</span></code></p></td>
+<td><p>true</p></td>
+<td><p>true</p></td>
+<td><p>path to template</p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -325,6 +334,54 @@ connect a console to the node.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>console<span class="w"> </span>n001
 </pre></div>
 </div>
+</section>
+<section id="ipmi-template">
+<h2>Ipmi template<a class="headerlink" href="#ipmi-template" title="Link to this heading"></a></h2>
+<p>As warewulf doesn’t manage the ipmi/bmc interfaces directly, but calls <code class="docutils literal notranslate"><span class="pre">ipmitool</span></code>
+this managed with a template which defines the behavior. For <code class="docutils literal notranslate"><span class="pre">ipmitool</span></code> following
+template is used</p>
+<p>In order to use another template, its filename must be specified for a node or profile via the
+<code class="docutils literal notranslate"><span class="pre">--ipmitemplate</span></code> switch and the template must placed under <code class="docutils literal notranslate"><span class="pre">/usr/lib/warewulf/bmc</span></code> or to the
+path which is was defined as <code class="docutils literal notranslate"><span class="pre">datadir</span></code> in <code class="docutils literal notranslate"><span class="pre">warwulf.conf</span></code> or during compile time.
+All IPMI specific variables are accessible in the template which are the following</p>
+<div class="line-block">
+<div class="line">Parameter           | Template variable  |</div>
+</div>
+<p>+=====================+====================+
+| <code class="docutils literal notranslate"><span class="pre">--ipmiaddr</span></code>      | <code class="docutils literal notranslate"><span class="pre">.Ipaddr</span></code>        |
++———————+——————–+
+| <code class="docutils literal notranslate"><span class="pre">--ipminetmask</span></code>   | <code class="docutils literal notranslate"><span class="pre">.Netmask</span></code>       |
++———————+——————–+
+| <code class="docutils literal notranslate"><span class="pre">--ipmiport</span></code>      | <code class="docutils literal notranslate"><span class="pre">.Port</span></code>          |
++———————+——————–+
+| <code class="docutils literal notranslate"><span class="pre">--ipmigateway</span></code>   | <code class="docutils literal notranslate"><span class="pre">.Gateway</span></code>       |
++———————+——————–+
+| <code class="docutils literal notranslate"><span class="pre">--ipmiuser</span></code>      | <code class="docutils literal notranslate"><span class="pre">.UserName</span></code>      |
++———————+——————–+
+| <code class="docutils literal notranslate"><span class="pre">--ipmipass</span></code>      | <code class="docutils literal notranslate"><span class="pre">.Password</span></code>      |
++———————+——————–+
+| <code class="docutils literal notranslate"><span class="pre">--ipmiinterface</span></code> | <code class="docutils literal notranslate"><span class="pre">.Interface</span></code>     |
++———————+——————–+
+| <code class="docutils literal notranslate"><span class="pre">--ipmiwrite</span></code>     | <code class="docutils literal notranslate"><span class="pre">.Write</span></code>         |
++———————+——————–+
+| <code class="docutils literal notranslate"><span class="pre">--ipmiescapechar``|</span> <span class="pre">``.EscapeChar</span></code>    |
++———————+——————–+
+| <code class="docutils literal notranslate"><span class="pre">--ipmitemplate</span></code>  | <code class="docutils literal notranslate"><span class="pre">.Template</span></code>      |
++———————+——————–+</p>
+<p>Additional the <code class="docutils literal notranslate"><span class="pre">.Args</span></code> variable is accessible which can have following
+values:
+* <cite>PowerOn</cite>
+* <cite>PowerOff</cite>
+* <cite>PowerCycle</cite>
+* <cite>PowerReset</cite>
+* <cite>PowerSoft</cite>
+* <cite>PowerStatus</cite>
+* <cite>SDRList</cite>
+* <cite>SensorList</cite>
+* <cite>Console</cite>
+which are the calls done by <cite>wwctl power</cite> commands.</p>
+<p>Also the script  <code class="docutils literal notranslate"><span class="pre">/warewulf/init.d/50-ipmi</span></code> in the <strong>system</strong>
+overlay may need an update. There the variables must have the prefix <code class="docutils literal notranslate"><span class="pre">.Ipmi</span></code></p>
 </section>
 </section>
 
