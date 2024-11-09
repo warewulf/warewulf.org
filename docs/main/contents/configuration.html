@@ -59,7 +59,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#nodes-conf">nodes.conf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#defaults-conf">defaults.conf</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#directories">Directories</a></li>
 </ul>
 </li>
@@ -293,17 +292,6 @@ Once you restart <code class="docutils literal notranslate"><span class="pre">wa
 This also goes for <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> as well - any changes made also require <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> to be restarted.
 The restart should be done using the following command: <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">restart</span> <span class="pre">warewulfd</span></code></p>
 </div>
-</section>
-<section id="defaults-conf">
-<h2>defaults.conf<a class="headerlink" href="#defaults-conf" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">defaults.conf</span></code> file configures default values used when none
-are specified in <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code>. For example: if a node does not have
-a “runtime overlay” specified, the respective value from
-<code class="docutils literal notranslate"><span class="pre">defaultnode</span></code> is used. If a network device does not specify a
-“device,” the device value of the <code class="docutils literal notranslate"><span class="pre">dummy</span></code> device is used.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">defaults.conf</span></code> does not exist, compiled-in defaults are used.</p>
-<p>There should never be a need to change this file: all site-local
-parameters should be specified using either nodes or profiles.</p>
 </section>
 <section id="directories">
 <h2>Directories<a class="headerlink" href="#directories" title="Link to this heading"></a></h2>
