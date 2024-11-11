@@ -59,6 +59,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#nodes-conf">nodes.conf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#upgrades">Upgrades</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#directories">Directories</a></li>
 </ul>
 </li>
@@ -128,8 +129,7 @@ primary configuration files needed by Warewulf.</p>
 <h2>warewulf.conf<a class="headerlink" href="#warewulf-conf" title="Link to this heading"></a></h2>
 <p>The Warewulf configuration exists as follows in the current version of
 Warewulf (4.5.2):</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">WW_INTERNAL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45</span>
-<span class="nt">ipaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.1</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ipaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.1</span>
 <span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.252.0</span>
 <span class="nt">network</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.0</span>
 <span class="nt">warewulf</span><span class="p">:</span>
@@ -292,6 +292,23 @@ Once you restart <code class="docutils literal notranslate"><span class="pre">wa
 This also goes for <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> as well - any changes made also require <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> to be restarted.
 The restart should be done using the following command: <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">restart</span> <span class="pre">warewulfd</span></code></p>
 </div>
+</section>
+<section id="upgrades">
+<h2>Upgrades<a class="headerlink" href="#upgrades" title="Link to this heading"></a></h2>
+<p>New versions of Warewulf might introduce changes to <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> and <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">upgrade</span></code> command can help ease the transition between versions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">upgrade</span></code> will back up any files before it changes them (to <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;-old</span></code>)
+but it is good practice to back up your configuration manually.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>upgrade<span class="w"> </span>config
+<span class="gp"># </span>wwctl<span class="w"> </span>upgrade<span class="w"> </span>nodes<span class="w"> </span>--add-defaults<span class="w"> </span>--replace-overlays
+</pre></div>
+</div>
+<p>Both upgrade commands support specifying <code class="docutils literal notranslate"><span class="pre">--output-path=-</span></code>
+to print the upgraded configuration file to standard out
+for inspection before replacing the configuration files.</p>
 </section>
 <section id="directories">
 <h2>Directories<a class="headerlink" href="#directories" title="Link to this heading"></a></h2>
