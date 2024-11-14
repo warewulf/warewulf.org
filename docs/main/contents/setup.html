@@ -223,7 +223,7 @@ You can check the result with <code class="docutils literal notranslate"><span c
 <span class="go">deliverynet  SystemOverlay                     --       (wwinit,wwclient,fstab,hostname,ssh.host_keys,issue,resolv,udev.netname,systemd.netname,ifcfg,NetworkManager,debian.interfaces,wicked,ignition)</span>
 <span class="go">deliverynet  Root                              --       (initramfs)</span>
 <span class="go">deliverynet  Init                              --       (/sbin/init)</span>
-<span class="go">deliverynet  Kernel.Args                       --       (quiet crashkernel=no vga=791 net.naming-scheme=v238)</span>
+<span class="go">deliverynet  Kernel.Args                       --       (quiet crashkernel=no net.ifnames=1)</span>
 <span class="go">deliverynet  Profiles                          --       default</span>
 <span class="go">deliverynet  PrimaryNetDev                     --       (deliver1)</span>
 <span class="go">deliverynet  NetDevs[deliver2].Type            --       (ethernet)</span>
