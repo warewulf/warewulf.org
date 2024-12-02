@@ -80,6 +80,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#container-size-considerations">Container Size Considerations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#duplicating-a-container">Duplicating a container</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#multi-arch-container-management">Multi-arch container management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-only-containers">Read-only containers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
@@ -524,6 +525,16 @@ tools 1.21 or newer. Below is an example for building wwclient for arm64:</p>
 </pre></div>
 </div>
 <p>Then, apply the new “wwclient_arm64” system overlay to your arm64 node/profile</p>
+</section>
+<section id="read-only-containers">
+<h2>Read-only containers<a class="headerlink" href="#read-only-containers" title="Link to this heading"></a></h2>
+<p>A container may be marked “read-only” by creating a <code class="docutils literal notranslate"><span class="pre">readonly</span></code> file in its
+source directory, typically next to <code class="docutils literal notranslate"><span class="pre">rootfs</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Read-only containers are a preview feature primarily meant to enable future
+support for container subscriptions and updates.</p>
+</div>
 </section>
 </section>
 
