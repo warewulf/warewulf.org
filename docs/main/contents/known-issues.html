@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stateless Provisioning &mdash; Warewulf User Guide main documentation</title>
+  <title>Known issues &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Control Server Setup" href="setup.html" />
-    <link rel="prev" title="Background" href="background.html" /> 
+    <link rel="next" title="Enterprise Linux Quickstart (Rocky Linux, CentOS, and RHEL)" href="../quickstart/el.html" />
+    <link rel="prev" title="Troubleshooting" href="troubleshooting.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,12 +49,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="background.html">Background</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Stateless Provisioning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#why-is-provisioning-important">Why is Provisioning Important</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#provisioning-overview">Provisioning Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#why-stateless-provisioning">Why Stateless Provisioning</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="stateless.html">Stateless Provisioning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Control Server Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Warewulf Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
@@ -73,7 +68,11 @@
 <li class="toctree-l1"><a class="reference internal" href="templating.html">Templating</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dnsmasq.html">dnsmasq</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="known-issues.html">Known issues</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Known issues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#selinux-and-ipmi-write-not-working-when-using-two-stage-boot">SELinux and IPMI write not working when using two-stage boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#containers-are-read-only">Containers are read-only</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
@@ -106,9 +105,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Stateless Provisioning</li>
+      <li class="breadcrumb-item active">Known issues</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/contents/stateless.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/contents/known-issues.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -116,76 +115,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="stateless-provisioning">
-<h1>Stateless Provisioning<a class="headerlink" href="#stateless-provisioning" title="Link to this heading"></a></h1>
-<section id="why-is-provisioning-important">
-<h2>Why is Provisioning Important<a class="headerlink" href="#why-is-provisioning-important" title="Link to this heading"></a></h2>
-<p>Clusters are pools of servers bundled together to do a particular job
-or set of jobs. While there are a number of different use cases for
-clustering today, Warewulf was originally designed out of necessity.</p>
-<p>Back in 2000, when Linux clustering was growing up for HPC, the issues
-of scale became apparent. Of course in HPC, there are many scalability
-factors which needed to be overcome as we continued to scale up
-clusters. Pretty early on was the “administrative scaling” which is
-the factor that full time systems administrators could only maintain
-so many servers. While homogeneous configurations were able to help
-that, we still had the problem that every installed server became a
-point of administration, version drift, and debugging. The larger the
-cluster, the harder this problem was to solve.</p>
-<p>Warewulf was created to help with exactly this.</p>
-</section>
-<section id="provisioning-overview">
-<h2>Provisioning Overview<a class="headerlink" href="#provisioning-overview" title="Link to this heading"></a></h2>
-<p>Provisioning in this definition is the process of putting an operating
-system onto a system. There are many ways to provision operating
-system images, from copying hard drives, to scripted installs, to
-automated installs. There are many valuable tools to facilitate this
-and they all helped to solve this problem.</p>
-<p>In a cluster environment, this means one could group all of the nodes
-together, to be installed in bulk. Previous to cluster provisioning
-system administrators would go around to each cluster node, and
-install it from scratch, with an ISO or USB thumb drive. This
-obviously is not scalable. But being able to automatically install
-hundreds or thousands of computers in parallel and automate the
-management of these systems completely changed the paradigm.</p>
-<p>There were several cluster provision and management toolkits already
-available when Warewulf was created and while these tools absolutely
-helped, there was even more optimization to be had.</p>
-</section>
-<section id="why-stateless-provisioning">
-<h2>Why Stateless Provisioning<a class="headerlink" href="#why-stateless-provisioning" title="Link to this heading"></a></h2>
-<p>The next step past automated installs is to just skip the installation
-completely; boot directly into the runtime operating system without
-ever doing an installation.</p>
-<p>This is Warewulf.</p>
-<p>Stateless provisioning is realizing you never have to install another
-compute node. Think of it like booting a LiveOS or LiveISO on nodes
-over the network. This means that no node individually is a point of
-system administration, but rather the entire cluster is administrated
-as a single unit.</p>
-<p>If all cluster nodes are booting the same OS image (or set of OS
-images), then any individual nodes that have problems is
-hardware. Debugging software and doing system administration in single
-points within a cluster is not needed. There is no version drift,
-because it is not possible for nodes to fall out of sync. Every reboot
-makes it exactly the same as its neighbors.</p>
-<p>Warewulf provisions the operating system by default to system
-memory. There is no need for hard drives with Warewulf.</p>
-<p>Previous versions of Warewulf had the ability to write the operating
-system to hard disk as well as do hybrid provisioning (the core
-operating system in memory, other pieces overlaid over NFS) but these
-have been obsoleted in Warewulf v4 as there are easier ways to
-accomplish the same thing (e.g. use of swap space).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you wish to provision to the hard drive, we might add that
-feature back based on user requests but in the mean time, you may
-wish to look at an automated or scripted installation platform
-instead of a cluster provisioning system.</p>
+  <section id="known-issues">
+<h1>Known issues<a class="headerlink" href="#known-issues" title="Link to this heading"></a></h1>
+<section id="selinux-and-ipmi-write-not-working-when-using-two-stage-boot">
+<h2>SELinux and IPMI write not working when using two-stage boot<a class="headerlink" href="#selinux-and-ipmi-write-not-working-when-using-two-stage-boot" title="Link to this heading"></a></h2>
+<p>The dracut implementation of two-stage boot in versions of Warewulf prior to v4.6.0 bypasses the
+<code class="docutils literal notranslate"><span class="pre">wwinit</span></code> process by default, invoking the image’s init system directly. While cluster nodes will
+often still boot mostly successfully this way, features implemented by wwinit will not complete. In
+particular, SELinux relabeling and IPMI write are not executed.</p>
+<p>To ensure that dracut runs the full <code class="docutils literal notranslate"><span class="pre">wwinit</span></code> process, pass <code class="docutils literal notranslate"><span class="pre">init=/init</span></code> or
+<code class="docutils literal notranslate"><span class="pre">init=/warewulf/wwinit</span></code> on the kernel command line.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># wwctl profile set default --kernelargs=&quot;init=/init&quot;</span>
+</pre></div>
 </div>
-<p>In our experience, the Warewulf provisioning model is by far the most
-advantageous, simplest, and most flexible and scalable cluster
-provisioning platform available.</p>
+</section>
+<section id="containers-are-read-only">
+<h2>Containers are read-only<a class="headerlink" href="#containers-are-read-only" title="Link to this heading"></a></h2>
+<p>Warewulf v4.5 uses the permissions on a container’s <code class="docutils literal notranslate"><span class="pre">rootfs/</span></code> to determine a “read-only” state of
+the container: if the root directory of the container image is <code class="docutils literal notranslate"><span class="pre">u-w</span></code>, it will be mounted read-only
+during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">container</span> <span class="pre">&lt;exec|shell</span></code>, preventing interactive changes to the container image.</p>
+<p>In the past, the root directory was <code class="docutils literal notranslate"><span class="pre">u+w</span></code>, but Enterprise Linux 9.5 (including Red Hat, Rocky, _et
+al._) includes an update to the <code class="docutils literal notranslate"><span class="pre">filesystem</span></code> package that marks the root directory <code class="docutils literal notranslate"><span class="pre">u-w</span></code>. This
+causes Warewulf container images to be “read only” by default.</p>
+<p>To mark a Warewulf container as writeable, use <cite>chmod u+w</cite>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># chmod u+w $(wwctl container show rockylinux-9.5)</span>
+</pre></div>
+</div>
+<p>This behavior is changed in v4.6 to use an explicit <code class="docutils literal notranslate"><span class="pre">readonly</span></code> file stored outside of <code class="docutils literal notranslate"><span class="pre">rootfs/</span></code>.</p>
 </section>
 </section>
 
@@ -193,8 +149,8 @@ provisioning platform available.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="background.html" class="btn btn-neutral float-left" title="Background" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="setup.html" class="btn btn-neutral float-right" title="Control Server Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="troubleshooting.html" class="btn btn-neutral float-left" title="Troubleshooting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../quickstart/el.html" class="btn btn-neutral float-right" title="Enterprise Linux Quickstart (Rocky Linux, CentOS, and RHEL)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
