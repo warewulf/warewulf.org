@@ -68,7 +68,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#listing-nodes">Listing Nodes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#setting-node-attributes">Setting Node Attributes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuring-the-node-s-container-image">Configuring the Node’s Container Image</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#configuring-the-node-s-kernel">Configuring the Node’s Kernel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#configuring-the-node-s-network">Configuring the Node’s Network</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#additional-networks">Additional networks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#vlan">VLAN</a></li>
@@ -261,25 +260,6 @@ see a list of all configuration attributes, use the command <code class="docutil
 <span class="go">n0000                Container          --           rocky-8</span>
 </pre></div>
 </div>
-<section id="configuring-the-node-s-kernel">
-<h3>Configuring the Node’s Kernel<a class="headerlink" href="#configuring-the-node-s-kernel" title="Link to this heading"></a></h3>
-<p>While the recommended method for assigning a kernel in v4.3 and beyond
-is to include it in the container / node image, a kernel can still be
-specified as an override at the node or profile.  To illustrate this,
-we import the most recent kernel from a openSUSE Tumbleweed release.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://registry.opensuse.org/science/warewulf/tumbleweed/containerfile/kernel:latest<span class="w"> </span>tw
-<span class="gp"># </span>wwctl<span class="w"> </span>kernel<span class="w"> </span>import<span class="w"> </span>-DC<span class="w"> </span>tw
-<span class="gp"># </span>wwctl<span class="w"> </span>kernel<span class="w"> </span>list
-<span class="go">KERNEL NAME                         KERNEL VERSION            NODES</span>
-<span class="go">tw                                  6.1.10-1-default               0</span>
-<span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--kerneloverride<span class="w"> </span>tw<span class="w"> </span>n001
-<span class="go">Are you sure you want to modify 1 nodes(s): y</span>
-
-<span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span>n001<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kerneloverride
-<span class="go">n001                 kerneloverride     --           tw</span>
-</pre></div>
-</div>
-</section>
 <section id="configuring-the-node-s-network">
 <h3>Configuring the Node’s Network<a class="headerlink" href="#configuring-the-node-s-network" title="Link to this heading"></a></h3>
 <p>To configure the network, we have to pick a network device name and
