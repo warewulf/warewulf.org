@@ -130,7 +130,7 @@ kernel --name kernel ${uri}?stage=kernel
 imgextract --name container ${uri}?stage=container&amp;compress=gz
 imgextract --name system ${uri}?stage=system&amp;compress=gz
 imgextract --name runtime ${uri}?stage=runtime&amp;compress=gz
-boot kernel initrd=container initrd=kmods initrd=system initrd=runtime
+boot kernel initrd=container initrd=system initrd=runtime
 </pre></div>
 </div>
 <ul class="simple">
@@ -150,7 +150,7 @@ If your nodes have defined asset tags, provide it in the <code class="docutils l
 </div>
 <p>For example, you may want to try booting to a pre-init shell with debug logging enabled.
 To do so, substitute the <code class="docutils literal notranslate"><span class="pre">boot</span></code> command above.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">boot</span> <span class="n">kernel</span> <span class="n">initrd</span><span class="o">=</span><span class="n">container</span> <span class="n">initrd</span><span class="o">=</span><span class="n">kmods</span> <span class="n">initrd</span><span class="o">=</span><span class="n">system</span> <span class="n">initrd</span><span class="o">=</span><span class="n">runtime</span> <span class="n">rdinit</span><span class="o">=/</span><span class="nb">bin</span><span class="o">/</span><span class="n">sh</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">boot</span> <span class="n">kernel</span> <span class="n">initrd</span><span class="o">=</span><span class="n">container</span> <span class="n">initrd</span><span class="o">=</span><span class="n">system</span> <span class="n">initrd</span><span class="o">=</span><span class="n">runtime</span> <span class="n">rdinit</span><span class="o">=/</span><span class="nb">bin</span><span class="o">/</span><span class="n">sh</span>
 </pre></div>
 </div>
 <div class="admonition note">
