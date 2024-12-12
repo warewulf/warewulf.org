@@ -61,6 +61,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#nodes-conf">nodes.conf</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#upgrades">Upgrades</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#directories">Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#firewalld">FirewallD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nftables">nftables</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
@@ -129,7 +131,7 @@ primary configuration files needed by Warewulf.</p>
 <section id="warewulf-conf">
 <h2>warewulf.conf<a class="headerlink" href="#warewulf-conf" title="Link to this heading"></a></h2>
 <p>The Warewulf configuration exists as follows in the current version of
-Warewulf (4.5.2):</p>
+Warewulf (4.5.8):</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ipaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.1</span>
 <span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.252.0</span>
 <span class="nt">network</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.0</span>
@@ -316,6 +318,36 @@ for inspection before replacing the configuration files.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/ipxe/</span></code> directory contains <em>text/templates</em> that
 are used by the Warewulf configuration process to configure the
 <code class="docutils literal notranslate"><span class="pre">ipxe</span></code> service.</p>
+</section>
+<section id="firewalld">
+<h2>FirewallD<a class="headerlink" href="#firewalld" title="Link to this heading"></a></h2>
+<p>When using <code class="docutils literal notranslate"><span class="pre">firewalld</span></code> with Warewulf, the following services are required to be added for successful node interconnectivity:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">firewall-cmd --permanent --add-service=warewulf</span>
+<span class="go">firewall-cmd --permanent --add-service=dhcp</span>
+<span class="go">firewall-cmd --permanent --add-service=nfs</span>
+<span class="go">firewall-cmd --permanent --add-service=tftp</span>
+</pre></div>
+</div>
+<p>Make sure the <code class="docutils literal notranslate"><span class="pre">--reload</span></code> command is ran afterwards:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">firewall-cmd --reload</span>
+</pre></div>
+</div>
+</section>
+<section id="nftables">
+<h2>nftables<a class="headerlink" href="#nftables" title="Link to this heading"></a></h2>
+<p>When deploying <code class="docutils literal notranslate"><span class="pre">nftables</span></code> with Warewulf, ensure that TCP port <code class="docutils literal notranslate"><span class="pre">9873</span></code> for HTTP requests is available, else you will not be able to add new nodes to the cluster.</p>
+<p>This can be done with the <code class="docutils literal notranslate"><span class="pre">nft</span> <span class="pre">add</span> <span class="pre">rule</span></code> command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nft add rule inet filter input tcp dport 9873 accept</span>
+</pre></div>
+</div>
+<p>Save the changes to your <code class="docutils literal notranslate"><span class="pre">nftables.conf</span></code> file:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nft list ruleset &gt; /etc/nftables.conf</span>
+</pre></div>
+</div>
+<p>Restart the <code class="docutils literal notranslate"><span class="pre">nftables</span></code> service:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl restart nftables</span>
+</pre></div>
+</div>
 </section>
 </section>
 
