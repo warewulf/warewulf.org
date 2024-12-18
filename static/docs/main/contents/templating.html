@@ -82,6 +82,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#abort">Abort</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nobackup">Nobackup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#split">Split</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#softlink">softlink</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#importlink">ImportLink</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readlink">readlink</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#node-specific-files">Node specific files</a></li>
@@ -320,6 +323,19 @@ template.</p>
 {{ range $y }} {{.}} {{ end }}
 </pre></div>
 </div>
+</section>
+<section id="softlink">
+<h4>softlink<a class="headerlink" href="#softlink" title="Link to this heading"></a></h4>
+<p>Creates a soft link to the given string for the template.</p>
+</section>
+<section id="importlink">
+<h4>ImportLink<a class="headerlink" href="#importlink" title="Link to this heading"></a></h4>
+<p>Evaluates the soft link on the Warewulf server and
+then create the soft link to it in the overlay.</p>
+</section>
+<section id="readlink">
+<h4>readlink<a class="headerlink" href="#readlink" title="Link to this heading"></a></h4>
+<p>Evaluates the soft link on the Warewulf server and returns the target.</p>
 </section>
 </section>
 <section id="node-specific-files">
