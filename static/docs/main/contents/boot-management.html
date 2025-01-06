@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Boot Management &mdash; Warewulf User Guide main documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
 
@@ -384,6 +384,12 @@ initramfs inside the container.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>warewulf-dracut
 dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--regenerate-all
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In some systems, such as <code class="docutils literal notranslate"><span class="pre">rockylinux:8</span></code>, it may be
+necessary to remove <code class="docutils literal notranslate"><span class="pre">/etc/machine-id</span></code> for dracut to properly generate
+the initramfs in the location that Warewulf is expecting.</p>
 </div>
 <p>Set the node’s iPXE template to <code class="docutils literal notranslate"><span class="pre">dracut</span></code> to direct iPXE to fetch the
 node’s initramfs image and boot with dracut semantics, rather than
