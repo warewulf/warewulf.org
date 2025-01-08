@@ -64,6 +64,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#multiple-profiles">Multiple Profiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cascading-profiles">Cascading Profiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#overriding-profiles">Overriding Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#negating-profiles">Negating Profiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-use-profiles-effectively">How To Use Profiles Effectively</a></li>
 </ul>
 </li>
@@ -127,6 +128,8 @@ configurations. This is very handy if you have groups of node specific
 customizations. For example, a few hundred nodes that are running a
 particular container or kernel, and another group of nodes that are
 running a different kernel or container.</p>
+<p>Profiles may, themselves, reference other profiles, supporting complex
+mixtures of profile configuration and negation.</p>
 <p>Any node configuration attributes can be applied to a profile, but
 there are always going to be some node configurations which must be
 specific to a node, like a network HW/MAC address or an IP address.</p>
@@ -267,6 +270,12 @@ as can be seen here:</p>
 <span class="go">n0000                Profiles           --           default,test_profile</span>
 </pre></div>
 </div>
+</section>
+<section id="negating-profiles">
+<h2>Negating Profiles<a class="headerlink" href="#negating-profiles" title="Link to this heading"></a></h2>
+<p>Profiles may also be negated by later profiles. For example, <code class="docutils literal notranslate"><span class="pre">p2,~p1</span></code>
+adds the profile <code class="docutils literal notranslate"><span class="pre">p2</span></code> to a node and removes a previously-applied <code class="docutils literal notranslate"><span class="pre">p1</span></code>
+profile from a node.</p>
 </section>
 <section id="how-to-use-profiles-effectively">
 <h2>How To Use Profiles Effectively<a class="headerlink" href="#how-to-use-profiles-effectively" title="Link to this heading"></a></h2>
