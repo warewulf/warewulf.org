@@ -327,7 +327,7 @@ them as follows:</p>
 </div>
 <p>You can also <code class="docutils literal notranslate"><span class="pre">--bind</span></code> directories from your host into the container
 when using the exec command. This works as follows:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--bind<span class="w"> </span>/tmp:/mnt<span class="w"> </span>rocky-8<span class="w"> </span>/bin/sh
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>shell<span class="w"> </span>--bind<span class="w"> </span>/tmp:/mnt<span class="w"> </span>rocky-8
 <span class="go">[rocky-8] Warewulf&gt;</span>
 </pre></div>
 </div>
@@ -354,7 +354,7 @@ modified. This can be useful for files used for registrations.</p>
 </div>
 <p>When the command completes, if anything within the container changed,
 the container will be rebuilt into a bootable static object
-automatically.</p>
+automatically. (To skip the automatic container rebuild, specify <code class="docutils literal notranslate"><span class="pre">--build=false</span></code>.)</p>
 <p>If the files <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> or <code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> were updated, there
 will be an additional check to confirm if the users are in sync as
 described in <a class="reference internal" href="#syncuser">Syncuser</a> section.</p>
