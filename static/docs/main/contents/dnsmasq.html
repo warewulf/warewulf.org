@@ -147,8 +147,13 @@ dhcp:
 </pre></div>
 </div>
 <p>The configuration of <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> doesn’t need to be changed, as the default configuration includes all files with following pattern <code class="docutils literal notranslate"><span class="pre">/etc/dnsmasq.d/*conf</span></code> into its configuration.
-This configuration is created by the overlay template <code class="docutils literal notranslate"><span class="pre">host:/etc/dnsmasq.d/ww4-hosts.conf.ww</span></code>.
-In order to build this template run</p>
+This configuration is created by the overlay template <code class="docutils literal notranslate"><span class="pre">host:/etc/dnsmasq.d/ww4-hosts.conf.ww</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In certain OS versions, such as Rocky Linux 9, <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> is configured to listen locally via the <code class="docutils literal notranslate"><span class="pre">interface=lo</span></code> option by default in <code class="docutils literal notranslate"><span class="pre">/etc/dnsmasq.conf</span></code>.
+Replace this with the interface associated with your Warewulf network, or remove/comment out the interface option entirely to enable listening on all interfaces.</p>
+</div>
+<p>In order to build this template run</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>overlay<span class="w"> </span>build<span class="w"> </span>-H
 </pre></div>
 </div>
