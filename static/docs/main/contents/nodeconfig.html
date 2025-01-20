@@ -76,6 +76,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#un-setting-node-attributes">Un-setting Node Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resources">Resources</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="profiles.html">Node Profiles</a></li>
@@ -396,6 +397,31 @@ automatically cleared.</p>
 <span class="go">n001                Cluster            --           --</span>
 </pre></div>
 </div>
+</section>
+<section id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Link to this heading"></a></h2>
+<p>Warewulf nodes (and profiles) support generic “resources” that may hold arbitrarily complex YAML
+data. This data, along with tags, may be used by both distribution and site overlays.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">nodeprofiles</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">fstab</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">spec</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warewulf:/home</span>
+<span class="w">          </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home</span>
+<span class="w">          </span><span class="nt">vfstype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfs</span>
+<span class="w">          </span><span class="nt">mntops</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults</span>
+<span class="w">          </span><span class="nt">freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">          </span><span class="nt">passno</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">spec</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warewulf:/opt</span>
+<span class="w">          </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt</span>
+<span class="w">          </span><span class="nt">vfstype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfs</span>
+<span class="w">          </span><span class="nt">mntops</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults,ro</span>
+<span class="w">          </span><span class="nt">freq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">          </span><span class="nt">passno</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+<p>Due to the arbitrary nature of generic resource data, it can only be managed with <cite>wwctl
+&lt;node|profile&gt; edit</cite>.</p>
 </section>
 </section>
 

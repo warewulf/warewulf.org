@@ -229,8 +229,20 @@ interface configuration should handle this dynamically.)</p>
 </section>
 <section id="fstab">
 <h3>fstab<a class="headerlink" href="#fstab" title="Link to this heading"></a></h3>
-<p>The <strong>fstab</strong> overlay configures <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code> to mount NFS shares defined in
-<code class="docutils literal notranslate"><span class="pre">/etc/warewulf.conf</span></code> and file systems created by Ignition.</p>
+<p>The <strong>fstab</strong> overlay configures <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code> based on the data provided in the “fstab”
+resource. It also creates entries for file systems defined by Ignition.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">nodeprofiles</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">fstab</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">spec</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warewulf:/home</span>
+<span class="w">          </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home</span>
+<span class="w">          </span><span class="nt">vfstype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfs</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">spec</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warewulf:/opt</span>
+<span class="w">          </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt</span>
+<span class="w">          </span><span class="nt">vfstype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfs</span>
+</pre></div>
+</div>
 </section>
 <section id="ssh">
 <h3>ssh<a class="headerlink" href="#ssh" title="Link to this heading"></a></h3>
