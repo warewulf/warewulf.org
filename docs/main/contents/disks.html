@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
@@ -135,7 +135,7 @@ Warewulf.</p>
 <p>Warewulf can be used, for example, to create <code class="docutils literal notranslate"><span class="pre">swap</span></code> partitions or <code class="docutils literal notranslate"><span class="pre">/scratch</span></code> file systems.</p>
 <section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
-<p>Partition and file system creation requires both <code class="docutils literal notranslate"><span class="pre">ignition</span></code> and <code class="docutils literal notranslate"><span class="pre">sgdisk</span></code> to be installed in the container image.</p>
+<p>Partition and file system creation requires both <code class="docutils literal notranslate"><span class="pre">ignition</span></code> and <code class="docutils literal notranslate"><span class="pre">sgdisk</span></code> to be installed in the image.</p>
 <section id="rocky-linux">
 <h3>Rocky Linux<a class="headerlink" href="#rocky-linux" title="Link to this heading"></a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>ignition<span class="w"> </span>gdisk
@@ -167,7 +167,7 @@ if no size is given, the maximum available size is used.
 Each partition has the switches <code class="docutils literal notranslate"><span class="pre">should_exist</span></code> and <code class="docutils literal notranslate"><span class="pre">wipe_partition_entry</span></code> which control the partition creation process. When omitting a partition number the <cite>wipe_partition_entry</cite> should be true, as this allows ignition to replace the existing partition.</p>
 <p>File systems are identified by their underlying block device, preferably using the <code class="docutils literal notranslate"><span class="pre">/dev/by-partlabel</span></code> format.
 Except for a <code class="docutils literal notranslate"><span class="pre">swap</span></code> partition, an absolute path for the mount point must be specified for each file system.
-Depending on the container used, valid formats are <code class="docutils literal notranslate"><span class="pre">btrfs</span></code>, <code class="docutils literal notranslate"><span class="pre">ext3</span></code>, <code class="docutils literal notranslate"><span class="pre">ext4</span></code>, and <code class="docutils literal notranslate"><span class="pre">xfs</span></code>.
+Depending on the image used, valid formats are <code class="docutils literal notranslate"><span class="pre">btrfs</span></code>, <code class="docutils literal notranslate"><span class="pre">ext3</span></code>, <code class="docutils literal notranslate"><span class="pre">ext4</span></code>, and <code class="docutils literal notranslate"><span class="pre">xfs</span></code>.
 Each file system has the switch <code class="docutils literal notranslate"><span class="pre">wipe_filesystem</span></code> to control whether an existing file system is wiped.</p>
 </section>
 <section id="ignition-implementation">

@@ -60,7 +60,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
@@ -140,8 +140,7 @@ administration around virtual node images which are used to provision
 out to the cluster nodes. This means you can have hundreds or
 thousands of cluster nodes all booting and running on the same,
 identical virtual node file system image. As of Warewulf v4, the
-virtual node image is a standard container image which means all
-compute resources within a cluster can be managed using any existing
+virtual node image can be managed using any existing
 container tooling and/or CI pipelines that are being used. This can be
 as simple as DockerHub or your own private GitLab CI infrastructure.</p>
 <p>With this architecture, Warewulf combines the best of High Performance
@@ -173,8 +172,8 @@ underlying hardware, Warewulf is agnostic and standards
 compliant. From ARM to x86, Atos to Dell, Debian, SUSE, Rocky,
 CentOS, and RHEL, Warewulf can do it all.</p></li>
 <li><p><strong>Secure</strong>: Warewulf is the only stateless provisioning system that
-will support SELinux out of the box. Just enable your node operating
-system container to support SELinux, and Warewulf do the rest!</p></li>
+will support SELinux out of the box. Just enable your node image to
+support SELinux, and let Warewulf do the rest!</p></li>
 <li><p><strong>Open Source</strong>: For the last 20 years, Warewulf has remained open
 source and continues to be the golden standard for cluster
 provisioning.</p></li>

@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contents/configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contents/containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/nodeconfig.html">Node Configuration</a></li>
@@ -81,7 +81,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#configure-the-controller">Configure the controller</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#start-and-enable-the-warewulf-service">Start and enable the Warewulf service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-system-services-automatically">Configure system services automatically</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pull-and-build-the-vnfs-container-including-the-kernel">Pull and build the VNFS container (including the kernel)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pull-and-build-the-image-including-the-kernel">Pull and build the image (including the kernel)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#set-up-the-default-node-profile">Set up the default node profile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#add-a-node">Add a node</a></li>
 </ul>
@@ -232,12 +232,12 @@ to run <code class="docutils literal notranslate"><span class="pre">$</span> <sp
 errors with TFTP still.</p>
 </div>
 </section>
-<section id="pull-and-build-the-vnfs-container-including-the-kernel">
-<h2>Pull and build the VNFS container (including the kernel)<a class="headerlink" href="#pull-and-build-the-vnfs-container-including-the-kernel" title="Link to this heading"></a></h2>
-<p>This will pull a basic VNFS container from Docker Hub and import the
+<section id="pull-and-build-the-image-including-the-kernel">
+<h2>Pull and build the image (including the kernel)<a class="headerlink" href="#pull-and-build-the-image-including-the-kernel" title="Link to this heading"></a></h2>
+<p>This will pull a basic image from Docker Hub and import the
 default running kernel from the controller node and set both in the
 “default” node profile.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-debian:12.0<span class="w"> </span>debian-12.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-debian:12.0<span class="w"> </span>debian-12.0
 </pre></div>
 </div>
 </section>
@@ -246,9 +246,9 @@ default running kernel from the controller node and set both in the
 <p>Node configurations can be set via node profiles. Each node by default
 is configured to be part of the <code class="docutils literal notranslate"><span class="pre">default</span></code> node profile, so any
 changes you make to that profile will affect all nodes.</p>
-<p>The following command will set the container we just imported above to
+<p>The following command will set the image we just imported above to
 the <code class="docutils literal notranslate"><span class="pre">default</span></code> node profile:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--yes<span class="w"> </span>--container<span class="w"> </span>debian-12.0<span class="w"> </span><span class="s2">&quot;default&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--yes<span class="w"> </span>--image<span class="w"> </span>debian-12.0<span class="w"> </span><span class="s2">&quot;default&quot;</span>
 </pre></div>
 </div>
 <p>Next we set some default networking configurations for the first

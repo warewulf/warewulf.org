@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
@@ -126,8 +126,8 @@ together. Instead of redundant configurations for each node, you can
 put that into a profile and the nodes will inherit these
 configurations. This is very handy if you have groups of node specific
 customizations. For example, a few hundred nodes that are running a
-particular container or kernel, and another group of nodes that are
-running a different kernel or container.</p>
+particular image or kernel, and another group of nodes that are
+running a different kernel or image.</p>
 <p>Profiles may, themselves, reference other profiles, supporting complex
 mixtures of profile configuration and negation.</p>
 <p>Any node configuration attributes can be applied to a profile, but
@@ -152,7 +152,7 @@ follows:</p>
 <span class="go">default              Id                 --       default</span>
 <span class="go">default              Comment            --       This profile is automatically included for each node</span>
 <span class="go">default              Cluster            --       --</span>
-<span class="go">default              Container          --       --</span>
+<span class="go">default              Image              --       --</span>
 <span class="go">default              Kernel             --       --</span>
 <span class="go">default              KernelArgs         --       --</span>
 <span class="go">default              Init               --       --</span>
@@ -288,7 +288,7 @@ configuration attributes.</p>
 manage “fixed” configurations of groups of cluster nodes. For example,
 if you have multiple sub-clusters in your cluster, it might be
 advantageous to have a <code class="docutils literal notranslate"><span class="pre">cluster_name</span></code> profile which includes things
-like network configurations, and/or a specific kernel, container, boot
+like network configurations, and/or a specific kernel, image, boot
 arguments, etc.</p>
 <p>Node specific information, like HW/MAC addresses and IP addresses
 should always be put in a node configuration rather than a profile

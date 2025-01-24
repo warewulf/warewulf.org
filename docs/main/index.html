@@ -54,7 +54,7 @@
 <li class="toctree-l1"><a class="reference internal" href="contents/configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contents/containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contents/nodeconfig.html">Node Configuration</a></li>
@@ -160,17 +160,17 @@
 <li class="toctree-l2"><a class="reference internal" href="contents/initialization.html#warewulf-service">Warewulf Service</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="contents/containers.html">Container Management</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="contents/containers.html#container-tools">Container Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/containers.html#importing-containers">Importing Containers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/containers.html#syncuser">Syncuser</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/containers.html#listing-all-imported-containers">Listing All Imported Containers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/containers.html#making-changes-to-containers">Making Changes To Containers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/containers.html#creating-containers-from-scratch">Creating Containers From Scratch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/containers.html#container-size-considerations">Container Size Considerations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/containers.html#duplicating-a-container">Duplicating a container</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/containers.html#multi-arch-container-management">Multi-arch container management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/containers.html#read-only-containers">Read-only containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/images.html">Image Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contents/images.html#tools">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/images.html#importing-images">Importing Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/images.html#syncuser">Syncuser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/images.html#listing-all-imported-images">Listing All Imported Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/images.html#making-changes-to-images">Making Changes To Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/images.html#creating-images-from-scratch">Creating Images From Scratch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/images.html#image-size-considerations">Image Size Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/images.html#duplicating-an-image">Duplicating an image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/images.html#multi-arch-image-management">Multi-arch image management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/images.html#read-only-images">Read-only images</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contents/kernel.html">Kernel Management</a><ul>
@@ -188,7 +188,7 @@
 <li class="toctree-l2"><a class="reference internal" href="contents/nodeconfig.html#adding-a-new-node">Adding a New Node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contents/nodeconfig.html#listing-nodes">Listing Nodes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contents/nodeconfig.html#setting-node-attributes">Setting Node Attributes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/nodeconfig.html#configuring-the-node-s-container-image">Configuring the Node’s Container Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/nodeconfig.html#configuring-the-node-s-image">Configuring the Node’s Image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contents/nodeconfig.html#un-setting-node-attributes">Un-setting Node Attributes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contents/nodeconfig.html#resources">Resources</a></li>
 </ul>
@@ -254,7 +254,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contents/known-issues.html">Known issues</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="contents/known-issues.html#selinux-and-ipmi-write-not-working-when-using-two-stage-boot">SELinux and IPMI write not working when using two-stage boot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contents/known-issues.html#containers-are-read-only">Containers are read-only</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contents/known-issues.html#images-are-read-only">Images are read-only</a></li>
 </ul>
 </li>
 </ul>
@@ -268,7 +268,7 @@
 <li class="toctree-l2"><a class="reference internal" href="quickstart/el.html#configure-warewulf">Configure Warewulf</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/el.html#enable-and-start-the-warewulf-service">Enable and start the Warewulf service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/el.html#configure-system-services-automatically">Configure system services automatically</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/el.html#add-a-base-node-image-container">Add a base node image container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/el.html#add-a-base-node-image">Add a base node image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/el.html#configure-the-default-node-profile">Configure the default node profile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/el.html#add-a-node">Add a node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/el.html#build-overlays">Build overlays</a></li>
@@ -281,7 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="quickstart/suse15.html#configure-the-controller">Configure the controller</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/suse15.html#start-and-enable-the-warewulf-service">Start and enable the Warewulf service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/suse15.html#configure-system-services-automatically">Configure system services automatically</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/suse15.html#pull-and-build-the-vnfs-container-and-kernel">Pull and build the VNFS container and kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/suse15.html#pull-and-build-the-image-and-kernel">Pull and build the image and kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/suse15.html#set-up-the-default-node-profile">Set up the default node profile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/suse15.html#add-a-node">Add a node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/suse15.html#warewulf-overlays">Warewulf Overlays</a></li>
@@ -294,7 +294,7 @@
 <li class="toctree-l2"><a class="reference internal" href="quickstart/debian12.html#configure-the-controller">Configure the controller</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/debian12.html#start-and-enable-the-warewulf-service">Start and enable the Warewulf service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/debian12.html#configure-system-services-automatically">Configure system services automatically</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart/debian12.html#pull-and-build-the-vnfs-container-including-the-kernel">Pull and build the VNFS container (including the kernel)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart/debian12.html#pull-and-build-the-image-including-the-kernel">Pull and build the image (including the kernel)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/debian12.html#set-up-the-default-node-profile">Set up the default node profile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart/debian12.html#add-a-node">Add a node</a></li>
 </ul>

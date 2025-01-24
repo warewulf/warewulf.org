@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-management.html">Boot Management</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Node Configuration</a><ul>
@@ -67,7 +67,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#listing-nodes">Listing Nodes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#setting-node-attributes">Setting Node Attributes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#configuring-the-node-s-container-image">Configuring the Node’s Container Image</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuring-the-node-s-image">Configuring the Node’s Image</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#configuring-the-node-s-network">Configuring the Node’s Network</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#additional-networks">Additional networks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#vlan">VLAN</a></li>
@@ -201,7 +201,7 @@ their attributes as follows:</p>
 <span class="go">n001                 Id                 --           n001</span>
 <span class="go">n001                 comment            default      This profile is automatically included for each node</span>
 <span class="go">n001                 cluster            --           --</span>
-<span class="go">n001                 container          default      sle-micro-5.3</span>
+<span class="go">n001                 image              default      sle-micro-5.3</span>
 <span class="go">n001                 ipxe               --           (default)</span>
 <span class="go">n001                 runtime            --           (hosts,ssh.authorized_keys,syncuser)</span>
 <span class="go">n001                 wwinit             --           (wwinit,wwclient,fstab,hostname,ssh.host_keys,issue,resolv,udev.netname,systemd.netname,ifcfg,NetworkManager,debian.interfaces,wicked,ignition)</span>
@@ -241,24 +241,24 @@ generally usable.</p>
 </section>
 <section id="setting-node-attributes">
 <h2>Setting Node Attributes<a class="headerlink" href="#setting-node-attributes" title="Link to this heading"></a></h2>
-<p>In the above output we can see that there is no kernel or container
+<p>In the above output we can see that there is no kernel or image
 defined for this node. To provision a node, the minimum requirements
-are a kernel and container, and for that node to be useful, we will
+are a kernel and image, and for that node to be useful, we will
 also need to configure the network so the nodes are reachable after
 they boot.</p>
 <p>Node configurations are set using the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">set</span></code> command. To
 see a list of all configuration attributes, use the command <code class="docutils literal notranslate"><span class="pre">wwctl</span>
 <span class="pre">node</span> <span class="pre">set</span> <span class="pre">--help</span></code>.</p>
 </section>
-<section id="configuring-the-node-s-container-image">
-<h2>Configuring the Node’s Container Image<a class="headerlink" href="#configuring-the-node-s-container-image" title="Link to this heading"></a></h2>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--container<span class="w"> </span>rocky-8<span class="w"> </span>n001
+<section id="configuring-the-node-s-image">
+<h2>Configuring the Node’s Image<a class="headerlink" href="#configuring-the-node-s-image" title="Link to this heading"></a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--image<span class="w"> </span>rocky-8<span class="w"> </span>n001
 <span class="go">Are you sure you want to modify 1 nodes(s): y</span>
 </pre></div>
 </div>
-<p>And you can check that the container name is set for <code class="docutils literal notranslate"><span class="pre">n001</span></code>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w">  </span>n001<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Container
-<span class="go">n0000                Container          --           rocky-8</span>
+<p>And you can check that the image name is set for <code class="docutils literal notranslate"><span class="pre">n001</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w">  </span>n001<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Image
+<span class="go">n0000                Image              --           rocky-8</span>
 </pre></div>
 </div>
 <section id="configuring-the-node-s-network">
@@ -270,13 +270,13 @@ provide the network information as follows:</p>
 </pre></div>
 </div>
 <p>You can now see that the node contains configuration attributes for
-container, kernel, and network:</p>
+image, kernel, and network:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span>n001
 <span class="go">NODE                 FIELD              PROFILE      VALUE</span>
 <span class="go">n001                 Id                 --           n001</span>
 <span class="go">n001                 comment            default      This profile is automatically included for each node</span>
 <span class="go">n001                 cluster            --           --</span>
-<span class="go">n001                 container          default      sle-micro-5.3</span>
+<span class="go">n001                 image              default      sle-micro-5.3</span>
 <span class="go">n001                 ipxe               --           (default)</span>
 <span class="go">n001                 runtime            --           (hosts,ssh.authorized_keys,syncuser)</span>
 <span class="go">n001                 wwinit             --           (wwinit,wwclient,fstab,hostname,ssh.host_keys,issue,resolv,udev.netname,systemd.netname,ifcfg,NetworkManager,debian.interfaces,wicked,ignition)</span>

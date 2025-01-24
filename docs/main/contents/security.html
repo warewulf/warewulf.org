@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
@@ -140,7 +140,7 @@ Warewulf strives to not be a blocker here.</p>
 <p>The Warewulf server itself was developed with SELinux enabled in
 “targeted” and “enforcing” mode and with the firewall active.</p>
 <p>The provisioning process also fully supports booting SELinux-enabled
-containers, though nodes must be configured to use tmpfs for init. (“ramfs”
+images, though nodes must be configured to use tmpfs for init. (“ramfs”
 (often used by default) does not support extended file attributes.)</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--root<span class="w"> </span>tmpfs
 </pre></div>
@@ -153,7 +153,7 @@ this is no longer required.</p>
 </div>
 <p>Once that is done, you just need to enable SELinux in
 <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/selinux</span></code> and install the appropriate profiles into the
-container. <a class="reference external" href="https://github.com/warewulf/warewulf-node-images/tree/main/examples/rockylinux-9-selinux">An example</a> of such a container is available in the
+image. <a class="reference external" href="https://github.com/warewulf/warewulf-node-images/tree/main/examples/rockylinux-9-selinux">An example</a> of such an image is available in the
 warewulf-node-images repository.</p>
 </section>
 <section id="provisioning-security">

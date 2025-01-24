@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
@@ -229,7 +229,7 @@ reviewed from a Profile level, all the way down to a specific Node.</p>
 <span class="go">default              Id                 --           default</span>
 <span class="go">default              comment            --           This profile is automatically included for each node</span>
 <span class="go">default              cluster            --           --</span>
-<span class="go">default              container          --           sle-micro-5.3</span>
+<span class="go">default              image              --           sle-micro-5.3</span>
 <span class="go">default              ipxe               --           --</span>
 <span class="go">default              runtime            --           --</span>
 <span class="go">default              wwinit             --           --</span>
@@ -259,7 +259,7 @@ reviewed from a Profile level, all the way down to a specific Node.</p>
 <span class="go">n001                 Id                 --           n001</span>
 <span class="go">n001                 comment            default      This profile is automatically included for each node</span>
 <span class="go">n001                 cluster            --           --</span>
-<span class="go">n001                 container          default      sle-micro-5.3</span>
+<span class="go">n001                 image              default      sle-micro-5.3</span>
 <span class="go">n001                 ipxe               --           (default)</span>
 <span class="go">n001                 runtime            --           (hosts,ssh.authorized_keys,syncuser)</span>
 <span class="go">n001                 wwinit             --           (wwinit,wwclient,fstab,hostname,ssh.host_keys,issue,resolv,udev.netname,systemd.netname,ifcfg,NetworkManager,debian.interfaces,wicked,ignition)</span>
