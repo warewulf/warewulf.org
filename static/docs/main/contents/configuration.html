@@ -67,7 +67,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
@@ -158,7 +158,7 @@ Warewulf (4.5.8):</p>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt</span>
 <span class="w">    </span><span class="nt">export options</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ro,sync,no_root_squash</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfs-server</span>
-<span class="nt">container mounts</span><span class="p">:</span>
+<span class="nt">image mounts</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
 <span class="w">    </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
 <span class="w">    </span><span class="nt">readonly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -221,14 +221,14 @@ services.)</p></li>
 to syslog.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">nfs:export</span> <span class="pre">paths</span></code>: Warewulf can automatically set up these NFS
 exports.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">mounts</span></code>: These paths are mounted into the container
-during <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">exec</span></code> or <code class="docutils literal notranslate"><span class="pre">container</span> <span class="pre">shell</span></code>, typically to allow
+<li><p><code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">mounts</span></code>: These paths are mounted into the image
+during <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">exec</span></code> or <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">shell</span></code>, typically to allow
 them to operate in the host environment prior to deployment.</p></li>
 </ul>
 <section id="paths">
 <h3>Paths<a class="headerlink" href="#paths" title="Link to this heading"></a></h3>
 <p><em>New in Warewulf v4.5.0</em></p>
-<p>Default paths to containers, overlays, and other Warewulf components
+<p>Default paths to images, overlays, and other Warewulf components
 may be overridden using <code class="docutils literal notranslate"><span class="pre">warewulf.conf:paths</span></code>.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">paths</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">sysconfdir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc</span>
@@ -246,8 +246,8 @@ which stores <code class="docutils literal notranslate"><span class="pre">warewu
 <li><p><code class="docutils literal notranslate"><span class="pre">ipxesource</span></code>: Where to get iPXE binaries.
 These files are copied to <code class="docutils literal notranslate"><span class="pre">warewulf.conf:tftp:tftproot</span></code> by <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">wwoverlaydir</span></code>: The source for Warewulf overlays.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">wwchrootdir</span></code>: The source for Warewulf containers.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">wwprovisiondir</span></code>: Where to store built overlays, built containers, and imported kernels.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wwchrootdir</span></code>: The source for Warewulf images.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wwprovisiondir</span></code>: Where to store built overlays, built images, and imported kernels.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">wwclientdir</span></code>: Where the Warewulf client looks for its configuration on a provisioned node.</p></li>
 </ul>
 </section>
@@ -286,7 +286,7 @@ it does not exist already.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> is edited directly, <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> does not know that the container profile has been changed. Therefore the changes to <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> are not taken into account by <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> until it is restarted.
+<p>When <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> is edited directly, <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> does not know that the image profile has been changed. Therefore the changes to <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> are not taken into account by <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> until it is restarted.
 Once you restart <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code>, the <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> file is then successfully reloaded.
 This also goes for <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> as well - any changes made also require <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> to be restarted.
 The restart should be done using the following command: <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">restart</span> <span class="pre">warewulfd</span></code></p>

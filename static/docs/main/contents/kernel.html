@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Boot Management" href="boot-management.html" />
-    <link rel="prev" title="Container Management" href="containers.html" /> 
+    <link rel="prev" title="Image Management" href="images.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Kernel Management</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#kernel-version">Kernel Version</a></li>
 </ul>
@@ -117,14 +117,14 @@
   <section id="kernel-management">
 <h1>Kernel Management<a class="headerlink" href="#kernel-management" title="Link to this heading"></a></h1>
 <p>Warewulf nodes require a Linux kernel to boot. As of Warewulf v4.6, the kernel
-you wish to use must be present in the relevant container. Warewulf locates and
+you wish to use must be present in the relevant image. Warewulf locates and
 provisions the kernel automatically for any node configured to use that
-container image.</p>
-<p>You can see what kernels are available in imported containers by using the
-<code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">container</span> <span class="pre">kernels</span></code> command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>kernels
-<span class="go">Container            Kernel                                              Version          Default  Nodes</span>
-<span class="go">---------            ------                                              -------          -------  -----</span>
+image.</p>
+<p>You can see what kernels are available in imported images by using the
+<code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">kernels</span></code> command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>kernels
+<span class="go">Image                Kernel                                              Version          Default  Nodes</span>
+<span class="go">-----                ------                                              -------          -------  -----</span>
 <span class="go">newroot-test         /boot/vmlinuz-5.14.0-427.37.1.el9_4.aarch64         5.14.0-427.37.1  true     0</span>
 <span class="go">newroot-test         /lib/modules/5.14.0-427.37.1.el9_4.aarch64/vmlinuz  5.14.0-427.37.1  false    0</span>
 <span class="go">rocky-8              /boot/vmlinuz-4.18.0-372.13.1.el8_6.x86_64          4.18.0-372.13.1  true     2</span>
@@ -135,7 +135,7 @@ container image.</p>
 </div>
 <section id="kernel-version">
 <h2>Kernel Version<a class="headerlink" href="#kernel-version" title="Link to this heading"></a></h2>
-<p>If a container includes multiple kernels, the desired kernel may be selected by
+<p>If an image includes multiple kernels, the desired kernel may be selected by
 specifying the desired version or an explicit path.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span>--kernelversion<span class="o">=</span><span class="m">4</span>.18.0-372.13.1
 <span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span>--kernelversion<span class="o">=</span>/boot/vmlinuz-4.18.0-372.13.1.el8_6.x86_64
@@ -148,7 +148,7 @@ specifying the desired version or an explicit path.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="containers.html" class="btn btn-neutral float-left" title="Container Management" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="images.html" class="btn btn-neutral float-left" title="Image Management" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="boot-management.html" class="btn btn-neutral float-right" title="Boot Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
@@ -179,7 +179,7 @@ out to the Warewulf server for it’s configuration</p></li>
 <li><p>The Warewulf server will generate the iPXE configuration which
 will include directions of what else is necessary to download
 and how to boot.</p></li>
-<li><p>The kernel, container image, kernel modules, and overlays
+<li><p>The kernel, image, kernel modules, and overlays
 are all downloaded over REST HTTP from the Warewulf Server</p></li>
 <li><p>iPXE executes the kernel and processes the overlays to provide
 a unified root file system</p></li>
@@ -188,14 +188,14 @@ operating system
 #. File System (re)configuration
 #. SELinux
 #. <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> is called as a background daemon and sleeps until network is ready</p></li>
-<li><p>The Warewulf bootstrap execs the container’s <code class="docutils literal notranslate"><span class="pre">/sbin/init</span></code></p></li>
+<li><p>The Warewulf bootstrap execs the image’s <code class="docutils literal notranslate"><span class="pre">/sbin/init</span></code></p></li>
 </ol>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Container:</dt><dd><ol class="arabic simple">
-<li><p>The container now boots exactly as any operating system would
+<dt>Image:</dt><dd><ol class="arabic simple">
+<li><p>The image now boots exactly as any operating system would
 expect</p></li>
 </ol>
 </dd>

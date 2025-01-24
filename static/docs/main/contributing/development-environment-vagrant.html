@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contents/configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contents/containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/nodeconfig.html">Node Configuration</a></li>
@@ -335,8 +335,8 @@ cat<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39; &gt; Vagrantfi
 
 <span class="s">            wwctl configure --all</span>
 
-<span class="s">            wwctl container import docker://ghcr.io/warewulf/warewulf-rockylinux:9 rocky-9</span>
-<span class="s">            wwctl profile set --yes --container rocky-9 &quot;default&quot;</span>
+<span class="s">            wwctl image import docker://ghcr.io/warewulf/warewulf-rockylinux:9 rocky-9</span>
+<span class="s">            wwctl profile set --yes --image rocky-9 &quot;default&quot;</span>
 <span class="s">            wwctl profile set --yes --netdev eth1 --netmask 255.255.255.0 --gateway 192.168.200.254 &quot;default&quot;</span>
 
 <span class="s">            wwctl node add n0001.cluster -I 192.168.200.101 --discoverable true</span>

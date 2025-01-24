@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
@@ -70,7 +70,7 @@
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Known issues</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#selinux-and-ipmi-write-not-working-when-using-two-stage-boot">SELinux and IPMI write not working when using two-stage boot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#containers-are-read-only">Containers are read-only</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#images-are-read-only">Images are read-only</a></li>
 </ul>
 </li>
 </ul>
@@ -129,16 +129,16 @@ particular, SELinux relabeling and IPMI write are not executed.</p>
 </pre></div>
 </div>
 </section>
-<section id="containers-are-read-only">
-<h2>Containers are read-only<a class="headerlink" href="#containers-are-read-only" title="Link to this heading"></a></h2>
-<p>Warewulf v4.5 uses the permissions on a container’s <code class="docutils literal notranslate"><span class="pre">rootfs/</span></code> to determine a “read-only” state of
-the container: if the root directory of the container image is <code class="docutils literal notranslate"><span class="pre">u-w</span></code>, it will be mounted read-only
-during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">container</span> <span class="pre">&lt;exec|shell</span></code>, preventing interactive changes to the container image.</p>
+<section id="images-are-read-only">
+<h2>Images are read-only<a class="headerlink" href="#images-are-read-only" title="Link to this heading"></a></h2>
+<p>Warewulf v4.5 uses the permissions on an image’s <code class="docutils literal notranslate"><span class="pre">rootfs/</span></code> to determine a “read-only” state of
+the image: if the root directory of the image is <code class="docutils literal notranslate"><span class="pre">u-w</span></code>, it will be mounted read-only
+during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">&lt;exec|shell</span></code>, preventing interactive changes to the image.</p>
 <p>In the past, the root directory was <code class="docutils literal notranslate"><span class="pre">u+w</span></code>, but Enterprise Linux 9.5 (including Red Hat, Rocky, _et
 al._) includes an update to the <code class="docutils literal notranslate"><span class="pre">filesystem</span></code> package that marks the root directory <code class="docutils literal notranslate"><span class="pre">u-w</span></code>. This
-causes Warewulf container images to be “read only” by default.</p>
-<p>To mark a Warewulf container as writeable, use <cite>chmod u+w</cite>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># chmod u+w $(wwctl container show rockylinux-9.5)</span>
+causes Warewulf images to be “read only” by default.</p>
+<p>To mark a Warewulf image as writeable, use <cite>chmod u+w</cite>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># chmod u+w $(wwctl image show rockylinux-9.5)</span>
 </pre></div>
 </div>
 <p>This behavior is changed in v4.6 to use an explicit <code class="docutils literal notranslate"><span class="pre">readonly</span></code> file stored outside of <code class="docutils literal notranslate"><span class="pre">rootfs/</span></code>.</p>

@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../contents/configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contents/containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contents/nodeconfig.html">Node Configuration</a></li>
@@ -212,8 +212,8 @@ sudo wwctl configure tftp # Install the base tftp/PXE boot files and start/enabl
 sudo wwctl configure nfs  # Configure NFS exports
 sudo wwctl configure ssh  # Build the basic ssh keys to be included by the ssh overlays
 
-# Pull and build the VNFS container and kernel
-sudo wwctl container import docker://ghcr.io/warewulf/warewulf-centos:7 centos-7 --setdefault
+# Pull and build the image and kernel
+sudo wwctl image import docker://ghcr.io/warewulf/warewulf-centos:7 centos-7 --setdefault
 sudo wwctl kernel import build $(uname -r) --setdefault
 
 # Set up the default node profile

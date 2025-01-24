@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
@@ -127,15 +127,15 @@ update the port number if you have changed it from the default of 9873,
 and substitute your cluster node’s MAC addres in place of 00:00:00:00:00:00.)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set uri http://10.0.0.1:9873/provision/00:00:00:00:00:00
 kernel --name kernel ${uri}?stage=kernel
-imgextract --name container ${uri}?stage=container&amp;compress=gz
+imgextract --name image ${uri}?stage=image&amp;compress=gz
 imgextract --name system ${uri}?stage=system&amp;compress=gz
 imgextract --name runtime ${uri}?stage=runtime&amp;compress=gz
-boot kernel initrd=container initrd=system initrd=runtime
+boot kernel initrd=image initrd=system initrd=runtime
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">uri</span></code> variable points to <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> for future reference.
-This includes the cluster node’s MAC address so that Warewulf knows what container and overlays to provide.</p></li>
+This includes the cluster node’s MAC address so that Warewulf knows what image and overlays to provide.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">kernel</span></code> command fetches a kernel for later booting.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">imgextract</span></code> command fetches and decompresses the images that will make up the booted noe image.
 In a typical environment this is used to load a minimal “initial ramdisk” which, then, boots the rest of the system.
@@ -150,7 +150,7 @@ If your nodes have defined asset tags, provide it in the <code class="docutils l
 </div>
 <p>For example, you may want to try booting to a pre-init shell with debug logging enabled.
 To do so, substitute the <code class="docutils literal notranslate"><span class="pre">boot</span></code> command above.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">boot</span> <span class="n">kernel</span> <span class="n">initrd</span><span class="o">=</span><span class="n">container</span> <span class="n">initrd</span><span class="o">=</span><span class="n">system</span> <span class="n">initrd</span><span class="o">=</span><span class="n">runtime</span> <span class="n">rdinit</span><span class="o">=/</span><span class="nb">bin</span><span class="o">/</span><span class="n">sh</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">boot</span> <span class="n">kernel</span> <span class="n">initrd</span><span class="o">=</span><span class="n">image</span> <span class="n">initrd</span><span class="o">=</span><span class="n">system</span> <span class="n">initrd</span><span class="o">=</span><span class="n">runtime</span> <span class="n">rdinit</span><span class="o">=/</span><span class="nb">bin</span><span class="o">/</span><span class="n">sh</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -169,14 +169,14 @@ Since Warewulf, by default, boots the node image as an initial ramdisk, we must 
 and update the port number if you have changed it from the default of 9873.)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>uri=&quot;(http,10.0.0.1:9873)/provision/${net_default_mac}&quot;
 linux &quot;${uri}?stage=kernel&quot; wwid=${net_default_mac}
-initrd &quot;${uri}?stage=container&amp;compress=gz&quot; &quot;${uri}?stage=system&amp;compress=gz&quot; &quot;${uri}?stage=runtime&amp;compress=gz&quot;
+initrd &quot;${uri}?stage=image&amp;compress=gz&quot; &quot;${uri}?stage=system&amp;compress=gz&quot; &quot;${uri}?stage=runtime&amp;compress=gz&quot;
 boot
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">uri</span></code> variable points to <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> for future reference.
 <code class="docutils literal notranslate"><span class="pre">${net_default_mac}</span></code> provides Warewulf with the MAC address of the booting node,
-so that Warewulf knows what container and overlays to provide it.</p></li>
+so that Warewulf knows what image and overlays to provide it.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">linux</span></code> command tells GRUB what kernel to boot, as provided by <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code>.
 The <code class="docutils literal notranslate"><span class="pre">wwid</span></code> kernel argument helps <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> identify the node during runtime.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">initrd</span></code> command tells GRUB what images to load into memory for boot.

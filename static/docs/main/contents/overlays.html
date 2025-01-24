@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-management.html">Boot Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
@@ -151,7 +151,7 @@ configure things like hostnames? IP addresses? Or any other node-specific config
 configuration management on a provisioned Warewulf cluster node. But these are heavy-weight
 solutions to a simple problem.</p>
 <p>Warewulf addresses cluster node configuration with its <strong>overlay</strong> system. Overlays are collections
-of files and templates that are rendered and built per-node and then applied over the container
+of files and templates that are rendered and built per-node and then applied over the image
 image during the provisioning process.</p>
 <section id="system-and-runtime-overlays">
 <h2>System and runtime overlays<a class="headerlink" href="#system-and-runtime-overlays" title="Link to this heading"></a></h2>
@@ -256,8 +256,8 @@ resource. It also creates entries for file systems defined by Ignition.</p>
 <section id="syncuser">
 <h3>syncuser<a class="headerlink" href="#syncuser" title="Link to this heading"></a></h3>
 <p>The <strong>syncuser</strong> overlay updates <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> and <code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> to include
-all users on both the Warewulf server and from the container image. To function
-properly, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">container</span> <span class="pre">syncuser</span></code> must have also been run on the container
+all users on both the Warewulf server and from the image. To function
+properly, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">syncuser</span></code> must have also been run on the image
 image to synchronize its user and group IDs with those of the server.</p>
 </section>
 <section id="ignition">

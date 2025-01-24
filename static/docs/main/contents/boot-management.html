@@ -55,7 +55,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="containers.html">Container Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Kernel Management</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Boot Management</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#booting-with-ipxe">Booting with iPXE</a><ul>
@@ -135,10 +135,10 @@
 <p>Warewulf uses iPXE to for network boot by default. As a tech preview, support
 for GRUB is also available, which adds support for secure boot.</p>
 <p>Also as a tech preview, Warewulf may also use iPXE to boot a dracut
-initramfs as an initial stage before loading the container image.</p>
+initramfs as an initial stage before loading the image.</p>
 <section id="booting-with-ipxe">
 <h2>Booting with iPXE<a class="headerlink" href="#booting-with-ipxe" title="Link to this heading"></a></h2>
-<div class="graphviz"><img src="../_images/graphviz-8be43717679b33953ee198ed82f1999c0ddd0b61.png" alt="digraph G{
+<div class="graphviz"><img src="../_images/graphviz-0f8ee3a784bb97154cd53746c2ec478eae6dbebb.png" alt="digraph G{
     node [shape=box];
     compound=true;
     edge [label2node=true]
@@ -153,7 +153,7 @@ initramfs as an initial stage before loading the container image.</p>
 
     bios-&gt;iPXE [lhead=cluster0,label=&quot;iPXE.efi&quot;];
 
-    kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from node container&quot;];
+    kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from node image&quot;];
     ipxe_cfg-&gt;kernel[ltail=cluster0,label=&quot;http&quot;];
 }" class="graphviz" /></div>
 <p>Starting in v4.5.0, Warewulf no longer includes an iPXE binary. In stead, by
@@ -284,7 +284,7 @@ After that, remove any previously-provisioned files from <code class="docutils l
 <h2>Booting with GRUB<a class="headerlink" href="#booting-with-grub" title="Link to this heading"></a></h2>
 <p>Support for GRUB as a network bootloader (replacing iPXE) is available in
 Warewulf as a technology preview.</p>
-<div class="graphviz"><img src="../_images/graphviz-5cb5701ea7fd182b13828ac567d21b2e09945929.png" alt="digraph G{
+<div class="graphviz"><img src="../_images/graphviz-4a0e839cc010088900d2ea20cb85f30ab6768edf.png" alt="digraph G{
     node [shape=box];
     compound=true;
     edge [label2node=true]
@@ -299,7 +299,7 @@ Warewulf as a technology preview.</p>
       grubcfg[shape=record label=&quot;{grub.cfg|static under TFTP root}&quot;];
       grub-&gt;grubcfg[label=&quot;TFTP&quot;];
     }
-    kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from node container&quot;];
+    kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from node image&quot;];
     grubcfg-&gt;kernel[ltail=cluster1,label=&quot;http&quot;];
 }" class="graphviz" /></div>
 <p>Instead of the iPXE starter a combination of <a class="reference external" href="https://www.suse.com/c/uefi-secure-boot-details/">shim and GRUB</a> can be used with the
@@ -331,18 +331,18 @@ Warewulf server host.</p>
 process fails if this check fails. The shim typically only includes the key for
 a single operating system, which means that each distribution needs separate
 <cite>shim</cite> and <cite>grub</cite> executables. Warewulf extracts these binaries from the
-containers. If the node is unknown to Warewulf or can’t be identified during
+images. If the node is unknown to Warewulf or can’t be identified during
 the TFTP boot phase, the shim/grub binaries of the host in which Warewulf is
 running are used.</p>
 </section>
 <section id="install-shim-and-efi">
 <h3>Install shim and efi<a class="headerlink" href="#install-shim-and-efi" title="Link to this heading"></a></h3>
-<p><cite>shim.efi</cite> and <cite>grub.efi</cite> must be installed in the container for it to be
+<p><cite>shim.efi</cite> and <cite>grub.efi</cite> must be installed in the image for it to be
 booted by GRUB.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>shell<span class="w"> </span>leap15.5
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>shell<span class="w"> </span>leap15.5
 <span class="go">[leap15.5] Warewulf&gt; zypper install grub2 shim</span>
 
-<span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>shell<span class="w"> </span>rocky9
+<span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>shell<span class="w"> </span>rocky9
 <span class="go">[rocky9] Warewulf&gt; dnf install shim-x64.x86_64 grub2-efi-x64.x86_64</span>
 </pre></div>
 </div>
@@ -353,34 +353,34 @@ node discovery using GRUB.</p>
 <h3>http boot<a class="headerlink" href="#http-boot" title="Link to this heading"></a></h3>
 <p>Modern EFI systems have the possibility to directly boot per http. The flow diagram
 is the following:</p>
-<div class="graphviz"><img src="../_images/graphviz-45530e0b437388de246c86a5b4638e7b3654235b.png" alt="digraph G{
+<div class="graphviz"><img src="../_images/graphviz-13d2038aa326fa9f7bda48574967cc24f7ab0cde.png" alt="digraph G{
     node [shape=box];
     efi [shape=record label=&quot;{EFI|boots from URI defined in filename}&quot;];
-    shim [shape=record label=&quot;{shim.efi|replaces shim.efi with grubx64.efi in URI|extracted from node container}&quot;];
-    grub [shape=record label=&quot;{grub.efi|checks for grub.cfg|extracted from node container}&quot;]
-    kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from node container&quot;];
+    shim [shape=record label=&quot;{shim.efi|replaces shim.efi with grubx64.efi in URI|extracted from node image}&quot;];
+    grub [shape=record label=&quot;{grub.efi|checks for grub.cfg|extracted from node image}&quot;]
+    kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from node image&quot;];
     efi-&gt;shim [label=&quot;http&quot;];
     shim-&gt;grub [label=&quot;http&quot;];
     grub-&gt;kernel [label=&quot;http&quot;];
   }" class="graphviz" /></div>
 <p>Warewulf delivers the initial <cite>shim.efi</cite> and <cite>grub.efi</cite> via http as taken
-directly from the node’s assigned container.</p>
+directly from the node’s assigned image.</p>
 </section>
 </section>
 <section id="booting-with-dracut">
 <span id="id4"></span><h2>Booting with dracut<a class="headerlink" href="#booting-with-dracut" title="Link to this heading"></a></h2>
 <p>Some systems, typically due to limitations in their BIOS or EFI
-firmware, are unable to load container image of a certain size
+firmware, are unable to load image of a certain size
 directly with a traditional bootloader, either iPXE or GRUB. As a
 workaround for such systems, Warewulf can be configured to load a
-dracut initramfs from the container and to use that initramfs to load
-the full container image.</p>
+dracut initramfs from the image and to use that initramfs to load
+the full image.</p>
 <p>Warewulf provides a dracut module to configure the dracut initramfs to
-load the container image. This module is available in the
+load the image. This module is available in the
 <code class="docutils literal notranslate"><span class="pre">warewulf-dracut</span></code> subpackage, which must be installed in the
-container image.</p>
+image.</p>
 <p>With the <code class="docutils literal notranslate"><span class="pre">warewulf-dracut</span></code> package installed, you can build an
-initramfs inside the container.</p>
+initramfs inside the image.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>warewulf-dracut
 dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--regenerate-all
 </pre></div>
@@ -424,9 +424,9 @@ the dracut booting process.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">GrubMenuEntry</span></code> variable may be set at the node or profile level.</p>
 </div>
 <p>During boot, <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> will detect and dynamically serve an
-initramfs from a node’s container image in much the same way that it
-can serve a kernel from a container image. This image is loaded by
-iPXE (or GRUB) which directs dracut to fetch the node’s container image
+initramfs from a node’s image in much the same way that it
+can serve a kernel from an image. This image is loaded by
+iPXE (or GRUB) which directs dracut to fetch the node’s image
 during boot.</p>
 <p>The wwinit module provisions to tmpfs. By default, tmpfs is permitted
 to use up to 50% of physical memory. This size limit may be adjustd
