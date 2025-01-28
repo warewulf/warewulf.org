@@ -53,10 +53,12 @@
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Control Server Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Warewulf Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading Warewulf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Image Management</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#tools">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#structure">Structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#importing-images">Importing Images</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#platform">Platform</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#private-registry">Private Registry</a></li>
@@ -71,13 +73,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#preparing-an-image-for-build">Preparing an image for build</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-images-from-scratch">Creating Images From Scratch</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#building-an-image-from-your-host">Building An Image From Your Host</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#building-an-image-using-apptainer">Building An Image Using Apptainer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#building-an-image-using-podman">Building An Image Using Podman</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#image-size-considerations">Image Size Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-images-from-scratch">Creating Images From Scratch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#duplicating-an-image">Duplicating an image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#multi-arch-image-management">Multi-arch image management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#read-only-images">Read-only images</a></li>
@@ -113,6 +109,86 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-kvm.html">Development Environment (KVM)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vbox.html">Development Environment (VirtualBox)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Command Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl.html">wwctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_clean.html">wwctl clean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion.html">wwctl completion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_bash.html">wwctl completion bash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_fish.html">wwctl completion fish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_powershell.html">wwctl completion powershell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_zsh.html">wwctl completion zsh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure.html">wwctl configure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_dhcp.html">wwctl configure dhcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_hostfile.html">wwctl configure hostfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_nfs.html">wwctl configure nfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_ssh.html">wwctl configure ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tftp.html">wwctl configure tftp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig.html">wwctl genconfig</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_completions.html">wwctl genconfig completions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_man.html">wwctl genconfig man</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_reference.html">wwctl genconfig reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_warewulfconf.html">wwctl genconfig warewulfconf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_warewulfconf_print.html">wwctl genconfig warewulfconf print</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image.html">wwctl image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_build.html">wwctl image build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_copy.html">wwctl image copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_delete.html">wwctl image delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_exec.html">wwctl image exec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_import.html">wwctl image import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_kernels.html">wwctl image kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_list.html">wwctl image list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_rename.html">wwctl image rename</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_shell.html">wwctl image shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_show.html">wwctl image show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_syncuser.html">wwctl image syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node.html">wwctl node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_add.html">wwctl node add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_console.html">wwctl node console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_delete.html">wwctl node delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_edit.html">wwctl node edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_export.html">wwctl node export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_import.html">wwctl node import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_list.html">wwctl node list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_sensors.html">wwctl node sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_set.html">wwctl node set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_status.html">wwctl node status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay.html">wwctl overlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_build.html">wwctl overlay build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chmod.html">wwctl overlay chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chown.html">wwctl overlay chown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_create.html">wwctl overlay create</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_delete.html">wwctl overlay delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_edit.html">wwctl overlay edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_list.html">wwctl overlay list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_show.html">wwctl overlay show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power.html">wwctl power</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_cycle.html">wwctl power cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_off.html">wwctl power off</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_on.html">wwctl power on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_reset.html">wwctl power reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_soft.html">wwctl power soft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_status.html">wwctl power status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile.html">wwctl profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_add.html">wwctl profile add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_delete.html">wwctl profile delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_edit.html">wwctl profile edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_list.html">wwctl profile list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_set.html">wwctl profile set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_server.html">wwctl server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_ssh.html">wwctl ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade.html">wwctl upgrade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_config.html">wwctl upgrade config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_nodes.html">wwctl upgrade nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_version.html">wwctl version</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/nodes.conf.html">nodes.conf(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
 </ul>
 
         </div>
@@ -166,9 +242,46 @@ information about Warewulf or how it booted.</p>
 <p>There are different container managment tools available. Docker is
 probably the most recognizable one in the enterprise. Podman is
 another one that is gaining traction on the RHEL platforms. In HPC,
-Apptainer is the most utilized image management tool. You can use
-any of these to create and manage the containers to be later imported
+Apptainer is the most utilized container management tool. You can use
+any of these to create and manage the images to be later imported
 into Warewulf.</p>
+</section>
+<section id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Link to this heading"></a></h2>
+<p>A Warewulf image is a directory that populates the runtime root file system of a cluster
+node. The image source directory must contain a single <code class="docutils literal notranslate"><span class="pre">rootfs</span></code> directory which represents the
+actual root directory for the image.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/var/lib/warewulf/chroots/rockylinux-9
+└── rootfs
+    ├── afs
+    ├── bin -&gt; usr/bin
+    ├── boot
+    ├── dev
+    ├── etc
+    ├── home
+    ├── lib -&gt; usr/lib
+    ├── lib64 -&gt; usr/lib64
+    ├── media
+    ├── mnt
+    ├── opt
+    ├── proc
+    ├── root
+    ├── run
+    ├── sbin -&gt; usr/sbin
+    ├── srv
+    ├── sys
+    ├── tmp
+    ├── usr
+    └── var
+</pre></div>
+</div>
+<p>Warewulf images are built (e.g., with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">build</span></code>) into compressed images for
+distribution to cluster nodes.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/var/lib/warewulf/provision/image
+├── rockylinux-9.img
+└── rockylinux-9.img.gz
+</pre></div>
+</div>
 </section>
 <section id="importing-images">
 <h2>Importing Images<a class="headerlink" href="#importing-images" title="Link to this heading"></a></h2>
@@ -250,18 +363,6 @@ directly.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>./rockylinux-8/<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:8
 <span class="gp">$ </span>sudo<span class="w"> </span>wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>./rockylinux-8/<span class="w"> </span>rockylinux-8
 </pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If a source directory includes persistent sockets, these sockets may cause the import operation to fail.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Copying sources...</span>
-<span class="go">ERROR  : could not import image: lchown ./rockylinux-8/run/user/0/gnupg/d.kg8ijih5tq41ixoeag4p1qup/S.gpg-agent: no such file or directory</span>
-</pre></div>
-</div>
-<p>To resolve this, remove the sockets from the source directory.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find<span class="w"> </span>./rockylinux-8/<span class="w"> </span>-type<span class="w"> </span>s<span class="w"> </span>-delete
-</pre></div>
-</div>
 </div>
 </section>
 <section id="http-proxies">
@@ -386,102 +487,51 @@ remove any package repository caches that may have been generated.</p>
 </section>
 <section id="creating-images-from-scratch">
 <h2>Creating Images From Scratch<a class="headerlink" href="#creating-images-from-scratch" title="Link to this heading"></a></h2>
-<p>You can also create images from scratch and import those
-images into Warewulf as previous versions of Warewulf did.</p>
-<section id="building-an-image-from-your-host">
-<h3>Building An Image From Your Host<a class="headerlink" href="#building-an-image-from-your-host" title="Link to this heading"></a></h3>
-<p>RPM based distributions, as well as Debian variants can all bootstrap
-mini <code class="docutils literal notranslate"><span class="pre">chroot()</span></code> directories which can then be used to bootstrap your
-node’s image.</p>
-<p>For example, on an RPM based Linux distribution with YUM or DNF, you
-can do something like the following:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>yum<span class="w"> </span>install<span class="w"> </span>--installroot<span class="w"> </span>/tmp/newroot<span class="w"> </span>basesystem<span class="w"> </span>bash<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>chkconfig<span class="w"> </span>coreutils<span class="w"> </span>e2fsprogs<span class="w"> </span>ethtool<span class="w"> </span>filesystem<span class="w"> </span>findutils<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>gawk<span class="w"> </span>grep<span class="w"> </span>initscripts<span class="w"> </span>iproute<span class="w"> </span>iputils<span class="w"> </span>net-tools<span class="w"> </span>nfs-utils<span class="w"> </span>pam<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>psmisc<span class="w"> </span>rsync<span class="w"> </span>sed<span class="w"> </span>setup<span class="w"> </span>shadow-utils<span class="w"> </span>rsyslog<span class="w"> </span>tzdata<span class="w"> </span>util-linux<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>words<span class="w"> </span>zlib<span class="w"> </span>tar<span class="w"> </span>less<span class="w"> </span>gzip<span class="w"> </span>which<span class="w"> </span>util-linux<span class="w"> </span>openssh-clients<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>openssh-server<span class="w"> </span>dhclient<span class="w"> </span>pciutils<span class="w"> </span>vim-minimal<span class="w"> </span>shadow-utils<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>strace<span class="w"> </span>cronie<span class="w"> </span>crontabs<span class="w"> </span>cpio<span class="w"> </span>wget<span class="w"> </span>rocky-release<span class="w"> </span>ipmitool<span class="w"> </span>yum<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>NetworkManager
+<p>It is absolutely possible to create an <a class="reference external" href="https://docs.docker.com/build/building/base-images/">OCI base image</a> from scratch, but it is
+particularly easy to do with Apptainer.</p>
+<p>Consider the following file called <cite>warewulf-rockylinux-9.def</cite>:</p>
+<div class="highlight-singularity notranslate"><div class="highlight"><pre><span></span><span class="k">Bootstrap</span>:<span class="w"> </span>yum
+<span class="k">MirrorURL</span>:<span class="w"> </span>https://download.rockylinux.org/pub/rocky/<span class="m">9</span>/BaseOS/x86_64/os/
+<span class="k">Include</span>:<span class="w"> </span>dnf
+
+<span class="gh">%post</span>
+dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>--allowerasing<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>NetworkManager<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>basesystem<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>bash<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>curl-minimal<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>kernel<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nfs-utils<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>openssh-server<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>systemd
+
+dnf<span class="w"> </span>-y<span class="w"> </span>remove<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>glibc-gconv-extra
+rm<span class="w"> </span>-rf<span class="w"> </span>/boot/*<span class="w"> </span>/run/*
+dnf<span class="w"> </span>clean<span class="w"> </span>all
 </pre></div>
 </div>
-<p>You can do something similar with Debian-based distributions:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>apt-get<span class="w"> </span>install<span class="w"> </span>debootstrap
-<span class="gp"># </span>debootstrap<span class="w"> </span>stable<span class="w"> </span>/tmp/newroot<span class="w"> </span>http://ftp.us.debian.org/debian
+<p>Warewulf cannot directly import a container image from an Apptainer SIF yet, so
+an Apptainer image must be built as a <em>sandbox</em>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>warewulf-rockylinux-9<span class="w"> </span>warewulf-rockylinux-9.def
+<span class="go">[...]</span>
+<span class="go">INFO:    Creating sandbox directory...</span>
+<span class="go">INFO:    Build complete: warewulf-rockylinux-9</span>
 </pre></div>
 </div>
-<p>Once you have created and modified your new <code class="docutils literal notranslate"><span class="pre">chroot()</span></code>, you can
-import it into Warewulf with the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>/tmp/newroot<span class="w"> </span>imagename
+<p>Once a sandbox container image has been built, it can be imported into Warewulf.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>./warewulf-rockylinux-9<span class="w"> </span>rockylinux-9
 </pre></div>
 </div>
-</section>
-<section id="building-an-image-using-apptainer">
-<h3>Building An Image Using Apptainer<a class="headerlink" href="#building-an-image-using-apptainer" title="Link to this heading"></a></h3>
-<p>Apptainer, an image platform for HPC and performance intensive
-applications, can also be used to create node images for
-Warewulf. There are several Apptainer image recipes in the
-<code class="docutils literal notranslate"><span class="pre">images/Apptainer/</span></code> directory and can be found on GitHub at
-<a class="reference external" href="https://github.com/warewulf/warewulf/tree/main/images/Apptainer">https://github.com/warewulf/warewulf/tree/main/images/Apptainer</a>.</p>
-<p>You can use these as starting points and adding any additional steps
-you want in the <code class="docutils literal notranslate"><span class="pre">%post</span></code> section of the recipe file. Once you’ve done
-that, installing Apptainer, building an image sandbox and importing
-into Warewulf can be done with the following steps:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>yum<span class="w"> </span>install<span class="w"> </span>epel-release
-<span class="gp"># </span>yum<span class="w"> </span>install<span class="w"> </span>Apptainer
-<span class="gp"># </span>Apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>/tmp/newroot<span class="w"> </span>/path/to/Apptainer/recipe.def
-<span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>/tmp/newroot<span class="w"> </span>imagename
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although warewulf does not currently support importing a SIF directly, a SIF can be converted to
+a sandbox with Apptainer and then imported into Warewulf.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>my-sandbox<span class="w"> </span>my-image.sif
+<span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>./my-sandbox<span class="w"> </span>my-image
 </pre></div>
 </div>
-</section>
-<section id="building-an-image-using-podman">
-<h3>Building An Image Using Podman<a class="headerlink" href="#building-an-image-using-podman" title="Link to this heading"></a></h3>
-<p>You can also build an image using podman via a <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>. For
-this step the image must be exported to a tar archive, which then
-can be imported to Warewulf. The following steps will create an
-openSUSE Leap image and import it to Warewulf:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>podman<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>images/Docker/openSUSE/Imagefile<span class="w"> </span>--tag<span class="w"> </span>leap-ww
-<span class="gp"># </span>podman<span class="w"> </span>save<span class="w"> </span>localhost/leap-ww:latest<span class="w">  </span>-o<span class="w"> </span>~/leap-ww.tar
-<span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>file://root/leap-ww.tar<span class="w"> </span>leap-ww
-</pre></div>
 </div>
-</section>
-</section>
-<section id="image-size-considerations">
-<h2>Image Size Considerations<a class="headerlink" href="#image-size-considerations" title="Link to this heading"></a></h2>
-<p>Base compute node images start quite small (a few hundred
-megabytes), but can grow quickly as packages and other files are added
-to them. Even these larger images are typically not an issue in modern
-environments; but some architectural limits exist that can impede the
-use of images larger than a few gigabytes. Workarounds exist for these
-issues in most circumstances:</p>
-<ul>
-<li><p>Systems booting in legacy / BIOS mode, being a 32-bit environment,
-cannot boot an image that requires more than 4GB to decompress. This
-means that the compressed image and the decompressed image together
-must be &lt; 4GB. This is typically reported by the system as “No space
-left on device (<a class="reference external" href="https://ipxe.org/34182006">https://ipxe.org/34182006</a>).”</p>
-<p>The best work-around for this limitation is to switch to UEFI. UEFI
-is 64-bit and should support booting significantly larger images,
-though sometimes system-specific implementation details have led to
-artificial limitations on image size.</p>
-</li>
-<li><p>The Linux kernel itself can only decompress an image up to 4GB due
-to the use of 32-bit integers in critical sections of the kernel
-initrd decompression code.</p>
-<p>The best work-around for this limitation is to use an iPXE with
-support for <a class="reference external" href="https://ipxe.org/cmd/imgextract">imgextract</a>. This
-allows iPXE to decompress the image rather than the kernel.</p>
-</li>
-<li><p>Some BIOS / firmware retain a “memory hole” feature for legacy
-devices, e.g., reserving a 1MB block of memory at the 15MB-16MB
-address range. this feature can interfere with booting stateless
-node images.</p>
-<p>If you are still getting “Not enough memory” or “No space left on
-device” errors, try disabling any “memory hole” features or updating
-your system BIOS or firmware.</p>
-</li>
-</ul>
 </section>
 <section id="duplicating-an-image">
 <h2>Duplicating an image<a class="headerlink" href="#duplicating-an-image" title="Link to this heading"></a></h2>

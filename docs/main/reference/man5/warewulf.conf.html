@@ -1,0 +1,454 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>warewulf.conf(5) &mdash; Warewulf User Guide main documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=a8da1a53"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="nodes.conf(5)" href="nodes.conf.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/background.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/stateless.html">Stateless Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/setup.html">Control Server Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/installation.html">Warewulf Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/configuration.html">Warewulf Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/upgrade.html">Upgrading Warewulf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/initialization.html">Warewulf Initialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/images.html">Image Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/kernel.html">Kernel Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/boot-management.html">Boot Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/nodeconfig.html">Node Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/overlays.html">Warewulf Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/provisioning.html">Node Provisioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/disks.html">Disk Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/templating.html">Templating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/dnsmasq.html">dnsmasq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/known-issues.html">Known issues</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/el.html">Enterprise Linux (Rocky Linux, CentOS, and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/suse15.html">openSUSE Leap and SLES 15</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/debian12.html">Debian 12</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/development-environment-devcontainer.html">Development Environment (Dev Container/VSC)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/development-environment-vagrant.html">Development Environment (Vagrant)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/development-environment-kvm.html">Development Environment (KVM)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/development-environment-vbox.html">Development Environment (VirtualBox)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Command Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl.html">wwctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_clean.html">wwctl clean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_completion.html">wwctl completion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_completion_bash.html">wwctl completion bash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_completion_fish.html">wwctl completion fish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_completion_powershell.html">wwctl completion powershell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_completion_zsh.html">wwctl completion zsh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_configure.html">wwctl configure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_configure_dhcp.html">wwctl configure dhcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_configure_hostfile.html">wwctl configure hostfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_configure_nfs.html">wwctl configure nfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_configure_ssh.html">wwctl configure ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_configure_tftp.html">wwctl configure tftp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_genconfig.html">wwctl genconfig</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_genconfig_completions.html">wwctl genconfig completions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_genconfig_man.html">wwctl genconfig man</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_genconfig_reference.html">wwctl genconfig reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_genconfig_warewulfconf.html">wwctl genconfig warewulfconf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_genconfig_warewulfconf_print.html">wwctl genconfig warewulfconf print</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_image.html">wwctl image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_image_build.html">wwctl image build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_image_copy.html">wwctl image copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_image_delete.html">wwctl image delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_image_exec.html">wwctl image exec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_image_import.html">wwctl image import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_image_kernels.html">wwctl image kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_image_list.html">wwctl image list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_image_rename.html">wwctl image rename</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_image_shell.html">wwctl image shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_image_show.html">wwctl image show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_image_syncuser.html">wwctl image syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_node.html">wwctl node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_node_add.html">wwctl node add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_node_console.html">wwctl node console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_node_delete.html">wwctl node delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_node_edit.html">wwctl node edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_node_export.html">wwctl node export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_node_import.html">wwctl node import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_node_list.html">wwctl node list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_node_sensors.html">wwctl node sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_node_set.html">wwctl node set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_node_status.html">wwctl node status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_overlay.html">wwctl overlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_overlay_build.html">wwctl overlay build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_overlay_chmod.html">wwctl overlay chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_overlay_chown.html">wwctl overlay chown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_overlay_create.html">wwctl overlay create</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_overlay_delete.html">wwctl overlay delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_overlay_edit.html">wwctl overlay edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_overlay_list.html">wwctl overlay list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_overlay_show.html">wwctl overlay show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_power.html">wwctl power</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_power_cycle.html">wwctl power cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_power_off.html">wwctl power off</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_power_on.html">wwctl power on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_power_reset.html">wwctl power reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_power_soft.html">wwctl power soft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_power_status.html">wwctl power status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_profile.html">wwctl profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_profile_add.html">wwctl profile add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_profile_delete.html">wwctl profile delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_profile_edit.html">wwctl profile edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_profile_list.html">wwctl profile list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_profile_set.html">wwctl profile set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_server.html">wwctl server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_ssh.html">wwctl ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_upgrade.html">wwctl upgrade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_upgrade_config.html">wwctl upgrade config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_upgrade_nodes.html">wwctl upgrade nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wwctl_version.html">wwctl version</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="nodes.conf.html">nodes.conf(5)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">warewulf.conf(5)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#name">NAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#description">DESCRIPTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameters">PARAMETERS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#warewulf">WAREWULF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dhcp">DHCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tftp">TFTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nfs">NFS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#example">EXAMPLE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">SEE ALSO</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">warewulf.conf(5)</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/reference/man5/warewulf.conf.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="warewulf-conf-5">
+<h1>warewulf.conf(5)<a class="headerlink" href="#warewulf-conf-5" title="Link to this heading"></a></h1>
+<section id="name">
+<h2>NAME<a class="headerlink" href="#name" title="Link to this heading"></a></h2>
+<p>warewulf.conf - Warewulf server configuration file</p>
+</section>
+<section id="description">
+<h2>DESCRIPTION<a class="headerlink" href="#description" title="Link to this heading"></a></h2>
+<p><strong>warewulf.conf</strong> is the main configuration file for the Warewulf server
+daemon and defines the configuration for its service dependencies,
+including dhcp, tftp, and nfs.</p>
+<p>warewulf.conf is defined using YAML document markup syntax.</p>
+</section>
+<section id="parameters">
+<h2>PARAMETERS<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<p>The configuration parameters available include:</p>
+<dl class="simple">
+<dt><strong>ipaddr</strong></dt><dd><p>This is the control node’s networking interface connecting to the
+cluster’s private network. This configuration must match the host’s
+network IP address for the cluster’s private interface.</p>
+</dd>
+<dt><strong>ipaddr6</strong></dt><dd><p>This is the control node’s networking interface connecting to the
+cluster’s IPv6 private network. This configuration must match the
+host’s network IP address for the cluster’s private interface.</p>
+</dd>
+<dt><strong>network</strong></dt><dd><p>The subnet address for the cluster’s private network, used in
+conjunction with the netmask parameter.</p>
+</dd>
+<dt><strong>netmask</strong></dt><dd><p>Similar to the ipaddr, this is the subnet mask for the cluster’s
+private network and it must also match the host’s subnet mask for the
+cluster’s private interface.</p>
+</dd>
+</dl>
+<section id="warewulf">
+<h3>WAREWULF<a class="headerlink" href="#warewulf" title="Link to this heading"></a></h3>
+<p>The <strong>warewulf</strong> parameter is a map of individual sub-parameters which
+configure Warewulf specifically. (See the <strong>EXAMPLE</strong> section for
+overall structure.)</p>
+<dl class="simple">
+<dt><strong>port</strong></dt><dd><p>This is the port that the Warewulf web server will be listening on.
+It is recommended not to change this so there is no misalignment with
+node’s expectations of how to contact the Warewulf service.</p>
+</dd>
+</dl>
+<p>Default: 9873</p>
+<dl class="simple">
+<dt><strong>secure</strong></dt><dd><p>When true, this limits the Warewulf server to only respond to runtime
+overlay requests originating from a privileged port. This prevents
+non-root users from requesting the runtime overlay, which may contain
+sensitive information.</p>
+</dd>
+</dl>
+<p>When true, wwclient uses TCP port 987.</p>
+<p>Changing this option requires rebuilding node overlays and rebooting
+compute nodes, to configure them to use a privileged port.</p>
+<p>Default: true</p>
+<dl class="simple">
+<dt><strong>update interval</strong></dt><dd><p>The frequency (in seconds) with which wwclient will fetch its
+configuration (e.g., its overlays) from the Warewulf server.</p>
+</dd>
+</dl>
+<p>Default: 60</p>
+<dl class="simple">
+<dt><strong>autobuild overlays</strong></dt><dd><p>When true, overlays will be automatically rebuilt when indicated by
+changes to nodes, profiles, and overlays.</p>
+</dd>
+</dl>
+<p>Default: true</p>
+<dl class="simple">
+<dt><strong>host overlay</strong></dt><dd><p>Host overlays are used to configure dependent services on the
+Warewulf server. When disabled, these services’ configuration files
+will not be updated by <strong>wwctl-configure(1)</strong>.</p>
+</dd>
+</dl>
+<p>Default: true</p>
+<dl class="simple">
+<dt><strong>syslog</strong></dt><dd><p>When true, Warewulf server logs are written to syslog.</p>
+</dd>
+</dl>
+<p>Default: false</p>
+<dl class="simple">
+<dt><strong>datastore</strong></dt><dd><p>The location where Warewulf caches and stores OCI data.</p>
+</dd>
+</dl>
+<p>Default: /var/lib/warewulf</p>
+</section>
+<section id="dhcp">
+<h3>DHCP<a class="headerlink" href="#dhcp" title="Link to this heading"></a></h3>
+<p>The <strong>dhcp</strong> parameter is a map of individual sub-parameters which
+inform how <strong>wwctl-configure(1)</strong> should configure the DHCP service.
+(See the <strong>EXAMPLE</strong> section for overall structure.)</p>
+<dl class="simple">
+<dt><strong>enabled</strong></dt><dd><p>When false, the DHCP service will not be configured by
+<strong>wwctl-configure(1)</strong>.</p>
+</dd>
+</dl>
+<p>Default: true</p>
+<dl class="simple">
+<dt><strong>range start</strong></dt><dd><p>An IP address which defines the start of a dynamic address range
+which can be used when configuring the DHCP service. Provided to the
+host overlay as the variable <strong>$.Dhcp.RangeStart</strong>, typically for use
+in generating dhcpd.conf or similar.</p>
+</dd>
+</dl>
+<p>Templates typically expect this range to be within the <strong>network</strong>
+defined above.</p>
+<dl class="simple">
+<dt><strong>range end</strong></dt><dd><p>An IP address which defines the end of a dynamic address range which
+can be used when configuring the DHCP service. Provided to the host
+overlay as the variable <strong>$.Dhcp.RangeEnd</strong>, typically for use in
+generating dhcpd.conf or similar.</p>
+</dd>
+</dl>
+<p>Templates typically expect this range to be within the <strong>network</strong>
+defined above.</p>
+<dl class="simple">
+<dt><strong>systemd name</strong></dt><dd><p>The systemd unit name which will be used to (re)start the DHCP
+service during <strong>wwctl-configure(1)</strong>, if necessary.</p>
+</dd>
+</dl>
+<p>Default: dhcpd</p>
+</section>
+<section id="tftp">
+<h3>TFTP<a class="headerlink" href="#tftp" title="Link to this heading"></a></h3>
+<p>The <strong>tftp</strong> parameter is a map of individual sub-parameters which
+inform how <strong>wwctl-configure(1)</strong> should configure the TFTP service.
+(See the <strong>EXAMPLE</strong> section for overall structure.)</p>
+<dl class="simple">
+<dt><strong>enabled</strong></dt><dd><p>When false, the TFTP service will not be configured by
+<strong>wwctl-configure(1)</strong>.</p>
+</dd>
+</dl>
+<p>Default: true</p>
+<dl class="simple">
+<dt><strong>systemd name</strong></dt><dd><p>The systemd unit name which will be used to (re)start the TFTP
+service during <strong>wwctl-configure(1)</strong>, if necessary.</p>
+</dd>
+</dl>
+<p>Default: tftp</p>
+</section>
+<section id="nfs">
+<h3>NFS<a class="headerlink" href="#nfs" title="Link to this heading"></a></h3>
+<p>The nfs parameter is a map of individual sub-parameters which inform how
+<strong>wwctl-configure(1)</strong> should configure the NFS service. (See the
+<strong>EXAMPLE</strong> section for overall structure.)</p>
+<dl class="simple">
+<dt><strong>enabled</strong></dt><dd><p>When false, the NFS service will not be configured by
+<strong>wwctl-configure(1)</strong>.</p>
+</dd>
+</dl>
+<p>Default: true</p>
+<dl>
+<dt><strong>export paths</strong></dt><dd><p>A list of paths to be exported by the NFS service. Each item in the
+list is, itself, a map of parameters for the export. (See the
+<strong>EXAMPLE</strong> section for overall structure.)</p>
+<dl class="simple">
+<dt><strong>path</strong></dt><dd><p>The path on the server to be exported via the NFS service.
+Provided to the host overlay as the variable
+<strong>.Nfs.ExportsExtended[].Path</strong>, typically for use in generating
+/etc/exports or similar.</p>
+</dd>
+<dt><strong>export options</strong></dt><dd><p>The NFS export options to use when exporting the given <strong>path</strong>
+via the NFS service. Provided to the host overlay as the variable
+<strong>.Nfs.ExportsExtended[].ExportOptions</strong>, typically for use in
+generating /etc/exports or similar.</p>
+</dd>
+</dl>
+<p>Default: rw,sync,no_subtree_check</p>
+</dd>
+<dt><strong>systemd name</strong></dt><dd><p>The systemd unit name which will be used to (re)start the NFS service
+during <strong>wwctl-configure(1)</strong>, if necessary.</p>
+</dd>
+</dl>
+<p>Default: nfsd</p>
+</section>
+</section>
+<section id="example">
+<h2>EXAMPLE<a class="headerlink" href="#example" title="Link to this heading"></a></h2>
+<p>A sample configuration file for a typical deployment, with all dependent
+services enabled.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipaddr</span><span class="p">:</span> <span class="mf">10.0.0.1</span>
+<span class="n">network</span><span class="p">:</span> <span class="mf">10.0.0.0</span>
+<span class="n">netmask</span><span class="p">:</span> <span class="mf">255.255.0.0</span>
+<span class="n">warewulf</span><span class="p">:</span>
+  <span class="n">port</span><span class="p">:</span> <span class="mi">9873</span>
+  <span class="n">secure</span><span class="p">:</span> <span class="n">false</span>
+  <span class="n">update</span> <span class="n">interval</span><span class="p">:</span> <span class="mi">60</span>
+  <span class="n">autobuild</span> <span class="n">overlays</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">host</span> <span class="n">overlay</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">syslog</span><span class="p">:</span> <span class="n">false</span>
+  <span class="n">datastore</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+<span class="n">dhcp</span><span class="p">:</span>
+  <span class="n">enabled</span><span class="p">:</span> <span class="n">true</span>
+  <span class="nb">range</span> <span class="n">start</span><span class="p">:</span> <span class="mf">10.0.0.10</span>
+  <span class="nb">range</span> <span class="n">end</span><span class="p">:</span> <span class="mf">10.0.0.99</span>
+  <span class="n">systemd</span> <span class="n">name</span><span class="p">:</span> <span class="n">dhcpd</span>
+<span class="n">tftp</span><span class="p">:</span>
+  <span class="n">enabled</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">systemd</span> <span class="n">name</span><span class="p">:</span> <span class="n">tftp</span>
+<span class="n">nfs</span><span class="p">:</span>
+  <span class="n">enabled</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">export</span> <span class="n">paths</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">path</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span>
+    <span class="n">export</span> <span class="n">options</span><span class="p">:</span> <span class="n">rw</span><span class="p">,</span><span class="n">sync</span>
+  <span class="o">-</span> <span class="n">path</span><span class="p">:</span> <span class="o">/</span><span class="n">opt</span>
+    <span class="n">export</span> <span class="n">options</span><span class="p">:</span> <span class="n">ro</span><span class="p">,</span><span class="n">sync</span><span class="p">,</span><span class="n">no_root_squash</span>
+  <span class="n">systemd</span> <span class="n">name</span><span class="p">:</span> <span class="n">nfs</span><span class="o">-</span><span class="n">server</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>SEE ALSO<a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
+<p><strong>wwctl-server(1)</strong>, <strong>wwctl-configure(1)</strong>, <strong>nodes.conf(5)</strong></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nodes.conf.html" class="btn btn-neutral float-left" title="nodes.conf(5)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
