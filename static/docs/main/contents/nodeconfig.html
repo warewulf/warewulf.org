@@ -53,6 +53,7 @@
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Control Server Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Warewulf Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading Warewulf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
@@ -70,6 +71,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#configuring-the-node-s-image">Configuring the Node’s Image</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#configuring-the-node-s-network">Configuring the Node’s Network</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#additional-networks">Additional networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bonding">Bonding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#vlan">VLAN</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#static-routes">Static Routes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#node-discovery">Node Discovery</a></li>
@@ -106,6 +108,86 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-kvm.html">Development Environment (KVM)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vbox.html">Development Environment (VirtualBox)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Command Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl.html">wwctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_clean.html">wwctl clean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion.html">wwctl completion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_bash.html">wwctl completion bash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_fish.html">wwctl completion fish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_powershell.html">wwctl completion powershell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_zsh.html">wwctl completion zsh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure.html">wwctl configure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_dhcp.html">wwctl configure dhcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_hostfile.html">wwctl configure hostfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_nfs.html">wwctl configure nfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_ssh.html">wwctl configure ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tftp.html">wwctl configure tftp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig.html">wwctl genconfig</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_completions.html">wwctl genconfig completions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_man.html">wwctl genconfig man</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_reference.html">wwctl genconfig reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_warewulfconf.html">wwctl genconfig warewulfconf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_warewulfconf_print.html">wwctl genconfig warewulfconf print</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image.html">wwctl image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_build.html">wwctl image build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_copy.html">wwctl image copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_delete.html">wwctl image delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_exec.html">wwctl image exec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_import.html">wwctl image import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_kernels.html">wwctl image kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_list.html">wwctl image list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_rename.html">wwctl image rename</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_shell.html">wwctl image shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_show.html">wwctl image show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_syncuser.html">wwctl image syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node.html">wwctl node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_add.html">wwctl node add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_console.html">wwctl node console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_delete.html">wwctl node delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_edit.html">wwctl node edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_export.html">wwctl node export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_import.html">wwctl node import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_list.html">wwctl node list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_sensors.html">wwctl node sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_set.html">wwctl node set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_status.html">wwctl node status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay.html">wwctl overlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_build.html">wwctl overlay build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chmod.html">wwctl overlay chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chown.html">wwctl overlay chown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_create.html">wwctl overlay create</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_delete.html">wwctl overlay delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_edit.html">wwctl overlay edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_list.html">wwctl overlay list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_show.html">wwctl overlay show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power.html">wwctl power</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_cycle.html">wwctl power cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_off.html">wwctl power off</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_on.html">wwctl power on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_reset.html">wwctl power reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_soft.html">wwctl power soft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_status.html">wwctl power status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile.html">wwctl profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_add.html">wwctl profile add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_delete.html">wwctl profile delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_edit.html">wwctl profile edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_list.html">wwctl profile list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_set.html">wwctl profile set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_server.html">wwctl server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_ssh.html">wwctl ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade.html">wwctl upgrade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_config.html">wwctl upgrade config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_nodes.html">wwctl upgrade nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_version.html">wwctl version</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/nodes.conf.html">nodes.conf(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
 </ul>
 
         </div>
@@ -210,7 +292,6 @@ their attributes as follows:</p>
 <span class="go">n001                 discoverable       --           --</span>
 <span class="go">n001                 init               --           (/sbin/init)</span>
 <span class="go">n001                 asset              --           --</span>
-<span class="go">n001                 kerneloverride     --           --</span>
 <span class="go">n001                 kernelargs         --           (quiet crashkernel=no net.ifnames=1)</span>
 <span class="go">n001                 ipmiaddr           --           --</span>
 <span class="go">n001                 ipminetmask        --           --</span>
@@ -242,11 +323,6 @@ generally usable.</p>
 </section>
 <section id="setting-node-attributes">
 <h2>Setting Node Attributes<a class="headerlink" href="#setting-node-attributes" title="Link to this heading"></a></h2>
-<p>In the above output we can see that there is no kernel or image
-defined for this node. To provision a node, the minimum requirements
-are a kernel and image, and for that node to be useful, we will
-also need to configure the network so the nodes are reachable after
-they boot.</p>
 <p>Node configurations are set using the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">set</span></code> command. To
 see a list of all configuration attributes, use the command <code class="docutils literal notranslate"><span class="pre">wwctl</span>
 <span class="pre">node</span> <span class="pre">set</span> <span class="pre">--help</span></code>.</p>
@@ -271,7 +347,7 @@ provide the network information as follows:</p>
 </pre></div>
 </div>
 <p>You can now see that the node contains configuration attributes for
-image, kernel, and network:</p>
+image and network:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span>n001
 <span class="go">NODE                 FIELD              PROFILE      VALUE</span>
 <span class="go">n001                 Id                 --           n001</span>
@@ -285,7 +361,6 @@ image, kernel, and network:</p>
 <span class="go">n001                 discoverable       --           --</span>
 <span class="go">n001                 init               --           (/sbin/init)</span>
 <span class="go">n001                 asset              --           --</span>
-<span class="go">n001                 kerneloverride     --           tw</span>
 <span class="go">n001                 kernelargs         --           (quiet crashkernel=no net.ifnames=1)</span>
 <span class="go">n001                 ipmiaddr           --           --</span>
 <span class="go">n001                 ipminetmask        --           --</span>
@@ -321,13 +396,6 @@ and systemd in the default warewulf configuration, the use of <cite>eth0/1/…</
 We recommend the use of the original predictable names assigned to the interfaces (<cite>eno1, …</cite>),
 as otherwise an interface may remain unconfigured if its name conflicts with the name of an already existing interface during boot.</p>
 </div>
-<p>To configure a bonded (link aggregation) network interface the following commands can be used:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--netname<span class="o">=</span>bond0_member_1<span class="w"> </span>--netdev<span class="o">=</span>eth2<span class="w"> </span>--type<span class="o">=</span>bond-slave<span class="w"> </span>n001
-<span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--netname<span class="o">=</span>bond0_member_2<span class="w"> </span>--netdev<span class="o">=</span>eth3<span class="w"> </span>--type<span class="o">=</span>bond-slave<span class="w"> </span>n001
-<span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--netname<span class="o">=</span>bond0<span class="w"> </span>--netdev<span class="o">=</span>bond0<span class="w"> </span>--onboot<span class="o">=</span><span class="nb">true</span><span class="w"> </span>--type<span class="o">=</span>bond<span class="w"> </span>--ipaddr<span class="w"> </span><span class="m">10</span>.0.3.1<span class="w"> </span>--netmask<span class="o">=</span><span class="m">255</span>.255.255.0<span class="w"> </span>--mtu<span class="o">=</span><span class="m">9000</span><span class="w"> </span>n001
-</pre></div>
-</div>
-<p>Note: the netnames of the member interterfaces need to match the “netname” of the bonded interface until the first “_” (in the example bond0)</p>
 </section>
 <section id="additional-networks">
 <h3>Additional networks<a class="headerlink" href="#additional-networks" title="Link to this heading"></a></h3>
@@ -341,6 +409,29 @@ You will have provide all the necessary network information.</p>
 <span class="w">  </span>--netname<span class="w"> </span>iband<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--type<span class="w"> </span>infiniband<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>n001
+</pre></div>
+</div>
+</section>
+<section id="bonding">
+<h3>Bonding<a class="headerlink" href="#bonding" title="Link to this heading"></a></h3>
+<p>Support for bonded / link aggregation network interfaces depends on the network overlay being used.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ifcfg</span></code> and <code class="docutils literal notranslate"><span class="pre">NetworkManager</span></code> overlays can configure a network bond like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network devices</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">bond0</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bond</span>
+<span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bond0</span>
+<span class="w">    </span><span class="nt">ipaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.3.100</span>
+<span class="w">    </span><span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
+<span class="nt">en1</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en1</span>
+<span class="w">  </span><span class="nt">hwaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">e6:92:39:49:7b:03</span>
+<span class="w">  </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">master</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bond0</span>
+<span class="nt">en2</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en2</span>
+<span class="w">  </span><span class="nt">hwaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9a:77:29:73:14:f1</span>
+<span class="w">  </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">master</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bond0</span>
 </pre></div>
 </div>
 </section>

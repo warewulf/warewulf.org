@@ -53,6 +53,7 @@
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Control Server Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Warewulf Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Warewulf Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading Warewulf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="initialization.html">Warewulf Initialization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="images.html">Image Management</a></li>
@@ -61,6 +62,7 @@
 <li class="toctree-l1"><a class="reference internal" href="nodeconfig.html">Node Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profiles.html">Node Profiles</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Warewulf Overlays</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#structure">Structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#system-and-runtime-overlays">System and runtime overlays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#distribution-and-site-overlays">Distribution and site overlays</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#provided-distribution-overlays">Provided distribution overlays</a></li>
@@ -78,6 +80,20 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#combining-and-overriding-overlays">Combining and overriding overlays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#templates">Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#template-functions">Template functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#include">Include</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#includefrom">IncludeFrom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#includeblock">IncludeBlock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#importlink">ImportLink</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basename">basename</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file">file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#softlink">softlink</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#readlink">readlink</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ignitionjson">IgnitionJson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#abort">abort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nobackup">nobackup</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#managing-overlays">Managing overlays</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#build">Build</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#chmod">Chmod</a></li>
@@ -118,6 +134,86 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment-vbox.html">Development Environment (VirtualBox)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Command Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl.html">wwctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_clean.html">wwctl clean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion.html">wwctl completion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_bash.html">wwctl completion bash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_fish.html">wwctl completion fish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_powershell.html">wwctl completion powershell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_zsh.html">wwctl completion zsh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure.html">wwctl configure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_dhcp.html">wwctl configure dhcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_hostfile.html">wwctl configure hostfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_nfs.html">wwctl configure nfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_ssh.html">wwctl configure ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tftp.html">wwctl configure tftp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig.html">wwctl genconfig</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_completions.html">wwctl genconfig completions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_man.html">wwctl genconfig man</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_reference.html">wwctl genconfig reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_warewulfconf.html">wwctl genconfig warewulfconf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_warewulfconf_print.html">wwctl genconfig warewulfconf print</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image.html">wwctl image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_build.html">wwctl image build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_copy.html">wwctl image copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_delete.html">wwctl image delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_exec.html">wwctl image exec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_import.html">wwctl image import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_kernels.html">wwctl image kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_list.html">wwctl image list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_rename.html">wwctl image rename</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_shell.html">wwctl image shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_show.html">wwctl image show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_syncuser.html">wwctl image syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node.html">wwctl node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_add.html">wwctl node add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_console.html">wwctl node console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_delete.html">wwctl node delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_edit.html">wwctl node edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_export.html">wwctl node export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_import.html">wwctl node import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_list.html">wwctl node list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_sensors.html">wwctl node sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_set.html">wwctl node set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_status.html">wwctl node status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay.html">wwctl overlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_build.html">wwctl overlay build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chmod.html">wwctl overlay chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chown.html">wwctl overlay chown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_create.html">wwctl overlay create</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_delete.html">wwctl overlay delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_edit.html">wwctl overlay edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_list.html">wwctl overlay list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_show.html">wwctl overlay show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power.html">wwctl power</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_cycle.html">wwctl power cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_off.html">wwctl power off</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_on.html">wwctl power on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_reset.html">wwctl power reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_soft.html">wwctl power soft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_status.html">wwctl power status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile.html">wwctl profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_add.html">wwctl profile add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_delete.html">wwctl profile delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_edit.html">wwctl profile edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_list.html">wwctl profile list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_set.html">wwctl profile set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_server.html">wwctl server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_ssh.html">wwctl ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade.html">wwctl upgrade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_config.html">wwctl upgrade config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_nodes.html">wwctl upgrade nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_version.html">wwctl version</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/nodes.conf.html">nodes.conf(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
+</ul>
 
         </div>
       </div>
@@ -154,6 +250,18 @@ solutions to a simple problem.</p>
 <p>Warewulf addresses cluster node configuration with its <strong>overlay</strong> system. Overlays are collections
 of files and templates that are rendered and built per-node and then applied over the image
 image during the provisioning process.</p>
+<section id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Link to this heading"></a></h2>
+<p>An overlay is a directory that is applied to the root of a cluster node’s runtime file system. The
+overlay source directory should contain a single <code class="docutils literal notranslate"><span class="pre">rootfs</span></code> directory which represents the actual
+root directory for the overlay.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/usr/share/warewulf/overlays/issue
+└── rootfs
+    └── etc
+        └── issue.ww
+</pre></div>
+</div>
+</section>
 <section id="system-and-runtime-overlays">
 <h2>System and runtime overlays<a class="headerlink" href="#system-and-runtime-overlays" title="Link to this heading"></a></h2>
 <p>A node or profile can configure an overlay in two different ways:</p>
@@ -163,6 +271,16 @@ overlays are called <strong>system overlays</strong>.</p></li>
 <li><p>An overlay can be configured to also apply periodically while the system is running. These overlays
 are called <strong>runtime overlays</strong>.</p></li>
 </ul>
+<p>Overlays are built (e.g., with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overly</span> <span class="pre">build</span></code>) into compressed overlay images for
+distribution to cluster nodes. These images typically match these two use cases: system and
+runtime. As such, each cluster node typically has two overlay images.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/var/lib/warewulf/provision/overlays/tn1
+├── __RUNTIME__.img
+├── __RUNTIME__.img.gz
+├── __SYSTEM__.img
+└── __SYSTEM__.img.gz
+</pre></div>
+</div>
 </section>
 <section id="distribution-and-site-overlays">
 <h2>Distribution and site overlays<a class="headerlink" href="#distribution-and-site-overlays" title="Link to this heading"></a></h2>
@@ -267,9 +385,12 @@ image to synchronize its user and group IDs with those of the server.</p>
 </section>
 <section id="debug">
 <h3>debug<a class="headerlink" href="#debug" title="Link to this heading"></a></h3>
-<p>The <strong>debug</strong> overlay is not intended to be used in configuration, but can be
-used as an example and applied with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">show</span> <span class="pre">--render</span> <span class="pre">&lt;nodename&gt;</span>
-<span class="pre">debug</span> <span class="pre">/warewulf/template-variables.md.ww</span></code>.</p>
+<p>The <strong>debug</strong> overlay is not intended to be used in configuration, but is
+provided as an example. In particular, the provided <cite>tstruct.md.ww</cite> demonstrates
+the use of most available template metadata.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>show<span class="w"> </span>--render<span class="w"> </span>&lt;nodename&gt;<span class="w"> </span>debug<span class="w"> </span>tstruct.md.ww
+</pre></div>
+</div>
 </section>
 <section id="host">
 <h3>host<a class="headerlink" href="#host" title="Link to this heading"></a></h3>
@@ -314,8 +435,9 @@ from the host to it. This overlay is then combined with the existing overlays.</
 downloaded for each node will be customized for that node. Templates
 allow you to insert everything from variables, to including files from
 the control node, as well as conditional content and loops.</p>
-<p>Warewulf uses the <code class="docutils literal notranslate"><span class="pre">text/template</span></code> engine to facilitate implementing
-dynamic content in a simple and standardized manner.</p>
+<p>Warewulf uses the <code class="docutils literal notranslate"><span class="pre">text/template</span></code> engine to facilitate implementing dynamic
+content in a simple and standardized manner. This template format is documented
+at <a class="reference external" href="https://pkg.go.dev/text/template">https://pkg.go.dev/text/template</a>.</p>
 <p>All template files will end with the suffix of <code class="docutils literal notranslate"><span class="pre">.ww</span></code>. That tells
 Warewulf that when building a file, that it should parse that file as
 a template. When it does that, the resulting file is static and can
@@ -327,6 +449,102 @@ attributes.</p>
 will be dropped, so <code class="docutils literal notranslate"><span class="pre">/etc/hosts.ww</span></code> will end up being
 <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>.</p>
 </div>
+</section>
+<section id="template-functions">
+<h2>Template functions<a class="headerlink" href="#template-functions" title="Link to this heading"></a></h2>
+<p>Warewulf templates have access to a number of functions.</p>
+<p>In addition to the custom functions below, the <a class="reference external" href="https://masterminds.github.io/sprig/">sprig functions</a> are also
+available.</p>
+<section id="include">
+<h3>Include<a class="headerlink" href="#include" title="Link to this heading"></a></h3>
+<p>Reads content from the given file into the template. If the file does not begin
+with <code class="docutils literal notranslate"><span class="pre">/</span></code> it is considered relative to <code class="docutils literal notranslate"><span class="pre">Paths.Sysconfdir</span></code>.</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>{{ Include &quot;/root/.ssh/authorized_keys&quot; }}
+</pre></div>
+</div>
+</section>
+<section id="includefrom">
+<h3>IncludeFrom<a class="headerlink" href="#includefrom" title="Link to this heading"></a></h3>
+<p>Reads content from the given file from the given image into the template.</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>{{ IncludeFrom $.ImageName &quot;/etc/passwd&quot; }}
+</pre></div>
+</div>
+</section>
+<section id="includeblock">
+<h3>IncludeBlock<a class="headerlink" href="#includeblock" title="Link to this heading"></a></h3>
+<p>Reads content from the given file into the template, stopping when the provided
+abort string is found.</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>{{ IncludeBlock &quot;/etc/hosts&quot; &quot;# Do not edit after this line&quot; }}
+</pre></div>
+</div>
+</section>
+<section id="importlink">
+<h3>ImportLink<a class="headerlink" href="#importlink" title="Link to this heading"></a></h3>
+<p>Causes the processed template file to becoma a symlink to the same target as the
+referenced symlink.</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>{{ ImportLink &quot;/etc/localtime&quot; }}
+</pre></div>
+</div>
+</section>
+<section id="basename">
+<h3>basename<a class="headerlink" href="#basename" title="Link to this heading"></a></h3>
+<p>Returns the base name of the given path.</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>{{- range $type, $name := $.Tftp.IpxeBinaries }}
+ if option architecture-type = {{ $type }} {
+     filename &quot;/warewulf/{{ basename $name }}&quot;;
+ }
+{{- end }}
+</pre></div>
+</div>
+</section>
+<section id="file">
+<h3>file<a class="headerlink" href="#file" title="Link to this heading"></a></h3>
+<p>Write the content from the template to the specified file name. May be specified
+more than once in a template to write content to multiple files.</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>{{- range $devname, $netdev := .NetDevs }}
+{{- $filename := print &quot;ifcfg-&quot; $devname &quot;.conf&quot; }}
+{{ file $filename }}
+{{/* content here */}}
+{{- end }}
+</pre></div>
+</div>
+</section>
+<section id="softlink">
+<h3>softlink<a class="headerlink" href="#softlink" title="Link to this heading"></a></h3>
+<p>Causes the processed template file to become a symlink to the referenced target.</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>{{ printf &quot;%s/%s&quot; &quot;/usr/share/zoneinfo&quot; .Tags.localtime | softlink }}
+</pre></div>
+</div>
+</section>
+<section id="readlink">
+<h3>readlink<a class="headerlink" href="#readlink" title="Link to this heading"></a></h3>
+<p>Equivalent to <code class="docutils literal notranslate"><span class="pre">filepath.EvalSymlinks</span></code>. Returns the target path of a named
+symlink.</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>{{ readlink /etc/localtime }}
+</pre></div>
+</div>
+</section>
+<section id="ignitionjson">
+<h3>IgnitionJson<a class="headerlink" href="#ignitionjson" title="Link to this heading"></a></h3>
+<p>Generates JSON suitable for use by Ignition to create</p>
+</section>
+<section id="abort">
+<h3>abort<a class="headerlink" href="#abort" title="Link to this heading"></a></h3>
+<p>Immediately aborts processing the template and does not write a file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">abort</span> <span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="nobackup">
+<h3>nobackup<a class="headerlink" href="#nobackup" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Disables the creation of a backup file when replacing files with the current
+template.</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">nobackup</span> <span class="p">}}</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="managing-overlays">
 <h2>Managing overlays<a class="headerlink" href="#managing-overlays" title="Link to this heading"></a></h2>
