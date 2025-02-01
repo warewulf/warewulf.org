@@ -67,8 +67,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#listing-nodes">Listing Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#setting-node-attributes">Setting Node Attributes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#configuring-the-node-s-image">Configuring the Node’s Image</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setting-node-attributes">Setting Node Attributes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-the-node-s-image">Configuring the Node’s Image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#configuring-the-node-s-network">Configuring the Node’s Network</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#additional-networks">Additional networks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bonding">Bonding</a></li>
@@ -77,6 +77,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#node-discovery">Node Discovery</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-list-values">Setting list values</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#un-setting-node-attributes">Un-setting Node Attributes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#resources">Resources</a></li>
 </ul>
@@ -326,9 +327,8 @@ generally usable.</p>
 <p>Node configurations are set using the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">set</span></code> command. To
 see a list of all configuration attributes, use the command <code class="docutils literal notranslate"><span class="pre">wwctl</span>
 <span class="pre">node</span> <span class="pre">set</span> <span class="pre">--help</span></code>.</p>
-</section>
 <section id="configuring-the-node-s-image">
-<h2>Configuring the Node’s Image<a class="headerlink" href="#configuring-the-node-s-image" title="Link to this heading"></a></h2>
+<h3>Configuring the Node’s Image<a class="headerlink" href="#configuring-the-node-s-image" title="Link to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--image<span class="w"> </span>rocky-8<span class="w"> </span>n001
 <span class="go">Are you sure you want to modify 1 nodes(s): y</span>
 </pre></div>
@@ -338,6 +338,7 @@ see a list of all configuration attributes, use the command <code class="docutil
 <span class="go">n0000                Image              --           rocky-8</span>
 </pre></div>
 </div>
+</section>
 <section id="configuring-the-node-s-network">
 <h3>Configuring the Node’s Network<a class="headerlink" href="#configuring-the-node-s-network" title="Link to this heading"></a></h3>
 <p>To configure the network, we have to pick a network device name and
@@ -476,6 +477,15 @@ nodes are sorted lexically, first by cluster, then by ID.)</p>
 <p>Once a node has been discovered its “discoverable” flag is
 automatically cleared.</p>
 </section>
+</section>
+<section id="setting-list-values">
+<h2>Setting list values<a class="headerlink" href="#setting-list-values" title="Link to this heading"></a></h2>
+<p>Some node fields, such as overlays and kernel args, accept a list of values.
+These may be specified as a comma-separated list or as multiple arguments.</p>
+<p>To include an explicit comma in the value, enclose the value in inner-quotes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--kernelargs<span class="w"> </span><span class="s1">&#39;quiet,crashkernel=no,nosplash&#39;</span><span class="w"> </span>--kernelargs<span class="o">=</span><span class="s1">&#39;&quot;console=ttyS0,115200&quot;&#39;</span>
+</pre></div>
+</div>
 </section>
 <section id="un-setting-node-attributes">
 <h2>Un-setting Node Attributes<a class="headerlink" href="#un-setting-node-attributes" title="Link to this heading"></a></h2>
