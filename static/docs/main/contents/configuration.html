@@ -249,6 +249,8 @@ Warewulf (4.6.0):</p>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dsa</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ecdsa</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ed25519</span>
+<span class="nt">wwclient</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 </pre></div>
 </div>
 <p>Generally you can leave this file as is, as long as you set the
@@ -284,9 +286,10 @@ Warewulf service.</p></li>
 to only respond to runtime overlay requests originating from a
 privileged port. This prevents non-root users from requesting the
 runtime overlay, which may contain sensitive information.</p>
-<p>When <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> uses TCP port 987.</p>
-<p>Changing this option requires rebuilding node overlays and rebooting
-compute nodes to configure them to use a privileged port.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> uses TCP port 987 by default. A different port can
+be specified at <cite>wwclient.port</cite>.</p>
+<p>Changing this option requires rebuilding node overlays and rebooting compute
+nodes to configure them to use a privileged port for <cite>wwclient</cite>.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">warewulf:update</span> <span class="pre">interval</span></code>: This defines the frequency (in
 seconds) with which the Warewulf client on the compute node fetches
