@@ -69,6 +69,7 @@
 <li class="toctree-l1"><a class="reference internal" href="templating.html">Templating</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dnsmasq.html">dnsmasq</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#warewulfd">warewulfd</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ipxe">iPXE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#grub">GRUB</a></li>
 </ul>
@@ -199,6 +200,19 @@
              
   <section id="troubleshooting">
 <h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h1>
+<section id="warewulfd">
+<h2>warewulfd<a class="headerlink" href="#warewulfd" title="Link to this heading"></a></h2>
+<p>The Warewulf server (<code class="docutils literal notranslate"><span class="pre">warewulfd</span></code>) sends logs to the systemd journal.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">journalctl</span> <span class="o">-</span><span class="n">u</span> <span class="n">warewulfd</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+<p>To increase the verbosity of the log, specify either <code class="docutils literal notranslate"><span class="pre">--verbose</span></code> or
+<code class="docutils literal notranslate"><span class="pre">--debug</span></code> in the warewulfd OPTIONS.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;OPTIONS=--debug&quot;</span> <span class="o">&gt;&gt;/</span><span class="n">etc</span><span class="o">/</span><span class="n">default</span><span class="o">/</span><span class="n">warewulfd</span>
+<span class="n">systemctl</span> <span class="n">restart</span> <span class="n">warewulfd</span><span class="o">.</span><span class="n">service</span>
+</pre></div>
+</div>
+</section>
 <section id="ipxe">
 <h2>iPXE<a class="headerlink" href="#ipxe" title="Link to this heading"></a></h2>
 <p>If you’re using iPXE to boot (the default), you can get a command prompt by pressing with C-b during boot.</p>
