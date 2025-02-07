@@ -86,11 +86,6 @@ Default: true
 
 Default: true
 
-**syslog**
-   When true, Warewulf server logs are written to syslog.
-
-Default: false
-
 **datastore**
    The location where Warewulf caches and stores OCI data.
 
@@ -207,7 +202,6 @@ services enabled.
      update interval: 60
      autobuild overlays: true
      host overlay: true
-     syslog: false
      datastore: ""
    dhcp:
      enabled: true
