@@ -255,7 +255,7 @@ Warewulf (4.6.0):</p>
 <p>Generally you can leave this file as is, as long as you set the
 appropriate networking information. Specifically the following
 configurations:</p>
-<ul class="simple">
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">ipaddr</span></code>: This is the control node’s networking interface
 connecting to the cluster’s <strong>PRIVATE</strong> network. This configuration
 must match the host’s network IP address for the cluster’s private
@@ -267,6 +267,12 @@ subnet mask for the cluster’s private interface.</p></li>
 exist in the network defined above. If it is outside of this
 network, failures will occur. This specifies the range of addresses
 you want DHCP to use.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dhcp:template</span></code> defines an optional DHCP template variable to control the
+generation of the DHCP template.</p>
+<p>Specifying <code class="docutils literal notranslate"><span class="pre">template:</span> <span class="pre">static</span></code> populates <code class="docutils literal notranslate"><span class="pre">dhcpd.conf</span></code> with static leases
+for each host, bypassing the DHCP range. Run <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">dhcp</span></code> to
+update <code class="docutils literal notranslate"><span class="pre">dhcpd.conf</span></code> when nodes are added, removed, or changed.</p>
+</li>
 </ul>
 <p>The other configuration options are usually not touched, but they are
 explained as follows:</p>
