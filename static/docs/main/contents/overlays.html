@@ -422,7 +422,7 @@ from the host to it. This overlay is then combined with the existing overlays.</
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>create<span class="w"> </span>welcome
 <span class="gp"># </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>mkdir<span class="w"> </span>welcome<span class="w"> </span>/etc
 <span class="gp"># </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>import<span class="w"> </span>welcome<span class="w"> </span>/etc/issue
-<span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--wwinit<span class="o">=</span>wwinit,wwclient,welcome
+<span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--system-overlay<span class="o">=</span>wwinit,wwclient,welcome
 <span class="go">? Are you sure you want to modify 1 profile(s)? [y/N] y</span>
 <span class="gp"># </span>wwctl<span class="w"> </span>profile<span class="w"> </span>list<span class="w"> </span>default<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span>grep<span class="w"> </span>welcome
 <span class="go">default              SystemOverlay      wwinit,wwclient,welcome</span>
