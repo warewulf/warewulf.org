@@ -68,7 +68,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#provided-distribution-overlays">Provided distribution overlays</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#wwinit">wwinit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#wwclient">wwclient</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#network-interfaces">Network interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#network-interfaces">Network interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#networkmanager">NetworkManager</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#basics">Basics</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fstab">fstab</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ssh">ssh</a></li>
@@ -323,6 +326,22 @@ configured network interfaces, typically based on a known MAC address.</p>
 <li><p>systemd.netname</p></li>
 <li><p>udev.netname</p></li>
 </ul>
+<p>Several of the network configuration overlays support netdev tags to further
+customize the interface:</p>
+<ul class="simple">
+<li><p><strong>``DNS[0-9]*``:</strong> one or more DNS servers</p></li>
+<li><p><strong>``DNSSEARCH``:</strong> domain search path</p></li>
+<li><p><strong>``MASTER``:</strong> the master for a bond interface</p></li>
+</ul>
+<section id="networkmanager">
+<h4>NetworkManager<a class="headerlink" href="#networkmanager" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>``parent_device``:</strong> the parent device of a vlan interface</p></li>
+<li><p><strong>``vlan_id``:</strong> the vlan id for a vlan interface</p></li>
+<li><p><strong>``downdelay``, ``updelay``, ``miimon``, ``mode``, ``xmit_hash_policy``:</strong>
+bond device settings</p></li>
+</ul>
+</section>
 </section>
 <section id="basics">
 <h3>Basics<a class="headerlink" href="#basics" title="Link to this heading"></a></h3>
