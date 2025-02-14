@@ -69,6 +69,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#syncuser">Syncuser</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#listing-all-imported-images">Listing All Imported Images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#making-changes-to-images">Making Changes To Images</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#specifying-a-prompt">Specifying a prompt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shell-history">Shell history</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#excluding-files-from-an-image">Excluding Files from an Image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#preparing-an-image-for-build">Preparing an image for build</a></li>
 </ul>
@@ -450,8 +452,28 @@ automatically. (To skip the automatic image rebuild, specify <code class="docuti
 <p>If the files <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> or <code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> were updated, there
 will be an additional check to confirm if the users are in sync as
 described in <a class="reference internal" href="#syncuser">Syncuser</a> section.</p>
+<section id="specifying-a-prompt">
+<h3>Specifying a prompt<a class="headerlink" href="#specifying-a-prompt" title="Link to this heading"></a></h3>
+<p>Warewulf sets a custom prompt during a <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">shell</span></code> session. This
+prompt may be customized using the <code class="docutils literal notranslate"><span class="pre">WW_PS1</span></code> variable, which is used to
+construct the final <code class="docutils literal notranslate"><span class="pre">PS1</span></code> variable for the shell.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># wwctl image shell rockylinux-9
+[warewulf:rockylinux-9] /#
+
+# env WW_PS1=&quot;\u@\h:\w\$ &quot; wwctl image shell rockylinux-9
+[warewulf:rockylinux-9] root@rocky:/$
+</pre></div>
+</div>
+</section>
+<section id="shell-history">
+<h3>Shell history<a class="headerlink" href="#shell-history" title="Link to this heading"></a></h3>
+<p>By default, Warewulf image shell sessions don’t retain history; but you can
+specify a history file by specifing <code class="docutils literal notranslate"><span class="pre">WW_HISTFILE</span></code>. Note that this file is
+stored within the image; you may want to exclude it when the image is built.
+(See <a class="reference internal" href="#exclude"><span class="std std-ref">Excluding Files from an Image</span></a>.)</p>
+</section>
 <section id="excluding-files-from-an-image">
-<h3>Excluding Files from an Image<a class="headerlink" href="#excluding-files-from-an-image" title="Link to this heading"></a></h3>
+<span id="exclude"></span><h3>Excluding Files from an Image<a class="headerlink" href="#excluding-files-from-an-image" title="Link to this heading"></a></h3>
 <p>Warewulf can exclude files from an image source to prevent them
 from being delivered to the compute node. This is typically used to
 reduce the size of the image when some files are unnecessary.</p>
