@@ -114,23 +114,12 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl.html">wwctl</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_clean.html">wwctl clean</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion.html">wwctl completion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_bash.html">wwctl completion bash</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_fish.html">wwctl completion fish</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_powershell.html">wwctl completion powershell</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_completion_zsh.html">wwctl completion zsh</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure.html">wwctl configure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_dhcp.html">wwctl configure dhcp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_hostfile.html">wwctl configure hostfile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_nfs.html">wwctl configure nfs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_ssh.html">wwctl configure ssh</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tftp.html">wwctl configure tftp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig.html">wwctl genconfig</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_completions.html">wwctl genconfig completions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_man.html">wwctl genconfig man</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_reference.html">wwctl genconfig reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_warewulfconf.html">wwctl genconfig warewulfconf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_genconfig_warewulfconf_print.html">wwctl genconfig warewulfconf print</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image.html">wwctl image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_build.html">wwctl image build</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_copy.html">wwctl image copy</a></li>
@@ -383,23 +372,25 @@ wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w">
 </section>
 <section id="syncuser">
 <h2>Syncuser<a class="headerlink" href="#syncuser" title="Link to this heading"></a></h2>
-<p>At import time Warewulf checks if the names of the users on the host
-match the users and UIDs/GIDs in the imported image. If there is
-mismatch, the import command will print out a warning.  By setting the
-<code class="docutils literal notranslate"><span class="pre">--syncuser</span></code> flag you advise Warewulf to try to syncronize the users
-from the host to the image, which means that <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> and
-<code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> of the imported image are updated and all the files
-belonging to these UIDs and GIDs will also be updated.</p>
-<p>A check if the users of the host and image matches can be
-triggered with the <code class="docutils literal notranslate"><span class="pre">syncuser</span></code> command.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>syncuser<span class="w"> </span>image-name
+<p>Warewulf can optionally synchronize UIDs and GIDs from the Warewulf server to an
+image. This can be particularly useful when there is no central directory (e.g.,
+an LDAP server). Some system services (notably “munge”) require a user to have
+the same UID across all nodes.</p>
+<p>With the addition of the “syncuser” overlay, Warewulf syncuser also supports
+defining local users on the Warewulf server for synchronization to cluster
+nodes.</p>
+<p>If there is mismatch between the server and the image, the import command will
+print out a warning.</p>
+<p>Syncuser may be invoked during image import, exec, shell, or build.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>--syncuser<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:9<span class="w"> </span>rockylinux-9
+<span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--syncuser<span class="w"> </span>rockylinux-9<span class="w"> </span>--<span class="w"> </span>/usr/bin/echo<span class="w"> </span><span class="s2">&quot;Hello, world!&quot;</span>
+<span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>shell<span class="w"> </span>--syncuser<span class="w"> </span>rockylinux-9
+<span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>build<span class="w"> </span>--syncuser<span class="w"> </span>rockylinux-9
+<span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>syncuser<span class="w"> </span>rockylinux-9
 </pre></div>
 </div>
-<p>With the <code class="docutils literal notranslate"><span class="pre">--write</span></code> flag it will update the image to match the
-user database of the host as described above.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">wwctl image syncuser --write image-name</span>
-</pre></div>
-</div>
+<p>After syncuser, <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> and <code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> in the image are updated, and
+permissions on files belonging to these UIDs and GIDs are updated to match.</p>
 </section>
 <section id="listing-all-imported-images">
 <h2>Listing All Imported Images<a class="headerlink" href="#listing-all-imported-images" title="Link to this heading"></a></h2>
