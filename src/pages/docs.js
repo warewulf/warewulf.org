@@ -5,8 +5,8 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 
 const docsVersions = [
-    { version: 'main' },
     { version: 'v4.5.x' },
+    { version: 'main' },
 ]
 
 const DocsPage = () => (
