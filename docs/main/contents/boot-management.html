@@ -209,7 +209,7 @@ for GRUB is also available, which adds support for secure boot.</p>
 initramfs as an initial stage before loading the image.</p>
 <section id="booting-with-ipxe">
 <h2>Booting with iPXE<a class="headerlink" href="#booting-with-ipxe" title="Link to this heading"></a></h2>
-<div class="graphviz"><img src="../_images/graphviz-0f8ee3a784bb97154cd53746c2ec478eae6dbebb.png" alt="digraph G{
+<div class="graphviz"><img src="../_images/graphviz-54dc44bcbd01ab73f9171997428281e20afe4f2a.png" alt="digraph G{
     node [shape=box];
     compound=true;
     edge [label2node=true]
@@ -355,7 +355,7 @@ After that, remove any previously-provisioned files from <code class="docutils l
 <h2>Booting with GRUB<a class="headerlink" href="#booting-with-grub" title="Link to this heading"></a></h2>
 <p>Support for GRUB as a network bootloader (replacing iPXE) is available in
 Warewulf as a technology preview.</p>
-<div class="graphviz"><img src="../_images/graphviz-4a0e839cc010088900d2ea20cb85f30ab6768edf.png" alt="digraph G{
+<div class="graphviz"><img src="../_images/graphviz-46eee345cc8f78ee48c9e827c0226bee45924674.png" alt="digraph G{
     node [shape=box];
     compound=true;
     edge [label2node=true]
@@ -386,7 +386,7 @@ scenarios.</p>
 Warewulf server host.</p>
 <section id="secure-boot">
 <h3>Secure boot<a class="headerlink" href="#secure-boot" title="Link to this heading"></a></h3>
-<div class="graphviz"><img src="../_images/graphviz-87f2b5a9fa342f42cc8028f4a60d24c3ea795fd3.png" alt="digraph foo {
+<div class="graphviz"><img src="../_images/graphviz-b47ce842bdc00d769e33e6b2635feb7f13e03098.png" alt="digraph foo {
    node [shape=box];
    subgraph boot {
      &quot;EFI&quot; [label=&quot;EFI&quot;,row=boot];
@@ -424,7 +424,7 @@ node discovery using GRUB.</p>
 <h3>http boot<a class="headerlink" href="#http-boot" title="Link to this heading"></a></h3>
 <p>Modern EFI systems have the possibility to directly boot per http. The flow diagram
 is the following:</p>
-<div class="graphviz"><img src="../_images/graphviz-13d2038aa326fa9f7bda48574967cc24f7ab0cde.png" alt="digraph G{
+<div class="graphviz"><img src="../_images/graphviz-7faf69cc7f390dd597c3dceba13bb3c3954df500.png" alt="digraph G{
     node [shape=box];
     efi [shape=record label=&quot;{EFI|boots from URI defined in filename}&quot;];
     shim [shape=record label=&quot;{shim.efi|replaces shim.efi with grubx64.efi in URI|extracted from node image}&quot;];
@@ -462,22 +462,20 @@ dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span 
 necessary to remove <code class="docutils literal notranslate"><span class="pre">/etc/machine-id</span></code> for dracut to properly generate
 the initramfs in the location that Warewulf is expecting.</p>
 </div>
-<p>Set the node’s iPXE template to <code class="docutils literal notranslate"><span class="pre">dracut</span></code> to direct iPXE to fetch the
-node’s initramfs image and boot with dracut semantics, rather than
-booting the node image directly.</p>
+<p>To direct iPXE to fetch the node’s initramfs image and boot with dracut
+semantics, set an <code class="docutils literal notranslate"><span class="pre">IPXEMenuEntry</span></code> tag for the node.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Warewulf iPXE templates are located at <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/ipxe/</span></code> when
-Warewulf is installed via official packages. You can learn more
-about how dracut booting works by inspecting its iPXE template at
-<code class="docutils literal notranslate"><span class="pre">/etc/warewulf/ipxe/dracut.ipxe</span></code>.</p>
+<p>Warewulf configures iPXE with a template located at
+<code class="docutils literal notranslate"><span class="pre">/etc/warewulf/ipxe/default.ipxe</span></code>. Inspect the template to learn more about
+the dracut booting process.</p>
 </div>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>wwnode1<span class="w"> </span>--ipxe<span class="w"> </span>dracut
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>wwnode1<span class="w"> </span>--tagadd<span class="w"> </span><span class="nv">IPXEMenuEntry</span><span class="o">=</span>dracut
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The iPXE template may be set at the node or profile level.</p>
+<p>The IPXEMenuEntry variable may be set at the node or profile level.</p>
 </div>
 <p>Alternatively, to direct GRUB to fetch the node’s initramfs image and boot with
 dracut semantics, set a <code class="docutils literal notranslate"><span class="pre">GrubMenuEntry</span></code> tag for the node.</p>
@@ -504,10 +502,6 @@ to use up to 50% of physical memory. This size limit may be adjustd
 using the kernel argument <cite>wwinit.tmpfs.size</cite>. (This parameter is
 passed to the <cite>size</cite> option during tmpfs mount. See <code class="docutils literal notranslate"><span class="pre">tmpfs(5)</span></code> for
 more details.)</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Kernel overrides are not currently fully supported during dracut initramfs boot.</p>
-</div>
 </section>
 </section>
 
