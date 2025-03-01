@@ -1,0 +1,643 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Node Images &mdash; Warewulf User Guide main documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Image Kernels" href="kernel.html" />
+    <link rel="prev" title="Provisioning disks" href="../nodes/disks.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/provisioning.html">The Provisioning Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/network.html">Network Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/el-quickstart.html">Enterprise Linux Quickstart (Rocky Linux, CentOS, and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Server</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../server/installation.html">Server Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/configuration.html">Server Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/dnsmasq.html">Using dnsmasq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/bootloaders.html">Bootloaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/upgrade.html">Upgrading Warewulf</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/nodes.html">Cluster Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/disks.html">Disks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Node Images</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#structure">Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-images">Importing Images</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#oci-registry">OCI Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-oci-archive">Local OCI Archive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-directories-and-apptainer-sandboxes">Local Directories and Apptainer Sandboxes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#listing-imported-images">Listing Imported Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modifying-images-interactively">Modifying Images Interactively</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#binding-files-and-directories">Binding Files and Directories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#specifying-a-prompt">Specifying a Prompt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shell-history">Shell History</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-specific-commands">Running Specific Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#building-images">Building Images</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#excluding-files">Excluding Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exit-script">Exit Script</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-new-images">Defining New Images</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#podman">Podman</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apptainer">Apptainer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#duplicating-an-image">Duplicating an image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#image-architecture">Image Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-only-images">Read-only images</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">Image Kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="syncuser.html">Syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selinux.html">SELinux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Overlays</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/overlays.html">Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/templates.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/known-issues.html">Known issues</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment.html">Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Command Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl.html">wwctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_clean.html">wwctl clean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure.html">wwctl configure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_dhcp.html">wwctl configure dhcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_hostfile.html">wwctl configure hostfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_nfs.html">wwctl configure nfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_ssh.html">wwctl configure ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tftp.html">wwctl configure tftp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image.html">wwctl image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_build.html">wwctl image build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_copy.html">wwctl image copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_delete.html">wwctl image delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_exec.html">wwctl image exec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_import.html">wwctl image import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_kernels.html">wwctl image kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_list.html">wwctl image list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_rename.html">wwctl image rename</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_shell.html">wwctl image shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_show.html">wwctl image show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_syncuser.html">wwctl image syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node.html">wwctl node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_add.html">wwctl node add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_console.html">wwctl node console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_delete.html">wwctl node delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_edit.html">wwctl node edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_export.html">wwctl node export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_import.html">wwctl node import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_list.html">wwctl node list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_sensors.html">wwctl node sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_set.html">wwctl node set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_status.html">wwctl node status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay.html">wwctl overlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_build.html">wwctl overlay build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chmod.html">wwctl overlay chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chown.html">wwctl overlay chown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_create.html">wwctl overlay create</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_delete.html">wwctl overlay delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_edit.html">wwctl overlay edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_list.html">wwctl overlay list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_show.html">wwctl overlay show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power.html">wwctl power</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_cycle.html">wwctl power cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_off.html">wwctl power off</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_on.html">wwctl power on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_reset.html">wwctl power reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_soft.html">wwctl power soft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_status.html">wwctl power status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile.html">wwctl profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_add.html">wwctl profile add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_delete.html">wwctl profile delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_edit.html">wwctl profile edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_list.html">wwctl profile list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_set.html">wwctl profile set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_server.html">wwctl server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_ssh.html">wwctl ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade.html">wwctl upgrade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_config.html">wwctl upgrade config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_nodes.html">wwctl upgrade nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_version.html">wwctl version</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/nodes.conf.html">nodes.conf(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Node Images</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/images/images.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="node-images">
+<span id="images"></span><h1>Node Images<a class="headerlink" href="#node-images" title="Link to this heading"></a></h1>
+<p>Warewulf node images are a “Virtual Node File System” (VNFS) that serves as a
+base image for cluster nodes. This is similar to a “golden master” image, except
+that the image source exists mutably within a directory on the Warewulf control
+node (e.g. a <code class="docutils literal notranslate"><span class="pre">chroot()</span></code>).</p>
+<p>Warewulf node images have several similarities to Linux containers; so Warewulf
+v4 integrates directly within the container ecosystem to facilitate the process
+of image creation and image management: images can be built, for example, with
+Docker, Podman, or Apptainer, and imported directly from OCI registries or local
+container image archives. But you can also still build your own chroot
+directories manually.</p>
+<section id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Link to this heading"></a></h2>
+<p>A Warewulf image is a directory that populates the base runtime root file system
+of a cluster node. The image source directory must contain a single <code class="docutils literal notranslate"><span class="pre">rootfs</span></code>
+directory which represents the actual root directory for the image.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/var/lib/warewulf/chroots/rockylinux-9
+└── rootfs
+    ├── afs
+    ├── bin -&gt; usr/bin
+    ├── boot
+    ├── dev
+    ├── etc
+    ├── home
+    ├── lib -&gt; usr/lib
+    ├── lib64 -&gt; usr/lib64
+    ├── media
+    ├── mnt
+    ├── opt
+    ├── proc
+    ├── root
+    ├── run
+    ├── sbin -&gt; usr/sbin
+    ├── srv
+    ├── sys
+    ├── tmp
+    ├── usr
+    └── var
+</pre></div>
+</div>
+</section>
+<section id="importing-images">
+<h2>Importing Images<a class="headerlink" href="#importing-images" title="Link to this heading"></a></h2>
+<p>Before any cluster nodes can be provisioned, you must import an image. Images
+may be imported from an OCI registry, a local OCI archive, or a local directory
+or Apptainer sandbox.</p>
+<section id="oci-registry">
+<h3>OCI Registry<a class="headerlink" href="#oci-registry" title="Link to this heading"></a></h3>
+<p>You can import node images from an OCI registry, public or private.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:8<span class="w"> </span>rockylinux-8
+<span class="go">Getting image source signatures</span>
+<span class="go">Copying blob d7f16ed6f451 done</span>
+<span class="go">Copying config da2ca70704 done</span>
+<span class="go">Writing manifest to image destination</span>
+<span class="go">Storing signatures</span>
+<span class="go">[LOG]       info unpack layer: sha256:d7f16ed6f45129c7f4adb3773412def4ba2bf9902de42e86e77379a65d90a984</span>
+<span class="go">Updating the image&#39;s /etc/resolv.conf</span>
+<span class="go">Building image: rockylinux-8</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Most images in Docker Hub are not “bootable”: they typically do not include
+a kernel, and likely don’t include any init system. For this reason, don’t
+expect a base image from DockerHub (e.g. <code class="docutils literal notranslate"><span class="pre">docker://rockylinux</span></code> or
+<code class="docutils literal notranslate"><span class="pre">docker://debian</span></code>) to boot properly with Warewulf.</p>
+<p>The Warewulf project maintains a set of <a class="reference external" href="https://github.com/warewulf/warewulf-node-images">example node images</a> that are configured to
+boot when used with Warewulf. These images can be imported directly into
+Warewulf or used as base images for local custom image.</p>
+</div>
+<p>A few environmental variables can be used to control communication with the OCI
+registry:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">WAREWULF_OCI_USERNAME</span>
+<span class="go">WAREWULF_OCI_PASSWORD</span>
+<span class="go">WAREWULF_OCI_NOHTTPS</span>
+</pre></div>
+</div>
+<p>They can be overwritten with <code class="docutils literal notranslate"><span class="pre">--nohttps</span></code>, <code class="docutils literal notranslate"><span class="pre">--username</span></code> and <code class="docutils literal notranslate"><span class="pre">--password</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>import<span class="w"> </span>--username<span class="w"> </span>tux<span class="w"> </span>--password<span class="w"> </span>supersecret<span class="w"> </span>docker://ghcr.io/privatereg/rocky:8
+</pre></div>
+</div>
+<p>You can also set <code class="docutils literal notranslate"><span class="pre">HTTP_PROXY</span></code>, <code class="docutils literal notranslate"><span class="pre">HTTPS_PROXY</span></code>, and <code class="docutils literal notranslate"><span class="pre">NO_PROXY</span></code> (or their
+lower-case versions) to use a proxy during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">import</span></code>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">HTTPS_PROXY</span><span class="o">=</span>squid.localdomain
+wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:8
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://pkg.go.dev/net/http#ProxyFromEnvironment">ProxyFromEnvironment</a> for more information.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>OCI and ORAS registries typically use HTTPS, so you probably need to set
+<code class="docutils literal notranslate"><span class="pre">HTTPS_PROXY</span></code> or <code class="docutils literal notranslate"><span class="pre">https_proxy</span></code> rather than the <code class="docutils literal notranslate"><span class="pre">HTTP</span></code> variants.</p>
+</div>
+<p>The above is just an example. Consideration should be done before doing it this
+way if you are in a security sensitive environment or shared environments as
+this command line wil show up in the process table.</p>
+</section>
+<section id="local-oci-archive">
+<h3>Local OCI Archive<a class="headerlink" href="#local-oci-archive" title="Link to this heading"></a></h3>
+<p>It is also possible to import an image from a local OCI archive. For example,
+Podman can save a <code class="docutils literal notranslate"><span class="pre">.tar</span></code> archive of an OCI image.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>save<span class="w"> </span>ghcr.io/warewulf/warewulf-rockylinux:8<span class="w"> </span>&gt;rockylinux-8.tar
+wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>rockylinux-8.tar<span class="w"> </span>rockylinux-8
+</pre></div>
+</div>
+</section>
+<section id="local-directories-and-apptainer-sandboxes">
+<h3>Local Directories and Apptainer Sandboxes<a class="headerlink" href="#local-directories-and-apptainer-sandboxes" title="Link to this heading"></a></h3>
+<p>Chroot directories and Apptainer sandbox images can also be imported directly.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>./rockylinux-8/<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:8
+wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>./rockylinux-8/<span class="w"> </span>rockylinux-8
+</pre></div>
+</div>
+</section>
+</section>
+<section id="listing-imported-images">
+<h2>Listing Imported Images<a class="headerlink" href="#listing-imported-images" title="Link to this heading"></a></h2>
+<p>Once the image has been imported, you can list them all with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span>
+<span class="pre">list</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>list
+<span class="go">IMAGE NAME</span>
+<span class="go">----------</span>
+<span class="go">rockylinux-8</span>
+</pre></div>
+</div>
+<p>Additional detail is available using <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">list</span> <span class="pre">--long</span></code>, among others.
+(See <code class="docutils literal notranslate"><span class="pre">--help</span></code> for more options.)</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>list<span class="w"> </span>--long
+<span class="go">IMAGE NAME    NODES  KERNEL VERSION      CREATION TIME        MODIFICATION TIME    SIZE</span>
+<span class="go">----------    -----  --------------      -------------        -----------------    ----</span>
+<span class="go">rockylinux-8  0      4.18.0-553.30.1     11 Feb 25 13:57 MST  11 Feb 25 13:57 MST  1.4 GiB</span>
+</pre></div>
+</div>
+</section>
+<section id="modifying-images-interactively">
+<h2>Modifying Images Interactively<a class="headerlink" href="#modifying-images-interactively" title="Link to this heading"></a></h2>
+<p>An image that has been imported into Warewulf remains mutable, and can be
+modified on the Warewulf server. For example, you can “shell” into the image and
+make changes interactively.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>shell<span class="w"> </span>rockylinux-8
+<span class="gp">[warewulf:rockylinux-8] /# </span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>apptainer
+<span class="go">[...]</span>
+
+<span class="go">Installed:</span>
+<span class="go">  apptainer-1.3.6-1.el8.aarch64</span>
+<span class="go">  fakeroot-1.33-1.el8.aarch64</span>
+<span class="go">  fakeroot-libs-1.33-1.el8.aarch64</span>
+<span class="go">  fuse3-libs-3.3.0-19.el8.aarch64</span>
+<span class="go">  lzo-2.08-14.el8.aarch64</span>
+<span class="go">  squashfs-tools-4.3-21.el8.aarch64</span>
+
+<span class="go">Complete!</span>
+</pre></div>
+</div>
+<section id="binding-files-and-directories">
+<h3>Binding Files and Directories<a class="headerlink" href="#binding-files-and-directories" title="Link to this heading"></a></h3>
+<p>You can <code class="docutils literal notranslate"><span class="pre">--bind</span></code> directories from the Warewulf server into the image when
+using the exec command. This is particularly useful for installing locally-built
+packages.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># wwctl image shell --bind /var/lib/mock/rocky+epel-9-$(arch)/result:/mnt</span>
+<span class="o">[</span>warewulf:rockylinux-8<span class="o">]</span><span class="w"> </span>/#<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>/mnt/warewulf-dracut-*.noarch.rpm
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As with any mount command, both the source and the target must exist. This is
+why the example uses the <code class="docutils literal notranslate"><span class="pre">/mnt/</span></code> directory location, as it is almost always
+present and empty in every Linux distribution (as prescribed by the LSB file
+hierarchy standard).</p>
+</div>
+<p>Files may also be automatically bound into the image during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span>
+<span class="pre">shell</span></code> by configuring <code class="docutils literal notranslate"><span class="pre">warewulf.conf:image</span> <span class="pre">mounts</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">image mounts</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
+<span class="w">  </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
+<span class="w">  </span><span class="nt">readonly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Instead of <code class="docutils literal notranslate"><span class="pre">readonly:</span> <span class="pre">true</span></code> you can set <code class="docutils literal notranslate"><span class="pre">copy:</span> <span class="pre">true</span></code>. This causes the
+source file to be copied to the image and removed if it was not modified.
+This can be useful for files used for registrations.</p>
+</div>
+<p>When the command completes, if anything within the image changed, the image will
+be rebuilt into a bootable static object automatically. (To skip the automatic
+image rebuild, specify <code class="docutils literal notranslate"><span class="pre">--build=false</span></code>.)</p>
+<p>If the files <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> or <code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> were updated, there will be an
+additional check to confirm if the users are in sync as described in <a href="#id1"><span class="problematic" id="id2">`Syncuser`_</span></a>
+section.</p>
+</section>
+<section id="specifying-a-prompt">
+<h3>Specifying a Prompt<a class="headerlink" href="#specifying-a-prompt" title="Link to this heading"></a></h3>
+<p>Warewulf sets a custom prompt during a <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">shell</span></code> session. This
+prompt may be customized using the <code class="docutils literal notranslate"><span class="pre">WW_PS1</span></code> variable, which is used to
+construct the final <code class="docutils literal notranslate"><span class="pre">PS1</span></code> variable for the shell.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span><span class="nb">export</span><span class="w"> </span><span class="nv">WW_PS1</span><span class="o">=</span><span class="s2">&quot;\u@\h:\w\$ &quot;</span>
+<span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>shell<span class="w"> </span>rockylinux-8
+<span class="gp">[warewulf:rockylinux-8] root@rocky:/$</span>
+</pre></div>
+</div>
+</section>
+<section id="shell-history">
+<h3>Shell History<a class="headerlink" href="#shell-history" title="Link to this heading"></a></h3>
+<p>By default, Warewulf image shell sessions don’t retain history; but you can
+specify a history file by specifying <code class="docutils literal notranslate"><span class="pre">WW_HISTFILE</span></code>. Note that this file is
+stored within the image; you may want to <a class="reference internal" href="#exclude"><span class="std std-ref">Excluding Files</span></a> it when the image is
+built.</p>
+</section>
+<section id="running-specific-commands">
+<h3>Running Specific Commands<a class="headerlink" href="#running-specific-commands" title="Link to this heading"></a></h3>
+<p>A single command can also be executed in an image, as an alternative to an
+interactive shell.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-8<span class="w"> </span>--<span class="w"> </span>/usr/bin/dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>apptainer
+</pre></div>
+</div>
+</section>
+</section>
+<section id="building-images">
+<h2>Building Images<a class="headerlink" href="#building-images" title="Link to this heading"></a></h2>
+<p>Warewulf images must be built (e.g., with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">build</span></code>) into compressed
+images for distribution to cluster nodes during provisioning.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>build<span class="w"> </span>rockylinux-9
+<span class="go">Building image: rockylinux-9</span>
+<span class="go">Created image for Image rockylinux-9: /var/lib/warewulf/provision/images/rockylinux-9.img</span>
+<span class="go">Compressed image for Image rockylinux-9: /var/lib/warewulf/provision/images/rockylinux-9.img.gz</span>
+</pre></div>
+</div>
+<section id="excluding-files">
+<span id="exclude"></span><h3>Excluding Files<a class="headerlink" href="#excluding-files" title="Link to this heading"></a></h3>
+<p>Warewulf can exclude files from an image to prevent them from being delivered to
+the compute node. This is typically used to reduce the size of the image when
+some files are unnecessary.</p>
+<p>Patterns for excluded files are read from the file <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/excludes</span></code> in
+the image itself. For example, the default Rocky Linux images exclude these
+paths:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">boot</span><span class="o">/</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">GeoIP</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">/etc/warewulf/excludes</span></code> supports the patterns implemented by <a class="reference external" href="https://pkg.go.dev/path/filepath#Match">filepath.Match</a>.</p>
+</section>
+<section id="exit-script">
+<h3>Exit Script<a class="headerlink" href="#exit-script" title="Link to this heading"></a></h3>
+<p>Warewulf executes the script <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/image_exit.sh</span></code> in the image after
+a <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">shell</span></code> or <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">exec</span></code> and prior to (re)building the
+final node image for delivery. This is typically used to remove cache or log
+files that may have been generated by the executed command or interactive
+session.</p>
+<p>For example, the default Rocky Linux images runs <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">clean</span> <span class="pre">all</span></code> to remove any
+package repository caches that may have been generated.</p>
+</section>
+</section>
+<section id="defining-new-images">
+<h2>Defining New Images<a class="headerlink" href="#defining-new-images" title="Link to this heading"></a></h2>
+<p>It is absolutely possible to import a base image into Warewulf and make all
+changes interactively with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">shell</span></code>; but it is often better to
+define new images with a container image definition file. This can be done using
+the OCI and Singularity (Apptainer) ecoystems.</p>
+<section id="podman">
+<h3>Podman<a class="headerlink" href="#podman" title="Link to this heading"></a></h3>
+<p>An OCI Containerfile can build from an existing container image to add local
+customizations.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FROM</span> <span class="n">ghcr</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">warewulf</span><span class="o">/</span><span class="n">warewulf</span><span class="o">-</span><span class="n">rockylinux</span><span class="p">:</span><span class="mi">9</span>
+
+<span class="n">RUN</span> <span class="n">dnf</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">epel</span><span class="o">-</span><span class="n">release</span> \
+    <span class="o">&amp;&amp;</span> <span class="n">dnf</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">apptainer</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>podman<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>--file<span class="w"> </span>Containerfile<span class="w"> </span>--tag<span class="w"> </span>custom-image
+<span class="go">[...]</span>
+<span class="go">Successfully tagged localhost/custom-image:latest</span>
+
+<span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span><span class="k">$(</span>podman<span class="w"> </span>image<span class="w"> </span>mount<span class="w"> </span>localhost/custom-image<span class="k">)</span><span class="w"> </span>custom-image
+<span class="gp"># </span>podman<span class="w"> </span>image<span class="w"> </span>unmount<span class="w"> </span>localhost/custom-image
+</pre></div>
+</div>
+</section>
+<section id="apptainer">
+<h3>Apptainer<a class="headerlink" href="#apptainer" title="Link to this heading"></a></h3>
+<p>It is absolutely possible to create an <a class="reference external" href="https://docs.docker.com/build/building/base-images/">OCI base image</a> from scratch, but it is
+particularly easy to do with Apptainer.</p>
+<p>Consider the following file called <cite>warewulf-rockylinux-9.def</cite>:</p>
+<div class="highlight-singularity notranslate"><div class="highlight"><pre><span></span><span class="k">Bootstrap</span>:<span class="w"> </span>yum
+<span class="k">MirrorURL</span>:<span class="w"> </span>https://download.rockylinux.org/pub/rocky/<span class="m">9</span>/BaseOS/x86_64/os/
+<span class="k">Include</span>:<span class="w"> </span>dnf
+
+<span class="gh">%post</span>
+dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>--allowerasing<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>NetworkManager<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>basesystem<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>bash<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>curl-minimal<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>kernel<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nfs-utils<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>openssh-server<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>systemd
+
+dnf<span class="w"> </span>-y<span class="w"> </span>remove<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>glibc-gconv-extra
+rm<span class="w"> </span>-rf<span class="w"> </span>/boot/*<span class="w"> </span>/run/*
+dnf<span class="w"> </span>clean<span class="w"> </span>all
+</pre></div>
+</div>
+<p>Warewulf cannot directly import a container image from an Apptainer SIF yet, so
+an Apptainer image must be built as a <em>sandbox</em>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>warewulf-rockylinux-9<span class="w"> </span>warewulf-rockylinux-9.def
+<span class="go">[...]</span>
+<span class="go">INFO:    Creating sandbox directory...</span>
+<span class="go">INFO:    Build complete: warewulf-rockylinux-9</span>
+</pre></div>
+</div>
+<p>Once a sandbox container image has been built, it can be imported into Warewulf.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>./warewulf-rockylinux-9<span class="w"> </span>rockylinux-9
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although warewulf does not currently support importing a SIF directly, a SIF
+can be converted to a sandbox with Apptainer and then imported into Warewulf.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>my-sandbox<span class="w"> </span>my-image.sif
+<span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>./my-sandbox<span class="w"> </span>my-image
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="duplicating-an-image">
+<h2>Duplicating an image<a class="headerlink" href="#duplicating-an-image" title="Link to this heading"></a></h2>
+<p>It is possible to duplicate an installed image by using:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>copy<span class="w"> </span>IMAGE_NAME<span class="w"> </span>DUPLICATED_IMAGE_NAME
+</pre></div>
+</div>
+<p>This kind of duplication can be useful if you are looking for canary tests.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If an image source includes persistent sockets, these sockets may cause the
+copy operation to fail.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Copying sources...</span>
+<span class="go">ERROR  : could not duplicate image: lchown /var/lib/warewulf/chroots/rocky-8/rootfs/run/user/0/gnupg/d.kg8ijih5tq41ixoeag4p1qup/S.gpg-agent: no such file or directory</span>
+</pre></div>
+</div>
+<p>To resolve this, remove the sockets from the image source.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find<span class="w"> </span><span class="k">$(</span>wwctl<span class="w"> </span>image<span class="w"> </span>show<span class="w"> </span>rocky-8<span class="k">)</span><span class="w"> </span>-type<span class="w"> </span>s<span class="w"> </span>-delete
+</pre></div>
+</div>
+</div>
+</section>
+<section id="image-architecture">
+<h2>Image Architecture<a class="headerlink" href="#image-architecture" title="Link to this heading"></a></h2>
+<p>By default, Warewulf will try to import an image of the same platform (e.g.,
+amd64, arm64) as the local system. To specify the platform to import, either
+specify <cite>WAREWULF_OCI_PLATFORM</cite> or use the argument <cite>–platform</cite> during import.</p>
+<p>It is possible to build, edit, and provision images of different architectures
+(i.e. aarch64) from an x86_64 host by using QEMU. Simply run the appropriate
+command below based on your image management tools.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>multiarch/qemu-user-static<span class="w"> </span>--reset<span class="w"> </span>-p<span class="w"> </span>yes
+<span class="gp"># </span>podman<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>multiarch/qemu-user-static<span class="w"> </span>--reset<span class="w"> </span>-p<span class="w"> </span>yes
+<span class="gp"># </span>apptainer<span class="w"> </span>run<span class="w"> </span>docker://multiarch/qemu-user-static<span class="w"> </span>--reset<span class="w"> </span>-p<span class="w"> </span>yes
+</pre></div>
+</div>
+<p>Then, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">exec</span></code> will work regardless of the architecture of the
+image. For more information about QEMU, see their <a class="reference external" href="https://github.com/multiarch/qemu-user-static">GitHub</a></p>
+<p>To use wwclient on a booted image using a different architecture, wwclient must
+be compiled for the specific architecture. This requires GOLang build tools 1.21
+or newer. Below is an example for building wwclient for arm64:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf
+<span class="gp"># </span><span class="nb">cd</span><span class="w"> </span>warewulf
+<span class="gp"># </span><span class="nv">GOARCH</span><span class="o">=</span>arm64<span class="w"> </span><span class="nv">PREFIX</span><span class="o">=</span>/<span class="w"> </span>make<span class="w"> </span>wwclient
+<span class="gp"># </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/lib/warewulf/overlays/wwclient_arm64/rootfs/warewulf
+<span class="gp"># </span>cp<span class="w"> </span>wwclient<span class="w"> </span>/var/lib/warewulf/overlays/wwclient_arm64/rootfs/warewulf
+</pre></div>
+</div>
+<p>Then, apply the new “wwclient_arm64” system overlay to your arm64 node/profile</p>
+</section>
+<section id="read-only-images">
+<h2>Read-only images<a class="headerlink" href="#read-only-images" title="Link to this heading"></a></h2>
+<p>An image may be marked “read-only” by creating a <code class="docutils literal notranslate"><span class="pre">readonly</span></code> file in its source
+directory, typically next to <code class="docutils literal notranslate"><span class="pre">rootfs</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Read-only images are a preview feature primarily meant to enable future
+support for image subscriptions and updates.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../nodes/disks.html" class="btn btn-neutral float-left" title="Provisioning disks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="kernel.html" class="btn btn-neutral float-right" title="Image Kernels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
