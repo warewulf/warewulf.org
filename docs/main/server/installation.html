@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Server Installation &mdash; Warewulf User Guide main documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Controlling Warewulf" href="wwctl.html" />
+    <link rel="prev" title="Glossary" href="../getting-started/glossary.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/provisioning.html">The Provisioning Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/network.html">Network Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/el-quickstart.html">Enterprise Linux Quickstart (Rocky Linux, CentOS, and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Server</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Server Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#binary-rpms">Binary RPMs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rocky-linux-9">Rocky Linux 9</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensuse-leap">openSuse Leap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#container-images">Container images</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker">Docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#systemd-nspawn">Systemd-nspawn</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#compiled-from-source">Compiled from Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#release-tarball">Release Tarball</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git">Git</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#runtime-dependencies">Runtime Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#starting-warewulfd">Starting warewulfd</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Server Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dnsmasq.html">Using dnsmasq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootloaders.html">Bootloaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading Warewulf</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/nodes.html">Cluster Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/disks.html">Disks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Overlays</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/overlays.html">Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/templates.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/known-issues.html">Known issues</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment.html">Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Command Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl.html">wwctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_clean.html">wwctl clean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure.html">wwctl configure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_dhcp.html">wwctl configure dhcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_hostfile.html">wwctl configure hostfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_nfs.html">wwctl configure nfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_ssh.html">wwctl configure ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tftp.html">wwctl configure tftp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image.html">wwctl image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_build.html">wwctl image build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_copy.html">wwctl image copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_delete.html">wwctl image delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_exec.html">wwctl image exec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_import.html">wwctl image import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_kernels.html">wwctl image kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_list.html">wwctl image list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_rename.html">wwctl image rename</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_shell.html">wwctl image shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_show.html">wwctl image show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_syncuser.html">wwctl image syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node.html">wwctl node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_add.html">wwctl node add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_console.html">wwctl node console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_delete.html">wwctl node delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_edit.html">wwctl node edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_export.html">wwctl node export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_import.html">wwctl node import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_list.html">wwctl node list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_sensors.html">wwctl node sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_set.html">wwctl node set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_status.html">wwctl node status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay.html">wwctl overlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_build.html">wwctl overlay build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chmod.html">wwctl overlay chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chown.html">wwctl overlay chown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_create.html">wwctl overlay create</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_delete.html">wwctl overlay delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_edit.html">wwctl overlay edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_list.html">wwctl overlay list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_show.html">wwctl overlay show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power.html">wwctl power</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_cycle.html">wwctl power cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_off.html">wwctl power off</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_on.html">wwctl power on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_reset.html">wwctl power reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_soft.html">wwctl power soft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_status.html">wwctl power status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile.html">wwctl profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_add.html">wwctl profile add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_delete.html">wwctl profile delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_edit.html">wwctl profile edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_list.html">wwctl profile list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_set.html">wwctl profile set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_server.html">wwctl server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_ssh.html">wwctl ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade.html">wwctl upgrade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_config.html">wwctl upgrade config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_nodes.html">wwctl upgrade nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_version.html">wwctl version</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/nodes.conf.html">nodes.conf(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Server Installation</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/server/installation.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="server-installation">
+<h1>Server Installation<a class="headerlink" href="#server-installation" title="Link to this heading"></a></h1>
+<p>There are multiple methods to install a Warewulf server. This page describes
+some of those methods.</p>
+<section id="binary-rpms">
+<h2>Binary RPMs<a class="headerlink" href="#binary-rpms" title="Link to this heading"></a></h2>
+<p>The Warewulf project builds binary RPMs as part of its CI/CD process. You can
+obtain them from the <a class="reference external" href="https://github.com/warewulf/warewulf/releases">GitHub releases</a> page.</p>
+<section id="rocky-linux-9">
+<h3>Rocky Linux 9<a class="headerlink" href="#rocky-linux-9" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>dnf<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.0rc2/warewulf-4.6.0rc2-1.el9.x86_64.rpm
+</pre></div>
+</div>
+</section>
+<section id="opensuse-leap">
+<h3>openSuse Leap<a class="headerlink" href="#opensuse-leap" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>zypper<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.0rc2/warewulf-4.6.0rc2-1.suse.lp155.x86_64.rpm
+</pre></div>
+</div>
+</section>
+</section>
+<section id="container-images">
+<h2>Container images<a class="headerlink" href="#container-images" title="Link to this heading"></a></h2>
+<p>Warewulf can be built in a Linux container. This can be especially useful for
+testing and development, or to replace traditional package installation. It is
+also possible to only use the container for building and the install it in the
+host system afterwards. For that look at the INSTALL, UNINSTALL and PURGE labels
+inside the <a class="reference external" href="https://github.com/warewulf/warewulf/blob/main/Dockerfile">Dockerfile</a></p>
+<section id="docker">
+<h3>Docker<a class="headerlink" href="#docker" title="Link to this heading"></a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>warewulf<span class="w"> </span>.
+<span class="gp"># </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--replace<span class="w"> </span>--name<span class="w"> </span>warewulf-test<span class="w"> </span>--privileged<span class="w"> </span>--net<span class="o">=</span>host<span class="w"> </span>-v<span class="w"> </span>/:/host<span class="w"> </span>-v<span class="w"> </span>/etc/warewulf:/etc/warewulf<span class="w"> </span>-v<span class="w"> </span>/var/lib/warewulf/:/var/lib/warewulf/<span class="w"> </span>-e<span class="w"> </span><span class="nv">NAME</span><span class="o">=</span>warewulf-test<span class="w"> </span>-e<span class="w"> </span><span class="nv">IMAGE</span><span class="o">=</span>warewulf<span class="w"> </span>warewulf
+</pre></div>
+</div>
+</section>
+<section id="systemd-nspawn">
+<h3>Systemd-nspawn<a class="headerlink" href="#systemd-nspawn" title="Link to this heading"></a></h3>
+<p>Warewulf runs multiple services inside one single container and uses systemd as
+init system. As such, it might be better to use <a class="reference external" href="https://www.freedesktop.org/software/systemd/man/latest/systemd-nspawn.html">systemd-nspawn</a>, which was
+explicitly made to run containers with a full init system.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>warewulf<span class="w"> </span>.
+<span class="gp"># </span>mkdir<span class="w"> </span>warewulf-nspawn
+<span class="gp"># </span>docker<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>docker<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>warewulf-test<span class="w"> </span>warewulf<span class="w"> </span><span class="nb">true</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tar<span class="w"> </span>-x<span class="w"> </span>-C<span class="w"> </span>warewulf-nspawn
+<span class="gp"># </span>systemd-nspawn<span class="w"> </span>-D<span class="w"> </span>warewulf-nspawn/<span class="w"> </span>passwd
+<span class="gp"># </span>systemd-nspawn<span class="w"> </span>-D<span class="w"> </span>warewulf-nspawn/<span class="w"> </span>--boot
+</pre></div>
+</div>
+</section>
+</section>
+<section id="compiled-from-source">
+<h2>Compiled from Source<a class="headerlink" href="#compiled-from-source" title="Link to this heading"></a></h2>
+<p>Before you build the Warewulf source code you will first need to install the
+build dependencies:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">make</span></code>: This should be available via your Linux distribution’s package
+manager (e.g. <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">install</span> <span class="pre">make</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">go</span></code>: Golang is also available on most current Linux distributions, but you
+can also install <a class="reference external" href="https://golang.org/dl/">the most recent version.</a></p></li>
+<li><p>Depending on your Linux Distribution, you may need to install other
+development packages. Typically it is recommended to install the entire
+development group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span> <span class="n">groupinstall</span> <span class="s2">&quot;Development Tools&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Once these dependencies are installed, you can obtain and build the source code.</p>
+<section id="release-tarball">
+<h3>Release Tarball<a class="headerlink" href="#release-tarball" title="Link to this heading"></a></h3>
+<p>The Warewulf project releases source distributions alongside its binary RPMs.
+You can obtain them from the <a class="reference external" href="https://github.com/warewulf/warewulf/releases">GitHub releases</a> page.</p>
+<p>Select the version you wish to install and download the tarball to any
+location on the server, then follow these directions making the
+appropriate substitutions:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-LO<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.0rc2/warewulf-4.6.0rc2.tar.gz
+tar<span class="w"> </span>-xf<span class="w"> </span>warewulf-4.6.0rc2.tar.gz
+<span class="nb">cd</span><span class="w"> </span>warewulf-4.6.0rc2
+make<span class="w"> </span>all<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</section>
+<section id="git">
+<h3>Git<a class="headerlink" href="#git" title="Link to this heading"></a></h3>
+<p>You can install different versions of Warewulf from its Git tags or branches.
+The <code class="docutils literal notranslate"><span class="pre">main</span></code> branch is where most active development occurs, so if you want to
+obtain the latest and greatest version of Warewulf, this is where to go. But be
+forewarned, using a snapshot from <code class="docutils literal notranslate"><span class="pre">main</span></code> is not guaranteed to be stable or
+generally supported for production.</p>
+<p>If you are building for production, it is best to download a release tarball
+from the main site, the GitHub releases page, or from a Git tag.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf.git
+<span class="nb">cd</span><span class="w"> </span>warewulf
+git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="c1"># or switch to a tag like &#39;v4.6.0rc2&#39;</span>
+make<span class="w"> </span>all<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</section>
+<section id="runtime-dependencies">
+<h3>Runtime Dependencies<a class="headerlink" href="#runtime-dependencies" title="Link to this heading"></a></h3>
+<p>In its default configuration, Warewulf requires some operating system provided
+services. Generally these are provided by your distribution.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dhcp-server</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tftp-server</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nfs-utils</span></code></p></li>
+</ul>
+<p>If you are using an Enterprise Linux compatible distribution you can install
+them with <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">install</span> <span class="pre">dhcp-server</span> <span class="pre">tftp-server</span> <span class="pre">nfs-utils</span></code>.</p>
+</section>
+</section>
+<section id="starting-warewulfd">
+<h2>Starting warewulfd<a class="headerlink" href="#starting-warewulfd" title="Link to this heading"></a></h2>
+<p>The Warewulf installation registers the Warewulf service with systemd, so it
+should be as easy to start/stop/check as any other systemd service:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>warewulfd
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../getting-started/glossary.html" class="btn btn-neutral float-left" title="Glossary" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="wwctl.html" class="btn btn-neutral float-right" title="Controlling Warewulf" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
