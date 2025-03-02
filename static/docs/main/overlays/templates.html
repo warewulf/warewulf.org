@@ -109,7 +109,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">troubleshooting</span></p>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting/known-issues.html">Known issues</a></li>
@@ -189,6 +189,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/man5/nodes.conf.html">nodes.conf(5)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
 </ul>
 
         </div>
@@ -281,7 +285,7 @@ abort string is found.</p>
 </div>
 </section>
 <section id="importlink">
-<h3>ImportLink<a class="headerlink" href="#importlink" title="Link to this heading"></a></h3>
+<span id="id3"></span><h3>ImportLink<a class="headerlink" href="#importlink" title="Link to this heading"></a></h3>
 <p>Causes the processed template file to become a symlink to the same target as the
 referenced symlink.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">ImportLink</span> <span class="s2">&quot;/etc/localtime&quot;</span> <span class="p">}}</span>
@@ -312,14 +316,14 @@ more than once in a template to write content to multiple files.</p>
 </div>
 </section>
 <section id="softlink">
-<h3>softlink<a class="headerlink" href="#softlink" title="Link to this heading"></a></h3>
+<span id="id4"></span><h3>softlink<a class="headerlink" href="#softlink" title="Link to this heading"></a></h3>
 <p>Causes the processed template file to become a symlink to the referenced target.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">printf</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="s2">&quot;/usr/share/zoneinfo&quot;</span> <span class="o">.</span><span class="n">Tags</span><span class="o">.</span><span class="n">localtime</span> <span class="o">|</span> <span class="n">softlink</span> <span class="p">}}</span>
 </pre></div>
 </div>
 </section>
 <section id="readlink">
-<h3>readlink<a class="headerlink" href="#readlink" title="Link to this heading"></a></h3>
+<span id="id5"></span><h3>readlink<a class="headerlink" href="#readlink" title="Link to this heading"></a></h3>
 <p>Equivalent to <code class="docutils literal notranslate"><span class="pre">filepath.EvalSymlinks</span></code>. Returns the target path of a named
 symlink.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">readlink</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span> <span class="p">}}</span>
@@ -348,7 +352,7 @@ template.</p>
 </div>
 </section>
 <section id="uniquefield">
-<h3>UniqueField<a class="headerlink" href="#uniquefield" title="Link to this heading"></a></h3>
+<span id="id6"></span><h3>UniqueField<a class="headerlink" href="#uniquefield" title="Link to this heading"></a></h3>
 <p>UniqueField returns a filtered version of a multi-line input string. input is
 expected to be a field-separated format with one record per line (terminated by
 <cite>n</cite>). Order of lines is preserved, with the first matching line taking
