@@ -103,6 +103,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#syncuser">syncuser</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ignition">ignition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#debug">debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#localtime">localtime</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#host">host</a></li>
 </ul>
 </li>
@@ -110,7 +111,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Templating</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">troubleshooting</span></p>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting/known-issues.html">Known issues</a></li>
@@ -190,6 +191,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../reference/man5/nodes.conf.html">nodes.conf(5)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
 </ul>
 
         </div>
@@ -399,7 +404,7 @@ configured network interfaces, typically based on a known MAC address.</p>
 <li><p>systemd.netname</p></li>
 <li><p>udev.netname</p></li>
 </ul>
-<p>Several of the network configuration overlays support netdev tags to further
+<p id="dns">Several of the network configuration overlays support netdev tags to further
 customize the interface:</p>
 <ul class="simple">
 <li><p><strong>``DNS[0-9]*``:</strong> one or more DNS servers</p></li>
@@ -474,6 +479,15 @@ cluster node when its network interface is not properly configured.</p>
 provided as an example. In particular, the provided <cite>tstruct.md.ww</cite> demonstrates
 the use of most available template metadata.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>overlay<span class="w"> </span>show<span class="w"> </span>--render<span class="o">=</span>&lt;nodename&gt;<span class="w"> </span>debug<span class="w"> </span>tstruct.md.ww
+</pre></div>
+</div>
+</section>
+<section id="localtime">
+<span id="id1"></span><h3>localtime<a class="headerlink" href="#localtime" title="Link to this heading"></a></h3>
+<p>The <strong>localtime</strong> overlay configures the timezone of a cluster node to match
+that of the Warewulf server; alternatively, a different timezone may be
+specified with a <code class="docutils literal notranslate"><span class="pre">localtime</span></code> tag.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--tagadd<span class="o">=</span><span class="s2">&quot;localtime=UTC&quot;</span>
 </pre></div>
 </div>
 </section>

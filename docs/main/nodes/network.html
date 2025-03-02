@@ -90,7 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../overlays/overlays.html">Overlays</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../overlays/templates.html">Templating</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">troubleshooting</span></p>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting/known-issues.html">Known issues</a></li>
@@ -171,6 +171,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/man5/nodes.conf.html">nodes.conf(5)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
+</ul>
 
         </div>
       </div>
@@ -225,7 +229,7 @@ an interface may fail to be named correct if its desired name conflicts with
 the kernel-assigned name of another interface during the boot process.</p>
 </div>
 <section id="bonding">
-<h2>Bonding<a class="headerlink" href="#bonding" title="Link to this heading"></a></h2>
+<span id="id1"></span><h2>Bonding<a class="headerlink" href="#bonding" title="Link to this heading"></a></h2>
 <p>Support for bonded / link aggregation network interfaces depends on the network overlay being used.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">ifcfg</span></code> and <code class="docutils literal notranslate"><span class="pre">NetworkManager</span></code> overlays can configure a network bond like this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network devices</span><span class="p">:</span>
@@ -248,7 +252,7 @@ the kernel-assigned name of another interface during the boot process.</p>
 </div>
 </section>
 <section id="vlan">
-<h2>VLAN<a class="headerlink" href="#vlan" title="Link to this heading"></a></h2>
+<span id="id2"></span><h2>VLAN<a class="headerlink" href="#vlan" title="Link to this heading"></a></h2>
 <p>You can set the type also to <code class="docutils literal notranslate"><span class="pre">vlan</span></code>.</p>
 <p>Some network configuration systems use the network device name
 (e.g., of the form <code class="docutils literal notranslate"><span class="pre">eno1.100</span></code>)
@@ -270,7 +274,7 @@ Other network systems need additional network tags:</p>
 </div>
 </section>
 <section id="static-routes">
-<h2>Static Routes<a class="headerlink" href="#static-routes" title="Link to this heading"></a></h2>
+<span id="id3"></span><h2>Static Routes<a class="headerlink" href="#static-routes" title="Link to this heading"></a></h2>
 <p>The included Warewulf network overlays support the configuration of static routes
 using a network tag of the form <code class="docutils literal notranslate"><span class="pre">route&lt;N&gt;=&lt;dest&gt;,&lt;gateway&gt;</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n001<span class="w"> </span><span class="se">\</span>
