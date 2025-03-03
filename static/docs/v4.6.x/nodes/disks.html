@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Provisioning disks &mdash; Warewulf User Guide main documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Node Images" href="../images/images.html" />
+    <link rel="prev" title="IPMI" href="ipmi.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/provisioning.html">The Provisioning Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/network.html">Network Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/el-quickstart.html">Enterprise Linux Quickstart (Rocky Linux, CentOS, and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Server</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../server/installation.html">Server Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/configuration.html">Server Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/dnsmasq.html">Using dnsmasq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/bootloaders.html">Bootloaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/upgrade.html">Upgrading Warewulf</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="nodes.html">Cluster Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Disks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rocky-linux">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opensuse-leap">openSuse Leap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#disks-and-partitions">Disks and partitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#file-systems">File systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#boot-time-configuration">Boot-time configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-disk-configurations">Example disk configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#re-using-or-wiping-disks">Re-using or wiping disks</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Overlays</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/overlays.html">Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/templates.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/known-issues.html">Known issues</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment.html">Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Command Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl.html">wwctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_clean.html">wwctl clean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure.html">wwctl configure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_dhcp.html">wwctl configure dhcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_hostfile.html">wwctl configure hostfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_nfs.html">wwctl configure nfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_ssh.html">wwctl configure ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tftp.html">wwctl configure tftp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image.html">wwctl image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_build.html">wwctl image build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_copy.html">wwctl image copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_delete.html">wwctl image delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_exec.html">wwctl image exec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_import.html">wwctl image import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_kernels.html">wwctl image kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_list.html">wwctl image list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_rename.html">wwctl image rename</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_shell.html">wwctl image shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_show.html">wwctl image show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_syncuser.html">wwctl image syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node.html">wwctl node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_add.html">wwctl node add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_console.html">wwctl node console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_delete.html">wwctl node delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_edit.html">wwctl node edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_export.html">wwctl node export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_import.html">wwctl node import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_list.html">wwctl node list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_sensors.html">wwctl node sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_set.html">wwctl node set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_status.html">wwctl node status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay.html">wwctl overlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_build.html">wwctl overlay build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chmod.html">wwctl overlay chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chown.html">wwctl overlay chown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_create.html">wwctl overlay create</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_delete.html">wwctl overlay delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_edit.html">wwctl overlay edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_list.html">wwctl overlay list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_show.html">wwctl overlay show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power.html">wwctl power</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_cycle.html">wwctl power cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_off.html">wwctl power off</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_on.html">wwctl power on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_reset.html">wwctl power reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_soft.html">wwctl power soft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_status.html">wwctl power status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile.html">wwctl profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_add.html">wwctl profile add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_delete.html">wwctl profile delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_edit.html">wwctl profile edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_list.html">wwctl profile list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_set.html">wwctl profile set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_server.html">wwctl server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_ssh.html">wwctl ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade.html">wwctl upgrade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_config.html">wwctl upgrade config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_nodes.html">wwctl upgrade nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_version.html">wwctl version</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/nodes.conf.html">nodes.conf(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Provisioning disks</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/nodes/disks.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="provisioning-disks">
+<h1>Provisioning disks<a class="headerlink" href="#provisioning-disks" title="Link to this heading"></a></h1>
+<p>As a tech preview, Warewulf provides structures to define disks, partitions, and
+file systems. These structures can generate a configuration for <a class="reference external" href="https://coreos.github.io/ignition/">Ignition</a> to
+provision partitions and file systems dynamically on cluster nodes.</p>
+<p>Ignition can, for example, create <code class="docutils literal notranslate"><span class="pre">swap</span></code> partitions or <code class="docutils literal notranslate"><span class="pre">/scratch</span></code> file
+systems.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Warewulf is not currently able to provision the node image onto an explicitly
+provisioned root file system.</p>
+</div>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<p>Partition and file system creation requires both <code class="docutils literal notranslate"><span class="pre">ignition</span></code> and <code class="docutils literal notranslate"><span class="pre">sgdisk</span></code> to
+be installed in the image.</p>
+<section id="rocky-linux">
+<h3>Rocky Linux<a class="headerlink" href="#rocky-linux" title="Link to this heading"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>ignition<span class="w"> </span>gdisk
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Packages for Ignition are not currently available for Rocky Linux 8, but it
+is available for Rocky Linux 9 as part of “appstream.”</p>
+</div>
+</section>
+<section id="opensuse-leap">
+<h3>openSuse Leap<a class="headerlink" href="#opensuse-leap" title="Link to this heading"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>zypper<span class="w"> </span>install<span class="w"> </span>ignition<span class="w"> </span>gptfdisk
+</pre></div>
+</div>
+</section>
+</section>
+<section id="disks-and-partitions">
+<h2>Disks and partitions<a class="headerlink" href="#disks-and-partitions" title="Link to this heading"></a></h2>
+<p>A node or profile can have several disks. Each disk is identified by the path to
+its block device. Each disk holds a map to its partitions and a <code class="docutils literal notranslate"><span class="pre">bool</span></code> switch
+to indicate if an existing, non-matching partition table should be overwritten.</p>
+<p>Each partition is identified by its label. The partition number can be omitted,
+but specifying it is recommended as Ignition may fail without it. Partition
+sizes should also be set (specified in MiB), except for the last partition: if
+no size is given, the maximum available size is used. Each partition has the
+switches <code class="docutils literal notranslate"><span class="pre">should_exist</span></code> and <code class="docutils literal notranslate"><span class="pre">wipe_partition_entry</span></code> which control the
+partition creation process. When omitting a partition number the
+<cite>wipe_partition_entry</cite> should be true, as this allows ignition to replace the
+existing partition.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--diskname<span class="w"> </span>/dev/vda<span class="w"> </span>--diskwipe<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--partname<span class="w"> </span>scratch<span class="w"> </span>--partcreate<span class="w"> </span>--partnumber<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+</section>
+<section id="file-systems">
+<h2>File systems<a class="headerlink" href="#file-systems" title="Link to this heading"></a></h2>
+<p>File systems are identified by their underlying block device, preferably using
+the <code class="docutils literal notranslate"><span class="pre">/dev/by-partlabel</span></code> format. Except for a <code class="docutils literal notranslate"><span class="pre">swap</span></code> partition, an absolute
+path for the mount point must be specified for each file system. Depending on
+the image used, valid formats are <code class="docutils literal notranslate"><span class="pre">btrfs</span></code>, <code class="docutils literal notranslate"><span class="pre">ext3</span></code>, <code class="docutils literal notranslate"><span class="pre">ext4</span></code>, and <code class="docutils literal notranslate"><span class="pre">xfs</span></code>.
+Each file system has the switch <code class="docutils literal notranslate"><span class="pre">wipe_filesystem</span></code> to control whether an
+existing file system is wiped.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--diskname<span class="w"> </span>/dev/vda<span class="w"> </span>--partname<span class="w"> </span>scratch<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--fsname<span class="w"> </span>scratch<span class="w"> </span>--fsformat<span class="w"> </span>btrfs<span class="w"> </span>--fspath<span class="w"> </span>/scratch
+</pre></div>
+</div>
+</section>
+<section id="boot-time-configuration">
+<h2>Boot-time configuration<a class="headerlink" href="#boot-time-configuration" title="Link to this heading"></a></h2>
+<p>Ignition uses systemd, as the underlying <code class="docutils literal notranslate"><span class="pre">sgdisk</span></code> command relies on dbus
+notifications.</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ignition-disks-ww4.service</span></code> uses Ignition to create the specified
+partitions and file systems.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ww4-disks.target</span></code> depends on a matching <code class="docutils literal notranslate"><span class="pre">.mount</span></code> unit for each
+mounted file system.</p></li>
+<li><p>Each <code class="docutils literal notranslate"><span class="pre">.mount</span></code> creates the necessary mount points in the root file system
+and mounts the provisioned file systems during boot.</p></li>
+</ol>
+<p>These services and mount units are generated by the <code class="docutils literal notranslate"><span class="pre">ignition</span></code> overlay and
+depend on the existence of the file <code class="docutils literal notranslate"><span class="pre">/warewulf/ignition.json</span></code>, also generated
+by the <code class="docutils literal notranslate"><span class="pre">ignition</span></code> overlay.</p>
+</section>
+<section id="example-disk-configurations">
+<h2>Example disk configurations<a class="headerlink" href="#example-disk-configurations" title="Link to this heading"></a></h2>
+<p>This command formats a btrfs file system on a “scratch” partion of
+“vda” and mounts it at <code class="docutils literal notranslate"><span class="pre">/scratch</span></code>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--diskname<span class="w"> </span>/dev/vda<span class="w"> </span>--diskwipe<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--partname<span class="w"> </span>scratch<span class="w"> </span>--partcreate<span class="w"> </span>--partnumber<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--fsname<span class="w"> </span>scratch<span class="w"> </span>--fsformat<span class="w"> </span>btrfs<span class="w"> </span>--fspath<span class="w"> </span>/scratch
+</pre></div>
+</div>
+<p>This command adds a swap partition to the “vda” disk.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--diskname<span class="w"> </span>/dev/vda<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--partname<span class="w"> </span>swap<span class="w"> </span>--partsize<span class="o">=</span><span class="m">1024</span><span class="w"> </span>--partnumber<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--fsname<span class="w"> </span>swap<span class="w"> </span>--fsformat<span class="w"> </span>swap<span class="w"> </span>--fspath<span class="w"> </span>swap
+</pre></div>
+</div>
+</section>
+<section id="re-using-or-wiping-disks">
+<h2>Re-using or wiping disks<a class="headerlink" href="#re-using-or-wiping-disks" title="Link to this heading"></a></h2>
+<p>For empty disks the desired configuration is created and the filesystems are
+mounted. If partitions or file systems already exist on the disk, <code class="docutils literal notranslate"><span class="pre">ignition</span></code>
+tries to reuse existing file systems by default.</p>
+<p>To ignore existing file systems and provision fresh file systems on each boot,
+specify the <code class="docutils literal notranslate"><span class="pre">--fswipe`</span></code> flag for that filesystem, and <code class="docutils literal notranslate"><span class="pre">--diskwipe</span></code> for the
+disk, as necessary.</p>
+<p>If you would like to re-use existing partitions but want to replace existing
+file systems once, you may</p>
+<ul class="simple">
+<li><p>wipe the existing data with tools like <code class="docutils literal notranslate"><span class="pre">wipefs</span></code> or <cite>dd</cite> <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>; or</p></li>
+<li><p>set the <code class="docutils literal notranslate"><span class="pre">--fswipe</span></code> flag and remove it after one reboot.</p></li>
+</ul>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>With <code class="docutils literal notranslate"><span class="pre">wipefs</span></code> you have to remove the filesystem <em>and</em> parition
+information. E.g., use <code class="docutils literal notranslate"><span class="pre">wipefs</span> <span class="pre">-fa</span> <span class="pre">/dev/vda*</span></code> to remove all file system
+information and partition information.</p>
+</aside>
+</aside>
+<p>See the <a class="reference external" href="https://coreos.github.io/ignition/operator-notes/#filesystem-reuse-semantics">upstream ignition documentation</a> for additional information.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ipmi.html" class="btn btn-neutral float-left" title="IPMI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../images/images.html" class="btn btn-neutral float-right" title="Node Images" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
