@@ -1,0 +1,25 @@
+=============
+nodes.conf(5)
+=============
+
+NAME
+====
+
+nodes.conf - Warewulf node configuration database
+
+DESCRIPTION
+===========
+
+**nodes.conf** is the primary database file for all compute nodes (and
+node profiles). It is a flat text YAML configuration file that is
+managed by **wwctl(1)**.
+
+While manual editing of the **nodes.conf** file is possible and can be
+useful, the internal structure of the file is subject to change without
+notice between Warewulf versions. The recommended and only supported
+mechanism for updating **nodes.conf** is via **wwctl(1)**.
+
+SEE ALSO
+========
+
+**wwctl(1)**, **wwctl-nodes(1)**, **wwctl-profile(1)**
