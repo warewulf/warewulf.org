@@ -88,6 +88,7 @@
 <p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sos">sos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#warewulfd">warewulfd</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ipxe">iPXE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#grub">GRUB</a></li>
@@ -205,6 +206,19 @@
              
   <section id="troubleshooting">
 <h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h1>
+<section id="sos">
+<h2>sos<a class="headerlink" href="#sos" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">warewulf-sos</span></code> package (new in v4.6.1) adds support for gathering Warewulf
+server configuration information in an sos report.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dnf</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">warewulf</span><span class="o">-</span><span class="n">sos</span>
+<span class="n">sos</span> <span class="n">report</span> <span class="c1"># optionally, --enable-plugins=warewulf</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">warewulf-sos</span></code> package is not currently built for SUSE.</p>
+</div>
+</section>
 <section id="warewulfd">
 <h2>warewulfd<a class="headerlink" href="#warewulfd" title="Link to this heading"></a></h2>
 <p>The Warewulf server (<code class="docutils literal notranslate"><span class="pre">warewulfd</span></code>) sends logs to the systemd journal.</p>
