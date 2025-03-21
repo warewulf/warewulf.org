@@ -259,25 +259,24 @@ console to the node.</p>
 <h2>Customization<a class="headerlink" href="#customization" title="Link to this heading"></a></h2>
 <p>Warewulf doesn’t manage IPMI interfaces directly, but uses <code class="docutils literal notranslate"><span class="pre">ipmitool</span></code>. This is
 configured with a template which defines Warewulf’s IPMI behavior.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{{/* used command to access the ipmi interface of the nodes */}}
-{{- $escapechar := &quot;~&quot; }}
-{{- $port := &quot;623&quot; }}
-{{- $interface := &quot;lan&quot; }}
-{{- $args := &quot;&quot; }}
-{{- if .EscapeChar }} $escapechar = .EscapeChar {{ end }}
-{{- if .Port }} {{ $port = .Port }} {{ end }}
-{{- if .Interface }} {{ $interface = .Interface }} {{ end }}
-{{- if eq .Cmd &quot;PowerOn&quot; }} {{ $args = &quot;chassis power on&quot; }} {{ end }}
-{{- if eq .Cmd &quot;PowerOff&quot; }} {{ $args = &quot;chassis power off&quot; }} {{ end }}
-{{- if eq .Cmd &quot;PowerCycle&quot; }} {{ $args = &quot;chassis power cycle&quot; }} {{ end }}
-{{- if eq .Cmd &quot;PowerReset&quot; }} {{ $args = &quot;chassis power reset&quot; }} {{ end }}
-{{- if eq .Cmd &quot;PowerSoft&quot; }} {{ $args = &quot;chassis power soft&quot; }} {{ end }}
-{{- if eq .Cmd &quot;PowerStatus&quot; }} {{ $args = &quot;chassis power status&quot; }} {{ end }}
-{{- if eq .Cmd &quot;SDRList&quot; }} {{ $args = &quot;sdr list&quot; }} {{ end }}
-{{- if eq .Cmd &quot;SensorList&quot; }} {{ $args = &quot;sensor list&quot; }} {{ end }}
-{{- if eq .Cmd &quot;Console&quot; }} {{ $args = &quot;sol activate&quot; }} {{ end }}
-{{- $cmd := printf &quot;ipmitool -I %s -H %s -p %s -U %s -P %s -e %s %s&quot; $interface .Ipaddr $port .UserName .Password  $escapechar $args }}
-{{ $cmd }}
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{{ $cmd := &quot;ipmitool&quot; }}
+{{ if .Interface }}{{ $cmd = cat $cmd &quot;-I&quot; .Interface }}{{ end }}
+{{ if .EscapeChar }}{{ $cmd = cat $cmd &quot;-e&quot; .EscapeChar }}{{ end }}
+{{ if .Port }}{{ $cmd = cat $cmd &quot;-p&quot; .Port }}{{ end }}
+{{ if .Ipaddr }}{{ $cmd = cat $cmd &quot;-H&quot; .Ipaddr }}{{ end }}
+{{ if .UserName }}{{ $cmd = cat $cmd &quot;-U&quot; (printf &quot;\&quot;%s\&quot;&quot; .UserName) }}{{ end }}
+{{ if .Password }}{{ $cmd = cat $cmd &quot;-P&quot; (printf &quot;\&quot;%s\&quot;&quot; .Password) }}{{ end }}
+{{ if eq .Cmd &quot;PowerOn&quot; }}{{ $cmd = cat $cmd &quot;chassis power on&quot; }}
+{{ else if eq .Cmd &quot;PowerOff&quot; }}{{ $cmd = cat $cmd &quot;chassis power off&quot; }}
+{{ else if eq .Cmd &quot;PowerCycle&quot; }}{{ $cmd = cat $cmd &quot;chassis power cycle&quot; }}
+{{ else if eq .Cmd &quot;PowerReset&quot; }}{{ $cmd = cat $cmd &quot;chassis power reset&quot; }}
+{{ else if eq .Cmd &quot;PowerSoft&quot; }}{{ $cmd = cat $cmd &quot;chassis power soft&quot; }}
+{{ else if eq .Cmd &quot;PowerStatus&quot; }}{{ $cmd = cat $cmd &quot;chassis power status&quot; }}
+{{ else if eq .Cmd &quot;SDRList&quot; }}{{ $cmd = cat $cmd &quot;sdr list&quot; }}
+{{ else if eq .Cmd &quot;SensorList&quot; }}{{ $cmd = cat $cmd &quot;sensor list&quot; }}
+{{ else if eq .Cmd &quot;Console&quot; }}{{ $cmd = cat $cmd &quot;sol activate&quot; }}
+{{ end }}
+{{- $cmd -}}
 </pre></div>
 </div>
 <p>A different template can be used to change the IPMI behavior using the
