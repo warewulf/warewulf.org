@@ -264,7 +264,7 @@ image. These overlays are called <strong>system overlays</strong>.</p></li>
 running. These overlays are called <strong>runtime overlays</strong>.</p></li>
 </ul>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--system-overlays<span class="o">=</span><span class="s2">&quot;wwinit,,wwclient,fstab,hostname,ssh.host_keys,systemd.netname,NetworkManager&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--system-overlays<span class="o">=</span><span class="s2">&quot;wwinit,wwclient,fstab,hostname,ssh.host_keys,systemd.netname,NetworkManager&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--runime-overlays<span class="o">=</span><span class="s2">&quot;hosts,ssh.authorized_keys&quot;</span>
 </pre></div>
 </div>
@@ -386,6 +386,9 @@ node configuration in this pre-boot environment.</p>
 <p>All configured overlays are provisioned initially along with the node image
 itself; but <strong>wwclient</strong> periodically fetches and applies the runtime overlay to
 allow configuration of some settings without a reboot.</p>
+<p>wwclient will contat the <code class="docutils literal notranslate"><span class="pre">ipaddr</span></code> value from <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> by default.
+This can be overridden by specifying a <code class="docutils literal notranslate"><span class="pre">WW_IPADDR</span></code> environment variable, which
+can be set via an overlay in <code class="docutils literal notranslate"><span class="pre">/etc/default/wwclient</span></code>.</p>
 </section>
 <section id="network-interfaces">
 <h3>Network interfaces<a class="headerlink" href="#network-interfaces" title="Link to this heading"></a></h3>
