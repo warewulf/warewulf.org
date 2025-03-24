@@ -471,6 +471,11 @@ the image to synchronize its user and group IDs with those of the server.</p>
 <p>If a <code class="docutils literal notranslate"><span class="pre">PasswordlessRoot</span></code> tag is set to “true”, the overlay will also insert a
 “passwordless” root entry. This can be particularly useful for accessing a
 cluster node when its network interface is not properly configured.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code class="docutils literal notranslate"><span class="pre">PasswordlessRoot</span></code> is not recommended for production; it should only be
+used during debugging, when normal authentication is not functional.</p>
+</div>
 </section>
 <section id="ignition">
 <h3>ignition<a class="headerlink" href="#ignition" title="Link to this heading"></a></h3>
