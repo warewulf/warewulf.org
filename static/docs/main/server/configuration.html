@@ -68,6 +68,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#image-mounts">image mounts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#paths">paths</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#wwclient">wwclient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api">api</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#hostfile">hostfile</a></li>
 </ul>
 </li>
@@ -75,6 +76,7 @@
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bootloaders.html">Bootloaders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading Warewulf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">REST API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
 <ul>
@@ -495,6 +497,24 @@ requires a known privileged port.</p>
 <p><code class="docutils literal notranslate"><span class="pre">wwclient</span></code> will use the TCP port “987” by default if <code class="docutils literal notranslate"><span class="pre">secure:</span> <span class="pre">true</span></code>; but,
 if that port is otherwise in use, a different port may be specified.</p>
 </li>
+</ul>
+</section>
+<section id="api">
+<h2>api<a class="headerlink" href="#api" title="Link to this heading"></a></h2>
+<p><em>New in Warewulf v4.6.1</em></p>
+<p>Configuration for the REST API of the <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> service.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">api</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">allowed subnets</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">127.0.0.0/8</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">::1/128</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">api:enabled</span></code>: Whether the <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> service should provide access via a
+REST interface.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">api:allowed</span> <span class="pre">subnets</span></code>: Which subnets are allowed to access the REST API. By
+default, only localhost has access.</p></li>
 </ul>
 </section>
 <section id="hostfile">
