@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Network Interfaces &mdash; Warewulf User Guide main documentation</title>
+  <title>REST API &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="IPMI" href="ipmi.html" />
-    <link rel="prev" title="Node Profiles" href="profiles.html" /> 
+    <link rel="next" title="Cluster Nodes" href="../nodes/nodes.html" />
+    <link rel="prev" title="Upgrading Warewulf" href="upgrade.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -56,28 +56,30 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../server/installation.html">Server Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../server/wwctl.html">Controlling Warewulf (wwctl)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../server/configuration.html">Server Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../server/dnsmasq.html">Using dnsmasq</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../server/security.html">Security</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../server/bootloaders.html">Bootloaders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../server/upgrade.html">Upgrading Warewulf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../server/api.html">REST API</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="nodes.html">Cluster Nodes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="profiles.html">Node Profiles</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Network</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#bonding">Bonding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vlan">VLAN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#static-routes">Static Routes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Server Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Server Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dnsmasq.html">Using dnsmasq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootloaders.html">Bootloaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading Warewulf</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">REST API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node">Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#profile">Profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#image">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overlay">Overlay</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="disks.html">Disks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/nodes.html">Cluster Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/disks.html">Disks</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
@@ -191,9 +193,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Network Interfaces</li>
+      <li class="breadcrumb-item active">REST API</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/nodes/network.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/server/api.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -201,87 +203,78 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="network-interfaces">
-<span id="node-network"></span><h1>Network Interfaces<a class="headerlink" href="#network-interfaces" title="Link to this heading"></a></h1>
-<p>By default, network configurations are applied to a “default” network interface.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--netdev<span class="o">=</span>eno1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--hwaddr<span class="o">=</span><span class="m">00</span>:00:00:00:00:01<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--ipaddr<span class="o">=</span><span class="m">10</span>.0.2.1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--netmask<span class="o">=</span><span class="m">255</span>.255.255.0
-</pre></div>
-</div>
-<p>Each cluster node can have multiple network interfaces, differentiated by
-specifying  <code class="docutils literal notranslate"><span class="pre">--netname</span></code>.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--netname<span class="o">=</span>infiniband<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--netdev<span class="o">=</span>ib1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--ipaddr<span class="o">=</span><span class="m">10</span>.0.3.1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--netmask<span class="o">=</span><span class="m">255</span>.255.255.0
-</pre></div>
-</div>
+  <section id="rest-api">
+<h1>REST API<a class="headerlink" href="#rest-api" title="Link to this heading"></a></h1>
+<p>On-line documentation for the API is available at <code class="docutils literal notranslate"><span class="pre">/api/docs</span></code>.</p>
+<section id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Link to this heading"></a></h2>
+<p>Authentication is managed at <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/auth.conf</span></code>. This is a
+YAML formatted file with a single key: <code class="docutils literal notranslate"><span class="pre">users:</span></code>, that is a list of user names
+and passwords able to authenticate to the API.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Due to the way network interface names are assigned by the Linux kernel, and
-later reassigned by udev and systemd, the use of <code class="docutils literal notranslate"><span class="pre">eth0</span></code>, <code class="docutils literal notranslate"><span class="pre">eth1</span></code>, etc. as
-interface is strongly discouraged. We recommend the use of the original
-predictable names assigned to the interfaces (e.g., <code class="docutils literal notranslate"><span class="pre">eno1</span></code>), as otherwise
-an interface may fail to be named correct if its desired name conflicts with
-the kernel-assigned name of another interface during the boot process.</p>
+<p>Because <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> runs as <code class="docutils literal notranslate"><span class="pre">root</span></code> by default, and because <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code>
+can run effectively arbitrary code via overlay templates, API access is
+tantamount to <code class="docutils literal notranslate"><span class="pre">root</span></code> access on the Warewulf server. For this reason, the
+API is only accessible via localhost by default. Still, handle API
+credentials with care.</p>
 </div>
-<section id="bonding">
-<span id="id1"></span><h2>Bonding<a class="headerlink" href="#bonding" title="Link to this heading"></a></h2>
-<p>Support for bonded / link aggregation network interfaces depends on the network overlay being used.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">ifcfg</span></code> and <code class="docutils literal notranslate"><span class="pre">NetworkManager</span></code> overlays can configure a network bond like this:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network devices</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">bond0</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bond</span>
-<span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bond0</span>
-<span class="w">    </span><span class="nt">ipaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.3.100</span>
-<span class="w">    </span><span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
-<span class="w">  </span><span class="nt">en1</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en1</span>
-<span class="w">    </span><span class="nt">hwaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">e6:92:39:49:7b:03</span>
-<span class="w">    </span><span class="nt">tags</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">master</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bond0</span>
-<span class="w">  </span><span class="nt">en2</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en2</span>
-<span class="w">    </span><span class="nt">hwaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9a:77:29:73:14:f1</span>
-<span class="w">    </span><span class="nt">tags</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">master</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bond0</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">users</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">    </span><span class="nt">password hash</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$2b$05$5QVWDpiWE7L4SDL9CYdi3O/l6HnbNOLoXgY2sa1bQQ7aSBKdSqvsC</span>
+</pre></div>
+</div>
+<p>Passwords are stored as bcrypt2 hashses, which can be generated with <code class="docutils literal notranslate"><span class="pre">mkpasswd</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkpasswd<span class="w"> </span>--method<span class="o">=</span>bcrypt
+<span class="go">Password: # admin</span>
+<span class="gp">$</span>2b<span class="nv">$05$5</span>QVWDpiWE7L4SDL9CYdi3O/l6HnbNOLoXgY2sa1bQQ7aSBKdSqvsC
 </pre></div>
 </div>
 </section>
-<section id="vlan">
-<span id="id2"></span><h2>VLAN<a class="headerlink" href="#vlan" title="Link to this heading"></a></h2>
-<p>You can set the type also to <code class="docutils literal notranslate"><span class="pre">vlan</span></code>.</p>
-<p>Some network configuration systems use the network device name
-(e.g., of the form <code class="docutils literal notranslate"><span class="pre">eno1.100</span></code>)
-to configure VLANs.
-Other network systems need additional network tags:</p>
+<section id="node">
+<h2>Node<a class="headerlink" href="#node" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">vlan_id</span></code>: configures the VLAN ID of the interface</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">parent_device</span></code>: configures which physical interface to use</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/nodes/</span></code>: Get nodes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/api/nodes/overlays/build</span></code>: Build all overlays</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">/api/nodes/{id}</span></code>: Delete an existing node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/nodes/{id}</span></code>: Get a node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PATCH</span> <span class="pre">/api/nodes/{id}</span></code>: Update an existing node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PUT</span> <span class="pre">/api/nodes/{id}</span></code>: Add a node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/nodes/{id}/fields</span></code>: Get node fields</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/api/nodes/{id}/overlays/build</span></code>: Build overlays for a node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/nodes/{id}/raw</span></code>: Get a raw node</p></li>
 </ul>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--netdev<span class="w"> </span>vlan42<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--ipaddr<span class="w"> </span><span class="m">10</span>.0.42.1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--netmask<span class="w"> </span><span class="m">255</span>.255.252.0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--netname<span class="w"> </span>iband<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--type<span class="w"> </span>vlan<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--nettagadd<span class="w"> </span><span class="s2">&quot;vlan_id=42,parent_device=eth0&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>n001
-</pre></div>
-</div>
 </section>
-<section id="static-routes">
-<span id="id3"></span><h2>Static Routes<a class="headerlink" href="#static-routes" title="Link to this heading"></a></h2>
-<p>The included Warewulf network overlays support the configuration of static routes
-using a network tag of the form <code class="docutils literal notranslate"><span class="pre">route&lt;N&gt;=&lt;dest&gt;,&lt;gateway&gt;</span></code>.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n001<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--nettagadd<span class="w"> </span><span class="s2">&quot;route1=192.168.2.0/24,192.168.1.254&quot;</span>
-</pre></div>
-</div>
+<section id="profile">
+<h2>Profile<a class="headerlink" href="#profile" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/profiles/</span></code>: Get node profiles</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">/api/profiles/{id}</span></code>: Delete an existing profile</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/profiles/{id}</span></code>: Get a node profile</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PATCH</span> <span class="pre">/api/profiles/{id}</span></code>: Update an existing profile</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PUT</span> <span class="pre">/api/profiles/{id}</span></code>: Add a profile</p></li>
+</ul>
+</section>
+<section id="image">
+<h2>Image<a class="headerlink" href="#image" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/images</span></code>: Get all images</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">/api/images/{name}</span></code>: Delete an image</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/images/{name}</span></code>: Get an image</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PATCH</span> <span class="pre">/api/images/{name}</span></code>: Update or rename an image</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/api/images/{name}/build</span></code>: Build an image</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/api/images/{name}/import</span></code>: Import an image</p></li>
+</ul>
+</section>
+<section id="overlay">
+<h2>Overlay<a class="headerlink" href="#overlay" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/overlays/</span></code>: Get overlays</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">/api/overlays/{name}</span></code>: Delete an overlay</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/overlays/{name}</span></code>: Get an overlay</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PUT</span> <span class="pre">/api/overlays/{name}</span></code>: Create an overlay</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/overlays/{name}/file</span></code>: Get an overlay file</p></li>
+</ul>
 </section>
 </section>
 
@@ -289,8 +282,8 @@ using a network tag of the form <code class="docutils literal notranslate"><span
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="profiles.html" class="btn btn-neutral float-left" title="Node Profiles" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="ipmi.html" class="btn btn-neutral float-right" title="IPMI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="upgrade.html" class="btn btn-neutral float-left" title="Upgrading Warewulf" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../nodes/nodes.html" class="btn btn-neutral float-right" title="Cluster Nodes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
