@@ -64,6 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../server/security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../server/bootloaders.html">Bootloaders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../server/upgrade.html">Upgrading Warewulf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/api.html">REST API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
 <ul class="current">
@@ -175,6 +176,7 @@
 <p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.1.html">v4.6.1</a></li>
 </ul>
 
         </div>
@@ -222,6 +224,11 @@ desired IPMI configuration to the node’s BMC during boot.</p>
   <span class="o">--</span><span class="n">ipmiaddr</span><span class="o">=</span><span class="mf">192.168.2.1</span>
 </pre></div>
 </div>
+<p>Additionally, a <code class="docutils literal notranslate"><span class="pre">vlan</span></code> ipmi tag can be used to set the IPMI VLAN ID.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wwctl</span> <span class="n">profile</span> <span class="nb">set</span> <span class="n">default</span> \
+  <span class="o">--</span><span class="n">ipmitagadd</span> <span class="n">vlan</span><span class="o">=</span><span class="mi">42</span>
+</pre></div>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">list</span></code> has a specific overview for IPMI settings.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>--ipmi
 <span class="go">NODE  IPMI IPADDR   IPMI PORT  IPMI USERNAME  IPMI INTERFACE</span>
@@ -259,25 +266,24 @@ console to the node.</p>
 <h2>Customization<a class="headerlink" href="#customization" title="Link to this heading"></a></h2>
 <p>Warewulf doesn’t manage IPMI interfaces directly, but uses <code class="docutils literal notranslate"><span class="pre">ipmitool</span></code>. This is
 configured with a template which defines Warewulf’s IPMI behavior.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{{/* used command to access the ipmi interface of the nodes */}}
-{{- $escapechar := &quot;~&quot; }}
-{{- $port := &quot;623&quot; }}
-{{- $interface := &quot;lan&quot; }}
-{{- $args := &quot;&quot; }}
-{{- if .EscapeChar }} $escapechar = .EscapeChar {{ end }}
-{{- if .Port }} {{ $port = .Port }} {{ end }}
-{{- if .Interface }} {{ $interface = .Interface }} {{ end }}
-{{- if eq .Cmd &quot;PowerOn&quot; }} {{ $args = &quot;chassis power on&quot; }} {{ end }}
-{{- if eq .Cmd &quot;PowerOff&quot; }} {{ $args = &quot;chassis power off&quot; }} {{ end }}
-{{- if eq .Cmd &quot;PowerCycle&quot; }} {{ $args = &quot;chassis power cycle&quot; }} {{ end }}
-{{- if eq .Cmd &quot;PowerReset&quot; }} {{ $args = &quot;chassis power reset&quot; }} {{ end }}
-{{- if eq .Cmd &quot;PowerSoft&quot; }} {{ $args = &quot;chassis power soft&quot; }} {{ end }}
-{{- if eq .Cmd &quot;PowerStatus&quot; }} {{ $args = &quot;chassis power status&quot; }} {{ end }}
-{{- if eq .Cmd &quot;SDRList&quot; }} {{ $args = &quot;sdr list&quot; }} {{ end }}
-{{- if eq .Cmd &quot;SensorList&quot; }} {{ $args = &quot;sensor list&quot; }} {{ end }}
-{{- if eq .Cmd &quot;Console&quot; }} {{ $args = &quot;sol activate&quot; }} {{ end }}
-{{- $cmd := printf &quot;ipmitool -I %s -H %s -p %s -U %s -P %s -e %s %s&quot; $interface .Ipaddr $port .UserName .Password  $escapechar $args }}
-{{ $cmd }}
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{{ $cmd := &quot;ipmitool&quot; }}
+{{ if .Interface }}{{ $cmd = cat $cmd &quot;-I&quot; .Interface }}{{ end }}
+{{ if .EscapeChar }}{{ $cmd = cat $cmd &quot;-e&quot; .EscapeChar }}{{ end }}
+{{ if .Port }}{{ $cmd = cat $cmd &quot;-p&quot; .Port }}{{ end }}
+{{ if .Ipaddr }}{{ $cmd = cat $cmd &quot;-H&quot; .Ipaddr }}{{ end }}
+{{ if .UserName }}{{ $cmd = cat $cmd &quot;-U&quot; (printf &quot;\&quot;%s\&quot;&quot; .UserName) }}{{ end }}
+{{ if .Password }}{{ $cmd = cat $cmd &quot;-P&quot; (printf &quot;\&quot;%s\&quot;&quot; .Password) }}{{ end }}
+{{ if eq .Cmd &quot;PowerOn&quot; }}{{ $cmd = cat $cmd &quot;chassis power on&quot; }}
+{{ else if eq .Cmd &quot;PowerOff&quot; }}{{ $cmd = cat $cmd &quot;chassis power off&quot; }}
+{{ else if eq .Cmd &quot;PowerCycle&quot; }}{{ $cmd = cat $cmd &quot;chassis power cycle&quot; }}
+{{ else if eq .Cmd &quot;PowerReset&quot; }}{{ $cmd = cat $cmd &quot;chassis power reset&quot; }}
+{{ else if eq .Cmd &quot;PowerSoft&quot; }}{{ $cmd = cat $cmd &quot;chassis power soft&quot; }}
+{{ else if eq .Cmd &quot;PowerStatus&quot; }}{{ $cmd = cat $cmd &quot;chassis power status&quot; }}
+{{ else if eq .Cmd &quot;SDRList&quot; }}{{ $cmd = cat $cmd &quot;sdr list&quot; }}
+{{ else if eq .Cmd &quot;SensorList&quot; }}{{ $cmd = cat $cmd &quot;sensor list&quot; }}
+{{ else if eq .Cmd &quot;Console&quot; }}{{ $cmd = cat $cmd &quot;sol activate&quot; }}
+{{ end }}
+{{- $cmd -}}
 </pre></div>
 </div>
 <p>A different template can be used to change the IPMI behavior using the
