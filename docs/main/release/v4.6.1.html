@@ -178,6 +178,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#customize-wwclient-connection-to-warewulf-server">Customize wwclient connection to Warewulf server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#distribution-specific-fixes">Distribution-specific fixes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#upgrade-fixes-and-default-behaviors">Upgrade fixes and default behaviors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#new-sos-plugin">New SOS plugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#misc-bug-fixes">Misc. bug fixes</a></li>
 </ul>
 </li>
@@ -280,6 +281,15 @@ multiple times to the same node or profile.</p></li>
 <li><p>If, during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">build</span></code>, a node has an empty system or runtime
 overlay, a warning is printed.</p></li>
 </ul>
+</section>
+<section id="new-sos-plugin">
+<h2>New SOS plugin<a class="headerlink" href="#new-sos-plugin" title="Link to this heading"></a></h2>
+<p>A new <code class="docutils literal notranslate"><span class="pre">warewulf-sos</span></code> subpackage installs an SOS plugin to gather logs and
+other state from the Warewulf server for filing a support request. Currently
+only available in Enterprise Linux distributions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sos</span> <span class="n">report</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">plugins</span> <span class="n">warewulf</span>
+</pre></div>
+</div>
 </section>
 <section id="misc-bug-fixes">
 <h2>Misc. bug fixes<a class="headerlink" href="#misc-bug-fixes" title="Link to this heading"></a></h2>
