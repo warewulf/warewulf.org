@@ -190,6 +190,7 @@
 <p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.1.html">v4.6.1</a></li>
 </ul>
 
         </div>
@@ -226,13 +227,13 @@ some of those methods.</p>
 obtain them from the <a class="reference external" href="https://github.com/warewulf/warewulf/releases">GitHub releases</a> page.</p>
 <section id="rocky-linux-9">
 <h3>Rocky Linux 9<a class="headerlink" href="#rocky-linux-9" title="Link to this heading"></a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>dnf<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.0/warewulf-4.6.0-1.el9.x86_64.rpm
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>dnf<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.1/warewulf-4.6.1-1.el9.x86_64.rpm
 </pre></div>
 </div>
 </section>
 <section id="opensuse-leap">
 <h3>openSuse Leap<a class="headerlink" href="#opensuse-leap" title="Link to this heading"></a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>zypper<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.0/warewulf-4.6.0-1.suse.lp155.x86_64.rpm
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>zypper<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.1/warewulf-4.6.1-1.suse.lp155.x86_64.rpm
 </pre></div>
 </div>
 </section>
@@ -290,9 +291,9 @@ You can obtain them from the <a class="reference external" href="https://github.
 <p>Select the version you wish to install and download the tarball to any
 location on the server, then follow these directions making the
 appropriate substitutions:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-LO<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.0/warewulf-4.6.0.tar.gz
-tar<span class="w"> </span>-xf<span class="w"> </span>warewulf-4.6.0.tar.gz
-<span class="nb">cd</span><span class="w"> </span>warewulf-4.6.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-LO<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.1/warewulf-4.6.1.tar.gz
+tar<span class="w"> </span>-xf<span class="w"> </span>warewulf-4.6.1.tar.gz
+<span class="nb">cd</span><span class="w"> </span>warewulf-4.6.1
 make<span class="w"> </span>all<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
 </div>
@@ -308,7 +309,7 @@ generally supported for production.</p>
 from the main site, the GitHub releases page, or from a Git tag.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf.git
 <span class="nb">cd</span><span class="w"> </span>warewulf
-git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="c1"># or switch to a tag like &#39;v4.6.0&#39;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="c1"># or switch to a tag like &#39;v4.6.1&#39;</span>
 make<span class="w"> </span>all<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
 </div>
