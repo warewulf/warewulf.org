@@ -74,6 +74,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#runtime-dependencies">Runtime Dependencies</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#building-rpm-packages-from-source">Building RPM packages from source</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#starting-warewulfd">Starting warewulfd</a></li>
 </ul>
 </li>
@@ -83,6 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bootloaders.html">Bootloaders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading Warewulf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">REST API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
 <ul>
@@ -188,6 +190,7 @@
 <p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.1.html">v4.6.1</a></li>
 </ul>
 
         </div>
@@ -224,13 +227,13 @@ some of those methods.</p>
 obtain them from the <a class="reference external" href="https://github.com/warewulf/warewulf/releases">GitHub releases</a> page.</p>
 <section id="rocky-linux-9">
 <h3>Rocky Linux 9<a class="headerlink" href="#rocky-linux-9" title="Link to this heading"></a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>dnf<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.0rc2/warewulf-4.6.0rc2-1.el9.x86_64.rpm
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>dnf<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.1/warewulf-4.6.1-1.el9.x86_64.rpm
 </pre></div>
 </div>
 </section>
 <section id="opensuse-leap">
 <h3>openSuse Leap<a class="headerlink" href="#opensuse-leap" title="Link to this heading"></a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>zypper<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.0rc2/warewulf-4.6.0rc2-1.suse.lp155.x86_64.rpm
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>zypper<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.1/warewulf-4.6.1-1.suse.lp155.x86_64.rpm
 </pre></div>
 </div>
 </section>
@@ -288,9 +291,9 @@ You can obtain them from the <a class="reference external" href="https://github.
 <p>Select the version you wish to install and download the tarball to any
 location on the server, then follow these directions making the
 appropriate substitutions:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-LO<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.0rc2/warewulf-4.6.0rc2.tar.gz
-tar<span class="w"> </span>-xf<span class="w"> </span>warewulf-4.6.0rc2.tar.gz
-<span class="nb">cd</span><span class="w"> </span>warewulf-4.6.0rc2
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-LO<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.1/warewulf-4.6.1.tar.gz
+tar<span class="w"> </span>-xf<span class="w"> </span>warewulf-4.6.1.tar.gz
+<span class="nb">cd</span><span class="w"> </span>warewulf-4.6.1
 make<span class="w"> </span>all<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
 </div>
@@ -306,7 +309,7 @@ generally supported for production.</p>
 from the main site, the GitHub releases page, or from a Git tag.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf.git
 <span class="nb">cd</span><span class="w"> </span>warewulf
-git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="c1"># or switch to a tag like &#39;v4.6.0rc2&#39;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="c1"># or switch to a tag like &#39;v4.6.1&#39;</span>
 make<span class="w"> </span>all<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
 </div>
@@ -323,6 +326,20 @@ services. Generally these are provided by your distribution.</p>
 <p>If you are using an Enterprise Linux compatible distribution you can install
 them with <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">install</span> <span class="pre">dhcp-server</span> <span class="pre">tftp-server</span> <span class="pre">nfs-utils</span></code>.</p>
 </section>
+</section>
+<section id="building-rpm-packages-from-source">
+<h2>Building RPM packages from source<a class="headerlink" href="#building-rpm-packages-from-source" title="Link to this heading"></a></h2>
+<p>You can also build RPM packages from source.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>epel-release
+dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>make<span class="w"> </span>mock
+git<span class="w"> </span>clone<span class="w"> </span>git@github.com:warewulf/warewulf.git
+<span class="o">(</span>
+<span class="w">   </span><span class="nb">cd</span><span class="w"> </span>warewulf
+<span class="w">   </span>make<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>dist<span class="w"> </span>warewulf.spec<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mock<span class="w"> </span>-r<span class="w"> </span>rocky+epel-9-<span class="k">$(</span>arch<span class="k">)</span><span class="w"> </span>--rebuild<span class="w"> </span>--spec<span class="o">=</span>warewulf.spec<span class="w"> </span>--sources<span class="o">=</span>.
+<span class="o">)</span>
+dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>/var/lib/mock/rocky+epel-9-<span class="k">$(</span>arch<span class="k">)</span>/result/warewulf-*.<span class="k">$(</span>arch<span class="k">)</span>.rpm
+</pre></div>
+</div>
 </section>
 <section id="starting-warewulfd">
 <h2>Starting warewulfd<a class="headerlink" href="#starting-warewulfd" title="Link to this heading"></a></h2>

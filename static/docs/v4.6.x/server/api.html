@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Using dnsmasq &mdash; Warewulf User Guide main documentation</title>
+  <title>REST API &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Security" href="security.html" />
-    <link rel="prev" title="Server Configuration" href="configuration.html" /> 
+    <link rel="next" title="Cluster Nodes" href="../nodes/nodes.html" />
+    <link rel="prev" title="Upgrading Warewulf" href="upgrade.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -60,14 +60,18 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Server Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Server Configuration</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Using dnsmasq</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="dnsmasq.html">Using dnsmasq</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bootloaders.html">Bootloaders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading Warewulf</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">REST API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">REST API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node">Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#profile">Profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#image">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overlay">Overlay</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
 <ul>
@@ -190,9 +194,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Using dnsmasq</li>
+      <li class="breadcrumb-item active">REST API</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/server/dnsmasq.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/server/api.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -200,56 +204,78 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="using-dnsmasq">
-<h1>Using dnsmasq<a class="headerlink" href="#using-dnsmasq" title="Link to this heading"></a></h1>
-<p>As an experimental feature, it is possible to use <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> instead of the ISC
-<code class="docutils literal notranslate"><span class="pre">dhcpd</span></code> server and <code class="docutils literal notranslate"><span class="pre">TFTP</span></code> server.</p>
-<p>In order to keep the file <code class="docutils literal notranslate"><span class="pre">/etc/dnsmasq.d/ww4-hosts.conf</span></code> is created and must
-be included in the main <code class="docutils literal notranslate"><span class="pre">dnsmasq.conf</span></code> via the <code class="docutils literal notranslate"><span class="pre">conf-dir=/etc/dnsmasq.d</span></code>
-option.</p>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
-<p>Before the installation, make sure that <code class="docutils literal notranslate"><span class="pre">dhcpd</span></code> and <code class="docutils literal notranslate"><span class="pre">tftp</span></code> are disabled.
-You can do that with the commands:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>disable<span class="w"> </span>--now<span class="w"> </span>dhcpd
-systemctl<span class="w"> </span>disable<span class="w"> </span>--now<span class="w"> </span>tftp
+  <section id="rest-api">
+<span id="id1"></span><h1>REST API<a class="headerlink" href="#rest-api" title="Link to this heading"></a></h1>
+<p>On-line documentation for the API is available at <code class="docutils literal notranslate"><span class="pre">/api/docs</span></code>.</p>
+<section id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Link to this heading"></a></h2>
+<p>Authentication is managed at <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/auth.conf</span></code>. This is a
+YAML formatted file with a single key: <code class="docutils literal notranslate"><span class="pre">users:</span></code>, that is a list of user names
+and passwords able to authenticate to the API.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Because <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> runs as <code class="docutils literal notranslate"><span class="pre">root</span></code> by default, and because <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code>
+can run effectively arbitrary code via overlay templates, API access is
+tantamount to <code class="docutils literal notranslate"><span class="pre">root</span></code> access on the Warewulf server. For this reason, the
+API is only accessible via localhost by default. Still, handle API
+credentials with care.</p>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">users</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">    </span><span class="nt">password hash</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$2b$05$5QVWDpiWE7L4SDL9CYdi3O/l6HnbNOLoXgY2sa1bQQ7aSBKdSqvsC</span>
 </pre></div>
 </div>
-<p>Now you can install <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code>.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rocky Linux</span>
-dnf<span class="w"> </span>install<span class="w"> </span>dnsmasq
-
-<span class="c1"># SUSE</span>
-zypper<span class="w"> </span>install<span class="w"> </span>dnsmasq
+<p>Passwords are stored as bcrypt2 hashses, which can be generated with <code class="docutils literal notranslate"><span class="pre">mkpasswd</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkpasswd<span class="w"> </span>--method<span class="o">=</span>bcrypt
+<span class="go">Password: # admin</span>
+<span class="gp">$</span>2b<span class="nv">$05$5</span>QVWDpiWE7L4SDL9CYdi3O/l6HnbNOLoXgY2sa1bQQ7aSBKdSqvsC
 </pre></div>
 </div>
-<p>After the installation, instruct <code class="docutils literal notranslate"><span class="pre">warewulf</span></code> to use <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> as its
-<code class="docutils literal notranslate"><span class="pre">dhcpd</span></code> and <code class="docutils literal notranslate"><span class="pre">tftp</span></code> service. This is done in the server configuration file,
-typically at <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/warewulf.conf</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tftp</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dnsmasq</span>
-<span class="nt">dhcp</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dnsmasq</span>
-</pre></div>
-</div>
-<p>The configuration of <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> often doesn’t need to be changed, as the
-default configuration includes all files with following pattern
-<code class="docutils literal notranslate"><span class="pre">/etc/dnsmasq.d/*conf</span></code> into its configuration. This configuration is created
-by the overlay template <code class="docutils literal notranslate"><span class="pre">host:/etc/dnsmasq.d/ww4-hosts.conf.ww</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In certain distributions, such as Rocky Linux 9, <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> is configured to
-listen locally via the <code class="docutils literal notranslate"><span class="pre">interface=lo</span></code> option by default. Replace this entry
-in <code class="docutils literal notranslate"><span class="pre">/etc/dnsmasq.conf</span></code> with the interface associated with your Warewulf
-network, or remove/comment out the interface option entirely to enable
-listening on all interfaces.</p>
-</div>
-<p>Once the Warewulf configuration has been updated, re-deploy the configuration
-and restart <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code>.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>configure<span class="w"> </span>--all
-systemctl<span class="w"> </span>restart<span class="w"> </span>warewulfd.service
-</pre></div>
-</div>
+</section>
+<section id="node">
+<h2>Node<a class="headerlink" href="#node" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/nodes/</span></code>: Get nodes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/api/nodes/overlays/build</span></code>: Build all overlays</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">/api/nodes/{id}</span></code>: Delete an existing node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/nodes/{id}</span></code>: Get a node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PATCH</span> <span class="pre">/api/nodes/{id}</span></code>: Update an existing node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PUT</span> <span class="pre">/api/nodes/{id}</span></code>: Add a node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/nodes/{id}/fields</span></code>: Get node fields</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/api/nodes/{id}/overlays/build</span></code>: Build overlays for a node</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/nodes/{id}/raw</span></code>: Get a raw node</p></li>
+</ul>
+</section>
+<section id="profile">
+<h2>Profile<a class="headerlink" href="#profile" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/profiles/</span></code>: Get node profiles</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">/api/profiles/{id}</span></code>: Delete an existing profile</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/profiles/{id}</span></code>: Get a node profile</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PATCH</span> <span class="pre">/api/profiles/{id}</span></code>: Update an existing profile</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PUT</span> <span class="pre">/api/profiles/{id}</span></code>: Add a profile</p></li>
+</ul>
+</section>
+<section id="image">
+<h2>Image<a class="headerlink" href="#image" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/images</span></code>: Get all images</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">/api/images/{name}</span></code>: Delete an image</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/images/{name}</span></code>: Get an image</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PATCH</span> <span class="pre">/api/images/{name}</span></code>: Update or rename an image</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/api/images/{name}/build</span></code>: Build an image</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/api/images/{name}/import</span></code>: Import an image</p></li>
+</ul>
+</section>
+<section id="overlay">
+<h2>Overlay<a class="headerlink" href="#overlay" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/overlays/</span></code>: Get overlays</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">/api/overlays/{name}</span></code>: Delete an overlay</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/overlays/{name}</span></code>: Get an overlay</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PUT</span> <span class="pre">/api/overlays/{name}</span></code>: Create an overlay</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/overlays/{name}/file</span></code>: Get an overlay file</p></li>
+</ul>
 </section>
 </section>
 
@@ -257,8 +283,8 @@ systemctl<span class="w"> </span>restart<span class="w"> </span>warewulfd.servic
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="configuration.html" class="btn btn-neutral float-left" title="Server Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="security.html" class="btn btn-neutral float-right" title="Security" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="upgrade.html" class="btn btn-neutral float-left" title="Upgrading Warewulf" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../nodes/nodes.html" class="btn btn-neutral float-right" title="Cluster Nodes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

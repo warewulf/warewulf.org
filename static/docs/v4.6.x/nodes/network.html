@@ -64,6 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../server/security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../server/bootloaders.html">Bootloaders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../server/upgrade.html">Upgrading Warewulf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/api.html">REST API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
 <ul class="current">
@@ -174,6 +175,7 @@
 <p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.1.html">v4.6.1</a></li>
 </ul>
 
         </div>
@@ -238,16 +240,16 @@ the kernel-assigned name of another interface during the boot process.</p>
 <span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bond0</span>
 <span class="w">    </span><span class="nt">ipaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">192.168.3.100</span>
 <span class="w">    </span><span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
-<span class="nt">en1</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en1</span>
-<span class="w">  </span><span class="nt">hwaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">e6:92:39:49:7b:03</span>
-<span class="w">  </span><span class="nt">tags</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">master</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bond0</span>
-<span class="nt">en2</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en2</span>
-<span class="w">  </span><span class="nt">hwaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9a:77:29:73:14:f1</span>
-<span class="w">  </span><span class="nt">tags</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">master</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bond0</span>
+<span class="w">  </span><span class="nt">en1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en1</span>
+<span class="w">    </span><span class="nt">hwaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">e6:92:39:49:7b:03</span>
+<span class="w">    </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">master</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bond0</span>
+<span class="w">  </span><span class="nt">en2</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en2</span>
+<span class="w">    </span><span class="nt">hwaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9a:77:29:73:14:f1</span>
+<span class="w">    </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">master</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bond0</span>
 </pre></div>
 </div>
 </section>
