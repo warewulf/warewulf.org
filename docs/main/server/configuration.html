@@ -70,6 +70,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#wwclient">wwclient</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#api">api</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#hostfile">hostfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logging">logging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dnsmasq.html">Using dnsmasq</a></li>
@@ -526,6 +527,23 @@ to include expected configuration for the server itself as well as the known
 names of the cluster nodes and thier interfaces.</p>
 <p>Entries from the Warewulf server’s <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> file are distributed to
 cluster nodes by the “hosts” overlay.</p>
+</section>
+<section id="logging">
+<h2>logging<a class="headerlink" href="#logging" title="Link to this heading"></a></h2>
+<p>You can control the logging verbosity using the <code class="docutils literal notranslate"><span class="pre">WAREWULFD_LOGLEVEL</span></code>
+environment variable.</p>
+<p>The best place to set this is in <code class="docutils literal notranslate"><span class="pre">/etc/default/warewulfd</span></code>, which is
+sourced by the <code class="docutils literal notranslate"><span class="pre">warewulfd.service</span></code> systemd unit via the EnvironmentFile
+directive.</p>
+<p>By default, the log level is <code class="docutils literal notranslate"><span class="pre">wwlog.INFO</span></code> (20), and the messages are logged at
+either <code class="docutils literal notranslate"><span class="pre">INFO</span></code> or <code class="docutils literal notranslate"><span class="pre">SERV</span></code> (25).</p>
+<p>Setting the log level to <code class="docutils literal notranslate"><span class="pre">WARN</span></code> (30) should suppress <code class="docutils literal notranslate"><span class="pre">INFO</span></code> and <code class="docutils literal notranslate"><span class="pre">SERV</span></code>
+while still surfacing more important issues.</p>
+<p>To do that, execute the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo WAREWULFD_LOGLEVEL=30 &gt;&gt; /etc/default/warewulfd</span>
+<span class="go">systemctl restart warewulfd.service</span>
+</pre></div>
+</div>
 </section>
 </section>
 
