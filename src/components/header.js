@@ -49,6 +49,16 @@ function Header({ siteTitle }) {
                 Getting Help
               </Link>
             </li>
+            <li>
+              <Link
+                to="/about"
+                aria-label="About"
+                title="About"
+                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
+              >
+                About
+              </Link>
+            </li>
           </ul>
         </div>
         <ul className="flex items-center hidden space-x-8 lg:flex">
