@@ -179,8 +179,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#templates">Templates</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#network-overlays">Network Overlays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#profiles">Profiles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#resources-and-nfs">Resources and NFS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#nfs">NFS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resources">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nfs-mounts">NFS Mounts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#syncuser">Syncuser</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#network-boot-and-wwinit">Network Boot and wwinit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ipmi">IPMI</a></li>
@@ -245,9 +245,9 @@ files for use with the current version.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">upgrade</span> <span class="pre">nodes</span></code> updates <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code>.</p></li>
 </ul>
 <p>Both of these will attempt to update their respective configuration file
-in-place, retaining a copy of the previous version with a <code class="docutils literal notranslate"><span class="pre">.bak</span></code> suffix.
+in-place, retaining a copy of the previous version with a <code class="docutils literal notranslate"><span class="pre">-old</span></code> suffix.
 Alternatively, you can see what each command will do by specifying an
-<code class="docutils literal notranslate"><span class="pre">--output-file=-</span></code> option, to direct the output of the command to “standard
+<code class="docutils literal notranslate"><span class="pre">--output-path=-</span></code> option, to direct the output of the command to “standard
 out.”</p>
 <p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">upgrade</span> <span class="pre">nodes</span></code> additionally requires two options to be specified:</p>
 <ul>
@@ -438,8 +438,8 @@ hierarchies of nested profiles.</p>
 </pre></div>
 </div>
 </section>
-<section id="resources-and-nfs">
-<h2>Resources and NFS<a class="headerlink" href="#resources-and-nfs" title="Link to this heading"></a></h2>
+<section id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Link to this heading"></a></h2>
 <p>Resources are similar to tags except that their value is an arbitrary data
 structure rather than just a string. This data is represented as YAML data in
 <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code>, and these data structures may then be referenced by overlay
@@ -453,8 +453,8 @@ network interfaces and IPMI interfaces.</p>
 </div>
 <p>The premiere use of resources is in the refactoring of NFS client configuration.</p>
 </section>
-<section id="nfs">
-<h2>NFS<a class="headerlink" href="#nfs" title="Link to this heading"></a></h2>
+<section id="nfs-mounts">
+<h2>NFS Mounts<a class="headerlink" href="#nfs-mounts" title="Link to this heading"></a></h2>
 <p>Cluster node NFS mounts are no longer configured in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>. In stead,
 a new <code class="docutils literal notranslate"><span class="pre">fstab</span></code> overlay configures NFS (or any other) mounts on cluster nodes
 based on an <code class="docutils literal notranslate"><span class="pre">fstab</span></code> resource definition.</p>
@@ -533,7 +533,7 @@ expressions and globs) are no longer supported.</p>
 in YAML and JSON format, and <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">export</span></code> has been updated to match,
 including indicating node IDs.</p>
 <p><code class="docutils literal notranslate"><span class="pre">wwctl</span></code> now return a non-zero exit code on error.</p>
-<p>There are smaller changes to the syncuser, as well:</p>
+<p>There are smaller changes to <code class="docutils literal notranslate"><span class="pre">wwctl</span></code>, as well:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">&lt;node|profile&gt;</span> <span class="pre">list</span> <span class="pre">--fullall</span></code> has been removed.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">clean</span></code> removes the OCI cache and vestigial overlay images from
