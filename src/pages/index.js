@@ -1,6 +1,5 @@
 import React from "react"
 import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
 
 import { CubeTransparentIcon, ChartBarIcon, CheckIcon, ShieldCheckIcon } from '@heroicons/react/outline'
 

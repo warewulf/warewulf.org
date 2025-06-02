@@ -16,7 +16,7 @@ function Header({ siteTitle }) {
             title="Warewulf"
             className="inline-flex items-center mr-8"
           >
-            <img className="w-36" src={Logo} />
+            <img className="w-36" src={Logo} alt="Warewulf Logo" />
           </Link>
           <ul className="flex items-center hidden space-x-8 lg:flex">
           <li>
@@ -116,7 +116,7 @@ function Header({ siteTitle }) {
                       title="Warewulf"
                       className="inline-flex items-center"
                     >
-                      <img className="w-36" src={Logo} />
+                      <img className="w-36" src={Logo} alt="Warewulf Logo"/>
                     </a>
                   </div>
                   <div>
