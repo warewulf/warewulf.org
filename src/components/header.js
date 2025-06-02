@@ -16,7 +16,7 @@ function Header({ siteTitle }) {
             title="Warewulf"
             className="inline-flex items-center mr-8"
           >
-            <img className="w-36" src={Logo} />
+            <img className="w-36" src={Logo} alt="Warewulf Logo" />
           </Link>
           <ul className="flex items-center hidden space-x-8 lg:flex">
           <li>
@@ -47,6 +47,16 @@ function Header({ siteTitle }) {
                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
               >
                 Getting Help
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/about"
+                aria-label="About"
+                title="About"
+                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
+              >
+                About
               </Link>
             </li>
           </ul>
@@ -106,7 +116,7 @@ function Header({ siteTitle }) {
                       title="Warewulf"
                       className="inline-flex items-center"
                     >
-                      <img className="w-36" src={Logo} />
+                      <img className="w-36" src={Logo} alt="Warewulf Logo"/>
                     </a>
                   </div>
                   <div>

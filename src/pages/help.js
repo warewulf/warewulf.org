@@ -85,7 +85,7 @@ const HelpPage = () => (
           Support, services, and other commercial needs for Warewulf are available by the project
           lead and founder along with the primary core developers through CIQ (Ctrl IQ, Inc.).
         </p>
-        <img src={CtrlIQLogo} className="inline-flex justify-center items-center w-24 mb-5" /><br />
+        <img src={CtrlIQLogo} className="inline-flex justify-center items-center w-24 mb-5" alt="CIQ logo"/><br />
         <p className="mb-10 text-sm text-gray-900">
           CIQ is the leading innovator of modernization of high-performance infrastructures and cloud-native
           computing and directly offers support and services of several open-source projects like Apptainer,
@@ -106,7 +106,7 @@ const HelpPage = () => (
 	services for Warewulf as part of the SUSE Linux Enterprise Server /
 	SUSE Linux Enterprise HPC products.
         </p>
-        <img src={SUSELogo} className="inline-flex justify-center items-center w-24 mb-5" /><br />
+        <img src={SUSELogo} className="inline-flex justify-center items-center w-24 mb-5" alt="SUSE logo"/><br />
         <p className="mb-10 text-sm text-gray-900">
 	SUSE is a core contributor the the development of Warewulf. With more
 	than 30 years of open source and Enterprise Linux expertise, SUSE
