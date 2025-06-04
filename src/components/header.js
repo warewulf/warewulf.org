@@ -74,10 +74,10 @@ function Header({ siteTitle }) {
           </li>
           <li>
             <a
-              href="/getting-started"
+              href="https://warewulf.org/docs/v4.6.x/getting-started/introduction.html"
               className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-900 hover:bg-green-800 focus:shadow-outline focus:outline-none"
-              aria-label="Sign up"
-              title="Sign up"
+              aria-label="Get Started"
+              title="Get Started"
             >
               Get Started
             </a>
@@ -169,9 +169,9 @@ function Header({ siteTitle }) {
                     </li>
                     <li>
                       <a
-                        href="/getting-started"
+                        href="https://warewulf.org/docs/v4.6.x/getting-started/introduction.html"
                         className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-900 hover:bg-green-800 focus:shadow-outline focus:outline-none"
-                        aria-label="GettingStarted"
+                        aria-label="Getting Started"
                         title="Getting Started"
                       >
                         Get Started
