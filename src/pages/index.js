@@ -92,7 +92,7 @@ const IndexPage = () => (
             <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
               <div className="rounded-md shadow">
                 <Link
-                  to="/getting-started"
+                  to="https://warewulf.org/docs/v4.6.x/getting-started/introduction.html"
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded text-white bg-green-900 hover:bg-green-800 md:py-4 md:text-lg md:px-10"
                 >
                   Get Started
@@ -143,7 +143,7 @@ const IndexPage = () => (
         <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
           <div className="inline-flex rounded-md shadow">
             <Link
-              to="/getting-started"
+              to="https://warewulf.org/docs/v4.6.x/getting-started/introduction.html"
               className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded text-white bg-green-900 hover:bg-green-800"
             >
               Get Started
