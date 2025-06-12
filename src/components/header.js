@@ -169,6 +169,16 @@ function Header({ siteTitle }) {
                     </li>
                     <li>
                       <a
+                        href="/about"
+                        aria-label="About the Warewulf Project"
+                        title="About"
+                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
+                      >
+                        About
+                      </a>
+                    </li>
+                    <li>
+                      <a
                         href="https://warewulf.org/docs/v4.6.x/getting-started/introduction.html"
                         className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-900 hover:bg-green-800 focus:shadow-outline focus:outline-none"
                         aria-label="Getting Started"
