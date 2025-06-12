@@ -42,7 +42,7 @@ function Header({ siteTitle }) {
             <li>
               <Link
                 to="/help"
-                aria-label="Help"
+                aria-label="Getting Help"
                 title="Help"
                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
               >
