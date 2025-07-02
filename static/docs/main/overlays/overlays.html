@@ -105,6 +105,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#ignition">ignition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#debug">debug</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#localtime">localtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sfdisk">sfdisk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mkfs">mkfs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mkswap">mkswap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#systemd-mounts">systemd mounts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#host">host</a></li>
 </ul>
 </li>
@@ -380,8 +384,15 @@ configurations which are needed to boot.</p>
 <li><p>Update PAM configuration to allow missing shadow entries</p></li>
 <li><p>Relabel the file system for SELinux</p></li>
 </ul>
-<p>Other overlays may place additional scripts in <code class="docutils literal notranslate"><span class="pre">/warewulf/init.d/</span></code> to affect
-node configuration in this pre-boot environment.</p>
+<p>Other overlays can place scripts in one of two locations for additional pre-init
+provisioning actions:</p>
+<ul class="simple">
+<li><p><strong>/warewulf/wwinit.d/:</strong> executed in the initial root final system before the
+image is loaded into its final location. In a two-stage boot, these scripts
+are executed in the Dracut initramfs.</p></li>
+<li><p><strong>/warewulf/init.d/:</strong> executed in the final root file system but before
+calling <code class="docutils literal notranslate"><span class="pre">init</span></code>.</p></li>
+</ul>
 </section>
 <section id="wwclient">
 <h3>wwclient<a class="headerlink" href="#wwclient" title="Link to this heading"></a></h3>
@@ -481,7 +492,33 @@ used during debugging, when normal authentication is not functional.</p>
 </section>
 <section id="ignition">
 <h3>ignition<a class="headerlink" href="#ignition" title="Link to this heading"></a></h3>
-<p>The <strong>ignition</strong> overlay defines partitions and file systems on local disks.</p>
+<p>The <strong>ignition</strong> overlay defines partitions and file systems on local disks.
+Configuration may be provided via native disk, partition, and filesystem fields
+or via an <code class="docutils literal notranslate"><span class="pre">ignition</span></code> resource.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ignition</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">storage</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">disks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/vda</span>
+<span class="w">        </span><span class="nt">partitions</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scratch</span>
+<span class="w">            </span><span class="nt">shouldExist</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">            </span><span class="nt">wipePartitionEntry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">wipeTable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">filesystems</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/disk/by-partlabel/scratch</span>
+<span class="w">        </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">btrfs</span>
+<span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/scratch</span>
+<span class="w">        </span><span class="nt">wipeFilesystem</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<p>If any disk/partition/filesystem configuration is provided for a node with
+explicit arguments to <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">&lt;node|profile&gt;</span> <span class="pre">set</span></code>, the <code class="docutils literal notranslate"><span class="pre">ignition</span></code> resource is
+ignored.</p>
+<p>To use ignition during Dracut (so that the root file system may be provisioned
+before the image is loaded) include Ignition in the Dracut image.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-9<span class="w"> </span>--<span class="w"> </span>/usr/bin/dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--add<span class="w"> </span>ignition<span class="w"> </span>--regenerate-all
+</pre></div>
+</div>
 </section>
 <section id="debug">
 <h3>debug<a class="headerlink" href="#debug" title="Link to this heading"></a></h3>
@@ -500,6 +537,85 @@ specified with a <code class="docutils literal notranslate"><span class="pre">lo
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--tagadd<span class="o">=</span><span class="s2">&quot;localtime=UTC&quot;</span>
 </pre></div>
 </div>
+</section>
+<section id="sfdisk">
+<h3>sfdisk<a class="headerlink" href="#sfdisk" title="Link to this heading"></a></h3>
+<p>The <strong>sfdisk</strong> overlay partitions block devices during wwinit. Configuration may
+be provided using native disk and partition configuration or via an <code class="docutils literal notranslate"><span class="pre">sfdisk</span></code>
+resource.</p>
+<p>Multiple devices can be partitioned, with each device provided as an item in
+<code class="docutils literal notranslate"><span class="pre">sfdisk</span></code> list.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sfdisk</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/sda</span>
+<span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt</span>
+<span class="w">    </span><span class="nt">partitions</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/sda1</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sfdisk-rootfs</span>
+<span class="w">        </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4194304</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/sda2</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sfdisk-scratch</span>
+<span class="w">        </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1048576</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/sda3</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sfdisk-swap</span>
+<span class="w">        </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2097152</span>
+</pre></div>
+</div>
+<p>All headers and named partition fields supported by the <code class="docutils literal notranslate"><span class="pre">sfdisk</span></code> input format
+are supported in the <code class="docutils literal notranslate"><span class="pre">sfdisk</span></code> resource.</p>
+<p>If any disk/partition configuration is provided for a node with explicit
+arguments to <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">&lt;node|profile&gt;</span> <span class="pre">set</span></code>, the <code class="docutils literal notranslate"><span class="pre">sfdisk</span></code> resource is ignored.</p>
+<p>To use the sfdisk overlay, include sfdisk in the Dracut image. Optionally also
+include blockdev and/or udevadm, to allow the partition table to be re-scanned.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-8<span class="w"> </span>--<span class="w"> </span>/usr/bin/dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--install<span class="w"> </span>sfdisk<span class="w"> </span>--install<span class="w"> </span>blockdev<span class="w"> </span>--install<span class="w"> </span>udevadm<span class="w"> </span>--regenerate-all
+</pre></div>
+</div>
+<p>For more information, see the <a class="reference internal" href="../nodes/disks.html#provision-to-disk"><span class="std std-ref">Provision to disk</span></a> section.</p>
+</section>
+<section id="mkfs">
+<h3>mkfs<a class="headerlink" href="#mkfs" title="Link to this heading"></a></h3>
+<p>The <strong>mkfs</strong> overlay formats block devices during wwinit. Configuration may be
+provided using native filesystem fields or via an <code class="docutils literal notranslate"><span class="pre">mkfs</span></code> resource.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">mkfs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/sda1</span><span class="w"> </span><span class="c1"># the device to format</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xfs</span><span class="w"> </span><span class="c1"># what type of file system to create</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-b 1024</span><span class="w"> </span><span class="c1"># additional options to pass to mkfs</span>
+<span class="w">    </span><span class="nt">overwrite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># whether to overwrite an existing format</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"> </span><span class="c1"># defaults to the full device</span>
+</pre></div>
+</div>
+<p>If any filesystem configuration is provided for a node with explicit arguments
+to <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">&lt;node|profile&gt;</span> <span class="pre">set</span></code>, the <code class="docutils literal notranslate"><span class="pre">mkfs</span></code> resource is ignored.</p>
+<p>To use the mkfs overlay, include mkfs and any necessary file-system-specific
+sub-commands in the Dracut image. Optionally also include wipefs to detect
+existing file systems.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-9<span class="w"> </span>--<span class="w"> </span>/usr/bin/dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--install<span class="w"> </span>mkfs<span class="w"> </span>--install<span class="w"> </span>mkfs.ext4<span class="w"> </span>--install<span class="w"> </span>wipefs<span class="w"> </span>--regenerate-all
+</pre></div>
+</div>
+<p>For more information, see the <a class="reference internal" href="../nodes/disks.html#provision-to-disk"><span class="std std-ref">Provision to disk</span></a> section.</p>
+</section>
+<section id="mkswap">
+<h3>mkswap<a class="headerlink" href="#mkswap" title="Link to this heading"></a></h3>
+<p>The <strong>mkswap</strong> overlay formats block devices during wwinit. Configuration may be
+provided using native filesystem fields or via a <code class="docutils literal notranslate"><span class="pre">mkswap</span></code> resource.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">mkswap</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/sda2</span><span class="w"> </span><span class="c1"># the device to format</span>
+<span class="w">    </span><span class="nt">overwrite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"> </span><span class="c1"># whether to overwrite an existing format</span>
+<span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">swap</span><span class="w"> </span><span class="c1"># the label to set for the swap device</span>
+</pre></div>
+</div>
+<p>If any filesystem configuration is provided for a node with explicit arguments
+to <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">&lt;node|profile&gt;</span> <span class="pre">set</span></code>, the <code class="docutils literal notranslate"><span class="pre">mkswap</span></code> resource is ignored.</p>
+<p>To use the mkswap overlay, include mkswap in the Dracut image. Optionally also
+include wipefs to detect existing file systems.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-9<span class="w"> </span>--<span class="w"> </span>/usr/bin/dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--install<span class="w"> </span>mkswap<span class="w"> </span>--regenerate-all
+</pre></div>
+</div>
+</section>
+<section id="systemd-mounts">
+<h3>systemd mounts<a class="headerlink" href="#systemd-mounts" title="Link to this heading"></a></h3>
+<p>Two overlays, <strong>systemd.mount</strong> and <strong>systemd.swap</strong>, configure mounted and swap
+storage based on the configuration of native file system fields. They are often
+paired with the <code class="docutils literal notranslate"><span class="pre">mkfs</span></code> and <code class="docutils literal notranslate"><span class="pre">mkswap</span></code> overlays.</p>
 </section>
 <section id="host">
 <h3>host<a class="headerlink" href="#host" title="Link to this heading"></a></h3>
