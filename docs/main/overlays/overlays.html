@@ -445,8 +445,12 @@ node name.</p>
 <p>The <strong>issue</strong> overlay configures a standard Warewulf status message for display
 during login.</p>
 <p>The <strong>resolv</strong> overlay configures <code class="docutils literal notranslate"><span class="pre">/etc/resolv.conf</span></code> based on the value of
-“DNS” nettags. (In most situations this should be unnecessary, as the network
-interface configuration should handle this dynamically.)</p>
+“DNS” <a class="reference internal" href="../nodes/network.html#nettags"><span class="std std-ref">nettags</span></a>. (In most situations this should be unnecessary,
+as the network interface configuration should handle this dynamically.)</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span>--nettagadd<span class="o">=</span><span class="s2">&quot;DNS1=1.1.1.1&quot;</span>
+wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span>--nettagadd<span class="o">=</span><span class="s2">&quot;DNS2=1.0.0.1&quot;</span>
+</pre></div>
+</div>
 </section>
 <section id="fstab">
 <h3>fstab<a class="headerlink" href="#fstab" title="Link to this heading"></a></h3>
