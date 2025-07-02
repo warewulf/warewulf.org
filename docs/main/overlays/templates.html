@@ -101,6 +101,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#abort">abort</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nobackup">nobackup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#uniquefield">UniqueField</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#systemdescape">SystemdEscape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#systemdescapepath">SystemdEscapePath</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
@@ -293,6 +295,14 @@ referenced symlink.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">ImportLink</span> <span class="s2">&quot;/etc/localtime&quot;</span> <span class="p">}}</span>
 </pre></div>
 </div>
+<p>When paired with <code class="docutils literal notranslate"><span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">ImportLink</span></code> can create multiple symlinks from a
+single template.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">file</span> <span class="s2">&quot;/tmp/test-link1&quot;</span><span class="p">}}</span>
+<span class="p">{{</span> <span class="n">softlink</span> <span class="s2">&quot;/tmp/test-target1&quot;</span> <span class="p">}}</span>
+<span class="p">{{</span> <span class="n">file</span> <span class="s2">&quot;/tmp/test-link2&quot;</span><span class="p">}}</span>
+<span class="p">{{</span> <span class="n">softlink</span> <span class="s2">&quot;/tmp/test-target2&quot;</span> <span class="p">}}</span>
+</pre></div>
+</div>
 </section>
 <section id="basename">
 <h3>basename<a class="headerlink" href="#basename" title="Link to this heading"></a></h3>
@@ -323,6 +333,8 @@ more than once in a template to write content to multiple files.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">printf</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="s2">&quot;/usr/share/zoneinfo&quot;</span> <span class="o">.</span><span class="n">Tags</span><span class="o">.</span><span class="n">localtime</span> <span class="o">|</span> <span class="n">softlink</span> <span class="p">}}</span>
 </pre></div>
 </div>
+<p>When paired with <code class="docutils literal notranslate"><span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">softlink</span></code> can create multiple symlinks from a
+single template.</p>
 </section>
 <section id="readlink">
 <span id="id5"></span><h3>readlink<a class="headerlink" href="#readlink" title="Link to this heading"></a></h3>
@@ -334,7 +346,12 @@ symlink.</p>
 </section>
 <section id="ignitionjson">
 <h3>IgnitionJson<a class="headerlink" href="#ignitionjson" title="Link to this heading"></a></h3>
-<p>Generates JSON suitable for use by Ignition to create</p>
+<p>Generates JSON suitable for use by Ignition to create partitions and file
+systems, from the data stored in a node’s native <code class="docutils literal notranslate"><span class="pre">disks</span></code> and <code class="docutils literal notranslate"><span class="pre">filesystems</span></code>
+fields.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">IgnitionJson</span> <span class="p">}}</span>
+</pre></div>
+</div>
 </section>
 <section id="abort">
 <h3>abort<a class="headerlink" href="#abort" title="Link to this heading"></a></h3>
@@ -355,10 +372,9 @@ template.</p>
 </section>
 <section id="uniquefield">
 <span id="id6"></span><h3>UniqueField<a class="headerlink" href="#uniquefield" title="Link to this heading"></a></h3>
-<p>UniqueField returns a filtered version of a multi-line input string. input is
-expected to be a field-separated format with one record per line (terminated by
-<cite>n</cite>). Order of lines is preserved, with the first matching line taking
-precedence.</p>
+<p>Returns a filtered version of a multi-line input string. input is expected to be
+a field-separated format with one record per line (terminated by <cite>n</cite>). Order of
+lines is preserved, with the first matching line taking precedence.</p>
 <p>For example, the following template snippet has been used in the <code class="docutils literal notranslate"><span class="pre">syncuser</span></code> overlay
 to generate a combined <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{{
@@ -369,6 +385,19 @@ to generate a combined <code class="docutils literal notranslate"><span class="p
 }}
 </pre></div>
 </div>
+</section>
+<section id="systemdescape">
+<h3>SystemdEscape<a class="headerlink" href="#systemdescape" title="Link to this heading"></a></h3>
+<p>Escapes a string for use in a systemd unit file.</p>
+<p>Escape rules are documented at <a class="reference external" href="https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#String%20Escaping%20for%20Inclusion%20in%20Unit%20Names">systemd.unit.</a></p>
+</section>
+<section id="systemdescapepath">
+<h3>SystemdEscapePath<a class="headerlink" href="#systemdescapepath" title="Link to this heading"></a></h3>
+<p>Escapes a path for use in a systemd unit file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{{ file (print ($fs.path | SystemdEscapePath) &quot;.mount&quot;) }}
+</pre></div>
+</div>
+<p>Escape rules are documented at <a class="reference external" href="https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#String%20Escaping%20for%20Inclusion%20in%20Unit%20Names">systemd.unit.</a></p>
 </section>
 </section>
 <section id="examples">

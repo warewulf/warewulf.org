@@ -83,6 +83,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#boot-time-configuration">Boot-time configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#example-disk-configurations">Example disk configurations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#re-using-or-wiping-disks">Re-using or wiping disks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#provision-to-disk">Provision to disk</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#with-ignition">With Ignition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-sfdisk-and-mkfs">With sfdisk and mkfs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-the-root-device">Configuring the root device</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -213,7 +219,8 @@
 <h1>Provisioning disks<a class="headerlink" href="#provisioning-disks" title="Link to this heading"></a></h1>
 <p>As a tech preview, Warewulf provides structures to define disks, partitions, and
 file systems. These structures can generate a configuration for <a class="reference external" href="https://coreos.github.io/ignition/">Ignition</a> to
-provision partitions and file systems dynamically on cluster nodes.</p>
+provision partitions and file systems dynamically on cluster nodes, or with
+sfdisk, mkfs, and mkswap during boot.</p>
 <p>Ignition can, for example, create <code class="docutils literal notranslate"><span class="pre">swap</span></code> partitions or <code class="docutils literal notranslate"><span class="pre">/scratch</span></code> file
 systems.</p>
 <div class="admonition note">
@@ -333,6 +340,106 @@ information and partition information.</p>
 </aside>
 </aside>
 <p>See the <a class="reference external" href="https://coreos.github.io/ignition/operator-notes/#filesystem-reuse-semantics">upstream ignition documentation</a> for additional information.</p>
+</section>
+<section id="provision-to-disk">
+<span id="id3"></span><h2>Provision to disk<a class="headerlink" href="#provision-to-disk" title="Link to this heading"></a></h2>
+<p><em>New in Warewulf v4.6.2</em></p>
+<p>As a tech preview, the Warewulf two-stage boot process can provision the node
+image to local storage.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This functionality is a technology preview and should be used with care. Pay
+specific attention to <code class="docutils literal notranslate"><span class="pre">wipeFilesytem</span></code> and similar settings.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Warewulf doesn’t install a bootloader to the disk or add UEFI entries. Nodes
+still request an image and configuration from the Warewulf server on every
+boot.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While provisioning to disk should be possible during a single-stage boot, not
+all features are available:</p>
+<ul class="simple">
+<li><p>Warewulf does not perform hardware detection to ensure that necessary
+kernel modules are loaded prior to init.</p></li>
+<li><p>Warewulf does not load udev to ensure that <code class="docutils literal notranslate"><span class="pre">/dev/disk/by-*</span></code> symlinks are
+available prior to init.</p></li>
+</ul>
+</div>
+<section id="with-ignition">
+<h3>With Ignition<a class="headerlink" href="#with-ignition" title="Link to this heading"></a></h3>
+<p>Warewulf needs a prepared file system to deploy the image to. Warewulf can
+provision this file system using Ignition. To use Ignition, include <code class="docutils literal notranslate"><span class="pre">ignition</span></code>
+in your system overlay. The ignition overlay provisions disks during init and,
+optionally, during the first stage of a two-stage boot. This allows the
+root file system to be provisioned before the image is loaded.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>wwnode1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--diskname<span class="w"> </span>/dev/vda<span class="w"> </span>--diskwipe<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--partname<span class="w"> </span>rootfs<span class="w"> </span>--partcreate<span class="w"> </span>--partnumber<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--fsname<span class="w"> </span>rootfs<span class="w"> </span>--fsformat<span class="w"> </span>ext4<span class="w"> </span>--fspath<span class="w"> </span>/
+</pre></div>
+</div>
+<p>In order to allow Dracut to provision the disk, partition, and file system,
+Ignition must be included in the Dracut image.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-9<span class="w"> </span>--<span class="w"> </span>/usr/bin/dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--add<span class="w"> </span>ignition<span class="w"> </span>--regenerate-all
+</pre></div>
+</div>
+<p>The necessary file system may alternatively be prepared out-of-band.</p>
+</section>
+<section id="with-sfdisk-and-mkfs">
+<h3>With sfdisk and mkfs<a class="headerlink" href="#with-sfdisk-and-mkfs" title="Link to this heading"></a></h3>
+<p>Systems that do not have access to Ignition (e.g., Rocky Linux 8) can provision
+the root file system using a combination of <code class="docutils literal notranslate"><span class="pre">sfdisk</span></code> and <code class="docutils literal notranslate"><span class="pre">mkfs</span></code>. To use
+them, include <code class="docutils literal notranslate"><span class="pre">sfdisk</span></code> and <code class="docutils literal notranslate"><span class="pre">mkfs</span></code> in your system overlay. The <code class="docutils literal notranslate"><span class="pre">sfdisk</span></code> and
+<code class="docutils literal notranslate"><span class="pre">mkfs</span></code> overlays provision disk and file systems during the first stage of a
+two-stage boot. This allows the root file system to be provisioned before the
+image is loaded.</p>
+<p>Configure the <code class="docutils literal notranslate"><span class="pre">sfdisk</span></code> and <code class="docutils literal notranslate"><span class="pre">mkfs</span></code> overlays using resources:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>wwnode1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--diskname<span class="w"> </span>/dev/vda<span class="w"> </span>--diskwipe<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--partname<span class="w"> </span>rootfs<span class="w"> </span>--partcreate<span class="w"> </span>--partnumber<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--fsname<span class="w"> </span>rootfs<span class="w"> </span>--fsformat<span class="w"> </span>ext4<span class="w"> </span>--fspath<span class="w"> </span>/
+</pre></div>
+</div>
+<p>In order to allow Dracut to provision the disk, partition, and file system, some
+additional commands must be included in the Dracut image, depending on which
+functionality is used:</p>
+<ul class="simple">
+<li><p><strong>sfdisk:</strong> writes the partition table</p>
+<ul>
+<li><p><strong>blockdev:</strong> used to re-read the partition table after writing</p></li>
+<li><p><strong>udevadm:</strong> used to trigger udev events after writing the partition table</p></li>
+</ul>
+</li>
+<li><p><strong>mkfs:</strong> formats file systems (may also require file-system-specific commands like mkfs.ext4)</p>
+<ul>
+<li><p><strong>mkfs.ext4</strong>, <strong>mkfs.btrfs</strong>, etc: used by mkfs to format specific file systems</p></li>
+<li><p><strong>wipefs:</strong> used to determine if a file system already exists</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-8<span class="w"> </span>--<span class="w"> </span>/usr/bin/dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--add<span class="w"> </span>wwinit<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--install<span class="w"> </span>sfdisk<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--install<span class="w"> </span>blockdev<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--install<span class="w"> </span>udevadm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--install<span class="w"> </span>mkfs<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--install<span class="w"> </span>mkfs.ext4<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--install<span class="w"> </span>wipefs<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--regenerate-all
+</pre></div>
+</div>
+</section>
+<section id="configuring-the-root-device">
+<h3>Configuring the root device<a class="headerlink" href="#configuring-the-root-device" title="Link to this heading"></a></h3>
+<p>Set the desired storage device for the node image using the <code class="docutils literal notranslate"><span class="pre">--root</span></code>
+parameter.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>wwnode1<span class="w"> </span>--root<span class="w"> </span>/dev/disk/by-partlabel/rootfs
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
