@@ -321,7 +321,7 @@ errors with TFTP still.</p>
 <h2>Pull and build the image<a class="headerlink" href="#pull-and-build-the-image" title="Link to this heading"></a></h2>
 <p>This will pull a basic image from Docker Hub
 and set it for the “default” node profile.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-debian:12.0<span class="w"> </span>debian-12.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>--build<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-debian:12.0<span class="w"> </span>debian-12.0
 sudo<span class="w"> </span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--image<span class="o">=</span>debian-12.0
 </pre></div>
 </div>
@@ -361,7 +361,7 @@ clusters, designate them using dot notation.</p>
 <p>Note that the full node configuration comes from both cascading
 profiles and node configurations which always supersede profile
 configurations.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>node<span class="w"> </span>add<span class="w"> </span>n0000.cluster<span class="w"> </span>--ipaddr<span class="w"> </span><span class="m">192</span>.168.200.100<span class="w"> </span>--discoverable<span class="w"> </span><span class="nb">true</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>node<span class="w"> </span>add<span class="w"> </span>n0000.cluster<span class="w"> </span>--ipaddr<span class="w"> </span><span class="m">192</span>.168.200.100<span class="w"> </span>--discoverable
 </pre></div>
 </div>
 <p>At this point you can view the basic configuration of this node by
