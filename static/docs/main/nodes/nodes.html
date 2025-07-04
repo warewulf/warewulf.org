@@ -81,11 +81,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#node-discovery">Node Discovery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tags">Tags</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#resources">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#importing-nodes-from-a-file">Importing Nodes From a File</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#csv-import">CSV Import</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#yaml-import">YAML Import</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-nodes-from-a-file">Importing Nodes From a File</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="profiles.html">Node Profiles</a></li>
@@ -385,42 +381,13 @@ overlays.</p>
 </section>
 <section id="importing-nodes-from-a-file">
 <h2>Importing Nodes From a File<a class="headerlink" href="#importing-nodes-from-a-file" title="Link to this heading"></a></h2>
-<p>You can import nodes into Warewulf by using the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">import</span></code> command. The
-file used must be in YAML or CSV format.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Importing a node configuration will fully overwrite the existing settings,
-including any customizations not present in the import file. If the node
-already exists and you wish to update it, ensure that the import file
-includes all the options you want to retain.</p>
-</div>
-<section id="csv-import">
-<h3>CSV Import<a class="headerlink" href="#csv-import" title="Link to this heading"></a></h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>As of Warewulf v4.6.1, the csv import functionality is broken and an
-<a class="reference external" href="https://github.com/warewulf/warewulf/issues/1862">issue</a>
-has been created to track this.</p>
-</div>
-<p>The CSV file must have a header where the first field must always be the nodename,
-and the rest of the fields are the same as the long commandline options. Network
-device must have the form <code class="docutils literal notranslate"><span class="pre">net.$NETNAME.$NETOPTION</span></code>. (e.g., <code class="docutils literal notranslate"><span class="pre">net.default.ipaddr</span></code>).
-Tags are currently not supported and must be added separately after the import.</p>
-<p>As an example, the following CSV file:</p>
-<div class="highlight-csv notranslate"><div class="highlight"><pre><span></span>nodename,net.default.hwaddr,net.default.ipaddr,net.default.netmask,net.default.gateway,discoverable,image
-n1,00:00:00:00:00:01,10.0.2.1,255.255.255.0,10.0.2.254,false,rockylinux-9
-</pre></div>
-</div>
-<p>This can be imported with the following command:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span>import<span class="w"> </span>--csv<span class="w"> </span>/path/to/nodes.csv
-</pre></div>
-</div>
-</section>
-<section id="yaml-import">
-<h3>YAML Import<a class="headerlink" href="#yaml-import" title="Link to this heading"></a></h3>
-<p>The YAML file must be a mapping of node names to their attributes, where each node is represented as a dictionary of attributes.
-To simplify the creation of the YAML file, you can use the wwctl node export command to export the current node configuration to a YAML file.
-This exported file can serve as a template for creating new nodes.</p>
+<p>You can import nodes into Warewulf by using the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">import</span></code> command.
+The file used must be in YAML format.</p>
+<p>The YAML file must be a mapping of node names to their attributes, where each
+node is represented as a dictionary of attributes. To simplify the creation of
+the YAML file, you can use the wwctl node export command to export the current
+node configuration to a YAML file. This exported file can serve as a template
+for creating new nodes.</p>
 <p>A minimal example of a YAML file looks like this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">n1</span><span class="p">:</span>
 <span class="w">   </span><span class="nt">profiles</span><span class="p">:</span>
@@ -450,7 +417,6 @@ This exported file can serve as a template for creating new nodes.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span>import<span class="w"> </span>/path/to/nodes.yaml
 </pre></div>
 </div>
-</section>
 </section>
 </section>
 
