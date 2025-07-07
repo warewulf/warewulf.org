@@ -10,10 +10,12 @@ Synopsis
 
 
 This command uses the operating system to shut down the set of nodes specified by PATTERN.
+Node patterns are a comma-separated list of individual pattern.
+Each pattern can either be a full node name or a node range like node[01-03,05].
 
 ::
 
-  wwctl power soft
+  wwctl power soft [OPTIONS] [PATTERN ...]
 
 Options
 ~~~~~~~

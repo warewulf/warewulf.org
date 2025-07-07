@@ -9,7 +9,7 @@ Synopsis
 ~~~~~~~~
 
 
-This command imports all the nodes defined in a file. It will overwrite nodes with same name.
+This command imports all the nodes defined in a YAML file. It will overwrite nodes with same name.
 
 ::
 
@@ -20,7 +20,6 @@ Options
 
 ::
 
-  -c, --csv    Import CSV file
   -h, --help   help for import
   -y, --yes    Set 'yes' to all questions asked
 

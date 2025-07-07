@@ -81,6 +81,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#node-discovery">Node Discovery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tags">Tags</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#resources">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-nodes-from-a-file">Importing Nodes From a File</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="profiles.html">Node Profiles</a></li>
@@ -377,6 +378,45 @@ overlays.</p>
 </pre></div>
 </div>
 <p>Resources can only be managed with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">edit</span></code>.</p>
+</section>
+<section id="importing-nodes-from-a-file">
+<h2>Importing Nodes From a File<a class="headerlink" href="#importing-nodes-from-a-file" title="Link to this heading"></a></h2>
+<p>You can import nodes into Warewulf by using the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">import</span></code> command.
+The file used must be in YAML format.</p>
+<p>The YAML file must be a mapping of node names to their attributes, where each
+node is represented as a dictionary of attributes. To simplify the creation of
+the YAML file, you can use the wwctl node export command to export the current
+node configuration to a YAML file. This exported file can serve as a template
+for creating new nodes.</p>
+<p>A minimal example of a YAML file looks like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">n1</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">profiles</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">   </span><span class="nt">image name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rockylinux-9</span>
+<span class="w">   </span><span class="nt">ipxe template</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">   </span><span class="nt">kernel</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quiet</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">crashkernel=no</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nosplash</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">console=ttyS0,115200</span>
+<span class="w">   </span><span class="nt">network devices</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">         </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ethernet</span>
+<span class="w">         </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eno1</span>
+<span class="w">         </span><span class="nt">hwaddr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;00:00:00:00:00:01&quot;</span>
+<span class="w">         </span><span class="nt">ipaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.2.1</span>
+<span class="w">         </span><span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">255.255.255.0</span>
+<span class="w">         </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.16.131.1</span>
+<span class="w">         </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">         </span><span class="nt">DNS1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.1.1.1</span>
+<span class="w">   </span><span class="nt">primary network</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+</pre></div>
+</div>
+<p>This can be imported with the following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span>import<span class="w"> </span>/path/to/nodes.yaml
+</pre></div>
+</div>
 </section>
 </section>
 
