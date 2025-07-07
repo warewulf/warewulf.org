@@ -55,10 +55,11 @@ Options
       --netname string              network which is modified (default "default")
       --nettagadd stringToString    add network tags (default [])
       --onboot WWbool[=true]        Enable/disable network device (true/false)
-      --partcreate                  create partition if not exist
+      --partcreate                  Create partition if it does not exist
       --partname string             set the partition name so it can be used by a file system
-      --partnumber string           set the partition number, if not set next free slot is used
-      --partsize string             set the size of the partition, if not set maximal possible size is used
+      --partnumber string           Set the partition number, if not set next free slot is used
+      --partsize string             Set the size of the partition, if not set maximal possible size is used
+      --parttype string             Set the partition type GUID
   -p, --primarynet string           Set the primary network interface
   -P, --profile strings             Set the node's profile members (comma separated)
       --root string                 Define the rootfs

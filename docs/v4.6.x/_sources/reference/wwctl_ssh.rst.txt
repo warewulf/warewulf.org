@@ -10,7 +10,8 @@ Synopsis
 
 
 Easily ssh into nodes in parallel to run non-interactive commands
-
+Node patterns are a comma-separated list of individual pattern.
+Each pattern can either be a full node name or a node range like node[01-03,05].
 
 ::
 

@@ -79,7 +79,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#http-boot">HTTP boot</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#booting-with-dracut">Booting with dracut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#two-stage-boot-dracut">Two-stage boot: dracut</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading Warewulf</a></li>
@@ -251,7 +251,7 @@ default Warewulf uses the iPXE that comes with the host OS.</p>
 iPXE that sometimes make booting a full OS image as an “initrd” unreliable.</p>
 <p><a class="reference internal" href="#building-ipxe-locally"><span class="std std-ref">Building iPXE locally</span></a>, using a more recent “version” of the iPXE source
 code, can alleviate some of these issues.</p>
-<p>Another alternative is <a class="reference internal" href="#booting-with-dracut"><span class="std std-ref">Booting with dracut</span></a>, which uses the Linux kernel
+<p>Another alternative is <a class="reference internal" href="#booting-with-dracut"><span class="std std-ref">Two-stage boot: dracut</span></a>, which uses the Linux kernel
 to load the full OS image, avoiding the issue entirely.</p>
 <section id="building-ipxe-locally">
 <span id="id1"></span><h3>Building iPXE locally<a class="headerlink" href="#building-ipxe-locally" title="Link to this heading"></a></h3>
@@ -470,8 +470,8 @@ diagram is the following:</p>
 directly from the node’s assigned image.</p>
 </section>
 </section>
-<section id="booting-with-dracut">
-<span id="id4"></span><h2>Booting with dracut<a class="headerlink" href="#booting-with-dracut" title="Link to this heading"></a></h2>
+<section id="two-stage-boot-dracut">
+<span id="booting-with-dracut"></span><h2>Two-stage boot: dracut<a class="headerlink" href="#two-stage-boot-dracut" title="Link to this heading"></a></h2>
 <p>Some systems, typically due to limitations in their BIOS or EFI firmware, are
 unable to load image of a certain size directly with a traditional bootloader,
 either iPXE or GRUB. As a workaround for such systems, Warewulf can be
@@ -482,8 +482,13 @@ image. This module is available in the <code class="docutils literal notranslate
 must be installed in the image.</p>
 <p>With the <code class="docutils literal notranslate"><span class="pre">warewulf-dracut</span></code> package installed in the image, you can then build
 an initramfs inside the image.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-9<span class="w"> </span>--build<span class="o">=</span><span class="nb">false</span><span class="w"> </span>--<span class="w"> </span>/usr/bin/dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.1/warewulf-dracut-4.6.1-1.el9.noarch.rpm
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enterprise Linux</span>
+wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-9<span class="w"> </span>--build<span class="o">=</span><span class="nb">false</span><span class="w"> </span>--<span class="w"> </span>/usr/bin/dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.1/warewulf-dracut-4.6.1-1.el9.noarch.rpm
 wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-9<span class="w"> </span>--<span class="w"> </span>/usr/bin/dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--regenerate-all
+
+<span class="c1"># SUSE</span>
+wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>leap-15<span class="w"> </span>--build<span class="o">=</span><span class="nb">false</span><span class="w"> </span>--<span class="w"> </span>/usr/bin/zypper<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.1/warewulf-dracut-4.6.1-1.suse.lp155.noarch.rpm
+wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>leap-15<span class="w"> </span>--<span class="w"> </span>/usr/bin/dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--regenerate-all
 </pre></div>
 </div>
 <div class="admonition note">
