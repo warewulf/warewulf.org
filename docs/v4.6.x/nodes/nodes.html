@@ -186,6 +186,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.1.html">v4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.2.html">v4.6.2</a></li>
 </ul>
 
         </div>
@@ -383,6 +384,13 @@ overlays.</p>
 <h2>Importing Nodes From a File<a class="headerlink" href="#importing-nodes-from-a-file" title="Link to this heading"></a></h2>
 <p>You can import nodes into Warewulf by using the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">import</span></code> command.
 The file used must be in YAML format.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Importing a node configuration will fully overwrite the existing settings,
+including any customizations not present in the import file. If the node
+already exists and you wish to update it, ensure that the import file
+includes all the options you want to retain.</p>
+</div>
 <p>The YAML file must be a mapping of node names to their attributes, where each
 node is represented as a dictionary of attributes. To simplify the creation of
 the YAML file, you can use the wwctl node export command to export the current
