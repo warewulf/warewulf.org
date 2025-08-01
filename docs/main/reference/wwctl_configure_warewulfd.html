@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>wwctl configure ssh &mdash; Warewulf User Guide main documentation</title>
+  <title>wwctl configure warewulfd &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="wwctl configure tftp" href="wwctl_configure_tftp.html" />
-    <link rel="prev" title="wwctl configure nfs" href="wwctl_configure_nfs.html" /> 
+    <link rel="next" title="wwctl image" href="wwctl_image.html" />
+    <link rel="prev" title="wwctl configure tftp" href="wwctl_configure_tftp.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -106,15 +106,15 @@
 <li class="toctree-l1"><a class="reference internal" href="wwctl_configure_dhcp.html">wwctl configure dhcp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_configure_hostfile.html">wwctl configure hostfile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_configure_nfs.html">wwctl configure nfs</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">wwctl configure ssh</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="wwctl_configure_ssh.html">wwctl configure ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl_configure_tftp.html">wwctl configure tftp</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">wwctl configure warewulfd</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#synopsis">Synopsis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#options">Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#options-inherited-from-parent-commands">Options inherited from parent commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#see-also">SEE ALSO</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="wwctl_configure_tftp.html">wwctl configure tftp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wwctl_configure_warewulfd.html">wwctl configure warewulfd</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_image.html">wwctl image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_image_build.html">wwctl image build</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_image_copy.html">wwctl image copy</a></li>
@@ -195,9 +195,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">wwctl configure ssh</li>
+      <li class="breadcrumb-item active">wwctl configure warewulfd</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/reference/wwctl_configure_ssh.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/reference/wwctl_configure_warewulfd.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -205,22 +205,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="wwctl-configure-ssh">
-<span id="id1"></span><h1>wwctl configure ssh<a class="headerlink" href="#wwctl-configure-ssh" title="Link to this heading"></a></h1>
-<p>Manage and initialize SSH</p>
+  <section id="wwctl-configure-warewulfd">
+<span id="id1"></span><h1>wwctl configure warewulfd<a class="headerlink" href="#wwctl-configure-warewulfd" title="Link to this heading"></a></h1>
+<p>Enable and start warewulfd</p>
 <section id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading"></a></h2>
-<p>SSH is an optionally dependent service for Warewulf, this tool will automatically
-setup the ssh keys nodes using the ‘default’ system overlay as well as user owned
-keys.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wwctl</span> <span class="n">configure</span> <span class="n">ssh</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
+<p>Enable and starts the warewulfd service.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wwctl</span> <span class="n">configure</span> <span class="n">warewulfd</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
 <section id="options">
 <h2>Options<a class="headerlink" href="#options" title="Link to this heading"></a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>                   <span class="n">help</span> <span class="k">for</span> <span class="n">ssh</span>
-<span class="o">-</span><span class="n">t</span><span class="p">,</span> <span class="o">--</span><span class="n">keytypes</span> <span class="n">stringArray</span>   <span class="n">ssh</span> <span class="n">key</span> <span class="n">types</span> <span class="n">to</span> <span class="n">be</span> <span class="n">created</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>   <span class="n">help</span> <span class="k">for</span> <span class="n">warewulfd</span>
 </pre></div>
 </div>
 </section>
@@ -244,8 +241,8 @@ keys.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="wwctl_configure_nfs.html" class="btn btn-neutral float-left" title="wwctl configure nfs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="wwctl_configure_tftp.html" class="btn btn-neutral float-right" title="wwctl configure tftp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="wwctl_configure_tftp.html" class="btn btn-neutral float-left" title="wwctl configure tftp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="wwctl_image.html" class="btn btn-neutral float-right" title="wwctl image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
