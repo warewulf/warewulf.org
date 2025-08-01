@@ -96,6 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#dracut">Dracut</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ignition">Ignition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-containers-on-cluster-nodes">Running Containers on Cluster Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tmpfs-and-numa">tmpfs and NUMA</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="known-issues.html">Known issues</a></li>
@@ -117,6 +118,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_nfs.html">wwctl configure nfs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_ssh.html">wwctl configure ssh</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tftp.html">wwctl configure tftp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_warewulfd.html">wwctl configure warewulfd</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image.html">wwctl image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_build.html">wwctl image build</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_copy.html">wwctl image copy</a></li>
@@ -374,6 +376,33 @@ well.</p></li>
 <p>Some container runtimes, notably Podman, require file system features that are
 not available in <code class="docutils literal notranslate"><span class="pre">initrootfs</span></code>. Cluster nodes using Podman (and some other
 container runtimes) should be configured with <code class="docutils literal notranslate"><span class="pre">--root=tmpfs</span></code>.</p>
+</section>
+<section id="tmpfs-and-numa">
+<h2>tmpfs and NUMA<a class="headerlink" href="#tmpfs-and-numa" title="Link to this heading"></a></h2>
+<p>Warewulf can optionally mount the root filesystem as <code class="docutils literal notranslate"><span class="pre">tmpfs</span></code> instead of the
+default <code class="docutils literal notranslate"><span class="pre">initramfs</span></code>. Warewulf will add <code class="docutils literal notranslate"><span class="pre">mpol=interleave</span></code> to the mount point
+which will distribute the memory across all NUMA nodes. This avoids the
+hotspotting that occurs when the default initramfs stores large node images on a
+single NUMA node. To enable this, set the rootfs type to tmpfs:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--root<span class="o">=</span>tmpfs
+</pre></div>
+</div>
+<p>You may also adjust the tmpfs size via the <code class="docutils literal notranslate"><span class="pre">wwinit.tmpfs.size</span></code> kernel
+argument:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set tmpfs to use maximum 1GB</span>
+wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--kernelargs<span class="o">=</span><span class="s2">&quot;wwinit.tmpfs.size=1G&quot;</span>
+<span class="c1"># You can also use a percentage of physical RAM</span>
+wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--kernelargs<span class="o">=</span><span class="s2">&quot;wwinit.tmpfs.size=25%&quot;</span>
+</pre></div>
+</div>
+<p>By default this is set to 50% of physical RAM. Note that tmpfs is required for
+SELinux overlays since initramfs cannot preserve SELinux contexts.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On some systems, it may also be necessary to include the <code class="docutils literal notranslate"><span class="pre">noefi</span></code> kernel
+argument. This works around specific EFI firmware bugs that can prevent
+proper memory release during the transition from <code class="docutils literal notranslate"><span class="pre">initramfs</span></code> to <code class="docutils literal notranslate"><span class="pre">tmpfs</span></code>.</p>
+</div>
 </section>
 </section>
 
