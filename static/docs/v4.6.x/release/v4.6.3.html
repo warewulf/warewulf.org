@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Introduction &mdash; Warewulf User Guide main documentation</title>
+  <title>v4.6.3 Release Notes &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -21,8 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Cluster Provisioning" href="provisioning.html" />
-    <link rel="prev" title="User Guide" href="../index.html" /> 
+    <link rel="prev" title="v4.6.2 Release Notes" href="v4.6.2.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,19 +45,14 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#warewulf-design">Warewulf design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#warewulf-architecture">Warewulf architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#beowulf-overview">Beowulf overview</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="provisioning.html">The Provisioning Process</a></li>
-<li class="toctree-l1"><a class="reference internal" href="network.html">Network Planning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="el-quickstart.html">Enterprise Linux Quickstart (Rocky Linux, CentOS, and RHEL)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debian-quickstart.html">Debian Quickstart</a></li>
-<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/provisioning.html">The Provisioning Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/network.html">Network Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/el-quickstart.html">Enterprise Linux Quickstart (Rocky Linux, CentOS, and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -174,11 +168,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.1.html">v4.6.1</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.2.html">v4.6.2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.3.html">v4.6.3</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="v4.6.0.html">v4.6.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.6.1.html">v4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.6.2.html">v4.6.2</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">v4.6.3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rest-api">REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ipv6-support">IPv6 Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overlay-autobuild">Overlay Autobuild</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#warewulf-server-configuration">Warewulf server configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ubuntu-and-debian-support">Ubuntu and Debian Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-fixes">Other fixes</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -195,9 +197,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Introduction</li>
+      <li class="breadcrumb-item active">v4.6.3 Release Notes</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/getting-started/introduction.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/release/v4.6.3.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -205,93 +207,59 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
-<p>Warewulf is an operating system provisioning platform for Linux clusters. Since
-its initial release in 2001, Warewulf has become the most popular open source
-and vendor-agnostic provisioning system within the global HPC community.
-Warewulf is known for its massive scalability and simple management of stateless
-(disk optional) provisioning.</p>
-<p>Warewulf leverages a simple administrative model centralizing administration
-around virtual node images which are used to provision out to the cluster nodes.
-This means you can have hundreds or thousands of cluster nodes all booting and
-running on the same node image. As of Warewulf v4, the node image can be managed
-using industry-standard container tooling and/or CI/CD pipelines. This can be as
-simple as DockerHub or your own private GitLab CI infrastructure. With this
-architecture, Warewulf combines the best of High Performance Computing (HPC),
-Cloud, Hyperscale, and Enterprise deployment principals to create and maintain
-large scalable stateless clusters.</p>
-<p>Warewulf is used most prominently in High Performance Computing (HPC) clusters,
-but its architecture is flexible enough to be used in most any clustered Linux
-environment, including clustered web servers, rendering farms, and even
-Kubernetes and cloud deployments.</p>
-<section id="warewulf-design">
-<h2>Warewulf design<a class="headerlink" href="#warewulf-design" title="Link to this heading"></a></h2>
-<p>Warewulf has had a number of iterations since its inception in 2001, but its
-design tenets have always remained the same: a simple, scalable, stateless, and
-flexible provisioning system for all types of clusters.</p>
+  <section id="v4-6-3-release-notes">
+<h1>v4.6.3 Release Notes<a class="headerlink" href="#v4-6-3-release-notes" title="Link to this heading"></a></h1>
+<p>v4.6.3 is a regularly-scheduled minor release in the v4.6.x series.</p>
+<p>Significant changes are described below. Additional changes are listed in the
+<a class="reference external" href="https://github.com/warewulf/warewulf/blob/main/CHANGELOG.md">CHANGELOG</a>.</p>
+<section id="rest-api">
+<h2>REST API<a class="headerlink" href="#rest-api" title="Link to this heading"></a></h2>
+<p>v4.6.3 continues development of the REST API, adding support for the
+<code class="docutils literal notranslate"><span class="pre">If-None-Match:</span> <span class="pre">*</span></code> header to prevent overwriting an existing entity.</p>
+<p>Other new functionality in the REST API includes:</p>
 <ul class="simple">
-<li><p><strong>Lightweight</strong>: Warewulf provisions stateless operating system images and
-then gets out of the way. There are no underlying system dependencies or
-requisite changes to the provisioned cluster node operating system.</p></li>
-<li><p><strong>Simple</strong>: Warewulf is used by hobbyists, researchers, scientists, engineers
-and systems administrators alike.</p></li>
-<li><p><strong>Flexible</strong>: Warewulf can address the needs of any environment–from a
-computer lab with graphical workstations, to under-the-desk clusters, to
-supercomputing centers providing HPC services to thousands of users.</p></li>
-<li><p><strong>Agnostic</strong>: From the Linux distribution of choice to the underlying
-hardware, Warewulf is agnostic and standards compliant. From ARM to x86, Atos
-to Dell, Debian, SUSE, Rocky, CentOS, and RHEL, Warewulf can be used in most
-any environment.</p></li>
-<li><p><strong>Secure</strong>: Warewulf support SELinux out-of-the-box. Just install SELinux in
-your node image and let Warewulf do the rest!</p></li>
-<li><p><strong>Open Source</strong>: Warewulf is and has always been open source. It can be used
-in any environment, whether public, private, non-profit, or commercial. And
-the Warewulf project is always welcoming of contribution from its community of
-users, with major features often beginning as external contributions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/nodes/{id}/overlays</span></code> returns built time metadata for a node’s
+system and runtime overlay images.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PUT</span> <span class="pre">/api/overlays/{name}/file?path={path}</span></code> creates files in overlays.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">/api/overlays/{name}/file?path={path}</span></code> delete files in overlays.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">/api/overlays/{name}?force=true</span></code> deletes overlays that are in use.</p></li>
 </ul>
 </section>
-<section id="warewulf-architecture">
-<h2>Warewulf architecture<a class="headerlink" href="#warewulf-architecture" title="Link to this heading"></a></h2>
-<p>Warewulf v4 has a simple but flexible base architecture:</p>
-<p>A <strong>Warewulf server</strong> stores information about the cluster and the nodes in it,
-and provides a command-line interface (<code class="docutils literal notranslate"><span class="pre">wwctl</span></code>) for managing nodes, their
-images, and their overlays.</p>
-<p><strong>Cluster nodes</strong> are defined in a flexible <a class="reference external" href="https://en.wikipedia.org/wiki/YAML">YAML</a> file, including their network
-configuration and image and overlay assignments.</p>
-<p><strong>Node profiles</strong> provide a flexible abstraction for applying configuration to
-multiple nodes.</p>
-<p><strong>Node images</strong> provide a bootable operating system image, including the kernel
-that will be used to boot the cluster node. Node images provide a base operating
-system and, by default, run entirely in memory. This means that when you
-reboot the node, the node retains no information about Warewulf or how it
-booted; but it also means that they return to their initial known-good state.</p>
-<p><strong>Overlays</strong> customize the provisioned operating system image with static files
-and dynamic templates applied with the node image and, optionally, periodically
-at runtime.</p>
+<section id="ipv6-support">
+<h2>IPv6 Support<a class="headerlink" href="#ipv6-support" title="Link to this heading"></a></h2>
+<p>IPv6 is now supported during the iPXE network boot process, one step towards
+improving overall IPv6 support.</p>
 </section>
-<section id="beowulf-overview">
-<h2>Beowulf overview<a class="headerlink" href="#beowulf-overview" title="Link to this heading"></a></h2>
-<p>Warewulf is designed to support the original <a class="reference external" href="https://en.wikipedia.org/wiki/Beowulf_cluster">Beowulf Cluster</a> concept. (Thus its name, a
-soft<strong>WARE</strong> implementation of the beo<strong>WULF</strong>.) The architecture is
-characterized by a group of similar cluster nodes all connected together using
-standard commodity equipment on an internal cluster network. The server node
-(often historically referred to as the “master” or “head” node) is “dual homed”
-(i.e., it has two network interfaces) with one of these network interfaces
-attached to an external network and the other connected to the internal cluster
-network.</p>
-<img alt="Beowulf architecture" src="../_images/beowulf_architecture.png" />
-<p>This simple topology is the foundation for creating a scalable HPC cluster
-resource. Even today, almost 30 years after the inception of this architecture,
-this is the baseline architecture that virtually all HPC systems are built to.</p>
-<p>An HPC cluster often includes dedicated storage, scheduling and resource
-management, monitoring, interactive systems, and other components. For smaller
-systems, many of these components can be deployed to a single server node; but,
-as the system scales, it may be better to have groups of nodes dedicated to
-these different services.</p>
-<p>Warewulf is flexible enough to start with a simple “head node” Beowulf style
-cluster deployment and to grow as needs for the cluster and its environment
-change.</p>
+<section id="overlay-autobuild">
+<h2>Overlay Autobuild<a class="headerlink" href="#overlay-autobuild" title="Link to this heading"></a></h2>
+<p>The Warewulf server (when “autobuild overlays” is enabled) now automatically
+rebuilds overlays after node discovery, which resolves an issue where overlays
+were out-of-sync with the newly-discovered configuration. This is one step in a
+more general effort to imrpove overlay autobuild so that manual overlay builds
+are less often required.</p>
+</section>
+<section id="warewulf-server-configuration">
+<h2>Warewulf server configuration<a class="headerlink" href="#warewulf-server-configuration" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span></code> command can now enable and (re)start the warewulf server
+daemon itself to apply updated configuration, either as part of <code class="docutils literal notranslate"><span class="pre">wwctl</span>
+<span class="pre">configure</span> <span class="pre">-a</span></code> or <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">warewulfd</span></code>.</p>
+</section>
+<section id="ubuntu-and-debian-support">
+<h2>Ubuntu and Debian Support<a class="headerlink" href="#ubuntu-and-debian-support" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">netplan</span></code> overlay is now much more feature-complete, with relative parity
+to the other network configuration overlays. This is one step in a more general
+effort to support Wareewulf in Ubuntu and Debian environments.</p>
+</section>
+<section id="other-fixes">
+<h2>Other fixes<a class="headerlink" href="#other-fixes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fixed <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">upgrade</span> <span class="pre">nodes</span></code> to properly handle kernel argument lists.</p></li>
+<li><p>Fixed a panic during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">edit</span></code> due to missing <code class="docutils literal notranslate"><span class="pre">reexec.Init()</span></code>.</p></li>
+<li><p>Fixed handling of comma-separated mount options in <code class="docutils literal notranslate"><span class="pre">fstab</span></code> and <code class="docutils literal notranslate"><span class="pre">ignition</span></code>
+overlays.</p></li>
+<li><p>Fixed a race condition in <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">edit</span></code> that led to changes not being
+properly detected and applied.</p></li>
+</ul>
 </section>
 </section>
 
@@ -299,8 +267,7 @@ change.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="User Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="provisioning.html" class="btn btn-neutral float-right" title="Cluster Provisioning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="v4.6.2.html" class="btn btn-neutral float-left" title="v4.6.2 Release Notes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
