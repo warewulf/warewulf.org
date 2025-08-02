@@ -194,6 +194,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="v4.6.1.html">v4.6.1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="v4.6.2.html">v4.6.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.6.3.html">v4.6.3</a></li>
 </ul>
 
         </div>
@@ -506,7 +507,7 @@ iPXE menu, allowing a specific method to be selected without using a custom iPXE
 script.</p>
 <p>Utilizing the new iPXE menu, specifying an <code class="docutils literal notranslate"><span class="pre">IPXEMenuEntry</span></code> tag on a cluster
 node now selects the boot method to use, similar to the previously-existing
-<code class="docutils literal notranslate"><span class="pre">GRUBMenuEntry</span></code>. The <code class="docutils literal notranslate"><span class="pre">dracut.ipxe</span></code> script has now been merged into the
+<code class="docutils literal notranslate"><span class="pre">GrubMenuEntry</span></code>. The <code class="docutils literal notranslate"><span class="pre">dracut.ipxe</span></code> script has now been merged into the
 default iPXE script, and specifying <code class="docutils literal notranslate"><span class="pre">IPXEMenuEntry=dracut</span></code> now replaces
 specifying a discrete <code class="docutils literal notranslate"><span class="pre">dracut</span></code> iPXE template.</p>
 <p>An issue that prevented nodes from booting in some circumstances with the
