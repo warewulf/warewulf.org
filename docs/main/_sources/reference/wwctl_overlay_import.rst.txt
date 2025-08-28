@@ -22,7 +22,6 @@ Options
 ::
 
   -h, --help          help for import
-  -n, --noupdate      Don't update overlays
   -o, --overwrite     Overwrite file if exists
   -p, --parents       Create any necessary parent directories
       --workers int   The number of parallel workers building overlays (<=0 indicates 1 worker per CPU)
