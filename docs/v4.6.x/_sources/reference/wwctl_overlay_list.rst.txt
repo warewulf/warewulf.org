@@ -24,6 +24,7 @@ Options
   -a, --all    List the contents of overlays
   -h, --help   help for list
   -l, --long   List 'long' of all overlay contents
+  -p, --path   Show the absolute path to the overlay
 
 Options inherited from parent commands
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
