@@ -193,6 +193,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.1.html">v4.6.1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.2.html">v4.6.2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.3.html">v4.6.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.4.html">v4.6.4</a></li>
 </ul>
 
         </div>
@@ -486,11 +487,11 @@ must be installed in the image.</p>
 <p>With the <code class="docutils literal notranslate"><span class="pre">warewulf-dracut</span></code> package installed in the image, you can then build
 an initramfs inside the image.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enterprise Linux</span>
-wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-9<span class="w"> </span>--build<span class="o">=</span><span class="nb">false</span><span class="w"> </span>--<span class="w"> </span>/usr/bin/dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.3/warewulf-dracut-4.6.3-1.el9.noarch.rpm
+wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-9<span class="w"> </span>--build<span class="o">=</span><span class="nb">false</span><span class="w"> </span>--<span class="w"> </span>/usr/bin/dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.4/warewulf-dracut-4.6.4-1.el9.noarch.rpm
 wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-9<span class="w"> </span>--<span class="w"> </span>/usr/bin/dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--regenerate-all
 
 <span class="c1"># SUSE</span>
-wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>leap-15<span class="w"> </span>--build<span class="o">=</span><span class="nb">false</span><span class="w"> </span>--<span class="w"> </span>/usr/bin/zypper<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.3/warewulf-dracut-4.6.3-1.suse.lp155.noarch.rpm
+wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>leap-15<span class="w"> </span>--build<span class="o">=</span><span class="nb">false</span><span class="w"> </span>--<span class="w"> </span>/usr/bin/zypper<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.4/warewulf-dracut-4.6.4-1.suse.lp155.noarch.rpm
 wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>leap-15<span class="w"> </span>--<span class="w"> </span>/usr/bin/dracut<span class="w"> </span>--force<span class="w"> </span>--no-hostonly<span class="w"> </span>--add<span class="w"> </span>wwinit<span class="w"> </span>--regenerate-all
 </pre></div>
 </div>
