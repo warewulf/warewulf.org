@@ -414,10 +414,16 @@ systems. All of these are applied by default; but the list may be trimmed to
 the desired system.</p>
 <ul class="simple">
 <li><p>ifcfg</p></li>
+<li><p>ifupdown</p></li>
 <li><p>NetworkManager</p></li>
-<li><p>debian.interfaces</p></li>
 <li><p>wicked</p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ifupdown</span></code> overlay was previously named <code class="docutils literal notranslate"><span class="pre">debian.interfaces</span></code>. The old
+name is still supported for compatibility, but it is deprecated and will be
+removed in a future release.</p>
+</div>
 <p>Warewulf also configures both systemd and udev with the intended names of
 configured network interfaces, typically based on a known MAC address.</p>
 <ul class="simple">
