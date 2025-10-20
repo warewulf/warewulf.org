@@ -233,6 +233,12 @@ desired IPMI configuration to the node’s BMC during boot.</p>
   <span class="o">--</span><span class="n">ipmitagadd</span> <span class="n">vlan</span><span class="o">=</span><span class="mi">42</span>
 </pre></div>
 </div>
+<p>A <code class="docutils literal notranslate"><span class="pre">bit-rate</span></code> ipmi tag can be used to set the Serial over LAN bit rate (defaults to 38.4).
+Typical options are 19.2, 38.4, and 115.2.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wwctl</span> <span class="n">profile</span> <span class="nb">set</span> <span class="n">default</span> \
+  <span class="o">--</span><span class="n">ipmitagadd</span> <span class="n">bit</span><span class="o">-</span><span class="n">rate</span><span class="o">=</span><span class="mf">115.2</span>
+</pre></div>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">list</span></code> has a specific overview for IPMI settings.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>--ipmi
 <span class="go">NODE  IPMI IPADDR   IPMI PORT  IPMI USERNAME  IPMI INTERFACE</span>
