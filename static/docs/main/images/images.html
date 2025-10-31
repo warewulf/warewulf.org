@@ -595,17 +595,12 @@ command below based on your image management tools.</p>
 </div>
 <p>Then, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">exec</span></code> will work regardless of the architecture of the
 image. For more information about QEMU, see their <a class="reference external" href="https://github.com/multiarch/qemu-user-static">GitHub</a></p>
-<p>To use wwclient on a booted image using a different architecture, wwclient must
-be compiled for the specific architecture. This requires GOLang build tools 1.21
-or newer. Below is an example for building wwclient for arm64:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf
-<span class="gp"># </span><span class="nb">cd</span><span class="w"> </span>warewulf
-<span class="gp"># </span><span class="nv">GOARCH</span><span class="o">=</span>arm64<span class="w"> </span><span class="nv">PREFIX</span><span class="o">=</span>/<span class="w"> </span>make<span class="w"> </span>wwclient
-<span class="gp"># </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/lib/warewulf/overlays/wwclient_arm64/rootfs/warewulf
-<span class="gp"># </span>cp<span class="w"> </span>wwclient<span class="w"> </span>/var/lib/warewulf/overlays/wwclient_arm64/rootfs/warewulf
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When provisioning cluster nodes with a different architecture than the
+Warewulf server, also use the matching architecture-specific <a class="reference internal" href="../overlays/overlays.html#wwclient"><span class="std std-ref">wwclient</span></a>
+overlay: e.g., wwclient.x86_64 or wwclient.aarch64.</p>
 </div>
-<p>Then, apply the new “wwclient_arm64” system overlay to your arm64 node/profile</p>
 </section>
 <section id="read-only-images">
 <h2>Read-only images<a class="headerlink" href="#read-only-images" title="Link to this heading"></a></h2>
