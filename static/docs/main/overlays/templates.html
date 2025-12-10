@@ -86,6 +86,8 @@
 <li class="toctree-l1"><a class="reference internal" href="overlays.html">Overlays</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Templating</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#non-overlay-templates">Non-Overlay Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#template-documentation">Template documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#template-variables">Template variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#template-functions">Template functions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#default-functions">Default functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sprig">Sprig</a></li>
@@ -166,6 +168,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_delete.html">wwctl overlay delete</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_edit.html">wwctl overlay edit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_info.html">wwctl overlay info</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_list.html">wwctl overlay list</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_show.html">wwctl overlay show</a></li>
@@ -254,6 +257,24 @@ the network boot process.</p></li>
 commands for the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">power</span></code>, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">sensor</span></code>, and <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">console</span></code>
 commands.</p></li>
 </ul>
+</section>
+<section id="template-documentation">
+<h2>Template documentation<a class="headerlink" href="#template-documentation" title="Link to this heading"></a></h2>
+<p>Templates can include documentation to be included in the output of <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">info</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="o">/*</span> <span class="n">wwdoc</span><span class="p">:</span> <span class="n">Your</span> <span class="n">documentation</span> <span class="n">text</span> <span class="o">*/</span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="template-variables">
+<h2>Template variables<a class="headerlink" href="#template-variables" title="Link to this heading"></a></h2>
+<p>Overlay templates have access to a number of variables that provide information
+about the server configuration, the node being provisioned, and all nodes in the
+cluster. An example of the variables available, and their use, is included with
+Warewulf in the <code class="docutils literal notranslate"><span class="pre">tstruct.ww</span></code> template of the <code class="docutils literal notranslate"><span class="pre">debug</span></code> overlay.</p>
+<p>Variables used in an overlay template can be documented by adding a comment to
+the template with the form <code class="docutils literal notranslate"><span class="pre">{{/*</span> <span class="pre">.My.Var:</span> <span class="pre">Your</span> <span class="pre">help</span> <span class="pre">text</span> <span class="pre">*/}}</span></code>. Variable help
+text defined in a comment replaces that variable’s default help text in the
+output of <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">info</span></code>.</p>
 </section>
 <section id="template-functions">
 <h2>Template functions<a class="headerlink" href="#template-functions" title="Link to this heading"></a></h2>
