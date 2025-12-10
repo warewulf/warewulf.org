@@ -38,6 +38,7 @@ SEE ALSO
 * :ref:`wwctl overlay delete <wwctl_overlay_delete>` 	 - Delete Warewulf Overlay or files
 * :ref:`wwctl overlay edit <wwctl_overlay_edit>` 	 - Edit or create a file within a Warewulf Overlay
 * :ref:`wwctl overlay import <wwctl_overlay_import>` 	 - Import a file into a Warewulf Overlay
+* :ref:`wwctl overlay info <wwctl_overlay_info>` 	 - Show variables for a template file in an overlay
 * :ref:`wwctl overlay list <wwctl_overlay_list>` 	 - List Warewulf Overlays and files
 * :ref:`wwctl overlay mkdir <wwctl_overlay_mkdir>` 	 - Create a new directory within an Overlay
 * :ref:`wwctl overlay show <wwctl_overlay_show>` 	 - Show (cat) a file within a Warewulf Overlay
