@@ -470,11 +470,17 @@ customize the interface:</p>
 <li><p><strong>DNSSEARCH:</strong> domain search path</p></li>
 <li><p><strong>MASTER:</strong> the master for a bond interface</p></li>
 </ul>
+<p>The NetworkManager overlay supports additional netdev tags for advanced
+interface configuration:</p>
 <ul class="simple">
 <li><p><strong>parent_device:</strong> the parent device of a vlan interface</p></li>
 <li><p><strong>vlan_id:</strong> the vlan id for a vlan interface</p></li>
 <li><p><strong>downdelay, updelay, miimon, mode, xmit_hash_policy:</strong>
 bond device settings</p></li>
+<li><p><strong>type:</strong> a secondary interface type, typically used to specify the bond type
+(e.g., <code class="docutils literal notranslate"><span class="pre">ethernet</span></code> or <code class="docutils literal notranslate"><span class="pre">infiniband</span></code>)</p></li>
+<li><p><strong>mtu:</strong> specify the mtu for the interface</p></li>
+<li><p><strong>cloned-mac-address:</strong> set a cloned MAC address for the interface</p></li>
 </ul>
 </section>
 <section id="basics">
