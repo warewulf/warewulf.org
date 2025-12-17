@@ -36,13 +36,13 @@ Options
 ::
 
   -b, --build             Build image after pulling
-  -f, --force             Force overwrite of an existing image
+  -f, --force             Remove existing image and import new image with that name
   -h, --help              help for import
       --nohttps           Ignore wrong TLS certificates, superseedes env WAREWULF_OCI_NOHTTPS
       --password string   Set password for the access to the registry, superseedes env WAREWULF_OCI_PASSWORD
       --platform string   Set other hardware platform e.g. amd64 or arm64, superseedes env WAREWULF_OCI_PLATFORM
       --syncuser          Synchronize UIDs/GIDs from host to image
-  -u, --update            Update and overwrite an existing image
+  -u, --update            Overwrite files in an existing image with the files of remote image
       --username string   Set username for the access to the registry, superseedes env WAREWULF_OCI_USERNAME
 
 Options inherited from parent commands
