@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Overlays &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
 
   
@@ -16,8 +16,8 @@
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../_static/documentation_options.js?v=a8da1a53"></script>
-      <script src="../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -84,34 +84,32 @@
 <p class="caption" role="heading"><span class="caption-text">Overlays</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Overlays</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#structure">Structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#adding-overlays-to-nodes">Adding Overlays to Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#building-overlays">Building Overlays</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-and-modifying-overlays">Creating and Modifying Overlays</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#permissions">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overlay-variables">Overlay Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#structure">Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-overlays-to-nodes">Adding Overlays to Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-overlays">Building Overlays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-and-modifying-overlays">Creating and Modifying Overlays</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#distribution-overlays">Distribution Overlays</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#wwinit">wwinit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#wwclient">wwclient</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#network-interfaces">Network interfaces</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#networkmanager">NetworkManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#permissions">Permissions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#distribution-overlays">Distribution Overlays</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#basics">Basics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fstab">fstab</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ssh">ssh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#syncuser">syncuser</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ignition">ignition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#debug">debug</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#localtime">localtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sfdisk">sfdisk</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mkfs">mkfs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mkswap">mkswap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#systemd-mounts">systemd mounts</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#host">host</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#wwinit">wwinit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wwclient">wwclient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network-interfaces">Network interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basics">Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fstab">fstab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ssh">ssh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#syncuser">syncuser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ignition">ignition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debug">debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#localtime">localtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sfdisk">sfdisk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mkfs">mkfs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mkswap">mkswap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#systemd-mounts">systemd mounts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#host">host</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Templating</a></li>
@@ -170,6 +168,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_delete.html">wwctl overlay delete</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_edit.html">wwctl overlay edit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_info.html">wwctl overlay info</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_list.html">wwctl overlay list</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_show.html">wwctl overlay show</a></li>
@@ -205,6 +204,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.2.html">v4.6.2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.3.html">v4.6.3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.4.html">v4.6.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.5.html">v4.6.5</a></li>
 </ul>
 
         </div>
@@ -252,8 +252,36 @@ within the overlays with <code class="docutils literal notranslate"><span class=
 <span class="go">fstab         etc/fstab.ww  false</span>
 </pre></div>
 </div>
+<section id="overlay-variables">
+<h2>Overlay Variables<a class="headerlink" href="#overlay-variables" title="Link to this heading"></a></h2>
+<p>The command <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">info</span></code> shows the variables used in an overlay
+template, along with the help text for each variable.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>info<span class="w"> </span>NetworkManager<span class="w"> </span>etc/NetworkManager/system-connections/ww4-managed.ww
+<span class="go">VARIABLE                        HELP                                           TYPE    OPTION</span>
+<span class="go">--------                        ----                                           ----    ------</span>
+<span class="gp">$</span>netdev.Device<span class="w">                  </span>Set<span class="w"> </span>the<span class="w"> </span>device<span class="w"> </span><span class="k">for</span><span class="w"> </span>given<span class="w"> </span>network<span class="w">               </span>string<span class="w">  </span>--netdev
+<span class="gp">$</span>netdev.Gateway<span class="w">                 </span>Set<span class="w"> </span>the<span class="w"> </span>node<span class="s1">&#39;s network device gateway          IP      --gateway</span>
+<span class="gp">$</span><span class="s1">netdev.Hwaddr                  Set the device&#39;</span>s<span class="w"> </span>HW<span class="w"> </span>address<span class="w"> </span><span class="k">for</span><span class="w"> </span>given<span class="w"> </span>network<span class="w">  </span>string<span class="w">  </span>--hwaddr
+<span class="gp">$</span>netdev.Ipaddr<span class="w">                  </span>IPv4<span class="w"> </span>address<span class="w"> </span><span class="k">in</span><span class="w"> </span>given<span class="w"> </span>network<span class="w">                  </span>IP<span class="w">      </span>--ipaddr
+<span class="gp">$</span>netdev.Ipaddr6<span class="w">                 </span>IPv4<span class="w"> </span>address<span class="w"> </span><span class="k">in</span><span class="w"> </span>given<span class="w"> </span>network<span class="w">                  </span>IP<span class="w">      </span>--ipaddr
+<span class="gp">$</span>netdev.Ipaddr6<span class="w">                 </span>IPv6<span class="w"> </span>address<span class="w">                                   </span>IP<span class="w">      </span>--ipaddr6
+<span class="gp">$</span>netdev.MTU<span class="w">                     </span>Set<span class="w"> </span>the<span class="w"> </span>mtu<span class="w">                                    </span>string<span class="w">  </span>--mtu
+<span class="gp">$</span>netdev.OnBoot.BoolDefaultTrue<span class="w">  </span>Enable/disable<span class="w"> </span>network<span class="w"> </span>device<span class="w"> </span><span class="o">(</span>true/false<span class="o">)</span><span class="w">     </span>WWbool<span class="w">  </span>--onboot
+<span class="gp">$</span>netdev.Tags
+<span class="gp">$</span>netdev.Tags.DNSSEARCH
+<span class="gp">$</span>netdev.Tags.downdelay
+<span class="gp">$</span>netdev.Tags.master
+<span class="gp">$</span>netdev.Tags.miimon
+<span class="gp">$</span>netdev.Tags.mode
+<span class="gp">$</span>netdev.Tags.parent_device
+<span class="gp">$</span>netdev.Tags.updelay
+<span class="gp">$</span>netdev.Tags.vlan_id
+<span class="gp">$</span>netdev.Tags.xmit_hash_policy
+<span class="gp">$</span>netdev.Type<span class="w">                    </span>Set<span class="w"> </span>device<span class="w"> </span><span class="nb">type</span><span class="w"> </span>of<span class="w"> </span>given<span class="w"> </span>network<span class="w">               </span>string<span class="w">  </span>--type
+</pre></div>
+</div>
 <section id="structure">
-<h2>Structure<a class="headerlink" href="#structure" title="Link to this heading"></a></h2>
+<h3>Structure<a class="headerlink" href="#structure" title="Link to this heading"></a></h3>
 <p>An overlay is a directory that is applied to the root of a cluster node’s
 runtime file system. The overlay source directory should contain a single
 <code class="docutils literal notranslate"><span class="pre">rootfs</span></code> directory which represents the actual root directory for the overlay.</p>
@@ -265,7 +293,7 @@ runtime file system. The overlay source directory should contain a single
 </div>
 </section>
 <section id="adding-overlays-to-nodes">
-<h2>Adding Overlays to Nodes<a class="headerlink" href="#adding-overlays-to-nodes" title="Link to this heading"></a></h2>
+<h3>Adding Overlays to Nodes<a class="headerlink" href="#adding-overlays-to-nodes" title="Link to this heading"></a></h3>
 <p>A node or profile can configure an overlay in two different ways:</p>
 <ul class="simple">
 <li><p>An overlay can be configured to apply only during boot, along with the node
@@ -282,7 +310,7 @@ running. These overlays are called <strong>runtime overlays</strong>.</p></li>
 profiles are appended together when applied to a single node.</p>
 </section>
 <section id="building-overlays">
-<h2>Building Overlays<a class="headerlink" href="#building-overlays" title="Link to this heading"></a></h2>
+<h3>Building Overlays<a class="headerlink" href="#building-overlays" title="Link to this heading"></a></h3>
 <p>Overlays are built (e.g., with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overly</span> <span class="pre">build</span></code>) into compressed overlay
 images for distribution to cluster nodes. These images typically match these two
 use cases: system and runtime. As such, each cluster node typically has two
@@ -304,7 +332,7 @@ be specified with the <code class="docutils literal notranslate"><span class="pr
 are often necessary.</p>
 </section>
 <section id="creating-and-modifying-overlays">
-<h2>Creating and Modifying Overlays<a class="headerlink" href="#creating-and-modifying-overlays" title="Link to this heading"></a></h2>
+<h3>Creating and Modifying Overlays<a class="headerlink" href="#creating-and-modifying-overlays" title="Link to this heading"></a></h3>
 <p>You can add a new overlay to Warewulf with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">create</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>overlay<span class="w"> </span>create<span class="w"> </span>issue
 </pre></div>
@@ -353,8 +381,10 @@ option.</p>
 <p class="admonition-title">Note</p>
 <p>It is not possible to delete files with an overlay.</p>
 </div>
+</section>
+</section>
 <section id="permissions">
-<h3>Permissions<a class="headerlink" href="#permissions" title="Link to this heading"></a></h3>
+<h2>Permissions<a class="headerlink" href="#permissions" title="Link to this heading"></a></h2>
 <p>Overlay files are distributed to cluster nodes with the same user, group, and
 mode that they have on the Warewulf server. Use <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">chown</span></code> and
 <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">chmod</span></code> to adjust them as necessary.</p>
@@ -362,10 +392,8 @@ mode that they have on the Warewulf server. Use <code class="docutils literal no
 wwctl<span class="w"> </span>overlay<span class="w"> </span>chmod<span class="w"> </span>issue<span class="w"> </span>/etc/issue.ww<span class="w"> </span><span class="m">0644</span>
 </pre></div>
 </div>
-</section>
-</section>
 <section id="distribution-overlays">
-<h2>Distribution Overlays<a class="headerlink" href="#distribution-overlays" title="Link to this heading"></a></h2>
+<h3>Distribution Overlays<a class="headerlink" href="#distribution-overlays" title="Link to this heading"></a></h3>
 <p>Warewulf distinguishes between <strong>distribution</strong> overlays, which are included
 with Warewulf, and <strong>site</strong> overlays, which are created or added locally. A site
 overlay always takes precedence over a distribution overlay with the same name.
@@ -376,8 +404,10 @@ overlay.</p>
 overlays are often stored at <code class="docutils literal notranslate"><span class="pre">/usr/share/warewulf/overlays/</span></code>. But these paths
 are dependent on compilation, distribution, packaging, and configuration
 settings.</p>
+</section>
+</section>
 <section id="wwinit">
-<h3>wwinit<a class="headerlink" href="#wwinit" title="Link to this heading"></a></h3>
+<h2>wwinit<a class="headerlink" href="#wwinit" title="Link to this heading"></a></h2>
 <p>The <strong>wwinit</strong> overlay performs initial configuration of the Warewulf node. Its
 <cite>wwinit</cite> script runs before <code class="docutils literal notranslate"><span class="pre">systemd</span></code> or other init is called and contains all
 configurations which are needed to boot.</p>
@@ -399,25 +429,35 @@ calling <code class="docutils literal notranslate"><span class="pre">init</span>
 </ul>
 </section>
 <section id="wwclient">
-<h3>wwclient<a class="headerlink" href="#wwclient" title="Link to this heading"></a></h3>
+<span id="id1"></span><h2>wwclient<a class="headerlink" href="#wwclient" title="Link to this heading"></a></h2>
 <p>All configured overlays are provisioned initially along with the node image
 itself; but <strong>wwclient</strong> periodically fetches and applies the runtime overlay to
 allow configuration of some settings without a reboot.</p>
-<p>wwclient will contat the <code class="docutils literal notranslate"><span class="pre">ipaddr</span></code> value from <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> by default.
-This can be overridden by specifying a <code class="docutils literal notranslate"><span class="pre">WW_IPADDR</span></code> environment variable, which
-can be set via an overlay in <code class="docutils literal notranslate"><span class="pre">/etc/default/wwclient</span></code>.</p>
+<p>wwclient contacts the <code class="docutils literal notranslate"><span class="pre">ipaddr</span></code> value from <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> by default. This
+can be overridden by specifying a <code class="docutils literal notranslate"><span class="pre">WW_IPADDR</span></code> environment variable, which can
+be set via an overlay in <code class="docutils literal notranslate"><span class="pre">/etc/default/wwclient</span></code>.</p>
+<p>The default wwclient overlay contains a <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> executable compiled for the
+same architecture as the Warewulf server. Architecture-specific wwclient.aarch64
+and wwclient.x86_64 overlays are available as well. This supports using wwclient
+on cluster nodes with a different architecture than the Warewulf server.</p>
 </section>
 <section id="network-interfaces">
-<h3>Network interfaces<a class="headerlink" href="#network-interfaces" title="Link to this heading"></a></h3>
+<h2>Network interfaces<a class="headerlink" href="#network-interfaces" title="Link to this heading"></a></h2>
 <p>Warewulf ships with support for many different network interface configuration
 systems. All of these are applied by default; but the list may be trimmed to
 the desired system.</p>
 <ul class="simple">
 <li><p>ifcfg</p></li>
+<li><p>ifupdown</p></li>
 <li><p>NetworkManager</p></li>
-<li><p>debian.interfaces</p></li>
 <li><p>wicked</p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ifupdown</span></code> overlay was previously named <code class="docutils literal notranslate"><span class="pre">debian.interfaces</span></code>. The old
+name is still supported for compatibility, but it is deprecated and will be
+removed in a future release.</p>
+</div>
 <p>Warewulf also configures both systemd and udev with the intended names of
 configured network interfaces, typically based on a known MAC address.</p>
 <ul class="simple">
@@ -431,18 +471,21 @@ customize the interface:</p>
 <li><p><strong>DNSSEARCH:</strong> domain search path</p></li>
 <li><p><strong>MASTER:</strong> the master for a bond interface</p></li>
 </ul>
-<section id="networkmanager">
-<h4>NetworkManager<a class="headerlink" href="#networkmanager" title="Link to this heading"></a></h4>
+<p>The NetworkManager overlay supports additional netdev tags for advanced
+interface configuration:</p>
 <ul class="simple">
 <li><p><strong>parent_device:</strong> the parent device of a vlan interface</p></li>
 <li><p><strong>vlan_id:</strong> the vlan id for a vlan interface</p></li>
 <li><p><strong>downdelay, updelay, miimon, mode, xmit_hash_policy:</strong>
 bond device settings</p></li>
+<li><p><strong>type:</strong> a secondary interface type, typically used to specify the bond type
+(e.g., <code class="docutils literal notranslate"><span class="pre">ethernet</span></code> or <code class="docutils literal notranslate"><span class="pre">infiniband</span></code>)</p></li>
+<li><p><strong>mtu:</strong> specify the mtu for the interface</p></li>
+<li><p><strong>cloned-mac-address:</strong> set a cloned MAC address for the interface</p></li>
 </ul>
 </section>
-</section>
 <section id="basics">
-<h3>Basics<a class="headerlink" href="#basics" title="Link to this heading"></a></h3>
+<h2>Basics<a class="headerlink" href="#basics" title="Link to this heading"></a></h2>
 <p>The <strong>hostname</strong> overlay sets the hostname based on the configured Warewulf
 node name.</p>
 <p>The <strong>hosts</strong> overlay configures <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> to include all Warewulf nodes.</p>
@@ -457,7 +500,7 @@ wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</s
 </div>
 </section>
 <section id="fstab">
-<h3>fstab<a class="headerlink" href="#fstab" title="Link to this heading"></a></h3>
+<h2>fstab<a class="headerlink" href="#fstab" title="Link to this heading"></a></h2>
 <p>The <strong>fstab</strong> overlay configures <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code> based on the data provided in the “fstab”
 resource. It also creates entries for file systems defined by Ignition.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">nodeprofiles</span><span class="p">:</span>
@@ -474,7 +517,7 @@ resource. It also creates entries for file systems defined by Ignition.</p>
 </div>
 </section>
 <section id="ssh">
-<h3>ssh<a class="headerlink" href="#ssh" title="Link to this heading"></a></h3>
+<h2>ssh<a class="headerlink" href="#ssh" title="Link to this heading"></a></h2>
 <p>Two SSH overlays configure host keys (one set for all node in the cluster) and
 <code class="docutils literal notranslate"><span class="pre">authorized_keys</span></code> for the root account.</p>
 <ul class="simple">
@@ -483,7 +526,7 @@ resource. It also creates entries for file systems defined by Ignition.</p>
 </ul>
 </section>
 <section id="syncuser">
-<span id="id1"></span><h3>syncuser<a class="headerlink" href="#syncuser" title="Link to this heading"></a></h3>
+<span id="id2"></span><h2>syncuser<a class="headerlink" href="#syncuser" title="Link to this heading"></a></h2>
 <p>The <strong>syncuser</strong> overlay updates <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> and <code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> to include
 all users on both the Warewulf server and from the image.</p>
 <p>To function properly, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">syncuser</span></code> (or the <code class="docutils literal notranslate"><span class="pre">--syncuser</span></code> option
@@ -499,7 +542,7 @@ used during debugging, when normal authentication is not functional.</p>
 </div>
 </section>
 <section id="ignition">
-<h3>ignition<a class="headerlink" href="#ignition" title="Link to this heading"></a></h3>
+<h2>ignition<a class="headerlink" href="#ignition" title="Link to this heading"></a></h2>
 <p>The <strong>ignition</strong> overlay defines partitions and file systems on local disks.
 Configuration may be provided via native disk, partition, and filesystem fields
 or via an <code class="docutils literal notranslate"><span class="pre">ignition</span></code> resource.</p>
@@ -529,7 +572,7 @@ before the image is loaded) include Ignition in the Dracut image.</p>
 </div>
 </section>
 <section id="debug">
-<h3>debug<a class="headerlink" href="#debug" title="Link to this heading"></a></h3>
+<h2>debug<a class="headerlink" href="#debug" title="Link to this heading"></a></h2>
 <p>The <strong>debug</strong> overlay is not intended to be used in configuration, but is
 provided as an example. In particular, the provided <cite>tstruct.md.ww</cite> demonstrates
 the use of most available template metadata.</p>
@@ -538,7 +581,7 @@ the use of most available template metadata.</p>
 </div>
 </section>
 <section id="localtime">
-<span id="id2"></span><h3>localtime<a class="headerlink" href="#localtime" title="Link to this heading"></a></h3>
+<span id="id3"></span><h2>localtime<a class="headerlink" href="#localtime" title="Link to this heading"></a></h2>
 <p>The <strong>localtime</strong> overlay configures the timezone of a cluster node to match
 that of the Warewulf server; alternatively, a different timezone may be
 specified with a <code class="docutils literal notranslate"><span class="pre">localtime</span></code> tag.</p>
@@ -547,7 +590,7 @@ specified with a <code class="docutils literal notranslate"><span class="pre">lo
 </div>
 </section>
 <section id="sfdisk">
-<h3>sfdisk<a class="headerlink" href="#sfdisk" title="Link to this heading"></a></h3>
+<h2>sfdisk<a class="headerlink" href="#sfdisk" title="Link to this heading"></a></h2>
 <p>The <strong>sfdisk</strong> overlay partitions block devices during wwinit. Configuration may
 be provided using native disk and partition configuration or via an <code class="docutils literal notranslate"><span class="pre">sfdisk</span></code>
 resource.</p>
@@ -580,7 +623,7 @@ include blockdev and/or udevadm, to allow the partition table to be re-scanned.<
 <p>For more information, see the <a class="reference internal" href="../nodes/disks.html#provision-to-disk"><span class="std std-ref">Provision to disk</span></a> section.</p>
 </section>
 <section id="mkfs">
-<h3>mkfs<a class="headerlink" href="#mkfs" title="Link to this heading"></a></h3>
+<h2>mkfs<a class="headerlink" href="#mkfs" title="Link to this heading"></a></h2>
 <p>The <strong>mkfs</strong> overlay formats block devices during wwinit. Configuration may be
 provided using native filesystem fields or via an <code class="docutils literal notranslate"><span class="pre">mkfs</span></code> resource.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">mkfs</span><span class="p">:</span>
@@ -602,7 +645,7 @@ existing file systems.</p>
 <p>For more information, see the <a class="reference internal" href="../nodes/disks.html#provision-to-disk"><span class="std std-ref">Provision to disk</span></a> section.</p>
 </section>
 <section id="mkswap">
-<h3>mkswap<a class="headerlink" href="#mkswap" title="Link to this heading"></a></h3>
+<h2>mkswap<a class="headerlink" href="#mkswap" title="Link to this heading"></a></h2>
 <p>The <strong>mkswap</strong> overlay formats block devices during wwinit. Configuration may be
 provided using native filesystem fields or via a <code class="docutils literal notranslate"><span class="pre">mkswap</span></code> resource.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">mkswap</span><span class="p">:</span>
@@ -620,13 +663,13 @@ include wipefs to detect existing file systems.</p>
 </div>
 </section>
 <section id="systemd-mounts">
-<h3>systemd mounts<a class="headerlink" href="#systemd-mounts" title="Link to this heading"></a></h3>
+<h2>systemd mounts<a class="headerlink" href="#systemd-mounts" title="Link to this heading"></a></h2>
 <p>Two overlays, <strong>systemd.mount</strong> and <strong>systemd.swap</strong>, configure mounted and swap
 storage based on the configuration of native file system fields. They are often
 paired with the <code class="docutils literal notranslate"><span class="pre">mkfs</span></code> and <code class="docutils literal notranslate"><span class="pre">mkswap</span></code> overlays.</p>
 </section>
 <section id="host">
-<h3>host<a class="headerlink" href="#host" title="Link to this heading"></a></h3>
+<h2>host<a class="headerlink" href="#host" title="Link to this heading"></a></h2>
 <p>Configuration files used for the configuration of the Warewulf host /
 server are stored in the <strong>host</strong> overlay. Unlike other overlays, it
 <em>must</em> have the name <code class="docutils literal notranslate"><span class="pre">host</span></code>. Existing files on the host are copied
@@ -643,7 +686,6 @@ template <code class="docutils literal notranslate"><span class="pre">hosts.ww</
 <code class="docutils literal notranslate"><span class="pre">exports.ww</span></code></p></li>
 <li><p>the dhcpd service is configured with <code class="docutils literal notranslate"><span class="pre">dhcpd.conf.ww</span></code></p></li>
 </ul>
-</section>
 </section>
 </section>
 

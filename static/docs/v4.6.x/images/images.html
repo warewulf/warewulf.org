@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Node Images &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
 
   
@@ -16,8 +16,8 @@
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../_static/documentation_options.js?v=a8da1a53"></script>
-      <script src="../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -170,6 +170,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_delete.html">wwctl overlay delete</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_edit.html">wwctl overlay edit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_info.html">wwctl overlay info</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_list.html">wwctl overlay list</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_show.html">wwctl overlay show</a></li>
@@ -205,6 +206,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.2.html">v4.6.2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.3.html">v4.6.3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../release/v4.6.4.html">v4.6.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.5.html">v4.6.5</a></li>
 </ul>
 
         </div>
@@ -595,17 +597,12 @@ command below based on your image management tools.</p>
 </div>
 <p>Then, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">exec</span></code> will work regardless of the architecture of the
 image. For more information about QEMU, see their <a class="reference external" href="https://github.com/multiarch/qemu-user-static">GitHub</a></p>
-<p>To use wwclient on a booted image using a different architecture, wwclient must
-be compiled for the specific architecture. This requires GOLang build tools 1.21
-or newer. Below is an example for building wwclient for arm64:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf
-<span class="gp"># </span><span class="nb">cd</span><span class="w"> </span>warewulf
-<span class="gp"># </span><span class="nv">GOARCH</span><span class="o">=</span>arm64<span class="w"> </span><span class="nv">PREFIX</span><span class="o">=</span>/<span class="w"> </span>make<span class="w"> </span>wwclient
-<span class="gp"># </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/lib/warewulf/overlays/wwclient_arm64/rootfs/warewulf
-<span class="gp"># </span>cp<span class="w"> </span>wwclient<span class="w"> </span>/var/lib/warewulf/overlays/wwclient_arm64/rootfs/warewulf
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When provisioning cluster nodes with a different architecture than the
+Warewulf server, also use the matching architecture-specific <a class="reference internal" href="../overlays/overlays.html#wwclient"><span class="std std-ref">wwclient</span></a>
+overlay: e.g., wwclient.x86_64 or wwclient.aarch64.</p>
 </div>
-<p>Then, apply the new “wwclient_arm64” system overlay to your arm64 node/profile</p>
 </section>
 <section id="read-only-images">
 <h2>Read-only images<a class="headerlink" href="#read-only-images" title="Link to this heading"></a></h2>

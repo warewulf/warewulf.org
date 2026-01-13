@@ -32,13 +32,14 @@ Options
       --fsname string               set the file system name which must match a partition name
       --fspath string               the mount point of the file system
       --fswipe                      wipe file system at boot
-  -G, --gateway ip                  Set the node's network device gateway
+  -G, --gateway ip                  Set the node's IPv4 network device gateway
+      --gateway6 ip                 Set the node's IPv6 network device gateway
   -h, --help                        help for set
   -H, --hwaddr string               Set the device's HW address for given network
       --image string                Set image name
   -i, --init string                 Define the init process to boot the image
   -I, --ipaddr ip                   IPv4 address in given network
-      --ipaddr6 ip                  IPv6 address
+      --ipaddr6 ip                  IPv6 address in given network
       --ipmiaddr ip                 Set the IPMI IP address
       --ipmiescapechar string       Set the IPMI escape character (defaults: '~')
       --ipmigateway ip              Set the IPMI gateway
@@ -50,7 +51,7 @@ Options
       --ipmitagdel strings          delete ipmi tags
       --ipmitemplate string         template used for ipmi command
       --ipmiuser string             Set the IPMI username
-      --ipmiwrite WWbool[=true]     Enable the write of impi configuration (true/false)
+      --ipmiwrite WWbool[=true]     Enable the write of ipmi configuration (true/false)
       --ipxe string                 Set the iPXE template name
   -A, --kernelargs strings          Set kernel arguments
       --kernelversion string        Set kernel version
@@ -68,6 +69,7 @@ Options
       --partnumber string           Set the partition number, if not set next free slot is used
       --partsize string             Set the size of the partition, if not set maximal possible size is used
       --parttype string             Set the partition type GUID
+      --prefixlen6 string           Set the networks IPv6 prefix length
   -p, --primarynet string           Set the primary network interface
   -P, --profile strings             Set the node's profile members (comma separated)
       --root string                 Define the rootfs
