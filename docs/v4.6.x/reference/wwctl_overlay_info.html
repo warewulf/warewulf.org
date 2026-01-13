@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>wwctl power &mdash; Warewulf User Guide main documentation</title>
+  <title>wwctl overlay info &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="wwctl power cycle" href="wwctl_power_cycle.html" />
-    <link rel="prev" title="wwctl overlay show" href="wwctl_overlay_show.html" /> 
+    <link rel="next" title="wwctl overlay list" href="wwctl_overlay_list.html" />
+    <link rel="prev" title="wwctl overlay import" href="wwctl_overlay_import.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -140,17 +140,17 @@
 <li class="toctree-l1"><a class="reference internal" href="wwctl_overlay_delete.html">wwctl overlay delete</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_overlay_edit.html">wwctl overlay edit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_overlay_import.html">wwctl overlay import</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wwctl_overlay_info.html">wwctl overlay info</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wwctl_overlay_list.html">wwctl overlay list</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wwctl_overlay_show.html">wwctl overlay show</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">wwctl power</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">wwctl overlay info</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#synopsis">Synopsis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#options">Options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#options-inherited-from-parent-commands">Options inherited from parent commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#see-also">SEE ALSO</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl_overlay_list.html">wwctl overlay list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl_overlay_show.html">wwctl overlay show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl_power.html">wwctl power</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_power_cycle.html">wwctl power cycle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_power_off.html">wwctl power off</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_power_on.html">wwctl power on</a></li>
@@ -199,9 +199,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">wwctl power</li>
+      <li class="breadcrumb-item active">wwctl overlay info</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/reference/wwctl_power.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/reference/wwctl_overlay_info.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -209,16 +209,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="wwctl-power">
-<span id="id1"></span><h1>wwctl power<a class="headerlink" href="#wwctl-power" title="Link to this heading"></a></h1>
-<p>Warewulf node power management</p>
+  <section id="wwctl-overlay-info">
+<span id="id1"></span><h1>wwctl overlay info<a class="headerlink" href="#wwctl-overlay-info" title="Link to this heading"></a></h1>
+<p>Show variables for a template file in an overlay</p>
 <section id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading"></a></h2>
-<p>This command controls the power state of nodes.</p>
+<p>This command will show the variables for a given template file in a given
+overlay.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wwctl</span> <span class="n">overlay</span> <span class="n">info</span> <span class="p">[</span><span class="n">flags</span><span class="p">]</span> <span class="n">OVERLAY_NAME</span> <span class="n">FILE_PATH</span>
+</pre></div>
+</div>
 </section>
 <section id="options">
 <h2>Options<a class="headerlink" href="#options" title="Link to this heading"></a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>   <span class="n">help</span> <span class="k">for</span> <span class="n">power</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>   <span class="n">help</span> <span class="k">for</span> <span class="n">info</span>
 </pre></div>
 </div>
 </section>
@@ -233,13 +237,7 @@
 <section id="see-also">
 <h2>SEE ALSO<a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="wwctl.html#wwctl"><span class="std std-ref">wwctl</span></a>   - Warewulf Control</p></li>
-<li><p><a class="reference internal" href="wwctl_power_cycle.html#wwctl-power-cycle"><span class="std std-ref">wwctl power cycle</span></a>   - Power cycle the given node(s)</p></li>
-<li><p><a class="reference internal" href="wwctl_power_off.html#wwctl-power-off"><span class="std std-ref">wwctl power off</span></a>       - Power off the given node(s)</p></li>
-<li><p><a class="reference internal" href="wwctl_power_on.html#wwctl-power-on"><span class="std std-ref">wwctl power on</span></a>         - Power on the given node(s)</p></li>
-<li><p><a class="reference internal" href="wwctl_power_reset.html#wwctl-power-reset"><span class="std std-ref">wwctl power reset</span></a>   - Issue a reset to node(s)</p></li>
-<li><p><a class="reference internal" href="wwctl_power_soft.html#wwctl-power-soft"><span class="std std-ref">wwctl power soft</span></a>     - Gracefully shuts down the given node(s)</p></li>
-<li><p><a class="reference internal" href="wwctl_power_status.html#wwctl-power-status"><span class="std std-ref">wwctl power status</span></a>         - Show power status for the given node(s)</p></li>
+<li><p><a class="reference internal" href="wwctl_overlay.html#wwctl-overlay"><span class="std std-ref">wwctl overlay</span></a>   - Warewulf Overlay Management</p></li>
 </ul>
 </section>
 </section>
@@ -248,8 +246,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="wwctl_overlay_show.html" class="btn btn-neutral float-left" title="wwctl overlay show" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="wwctl_power_cycle.html" class="btn btn-neutral float-right" title="wwctl power cycle" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="wwctl_overlay_import.html" class="btn btn-neutral float-left" title="wwctl overlay import" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="wwctl_overlay_list.html" class="btn btn-neutral float-right" title="wwctl overlay list" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
