@@ -266,12 +266,12 @@ but specifying it is recommended as Ignition may fail without it. Partition
 sizes should also be set (specified in MiB), except for the last partition: if
 no size is given, the maximum available size is used. Each partition has the
 switches <code class="docutils literal notranslate"><span class="pre">should_exist</span></code> and <code class="docutils literal notranslate"><span class="pre">wipe_partition_entry</span></code> which control the
-partition creation process. When omitting a partition number the
-<cite>wipe_partition_entry</cite> should be true, as this allows ignition to replace the
-existing partition.</p>
+partition creation process (via the <code class="docutils literal notranslate"><span class="pre">--partcreate</span></code> and <code class="docutils literal notranslate"><span class="pre">--partwipe</span></code> flags).
+When omitting a partition number the <cite>wipe_partition_entry</cite> should be true, as
+this allows ignition to replace the existing partition.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--diskname<span class="w"> </span>/dev/vda<span class="w"> </span>--diskwipe<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--partname<span class="w"> </span>scratch<span class="w"> </span>--partcreate<span class="w"> </span>--partnumber<span class="w"> </span><span class="m">1</span>
+<span class="w">  </span>--partname<span class="w"> </span>scratch<span class="w"> </span>--partcreate<span class="w"> </span>--partwipe<span class="w"> </span>--partnumber<span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
 </section>
