@@ -61,6 +61,7 @@ Options
       --partnumber string           Set the partition number, if not set next free slot is used
       --partsize string             Set the size of the partition, if not set maximal possible size is used
       --parttype string             Set the partition type GUID
+      --partwipe                    if true, Ignition will clobber an existing partition if it does not match the config
       --prefixlen6 string           Set the networks IPv6 prefix length
   -p, --primarynet string           Set the primary network interface
   -P, --profile strings             Set the node's profile members (comma separated)
