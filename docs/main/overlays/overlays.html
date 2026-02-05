@@ -109,6 +109,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#mkfs">mkfs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mkswap">mkswap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#systemd-mounts">systemd mounts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mig">mig</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#host">host</a></li>
 </ul>
 </li>
@@ -667,6 +668,53 @@ include wipefs to detect existing file systems.</p>
 <p>Two overlays, <strong>systemd.mount</strong> and <strong>systemd.swap</strong>, configure mounted and swap
 storage based on the configuration of native file system fields. They are often
 paired with the <code class="docutils literal notranslate"><span class="pre">mkfs</span></code> and <code class="docutils literal notranslate"><span class="pre">mkswap</span></code> overlays.</p>
+</section>
+<section id="mig">
+<h2>mig<a class="headerlink" href="#mig" title="Link to this heading"></a></h2>
+<p>The <strong>mig</strong> overlay configures NVIDIA MIG (Multi-Instance GPU) settings on nodes
+with supported NVIDIA GPUs. The <strong>mig</strong> overlay requires the NVIDIA driver and
+the <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> tool to be installed and functional on the node.</p>
+<p>MIG configuration is based on the <code class="docutils literal notranslate"><span class="pre">gpuMigProfiles</span></code> tag, which specifies a
+comma-separated list of MIG profiles IDs or profile short names to configure.</p>
+<p>For example, to configure a node with four MIG instances of profile 14 and one
+instance of profile 15 on all GPUs:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span>--tagadd<span class="o">=</span><span class="s2">&quot;gpuMigProfiles=14,14,14,15&quot;</span>
+</pre></div>
+</div>
+<p>The MIG instances can also be defined by their profile short names:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span>--tagadd<span class="o">=</span><span class="s2">&quot;gpuMigProfiles=2g.20gb,2g.20gb,2g.20gb,1g.20gb&quot;</span>
+</pre></div>
+</div>
+<p>If different GPUs on a node require different MIG configurations, the
+<code class="docutils literal notranslate"><span class="pre">gpuMigProfiles</span></code> tag can be specified as a colon-separated list of comma-separated
+lists. Commas separate profiles on a single GPU. Colons separate GPUs by index order.
+A value of 0 indicates no MIG partitioning and uses the full GPU.</p>
+<p>For example, to configure a node that has four GPUs, where:</p>
+<ul class="simple">
+<li><p>GPU 0 has three instances of profile 14 and one instance of profile 15</p></li>
+<li><p>GPU 1 has two instances of profile 9</p></li>
+<li><p>GPU 2 and GPU 3 have one instance of profile 0 (no partitioning):</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span>--tagadd<span class="o">=</span><span class="s2">&quot;gpuMigProfiles=14,14,14,15:9,9:0:0&quot;</span>
+</pre></div>
+</div>
+<p>This can also be done using profile short names:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span>--tagadd<span class="o">=</span><span class="s2">&quot;gpuMigProfiles=2g.20gb,2g.20gb,2g.20gb,1g.20gb:3g.40gb,3g.40gb:0:0&quot;</span>
+</pre></div>
+</div>
+<p>The exact MIG configuration available depends on the specific NVIDIA GPU model
+present in the node. To see the available MIG profiles for a given GPU model, run:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>nvidia-smi<span class="w"> </span>mig<span class="w"> </span>-lgip
+</pre></div>
+</div>
+<p>Refer to <a class="reference external" href="https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html">NVIDIA’s documentation</a> for more information on MIG profiles.</p>
+<p>Once configured, the NVIDIA MIG instances can be mapped to Slurm GRES entries
+backed by <code class="docutils literal notranslate"><span class="pre">/dev/nvidia-caps/capXX</span></code> device files.</p>
+<p>To generate the mapping of MIG instances to <code class="docutils literal notranslate"><span class="pre">/dev/nvidia-caps/capXX</span></code> device files
+for Slurm’s <code class="docutils literal notranslate"><span class="pre">gres.conf</span></code> file, use the script provided by this overlay on on the node:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>/usr/bin/sh<span class="w"> </span>/usr/local/sbin/mig2gres
+</pre></div>
+</div>
 </section>
 <section id="host">
 <h2>host<a class="headerlink" href="#host" title="Link to this heading"></a></h2>
