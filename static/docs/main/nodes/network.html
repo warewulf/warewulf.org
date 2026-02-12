@@ -75,6 +75,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#bonding">Bonding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#vlan">VLAN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#static-routes">Static Routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#type">Type</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
@@ -223,6 +224,7 @@
 specifying  <code class="docutils literal notranslate"><span class="pre">--netname</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--netname<span class="o">=</span>infiniband<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="o">=</span>infiniband<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--netdev<span class="o">=</span>ib1<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--ipaddr<span class="o">=</span><span class="m">10</span>.0.3.1<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--netmask<span class="o">=</span><span class="m">255</span>.255.255.0
@@ -297,6 +299,13 @@ using a network tag of the form <code class="docutils literal notranslate"><span
 <span class="w">  </span>--nettagadd<span class="w"> </span><span class="s2">&quot;route1=192.168.2.0/24,192.168.1.254&quot;</span>
 </pre></div>
 </div>
+</section>
+<section id="type">
+<h2>Type<a class="headerlink" href="#type" title="Link to this heading"></a></h2>
+<p>When using the NetworkManager overlay template the <code class="docutils literal notranslate"><span class="pre">type</span></code> attribute
+determines how the connection is configured.  If not set, it
+defaults to <code class="docutils literal notranslate"><span class="pre">ethernet</span></code>. To correctly configure IPoIB with NetworkManager it
+is required that <code class="docutils literal notranslate"><span class="pre">type</span></code> is set to <code class="docutils literal notranslate"><span class="pre">infiniband</span></code>.</p>
 </section>
 </section>
 
