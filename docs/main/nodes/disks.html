@@ -87,6 +87,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#with-ignition">With Ignition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#with-sfdisk-and-mkfs">With sfdisk and mkfs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#configuring-the-root-device">Configuring the root device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#known-problems">Known Problems</a></li>
 </ul>
 </li>
 </ul>
@@ -445,6 +446,14 @@ parameter.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>wwnode1<span class="w"> </span>--root<span class="w"> </span>/dev/disk/by-partlabel/rootfs
 </pre></div>
 </div>
+</section>
+<section id="known-problems">
+<h3>Known Problems<a class="headerlink" href="#known-problems" title="Link to this heading"></a></h3>
+<p>If the partition table on the disk isn’t properly readable the command <code class="docutils literal notranslate"><span class="pre">sgdisk</span>
+<span class="pre">--zap-all</span></code> (which is used by Ignition to wipe the partition table) returns with
+code <code class="docutils literal notranslate"><span class="pre">2</span></code>. This is interpreted by Ignition &lt; <code class="docutils literal notranslate"><span class="pre">2.16.2</span></code> as an error, and no
+partitions or filesystems are created. Since the partition table is still wiped,
+partitioning and formatting should succeed on the next boot.</p>
 </section>
 </section>
 </section>
