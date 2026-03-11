@@ -42,5 +42,6 @@ SEE ALSO
 * :ref:`wwctl configure nfs <wwctl_configure_nfs>` 	 - Manage and initialize NFS
 * :ref:`wwctl configure ssh <wwctl_configure_ssh>` 	 - Manage and initialize SSH
 * :ref:`wwctl configure tftp <wwctl_configure_tftp>` 	 - Manage and initialize TFTP
+* :ref:`wwctl configure tls <wwctl_configure_tls>` 	 - Manage and initialize x509 keys
 * :ref:`wwctl configure warewulfd <wwctl_configure_warewulfd>` 	 - Enable and start warewulfd
 

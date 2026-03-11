@@ -1,0 +1,540 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Server Routes &mdash; Warewulf User Guide main documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using dnsmasq" href="dnsmasq.html" />
+    <link rel="prev" title="Server Configuration" href="configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/provisioning.html">The Provisioning Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/network.html">Network Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/el-quickstart.html">Enterprise Linux Quickstart (Rocky Linux, CentOS, and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Server</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Server Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Server Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Server Routes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#url-patterns">URL Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#common-query-parameters">Common Query Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#provisioning-routes">Provisioning Routes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ipxe-wwid"><code class="docutils literal notranslate"><span class="pre">/ipxe/{wwid}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kernel-wwid"><code class="docutils literal notranslate"><span class="pre">/kernel/{wwid}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#image-wwid"><code class="docutils literal notranslate"><span class="pre">/image/{wwid}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initramfs-wwid"><code class="docutils literal notranslate"><span class="pre">/initramfs/{wwid}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#system-wwid"><code class="docutils literal notranslate"><span class="pre">/system/{wwid}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#runtime-wwid"><code class="docutils literal notranslate"><span class="pre">/runtime/{wwid}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#overlay-file-overlay-path"><code class="docutils literal notranslate"><span class="pre">/overlay-file/{overlay}/{path}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#efiboot-file"><code class="docutils literal notranslate"><span class="pre">/efiboot/{file}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#grub-wwid"><code class="docutils literal notranslate"><span class="pre">/grub/{wwid}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#provision-wwid"><code class="docutils literal notranslate"><span class="pre">/provision/{wwid}</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#status-route">Status Route</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#status"><code class="docutils literal notranslate"><span class="pre">/status</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#rest-api">REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#security">Security</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#asset-key-validation">Asset key validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secure-mode">Secure mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tls">TLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dnsmasq.html">Using dnsmasq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bootloaders.html">Bootloaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading Warewulf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">REST API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/nodes.html">Cluster Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/disks.html">Disks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Overlays</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/overlays.html">Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/templates.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/known-issues.html">Known issues</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment.html">Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Command Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl.html">wwctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_clean.html">wwctl clean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure.html">wwctl configure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_dhcp.html">wwctl configure dhcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_hostfile.html">wwctl configure hostfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_nfs.html">wwctl configure nfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_ssh.html">wwctl configure ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tftp.html">wwctl configure tftp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tls.html">wwctl configure tls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_warewulfd.html">wwctl configure warewulfd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image.html">wwctl image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_build.html">wwctl image build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_copy.html">wwctl image copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_delete.html">wwctl image delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_exec.html">wwctl image exec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_import.html">wwctl image import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_kernels.html">wwctl image kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_list.html">wwctl image list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_rename.html">wwctl image rename</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_shell.html">wwctl image shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_show.html">wwctl image show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_syncuser.html">wwctl image syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node.html">wwctl node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_add.html">wwctl node add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_console.html">wwctl node console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_delete.html">wwctl node delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_edit.html">wwctl node edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_export.html">wwctl node export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_import.html">wwctl node import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_list.html">wwctl node list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_sensors.html">wwctl node sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_set.html">wwctl node set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_status.html">wwctl node status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay.html">wwctl overlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_build.html">wwctl overlay build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chmod.html">wwctl overlay chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chown.html">wwctl overlay chown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_create.html">wwctl overlay create</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_delete.html">wwctl overlay delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_edit.html">wwctl overlay edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_info.html">wwctl overlay info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_list.html">wwctl overlay list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_show.html">wwctl overlay show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power.html">wwctl power</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_cycle.html">wwctl power cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_off.html">wwctl power off</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_on.html">wwctl power on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_reset.html">wwctl power reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_soft.html">wwctl power soft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_status.html">wwctl power status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile.html">wwctl profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_add.html">wwctl profile add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_delete.html">wwctl profile delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_edit.html">wwctl profile edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_list.html">wwctl profile list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_set.html">wwctl profile set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_server.html">wwctl server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_ssh.html">wwctl ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade.html">wwctl upgrade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_config.html">wwctl upgrade config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_nodes.html">wwctl upgrade nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_version.html">wwctl version</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/nodes.conf.html">nodes.conf(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.1.html">v4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.2.html">v4.6.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.3.html">v4.6.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.4.html">v4.6.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.5.html">v4.6.5</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Server Routes</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/server/routes.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="server-routes">
+<span id="id1"></span><h1>Server Routes<a class="headerlink" href="#server-routes" title="Link to this heading"></a></h1>
+<p>The Warewulf provisioning daemon, <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code>, serves all boot and provisioning
+resources over HTTP. Each resource type has a dedicated route, and nodes are
+identified by their Warewulf ID (<code class="docutils literal notranslate"><span class="pre">wwid</span></code>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">{wwid}</span></code> is typically the node’s default MAC address: a colon-separated
+hexadecimal string, e.g., <code class="docutils literal notranslate"><span class="pre">aa:bb:cc:dd:ee:ff</span></code>. Dashes are accepted in place
+of colons and are normalized automatically.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The port <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> listens on is configured with <code class="docutils literal notranslate"><span class="pre">warewulf:port</span></code> in
+<code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> (default: <code class="docutils literal notranslate"><span class="pre">9873</span></code>). When TLS is enabled, a second listener
+is started on the port configured with <code class="docutils literal notranslate"><span class="pre">warewulf:tls</span> <span class="pre">port</span></code> (default: <code class="docutils literal notranslate"><span class="pre">9874</span></code>).</p>
+</div>
+<section id="url-patterns">
+<h2>URL Patterns<a class="headerlink" href="#url-patterns" title="Link to this heading"></a></h2>
+<p>Every provisioning route (except <code class="docutils literal notranslate"><span class="pre">/overlay-file/</span></code> and <code class="docutils literal notranslate"><span class="pre">/status</span></code>) supports
+six equivalent URL patterns for specifying the node identity:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/{stage}/{wwid}           # wwid in path
+/{stage}?wwid={wwid}      # wwid as query parameter
+/{stage}                  # wwid resolved from ARP cache
+
+/provision/{wwid}?stage={stage}
+/provision?wwid={wwid}&amp;stage={stage}
+/provision?stage={stage}  # wwid resolved from ARP cache
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">/efiboot/</span></code> route is an exception: the path segment contains the boot
+file name rather than a wwid, and the node is identified via <code class="docutils literal notranslate"><span class="pre">?wwid=</span></code> or ARP:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/efiboot/{file}                    # file in path, wwid from ARP
+/efiboot/{file}?wwid={wwid}        # file in path, explicit wwid
+/efiboot?wwid={wwid}&amp;file={file}   # both as query parameters
+</pre></div>
+</div>
+</section>
+<section id="common-query-parameters">
+<h2>Common Query Parameters<a class="headerlink" href="#common-query-parameters" title="Link to this heading"></a></h2>
+<p>Most provisioning routes accept the following query parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">wwid</span></code>: Warewulf ID of the node, typically its default MAC address. Used
+when the node identity is not embedded in the URL path. Takes priority over
+ARP lookup; the path always takes priority over the <code class="docutils literal notranslate"><span class="pre">wwid</span></code> query parameter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">assetkey</span></code>: Hardware asset tag. If the node has an <code class="docutils literal notranslate"><span class="pre">AssetKey</span></code> configured
+in <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code>, the server requires this parameter to match before serving
+any content. See <a class="reference internal" href="#server-routes-security"><span class="std std-ref">Security</span></a> below.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">uuid</span></code>: System UUID of the requesting node. Accepted for logging purposes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compress</span></code>: Compression format for the response. The only supported value
+is <code class="docutils literal notranslate"><span class="pre">gz</span></code>. When <code class="docutils literal notranslate"><span class="pre">compress=gz</span></code> is specified, the server serves a pre-built
+gzip-compressed version of the file. If no compressed version exists, the
+server returns <code class="docutils literal notranslate"><span class="pre">404</span> <span class="pre">Not</span> <span class="pre">Found</span></code>.</p></li>
+</ul>
+</section>
+<section id="provisioning-routes">
+<h2>Provisioning Routes<a class="headerlink" href="#provisioning-routes" title="Link to this heading"></a></h2>
+<section id="ipxe-wwid">
+<h3><code class="docutils literal notranslate"><span class="pre">/ipxe/{wwid}</span></code><a class="headerlink" href="#ipxe-wwid" title="Link to this heading"></a></h3>
+<p>Serves a rendered iPXE boot script for the node identified by <code class="docutils literal notranslate"><span class="pre">{wwid}</span></code>.</p>
+<p>The script is rendered as a Go template from a file in
+<code class="docutils literal notranslate"><span class="pre">/etc/warewulf/ipxe/</span></code>. The specific template used is determined by the
+node’s <code class="docutils literal notranslate"><span class="pre">Ipxe</span></code> field (defaulting to <code class="docutils literal notranslate"><span class="pre">default</span></code>); for example, a node with
+<code class="docutils literal notranslate"><span class="pre">Ipxe:</span> <span class="pre">dracut</span></code> receives the template from
+<code class="docutils literal notranslate"><span class="pre">/etc/warewulf/ipxe/dracut.ipxe</span></code>.</p>
+<p>If the requesting node is not known to Warewulf, the server falls back to
+serving <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/ipxe/unconfigured.ipxe</span></code>.</p>
+<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code></p>
+</section>
+<section id="kernel-wwid">
+<h3><code class="docutils literal notranslate"><span class="pre">/kernel/{wwid}</span></code><a class="headerlink" href="#kernel-wwid" title="Link to this heading"></a></h3>
+<p>Serves the raw kernel binary for the node identified by <code class="docutils literal notranslate"><span class="pre">{wwid}</span></code>. The
+kernel is taken from the node’s assigned image.</p>
+<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">compress</span></code></p>
+</section>
+<section id="image-wwid">
+<h3><code class="docutils literal notranslate"><span class="pre">/image/{wwid}</span></code><a class="headerlink" href="#image-wwid" title="Link to this heading"></a></h3>
+<p>Serves the raw node image file for the node identified by <code class="docutils literal notranslate"><span class="pre">{wwid}</span></code>.</p>
+<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">compress</span></code></p>
+</section>
+<section id="initramfs-wwid">
+<h3><code class="docutils literal notranslate"><span class="pre">/initramfs/{wwid}</span></code><a class="headerlink" href="#initramfs-wwid" title="Link to this heading"></a></h3>
+<p>Serves the initramfs binary for the node identified by <code class="docutils literal notranslate"><span class="pre">{wwid}</span></code>. The
+initramfs is extracted from the node’s assigned image based on the node’s
+kernel version. This route is used in two-stage boot configurations. See
+<a class="reference internal" href="bootloaders.html#booting-with-dracut"><span class="std std-ref">Two-stage boot: dracut</span></a> for details.</p>
+<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">compress</span></code></p>
+</section>
+<section id="system-wwid">
+<h3><code class="docutils literal notranslate"><span class="pre">/system/{wwid}</span></code><a class="headerlink" href="#system-wwid" title="Link to this heading"></a></h3>
+<p>Serves the system overlay image for the node identified by <code class="docutils literal notranslate"><span class="pre">{wwid}</span></code>.
+The system overlay is rendered at provisioning time and contains
+configuration files that are static for the lifetime of the boot.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">autobuild</span> <span class="pre">overlays</span></code> is enabled in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>, the server
+will automatically rebuild the overlay if it is out of date relative to
+<code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> or the overlay source files.</p>
+<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">compress</span></code>, <code class="docutils literal notranslate"><span class="pre">overlay</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">overlay</span></code>: A comma-separated list of overlay names. When specified, only
+the named overlays are served (rather than the node’s full system overlay
+set).</p></li>
+</ul>
+</section>
+<section id="runtime-wwid">
+<h3><code class="docutils literal notranslate"><span class="pre">/runtime/{wwid}</span></code><a class="headerlink" href="#runtime-wwid" title="Link to this heading"></a></h3>
+<p>Serves the runtime overlay image for the node identified by <code class="docutils literal notranslate"><span class="pre">{wwid}</span></code>.
+The runtime overlay is rendered on demand and may contain node-specific
+secrets. <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> fetches the runtime overlay periodically during normal
+operation.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">warewulf:secure</span></code> is enabled in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>, this route requires
+that the request originate from a privileged TCP port (port number less than
+1024). This prevents unprivileged users on a node from retrieving the runtime
+overlay.</p>
+<p>When TLS is enabled in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>, this route requires that the request
+arrive over HTTPS. Plain-HTTP requests are rejected with <code class="docutils literal notranslate"><span class="pre">403</span> <span class="pre">Forbidden</span></code>. The
+HTTPS listener port is configured with <code class="docutils literal notranslate"><span class="pre">warewulf:tls</span> <span class="pre">port</span></code>.</p>
+<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">compress</span></code>, <code class="docutils literal notranslate"><span class="pre">overlay</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">overlay</span></code>: A comma-separated list of overlay names. Same behavior as for
+<code class="docutils literal notranslate"><span class="pre">/system/</span></code>.</p></li>
+</ul>
+</section>
+<section id="overlay-file-overlay-path">
+<h3><code class="docutils literal notranslate"><span class="pre">/overlay-file/{overlay}/{path}</span></code><a class="headerlink" href="#overlay-file-overlay-path" title="Link to this heading"></a></h3>
+<p>Provides direct access to an individual file within a named overlay. This
+route uses a different URL structure than the other provisioning routes: the
+overlay name is in the second path segment, and the file path within the overlay
+follows.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">render</span></code> parameter is provided, the file is rendered as a Go template
+for the specified node and the rendered content is returned. If <code class="docutils literal notranslate"><span class="pre">render</span></code> is
+absent, the raw file bytes are returned without any template processing.</p>
+<p>If the requested path does not end in <code class="docutils literal notranslate"><span class="pre">.ww</span></code> but a <code class="docutils literal notranslate"><span class="pre">.ww</span></code>-suffixed version of
+the file exists, and a <code class="docutils literal notranslate"><span class="pre">render</span></code> node is specified, the server automatically
+serves the <code class="docutils literal notranslate"><span class="pre">.ww</span></code> template.</p>
+<p><strong>Query parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">render</span></code>: Node ID to render the template for. If not specified, the raw
+file is returned.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This route does not require authentication via <code class="docutils literal notranslate"><span class="pre">assetkey</span></code> and does not
+perform node lookup by hardware address.</p>
+</div>
+</section>
+<section id="efiboot-file">
+<h3><code class="docutils literal notranslate"><span class="pre">/efiboot/{file}</span></code><a class="headerlink" href="#efiboot-file" title="Link to this heading"></a></h3>
+<p>Serves EFI boot files for GRUB-based booting. The requesting node is
+identified by <code class="docutils literal notranslate"><span class="pre">?wwid=</span></code> (preferred) or, if not supplied, by an ARP lookup
+of the client’s IP address against the kernel’s ARP cache (<code class="docutils literal notranslate"><span class="pre">/proc/net/arp</span></code>).
+This route is intended for EFI HTTP Boot clients, where the firmware fetches
+a boot URI from DHCP and cannot perform variable substitution.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">{file}</span></code> component determines what is served:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">shim.efi</span></code>: Serves the <code class="docutils literal notranslate"><span class="pre">shim.efi</span></code> binary extracted from the node’s
+assigned image.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">grub.efi</span></code> (or <code class="docutils literal notranslate"><span class="pre">grubx64.efi</span></code>, <code class="docutils literal notranslate"><span class="pre">grubaa64.efi</span></code>, <code class="docutils literal notranslate"><span class="pre">grubia32.efi</span></code>,
+<code class="docutils literal notranslate"><span class="pre">grubarm.efi</span></code>, <code class="docutils literal notranslate"><span class="pre">grub-tpm.efi</span></code>): Serves the GRUB EFI binary extracted
+from the node’s assigned image.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">grub.cfg</span></code>: Serves a rendered GRUB configuration file from
+<code class="docutils literal notranslate"><span class="pre">/etc/warewulf/grub/grub.cfg.ww</span></code>. The configuration is rendered as a Go
+template for the identified node.</p></li>
+</ul>
+<p>Because <code class="docutils literal notranslate"><span class="pre">shim.efi</span></code> resolves subsequent files relative to its own load URL,
+GRUB and <code class="docutils literal notranslate"><span class="pre">grub.cfg</span></code> are also fetched from the <code class="docutils literal notranslate"><span class="pre">/efiboot/</span></code> path. The
+<code class="docutils literal notranslate"><span class="pre">grub.cfg</span></code> served by this route uses <code class="docutils literal notranslate"><span class="pre">${net_default_mac}</span></code> to embed the
+node’s wwid in all further provisioning URLs, directing subsequent requests
+to the per-node <code class="docutils literal notranslate"><span class="pre">/grub/{wwid}</span></code> route.</p>
+<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">wwid</span></code>, <code class="docutils literal notranslate"><span class="pre">file</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: The EFI file to serve (<code class="docutils literal notranslate"><span class="pre">shim.efi</span></code>, <code class="docutils literal notranslate"><span class="pre">grub.efi</span></code>, or <code class="docutils literal notranslate"><span class="pre">grub.cfg</span></code>).
+Used when the file name is not embedded in the URL path.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">/efiboot/</span></code> is the recommended route for EFI HTTP Boot clients. For
+TFTP-booted GRUB clients that know their own wwid, use
+<code class="docutils literal notranslate"><span class="pre">/grub/{wwid}</span></code> to fetch the per-node GRUB configuration directly.</p>
+</div>
+</section>
+<section id="grub-wwid">
+<h3><code class="docutils literal notranslate"><span class="pre">/grub/{wwid}</span></code><a class="headerlink" href="#grub-wwid" title="Link to this heading"></a></h3>
+<p>Serves a rendered GRUB configuration file for the node identified by
+<code class="docutils literal notranslate"><span class="pre">{wwid}</span></code>. The configuration is rendered from
+<code class="docutils literal notranslate"><span class="pre">/etc/warewulf/grub/grub.cfg.ww</span></code> as a Go template. This route is the
+preferred method for TFTP-booted GRUB clients to fetch their per-node
+configuration, as the node identity is explicit in the URL rather than
+resolved via ARP.</p>
+<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">wwid</span></code></p>
+</section>
+<section id="provision-wwid">
+<h3><code class="docutils literal notranslate"><span class="pre">/provision/{wwid}</span></code><a class="headerlink" href="#provision-wwid" title="Link to this heading"></a></h3>
+<p>A legacy dispatcher route. The provisioning stage is determined by the
+<code class="docutils literal notranslate"><span class="pre">stage</span></code> query parameter, which is dispatched to the appropriate handler:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">stage=ipxe</span></code> → <code class="docutils literal notranslate"><span class="pre">/ipxe/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stage=kernel</span></code> → <code class="docutils literal notranslate"><span class="pre">/kernel/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stage=image</span></code> → <code class="docutils literal notranslate"><span class="pre">/image/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stage=initramfs</span></code> → <code class="docutils literal notranslate"><span class="pre">/initramfs/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stage=system</span></code> → <code class="docutils literal notranslate"><span class="pre">/system/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stage=runtime</span></code> → <code class="docutils literal notranslate"><span class="pre">/runtime/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stage=grub</span></code> → <code class="docutils literal notranslate"><span class="pre">/grub/</span></code></p></li>
+</ul>
+<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">stage</span></code> (required), <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">compress</span></code>,
+<code class="docutils literal notranslate"><span class="pre">overlay</span></code></p>
+</section>
+</section>
+<section id="status-route">
+<h2>Status Route<a class="headerlink" href="#status-route" title="Link to this heading"></a></h2>
+<section id="status">
+<h3><code class="docutils literal notranslate"><span class="pre">/status</span></code><a class="headerlink" href="#status" title="Link to this heading"></a></h3>
+<p>Returns a JSON object containing the last-known provisioning status for all
+nodes that have contacted the server. No authentication is required.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{
+  &quot;nodes&quot;: {
+    &quot;node01&quot;: {
+      &quot;node name&quot;: &quot;node01&quot;,
+      &quot;stage&quot;: &quot;RUNTIME_OVERLAY&quot;,
+      &quot;sent&quot;: &quot;2 kB&quot;,
+      &quot;ipaddr&quot;: &quot;10.0.1.1&quot;,
+      &quot;last seen&quot;: 1712345678
+    }
+  }
+}
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">stage</span></code> field reflects the most recent provisioning stage completed for
+the node. Possible values include <code class="docutils literal notranslate"><span class="pre">IPXE</span></code>, <code class="docutils literal notranslate"><span class="pre">KERNEL</span></code>, <code class="docutils literal notranslate"><span class="pre">IMAGE</span></code>,
+<code class="docutils literal notranslate"><span class="pre">INITRAMFS</span></code>, <code class="docutils literal notranslate"><span class="pre">SYSTEM_OVERLAY</span></code>, <code class="docutils literal notranslate"><span class="pre">RUNTIME_OVERLAY</span></code>, and <code class="docutils literal notranslate"><span class="pre">EFI</span></code>.</p>
+</section>
+</section>
+<section id="rest-api">
+<h2>REST API<a class="headerlink" href="#rest-api" title="Link to this heading"></a></h2>
+<p>When enabled in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>, <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> exposes a REST API under
+<code class="docutils literal notranslate"><span class="pre">/api/</span></code>. The API provides programmatic access to nodes, profiles, images,
+and overlays. Interactive documentation is available at <code class="docutils literal notranslate"><span class="pre">/api/docs</span></code>.</p>
+<p>When TLS is enabled, access to the REST API can additionally be restricted to
+HTTPS-only requests by setting <code class="docutils literal notranslate"><span class="pre">api:</span> <span class="pre">tls:</span> <span class="pre">true</span></code> in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>.</p>
+<p>See <a class="reference internal" href="api.html#rest-api"><span class="std std-ref">REST API</span></a> for full details.</p>
+</section>
+<section id="security">
+<span id="server-routes-security"></span><h2>Security<a class="headerlink" href="#security" title="Link to this heading"></a></h2>
+<p>Several mechanisms are available to restrict access to provisioning routes.</p>
+<section id="asset-key-validation">
+<h3>Asset key validation<a class="headerlink" href="#asset-key-validation" title="Link to this heading"></a></h3>
+<p>If a node is configured with an <code class="docutils literal notranslate"><span class="pre">AssetKey</span></code> in <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code>, the Warewulf
+server will only respond to provisioning requests that include a matching
+<code class="docutils literal notranslate"><span class="pre">?assetkey=</span></code> query parameter. Requests with a missing or incorrect asset key
+receive <code class="docutils literal notranslate"><span class="pre">401</span> <span class="pre">Unauthorized</span></code>. The asset key is typically a hardware-level
+firmware string (an “asset tag”) that is accessible only with root or physical
+access.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>node01<span class="w"> </span>--assetkey<span class="w"> </span><span class="s2">&quot;SYSTEM-ASSET-TAG&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="secure-mode">
+<h3>Secure mode<a class="headerlink" href="#secure-mode" title="Link to this heading"></a></h3>
+<p>When <code class="docutils literal notranslate"><span class="pre">warewulf:secure</span></code> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code> in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>, the
+<code class="docutils literal notranslate"><span class="pre">/runtime/</span></code> route requires that requests originate from a privileged
+TCP source port (port number less than 1024). Because only processes running as
+<code class="docutils literal notranslate"><span class="pre">root</span></code> can bind to privileged ports, this prevents unprivileged users on a
+cluster node from downloading the runtime overlay.</p>
+</section>
+<section id="tls">
+<h3>TLS<a class="headerlink" href="#tls" title="Link to this heading"></a></h3>
+<p>When TLS is enabled in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>, the <code class="docutils literal notranslate"><span class="pre">/runtime/</span></code> route
+rejects plain-HTTP requests with <code class="docutils literal notranslate"><span class="pre">403</span> <span class="pre">Forbidden</span></code>. Runtime overlays must be
+fetched over HTTPS. Because iPXE and GRUB cannot handle HTTPS, the kernel,
+image, and system overlay continue to be served over plain HTTP even when TLS
+is enabled.</p>
+<p>See <span class="xref std std-ref">Security</span> for instructions on enabling TLS and
+generating certificates.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Server Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dnsmasq.html" class="btn btn-neutral float-right" title="Using dnsmasq" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

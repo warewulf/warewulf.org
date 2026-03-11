@@ -1,0 +1,41 @@
+.. _wwctl_configure_tls:
+
+wwctl configure tls
+-------------------
+
+Manage and initialize x509 keys
+
+Synopsis
+~~~~~~~~
+
+
+This application allows you to manage the x509 keys and certificates for Warewulf.
+
+::
+
+  wwctl configure tls [OPTIONS]
+
+Options
+~~~~~~~
+
+::
+
+      --export string   Export keys to directory
+  -f, --force           Enforce creation of keys even if they exist
+  -h, --help            help for tls
+      --import string   Import keys from directory
+
+Options inherited from parent commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  -d, --debug                 Run with debugging messages enabled.
+  -v, --verbose               Run with increased verbosity.
+      --warewulfconf string   Set the warewulf configuration file
+
+SEE ALSO
+~~~~~~~~
+
+* :ref:`wwctl configure <wwctl_configure>` 	 - Manage system services
+
