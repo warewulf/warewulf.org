@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Server Installation" href="../server/installation.html" />
+    <link rel="next" title="Quick Reference" href="quick-reference.html" />
     <link rel="prev" title="Debian Quickstart" href="debian-quickstart.html" /> 
 </head>
 
@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -77,7 +79,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -213,14 +215,9 @@ communication between cluster nodes and the Warewulf server.</p>
 </dd>
 <dt>External services</dt><dd><p>The Warewulf server can configure external services to support the
 provisioning process. For example, the Warewulf server typically deploys and
-configures a DHCP server (either ISC DHCP or dnsqmasq) and a TFTP server.</p>
+configures a DHCP server (either ISC DHCP or dnsmasq) and a TFTP server.</p>
 </dd>
-<dt>Image</dt><dd><p>The node images that Warewulf manages and provisions. Images may be imported
-from OCI image registries, OCI image archives, Apptainer sandboxes, and
-manual chroot directories.</p>
-<p>Warewulf images are maintained as an uncompressed “virtual node file system”
-(VNFS, sometimes also referred to as a “chroot”). These virtual file systems
-are then built as single-file images which may be used to provision a node.</p>
+<dt>Image</dt><dd><p>See “Operating System (OS) Image” or “Overlay Image.”</p>
 </dd>
 <dt>Kernel</dt><dd><p>In addition to an image, Warewulf also requires a kernel (typically a Linux
 kernel) in order to provision a node.</p>
@@ -239,6 +236,12 @@ name.</p>
 <p>This file is sometimes referred to as the “nodes database” or “node
 registry.”</p>
 </dd>
+<dt>Operating System (OS) Image</dt><dd><p>An operating system image (or OS image) contains a bootable operating
+system. When provisioning a cluster node, Warewulf combines the OS image
+with the node’s overlay images to provision the complete, configured image.</p>
+<p>OS images may be imported from OCI image registries, OCI image archives,
+Apptainer sandboxes, and manual chroot directories.</p>
+</dd>
 <dt>Overlay</dt><dd><p>Warewulf overlays provide customization for the provisioned image. Overlays
 may be configured on nodes or profiles, as either <strong>system</strong> or <strong>runtime</strong>
 overlays.</p>
@@ -248,6 +251,13 @@ periodically during the runtime of the node. (The default period is 1
 minute.)</p>
 <p>Warewulf includes a number of <strong>distribution overlays</strong>; but additional
 <strong>site overlays</strong> can be added to a Warewulf environment.</p>
+</dd>
+<dt>Overlay Image</dt><dd><p>An overlay image contains the rendered contents of multiple overlays for a
+given cluster node. Nodes have a “system overlay” image and a “runtime
+overlay” image, based on the system and runtime overlays associated with each
+node.</p>
+<p>Overlay images are not managed directly, but are built by the <code class="docutils literal notranslate"><span class="pre">wwctl</span>
+<span class="pre">overlay</span> <span class="pre">build</span></code> command.</p>
 </dd>
 <dt>Profile</dt><dd><p>Warewulf profiles are abstract nodes that carry the same configuration
 attributes but do not provision any specific node. Warewulf nodes may then
@@ -294,7 +304,7 @@ the same name.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="debian-quickstart.html" class="btn btn-neutral float-left" title="Debian Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../server/installation.html" class="btn btn-neutral float-right" title="Server Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="quick-reference.html" class="btn btn-neutral float-right" title="Quick Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

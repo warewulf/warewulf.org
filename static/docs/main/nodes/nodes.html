@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -92,7 +94,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -227,8 +229,8 @@ as the “node registry” or “node database”). Editing this file directly i
 supported; but it is often better to manage it using the <code class="docutils literal notranslate"><span class="pre">wwctl</span></code> command.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> file is YAML document that can be edited directly or
-managed with configuation management; but its internal structure is
+<p>The <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> file is a YAML document that can be edited directly or
+managed with configuration management; but its internal structure is
 technically undocumented and subject to change between versions. After
 Warewulf v4.6.0, the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">upgrade</span> <span class="pre">nodes</span></code> command can be used to update a
 <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> from a previous Warewulf v4 version.</p>
@@ -302,7 +304,7 @@ available fields is available with <code class="docutils literal notranslate"><s
 <span class="pre">edit</span></code>.</p>
 <section id="list-values">
 <h3>List values<a class="headerlink" href="#list-values" title="Link to this heading"></a></h3>
-<p>Some node fields, such as overlays and kernel aruments, accept a list of values.
+<p>Some node fields, such as overlays and kernel arguments, accept a list of values.
 These may be specified as a comma-separated list or as multiple arguments.</p>
 <p>To include an explicit comma in the value, enclose the value in inner-quotes.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
@@ -313,7 +315,8 @@ These may be specified as a comma-separated list or as multiple arguments.</p>
 </section>
 <section id="un-setting-node-fields">
 <h3>Un-setting Node Fields<a class="headerlink" href="#un-setting-node-fields" title="Link to this heading"></a></h3>
-<p>To un-set a field value, set the value to <code class="docutils literal notranslate"><span class="pre">UNDEF</span></code>.</p>
+<p>To un-set a field value, set the value to <code class="docutils literal notranslate"><span class="pre">UNDEF</span></code> or <code class="docutils literal notranslate"><span class="pre">UNSET</span></code> (both are
+accepted).</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--image<span class="o">=</span>UNDEF
 </pre></div>

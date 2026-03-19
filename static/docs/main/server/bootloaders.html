@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul class="current">
@@ -96,7 +98,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -235,7 +237,7 @@ two-stage boot.</p>
 <h2>Booting with iPXE<a class="headerlink" href="#booting-with-ipxe" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/ipxe/</span></code> directory contains <em>text/templates</em> that are used by
 the Warewulf configuration process to configure the <code class="docutils literal notranslate"><span class="pre">ipxe</span></code> service.</p>
-<div class="graphviz"><img src="../_images/graphviz-41bb6aa9b74dea40d7891089af5deaae878aad9b.png" alt="digraph G{
+<div class="graphviz"><img src="../_images/graphviz-292c2876a7a574733328b1c0be3157e4f2d17908.png" alt="digraph G{
     node [shape=box];
     compound=true;
     edge [label2node=true]
@@ -250,10 +252,10 @@ the Warewulf configuration process to configure the <code class="docutils litera
 
     bios-&gt;iPXE [lhead=cluster0,label=&quot;iPXE.efi&quot;];
 
-    kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from node image&quot;];
+    kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from OS image&quot;];
     ipxe_cfg-&gt;kernel[ltail=cluster0,label=&quot;http&quot;];
 }" class="graphviz" /></div>
-<p>Starting in v4.5.0, Warewulf no longer includes an iPXE binary. In stead, by
+<p>Starting in v4.5.0, Warewulf no longer includes an iPXE binary. Instead, by
 default Warewulf uses the iPXE that comes with the host OS.</p>
 <p>Unfortunately, we’ve encountered a few instances where bugs in the OS-provided
 iPXE that sometimes make booting a full OS image as an “initrd” unreliable.</p>
@@ -396,7 +398,7 @@ use <code class="docutils literal notranslate"><span class="pre">wwctl</span> <s
 <h2>Booting with GRUB<a class="headerlink" href="#booting-with-grub" title="Link to this heading"></a></h2>
 <p>Support for GRUB as a network bootloader (replacing iPXE) is available in
 Warewulf as a technology preview.</p>
-<div class="graphviz"><img src="../_images/graphviz-d3bc96637f80094170d40d698b2f6939f52fb523.png" alt="digraph G{
+<div class="graphviz"><img src="../_images/graphviz-910d6af15a0ce31d51b37dcbfd16a1047b6cd034.png" alt="digraph G{
     node [shape=box];
     compound=true;
     edge [label2node=true]
@@ -411,14 +413,14 @@ Warewulf as a technology preview.</p>
       grubcfg[shape=record label=&quot;{grub.cfg|static under TFTP root}&quot;];
       grub-&gt;grubcfg[label=&quot;TFTP&quot;];
     }
-    kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from node image&quot;];
+    kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from OS image&quot;];
     grubcfg-&gt;kernel[ltail=cluster1,label=&quot;http&quot;];
 }" class="graphviz" /></div>
 <p>Instead of the iPXE starter a combination of <a class="reference external" href="https://www.suse.com/c/uefi-secure-boot-details/">shim and GRUB</a> can be used with the
 advantage that secure boot can be used. That means that only the signed kernel
 of a distribution can be booted. This can be a huge security benefit for some
 scenarios.</p>
-<p>In order to enable the grub boot method it has to be enabled in <cite>warewulf.conf</cite>.</p>
+<p>In order to enable the grub boot method it has to be enabled in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">warewulf</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">grubboot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
@@ -442,13 +444,13 @@ Warewulf server host.</p>
 <p>If secure boot is enabled at every step a signature is checked and the boot
 process fails if this check fails. The shim typically only includes the key for
 a single operating system, which means that each distribution needs separate
-<cite>shim</cite> and <cite>grub</cite> executables. Warewulf extracts these binaries from the images.
+<code class="docutils literal notranslate"><span class="pre">shim</span></code> and <code class="docutils literal notranslate"><span class="pre">grub</span></code> executables. Warewulf extracts these binaries from the images.
 If the node is unknown to Warewulf or can’t be identified during the TFTP boot
 phase, the shim/grub binaries of the host in which Warewulf is running are used.</p>
 </section>
 <section id="install-shim-and-efi">
 <h3>Install shim and efi<a class="headerlink" href="#install-shim-and-efi" title="Link to this heading"></a></h3>
-<p><cite>shim.efi</cite> and <cite>grub.efi</cite> must be installed in the image for it to be
+<p><code class="docutils literal notranslate"><span class="pre">shim.efi</span></code> and <code class="docutils literal notranslate"><span class="pre">grub.efi</span></code> must be installed in the image for it to be
 booted by GRUB.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>shell<span class="w"> </span>leap15.5
 <span class="go">[leap15.5] Warewulf&gt; zypper install grub2 shim</span>
@@ -464,24 +466,24 @@ node discovery using GRUB.</p>
 <h3>HTTP boot<a class="headerlink" href="#http-boot" title="Link to this heading"></a></h3>
 <p>Modern EFI systems have the possibility to directly boot per http. The flow
 diagram is the following:</p>
-<div class="graphviz"><img src="../_images/graphviz-09e0ae3f208d2788d2f9e878ef8e055f441040df.png" alt="digraph G{
+<div class="graphviz"><img src="../_images/graphviz-87db61ce4ce3d0df3d1e943f16370ac1130d32b7.png" alt="digraph G{
     node [shape=box];
     efi [shape=record label=&quot;{EFI|boots from URI defined in filename}&quot;];
-    shim [shape=record label=&quot;{shim.efi|replaces shim.efi with grubx64.efi in URI|extracted from node image}&quot;];
-    grub [shape=record label=&quot;{grub.efi|checks for grub.cfg|extracted from node image}&quot;]
-    kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from node image&quot;];
+    shim [shape=record label=&quot;{shim.efi|replaces shim.efi with grubx64.efi in URI|extracted from OS image}&quot;];
+    grub [shape=record label=&quot;{grub.efi|checks for grub.cfg|extracted from OS image}&quot;]
+    kernel [shape=record label=&quot;{kernel|ramdisk (root fs)|wwinit overlay}|extracted from OS image&quot;];
     efi-&gt;shim [label=&quot;http&quot;];
     shim-&gt;grub [label=&quot;http&quot;];
     grub-&gt;kernel [label=&quot;http&quot;];
   }" class="graphviz" /></div>
-<p>Warewulf delivers the initial <cite>shim.efi</cite> and <cite>grub.efi</cite> via http as taken
+<p>Warewulf delivers the initial <code class="docutils literal notranslate"><span class="pre">shim.efi</span></code> and <code class="docutils literal notranslate"><span class="pre">grub.efi</span></code> via http as taken
 directly from the node’s assigned image.</p>
 </section>
 </section>
 <section id="two-stage-boot-dracut">
 <span id="booting-with-dracut"></span><h2>Two-stage boot: dracut<a class="headerlink" href="#two-stage-boot-dracut" title="Link to this heading"></a></h2>
 <p>Some systems, typically due to limitations in their BIOS or EFI firmware, are
-unable to load image of a certain size directly with a traditional bootloader,
+unable to load an image of a certain size directly with a traditional bootloader,
 either iPXE or GRUB. As a workaround for such systems, Warewulf can be
 configured to load a dracut initramfs from the image and to use that initramfs
 to load the full image.</p>
@@ -541,7 +543,7 @@ image is loaded by iPXE (or GRUB) which directs dracut to fetch the node’s ima
 during boot.</p>
 <p>The wwinit module provisions to tmpfs. By default, tmpfs is permitted to use up
 to 50% of physical memory. This size limit may be adjusted using the kernel
-argument <cite>wwinit.tmpfs.size</cite>. (This parameter is passed to the <cite>size</cite> option
+argument <code class="docutils literal notranslate"><span class="pre">wwinit.tmpfs.size</span></code>. (This parameter is passed to the <code class="docutils literal notranslate"><span class="pre">size</span></code> option
 during tmpfs mount. See <code class="docutils literal notranslate"><span class="pre">tmpfs(5)</span></code> for more details.)</p>
 </section>
 </section>

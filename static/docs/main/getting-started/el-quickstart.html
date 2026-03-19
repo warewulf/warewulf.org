@@ -59,7 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#configure-warewulf">Configure Warewulf</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#enable-and-start-the-warewulf-service">Enable and start the Warewulf service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-system-services-automatically">Configure system services automatically</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#add-a-base-node-image">Add a base node image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-an-os-image">Add an OS image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-the-default-node-profile">Configure the default node profile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#add-a-node">Add a node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#build-overlays">Build overlays</a></li>
@@ -69,6 +69,8 @@
 <li class="toctree-l1"><a class="reference internal" href="suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -92,7 +94,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -227,7 +229,7 @@ distributions.</p>
 <section id="install-warewulf">
 <h2>Install Warewulf<a class="headerlink" href="#install-warewulf" title="Link to this heading"></a></h2>
 <p>The preferred way to install Warewulf on Enterprise Linux is using the
-the RPMs published in <a class="reference external" href="https://github.com/warewulf/warewulf/releases">GitHub releases</a>. For example, to install the
+RPMs published in <a class="reference external" href="https://github.com/warewulf/warewulf/releases">GitHub releases</a>. For example, to install the
 v4.6.5 release on Enterprise Linux 9:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>https://github.com/warewulf/warewulf/releases/download/v4.6.5/warewulf-4.6.5-1.el9.x86_64.rpm
 </pre></div>
@@ -355,12 +357,12 @@ on to operate. You can configure all such services with <code class="docutils li
 <p class="admonition-title">Note</p>
 <p>If you just installed the system fresh and have SELinux enforcing,
 you may need to run <code class="docutils literal notranslate"><span class="pre">restorecon</span> <span class="pre">-Rv</span> <span class="pre">/var/lib/tftpboot/</span></code> to label
-files written to q`tftpboot``.</p>
+files written to <code class="docutils literal notranslate"><span class="pre">tftpboot</span></code>.</p>
 </div>
 </section>
-<section id="add-a-base-node-image">
-<h2>Add a base node image<a class="headerlink" href="#add-a-base-node-image" title="Link to this heading"></a></h2>
-<p>This will pull a basic node image from Docker Hub
+<section id="add-an-os-image">
+<h2>Add an OS image<a class="headerlink" href="#add-an-os-image" title="Link to this heading"></a></h2>
+<p>This will pull a basic OS image from Docker Hub
 and set it for the “default” node profile.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:9<span class="w"> </span>rockylinux-9<span class="w"> </span>--build
 wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--image<span class="w"> </span>rockylinux-9

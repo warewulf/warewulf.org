@@ -13,7 +13,7 @@ This command exports the given nodes as yaml to stdout.
 
 ::
 
-  wwctl node export  NODENAME
+  wwctl node export NODENAME
 
 Options
 ~~~~~~~

@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -77,7 +79,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -244,7 +246,7 @@ used in <code class="docutils literal notranslate"><span class="pre">nodes.conf<
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">import</span> <span class="pre">--overwrite</span></code> overwrites existing overlay files during
 import.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">import</span> <span class="pre">--yes</span></code> skips the interactive confirmaton dialog and
+<li><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">import</span> <span class="pre">--yes</span></code> skips the interactive confirmation dialog and
 assumes a “yes” answer.</p></li>
 </ul>
 </section>
@@ -285,7 +287,7 @@ settings caused surprising deficiencies in some cases; and, in others
 default template is set, <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> looks for a template named “default”.</p></li>
 <li><p>If no init is specified, <code class="docutils literal notranslate"><span class="pre">wwinit</span></code> now looks for <code class="docutils literal notranslate"><span class="pre">/sbin/init</span></code>,
 <code class="docutils literal notranslate"><span class="pre">/etc/init</span></code>, and <code class="docutils literal notranslate"><span class="pre">/bin/init</span></code>.</p></li>
-<li><p><cite>wwctl upgrade nodes –replace-overlays</cite> now avoids adding the same overlay
+<li><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">upgrade</span> <span class="pre">nodes</span> <span class="pre">--replace-overlays</span></code> now avoids adding the same overlay
 multiple times to the same node or profile.</p></li>
 <li><p>If, during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">build</span></code>, a node has an empty system or runtime
 overlay, a warning is printed.</p></li>

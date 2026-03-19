@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -77,7 +79,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="syncuser.html">Syncuser</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">SELinux</a></li>
@@ -208,8 +210,8 @@
   <section id="selinux-enabled-images">
 <span id="selinux-images"></span><h1>SELinux-enabled Images<a class="headerlink" href="#selinux-enabled-images" title="Link to this heading"></a></h1>
 <p>Warewulf supports booting SELinux-enabled images, though nodes using SELinux
-must be configured to use tmpfs for their image file system. (“ramfs,” often
-used by default, does not support extended file attributes, which are required
+must be configured to use tmpfs for their image file system. (The default
+<code class="docutils literal notranslate"><span class="pre">initramfs</span></code> root does not support extended file attributes, which are required
 for SELinux context labeling.)</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--root<span class="w"> </span>tmpfs
 </pre></div>
@@ -217,14 +219,14 @@ for SELinux context labeling.)</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Versions of Warewulf prior to v4.5.8 also required a kernel argument
-“rootfstype=ramfs” in order for wwinit to copy the node image to tmpfs; but
-this is no longer required.</p>
+“rootfstype=ramfs” in order for wwinit to copy the image to tmpfs; but this
+is no longer required.</p>
 </div>
 <p>Once that is done, enable SELinux in <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/selinux</span></code> and install the
 appropriate packages in the image. <a class="reference external" href="https://github.com/warewulf/warewulf-node-images/tree/main/examples/rockylinux-9-selinux">An example</a> of such an image is available
 in the warewulf-node-images repository.</p>
 <p>SELinux requires extended attributes, which aren’t supported on a default
-<code class="docutils literal notranslate"><span class="pre">initrootfs</span></code>. Nodes using SELinux should specify <code class="docutils literal notranslate"><span class="pre">--root=tmpfs</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">initramfs</span></code> root. Nodes using SELinux should specify <code class="docutils literal notranslate"><span class="pre">--root=tmpfs</span></code>.</p>
 </section>
 
 

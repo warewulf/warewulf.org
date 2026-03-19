@@ -9,9 +9,7 @@ Synopsis
 ~~~~~~~~
 
 
-Starting with version 4, Warewulf uses images to build the bootable
-node images. These commands will help you import, manage, and transform
-images into bootable Warewulf images.
+Import, manage, and transform OS images as bootable Warewulf images.
 
 Options
 ~~~~~~~
@@ -43,5 +41,5 @@ SEE ALSO
 * :ref:`wwctl image rename <wwctl_image_rename>` 	 - Rename an existing image
 * :ref:`wwctl image shell <wwctl_image_shell>` 	 - Run a shell inside of a Warewulf image
 * :ref:`wwctl image show <wwctl_image_show>` 	 - Show root fs dir for image
-* :ref:`wwctl image syncuser <wwctl_image_syncuser>` 	 - Synchronizes user in image
+* :ref:`wwctl image syncuser <wwctl_image_syncuser>` 	 - Synchronize UIDs/GIDs from the server to an OS image
 

@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul class="current">
@@ -61,6 +63,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Controlling Warewulf (wwctl)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#hostlists">Hostlists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#node-status">Node status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#maintenance">Maintenance</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Server Configuration</a></li>
@@ -81,7 +84,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -217,10 +220,12 @@ functionality.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">configure</span></code>: configures the Warewulf server and its external services</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">node</span></code>: manages nodes in the cluster</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">profiles</span></code>: defines common sets of node configuration which can be applied
+<li><p><code class="docutils literal notranslate"><span class="pre">profile</span></code>: defines common sets of node configuration which can be applied
 to multiple nodes</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">image</span></code>: configures (node) images</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">overlays</span></code>: manages overlays</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">overlay</span></code>: manages overlays</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clean</span></code>: removes the OCI image cache and leftover overlay images from
+deleted nodes</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">wwctl</span></code> also provides additional helpers for interacting with cluster nodes
 over SSH and IPMI.</p>
@@ -232,7 +237,7 @@ over SSH and IPMI.</p>
 built-in help with either <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">help</span></code> or <code class="docutils literal notranslate"><span class="pre">--help</span></code>.</p>
 <section id="hostlists">
 <h2>Hostlists<a class="headerlink" href="#hostlists" title="Link to this heading"></a></h2>
-<p>Many of the commands (e.g., <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">list</span></code> support a “hostlist”
+<p>Many of the commands (e.g., <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">list</span></code>) support a “hostlist”
 syntax for referring to multiple nodes at once. Hostlist expressions
 support both ranges and comma-separated numerical lists.</p>
 <p>For example:</p>
@@ -252,15 +257,45 @@ through the following command :</p>
 <span class="go">n1                   RUNTIME_OVERLAY      __RUNTIME__.img.gz        16</span>
 </pre></div>
 </div>
-<p>For each node, there are 4 different stages:</p>
+<p>For each node, there are 7 different stages:</p>
 <ul class="simple">
+<li><p><strong>EFI</strong></p></li>
 <li><p><strong>IPXE</strong></p></li>
 <li><p><strong>KERNEL</strong></p></li>
+<li><p><strong>IMAGE</strong></p></li>
+<li><p><strong>INITRAMFS</strong></p></li>
 <li><p><strong>SYSTEM_OVERLAY</strong></p></li>
 <li><p><strong>RUNTIME_OVERLAY</strong></p></li>
 </ul>
 <p>You can use the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">status</span></code> to check communication between the
 Warewulf server (<code class="docutils literal notranslate"><span class="pre">warewulfd</span></code>) and the Warewulf client (<code class="docutils literal notranslate"><span class="pre">wwclient</span></code>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A provisioning workflow might not use every stage.</p>
+</div>
+</section>
+<section id="maintenance">
+<h2>Maintenance<a class="headerlink" href="#maintenance" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">clean</span></code> reclaims disk space by removing two categories of data that
+accumulate over time:</p>
+<ul class="simple">
+<li><p>The OCI blob cache, stored at <code class="docutils literal notranslate"><span class="pre">$cachedir/warewulf</span></code> (default:
+<code class="docutils literal notranslate"><span class="pre">/var/cache/warewulf</span></code>). This cache is populated during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span>
+<span class="pre">import</span></code> and speeds up subsequent imports of images that share layers. It
+is safe to remove: the next <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">import</span></code> will re-download any
+needed layers.</p></li>
+<li><p>Provisioned overlay images for nodes that have been deleted from the node
+database. These are stored under <code class="docutils literal notranslate"><span class="pre">$wwprovisiondir/overlays</span></code> and are no
+longer needed once the corresponding node is removed.</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>clean
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">clean</span></code> is particularly useful after deleting a large number of nodes,
+or when disk space is limited on the Warewulf server. Note that <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">clean</span></code>
+only removes the current cache location (<code class="docutils literal notranslate"><span class="pre">$cachedir/warewulf</span></code>); if you are
+upgrading from v4.5.x, the legacy cache at <code class="docutils literal notranslate"><span class="pre">$datastore/oci</span></code> must be removed
+manually (see <a class="reference internal" href="../troubleshooting/troubleshooting.html#oci-blob-cache"><span class="std std-ref">OCI Blob Cache</span></a>).</p>
 </section>
 </section>
 

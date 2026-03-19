@@ -77,7 +77,7 @@ Options
   -R, --runtime-overlays strings    Set the runtime overlay
   -O, --system-overlays strings     Set the system overlay
       --tagadd stringToString       add tags (default [])
-      --tagdel strings              add tags
+      --tagdel strings              delete tags
   -T, --type string                 Set device type of given network
   -y, --yes                         Set 'yes' to all questions asked
 

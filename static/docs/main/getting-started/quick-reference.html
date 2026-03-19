@@ -1,0 +1,466 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Reference &mdash; Warewulf User Guide main documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Feature Status" href="feature-status.html" />
+    <link rel="prev" title="Glossary" href="glossary.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioning.html">The Provisioning Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Network Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="el-quickstart.html">Enterprise Linux Quickstart (Rocky Linux, CentOS, and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debian-quickstart.html">Debian Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#important-paths">Important paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#server-management">Server management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#listing-nodes-and-profiles">Listing nodes and profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-a-node">Adding a node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network-interfaces">Network interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#images">Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ipmi">IPMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overlays">Overlays</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="feature-status.html">Feature Status</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Server</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../server/installation.html">Server Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/configuration.html">Server Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/routes.html">Server Routes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/dnsmasq.html">Using dnsmasq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/bootloaders.html">Bootloaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/upgrade.html">Upgrading Warewulf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/api.html">REST API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/nodes.html">Cluster Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/disks.html">Disks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Overlays</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/overlays.html">Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/templates.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/known-issues.html">Known issues</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment.html">Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Command Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl.html">wwctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_clean.html">wwctl clean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure.html">wwctl configure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_dhcp.html">wwctl configure dhcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_hostfile.html">wwctl configure hostfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_nfs.html">wwctl configure nfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_ssh.html">wwctl configure ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tftp.html">wwctl configure tftp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tls.html">wwctl configure tls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_warewulfd.html">wwctl configure warewulfd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image.html">wwctl image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_build.html">wwctl image build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_copy.html">wwctl image copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_delete.html">wwctl image delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_exec.html">wwctl image exec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_import.html">wwctl image import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_kernels.html">wwctl image kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_list.html">wwctl image list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_rename.html">wwctl image rename</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_shell.html">wwctl image shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_show.html">wwctl image show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_syncuser.html">wwctl image syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node.html">wwctl node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_add.html">wwctl node add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_console.html">wwctl node console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_delete.html">wwctl node delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_edit.html">wwctl node edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_export.html">wwctl node export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_import.html">wwctl node import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_list.html">wwctl node list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_sensors.html">wwctl node sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_set.html">wwctl node set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_status.html">wwctl node status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay.html">wwctl overlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_build.html">wwctl overlay build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chmod.html">wwctl overlay chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chown.html">wwctl overlay chown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_create.html">wwctl overlay create</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_delete.html">wwctl overlay delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_edit.html">wwctl overlay edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_info.html">wwctl overlay info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_list.html">wwctl overlay list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_show.html">wwctl overlay show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power.html">wwctl power</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_cycle.html">wwctl power cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_off.html">wwctl power off</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_on.html">wwctl power on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_reset.html">wwctl power reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_soft.html">wwctl power soft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_status.html">wwctl power status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile.html">wwctl profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_add.html">wwctl profile add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_delete.html">wwctl profile delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_edit.html">wwctl profile edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_list.html">wwctl profile list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_set.html">wwctl profile set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_server.html">wwctl server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_ssh.html">wwctl ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade.html">wwctl upgrade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_config.html">wwctl upgrade config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_nodes.html">wwctl upgrade nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_version.html">wwctl version</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/nodes.conf.html">nodes.conf(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.1.html">v4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.2.html">v4.6.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.3.html">v4.6.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.4.html">v4.6.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.5.html">v4.6.5</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quick Reference</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/getting-started/quick-reference.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quick-reference">
+<h1>Quick Reference<a class="headerlink" href="#quick-reference" title="Link to this heading"></a></h1>
+<p>A quick reference for common day-to-day Warewulf operations.</p>
+<section id="important-paths">
+<h2>Important paths<a class="headerlink" href="#important-paths" title="Link to this heading"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Configuration
+/etc/warewulf/warewulf.conf       # Main server configuration
+/etc/warewulf/nodes.conf          # Node database
+/etc/warewulf/auth.conf           # API authentication
+
+# Images (container filesystems)
+/var/lib/warewulf/chroots/        # Image root directories
+
+# Overlays
+/usr/share/warewulf/overlays/     # Distribution-provided overlays
+/var/lib/warewulf/overlays/       # Site-local overlays
+/var/lib/warewulf/provision/      # Built overlay images (per-node)
+
+# Logs
+journalctl -u warewulfd           # Warewulf daemon logs
+</pre></div>
+</div>
+</section>
+<section id="server-management">
+<h2>Server management<a class="headerlink" href="#server-management" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configure all external services (TLS, warewulfd, TFTP, DHCP, NFS, SSH, hosts)</span>
+wwctl<span class="w"> </span>configure<span class="w"> </span>--all
+
+<span class="c1"># Configure individual services</span>
+wwctl<span class="w"> </span>configure<span class="w"> </span>dhcp
+wwctl<span class="w"> </span>configure<span class="w"> </span>tftp
+wwctl<span class="w"> </span>configure<span class="w"> </span>nfs
+wwctl<span class="w"> </span>configure<span class="w"> </span>ssh
+wwctl<span class="w"> </span>configure<span class="w"> </span>hostfile
+
+<span class="c1"># Restart the Warewulf daemon</span>
+systemctl<span class="w"> </span>restart<span class="w"> </span>warewulfd
+</pre></div>
+</div>
+</section>
+<section id="listing-nodes-and-profiles">
+<h2>Listing nodes and profiles<a class="headerlink" href="#listing-nodes-and-profiles" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># List all nodes (summary)</span>
+wwctl<span class="w"> </span>node<span class="w"> </span>list
+
+<span class="c1"># List nodes with network interface details</span>
+wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>--net
+
+<span class="c1"># List nodes with all fields (includes unset/inherited values)</span>
+wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>--all<span class="w"> </span>n1
+
+<span class="c1"># List nodes with IPMI settings</span>
+wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>--ipmi
+
+<span class="c1"># List specific nodes using hostlist syntax</span>
+wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>n<span class="o">[</span><span class="m">1</span>-10<span class="o">]</span>
+
+<span class="c1"># Show current node boot status</span>
+wwctl<span class="w"> </span>node<span class="w"> </span>status
+
+<span class="c1"># List all profiles</span>
+wwctl<span class="w"> </span>profile<span class="w"> </span>list
+
+<span class="c1"># List all fields of a profile (includes inherited values)</span>
+wwctl<span class="w"> </span>profile<span class="w"> </span>list<span class="w"> </span>default<span class="w"> </span>--all
+</pre></div>
+</div>
+</section>
+<section id="adding-a-node">
+<h2>Adding a node<a class="headerlink" href="#adding-a-node" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a single node with an IP address</span>
+wwctl<span class="w"> </span>node<span class="w"> </span>add<span class="w"> </span>n1<span class="w"> </span>--ipaddr<span class="o">=</span><span class="m">10</span>.0.2.1
+
+<span class="c1"># Add a range of nodes (IP address auto-increments)</span>
+wwctl<span class="w"> </span>node<span class="w"> </span>add<span class="w"> </span>n<span class="o">[</span><span class="m">2</span>-4<span class="o">]</span><span class="w"> </span>--ipaddr<span class="o">=</span><span class="m">10</span>.0.2.2
+
+<span class="c1"># Add a node with multiple options: image, network interface, kernel args, and profile</span>
+wwctl<span class="w"> </span>node<span class="w"> </span>add<span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ipaddr<span class="o">=</span><span class="m">10</span>.0.2.1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netmask<span class="o">=</span><span class="m">255</span>.255.255.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netdev<span class="o">=</span>eno1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--hwaddr<span class="o">=</span><span class="m">00</span>:00:00:00:00:01<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--image<span class="o">=</span>rockylinux-9<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--profile<span class="o">=</span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--kernelargs<span class="o">=</span><span class="s2">&quot;quiet crashkernel=no&quot;</span>
+
+<span class="c1"># Un-set a field (revert to profile/default value)</span>
+wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span>--image<span class="o">=</span>UNDEF
+</pre></div>
+</div>
+</section>
+<section id="network-interfaces">
+<h2>Network interfaces<a class="headerlink" href="#network-interfaces" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the primary network interface</span>
+wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netdev<span class="o">=</span>eno1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--hwaddr<span class="o">=</span><span class="m">00</span>:00:00:00:00:01<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ipaddr<span class="o">=</span><span class="m">10</span>.0.2.1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netmask<span class="o">=</span><span class="m">255</span>.255.255.0
+
+<span class="c1"># Add a secondary network (e.g. InfiniBand)</span>
+wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netname<span class="o">=</span>infiniband<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="o">=</span>infiniband<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netdev<span class="o">=</span>ib0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ipaddr<span class="o">=</span><span class="m">10</span>.0.3.1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netmask<span class="o">=</span><span class="m">255</span>.255.255.0
+
+<span class="c1"># Configure a VLAN interface</span>
+wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netname<span class="o">=</span>vlan42<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netdev<span class="o">=</span>vlan42<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="o">=</span>vlan<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ipaddr<span class="o">=</span><span class="m">10</span>.0.42.1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--netmask<span class="o">=</span><span class="m">255</span>.255.252.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--nettagadd<span class="o">=</span><span class="s2">&quot;vlan_id=42,parent_device=eth0&quot;</span>
+
+<span class="c1"># Set DNS on an interface</span>
+wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span>--nettagadd<span class="o">=</span><span class="s2">&quot;DNS1=1.1.1.1&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="images">
+<h2>Images<a class="headerlink" href="#images" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import an image from Docker Hub (or any OCI registry)</span>
+wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:9<span class="w"> </span>rockylinux-9
+
+<span class="c1"># Import with registry credentials</span>
+wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--username<span class="w"> </span>myuser<span class="w"> </span>--password<span class="w"> </span>mysecret<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>docker://registry.example.com/myimage:latest<span class="w"> </span>myimage
+
+<span class="c1"># Import from a local directory or tarball</span>
+wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>./rockylinux-9/<span class="w"> </span>rockylinux-9
+wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>rockylinux-9.tar<span class="w"> </span>rockylinux-9
+
+<span class="c1"># List available images</span>
+wwctl<span class="w"> </span>image<span class="w"> </span>list
+
+<span class="c1"># Open an interactive shell inside an image</span>
+wwctl<span class="w"> </span>image<span class="w"> </span>shell<span class="w"> </span>rockylinux-9
+
+<span class="c1"># Run a single command inside an image (e.g. install packages)</span>
+wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>rockylinux-9<span class="w"> </span>--<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>vim<span class="w"> </span>htop
+
+<span class="c1"># Rebuild the image archive (after making changes)</span>
+wwctl<span class="w"> </span>image<span class="w"> </span>build<span class="w"> </span>rockylinux-9
+
+<span class="c1"># Assign an image to a node or profile</span>
+wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span>--image<span class="o">=</span>rockylinux-9
+wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--image<span class="o">=</span>rockylinux-9
+</pre></div>
+</div>
+</section>
+<section id="ipmi">
+<h2>IPMI<a class="headerlink" href="#ipmi" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configure IPMI settings on the default profile</span>
+wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ipminetmask<span class="o">=</span><span class="m">255</span>.255.255.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ipmiuser<span class="o">=</span>admin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ipmipass<span class="o">=</span>passw0rd<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ipmiinterface<span class="o">=</span>lanplus<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ipmiwrite
+
+<span class="c1"># Set the IPMI address on a specific node</span>
+wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span>--ipmiaddr<span class="o">=</span><span class="m">192</span>.168.2.1
+
+<span class="c1"># List IPMI settings</span>
+wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>--ipmi
+
+<span class="c1"># Power commands</span>
+wwctl<span class="w"> </span>power<span class="w"> </span>status<span class="w"> </span>n<span class="o">[</span><span class="m">1</span>-10<span class="o">]</span>
+wwctl<span class="w"> </span>power<span class="w"> </span>on<span class="w"> </span>n1
+wwctl<span class="w"> </span>power<span class="w"> </span>off<span class="w"> </span>n1
+wwctl<span class="w"> </span>power<span class="w"> </span>cycle<span class="w"> </span>n1
+wwctl<span class="w"> </span>power<span class="w"> </span>reset<span class="w"> </span>n1
+
+<span class="c1"># Open serial-over-LAN console</span>
+wwctl<span class="w"> </span>node<span class="w"> </span>console<span class="w"> </span>n1
+</pre></div>
+</div>
+</section>
+<section id="overlays">
+<h2>Overlays<a class="headerlink" href="#overlays" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># List all available overlays</span>
+wwctl<span class="w"> </span>overlay<span class="w"> </span>list
+
+<span class="c1"># Build overlays for all nodes</span>
+wwctl<span class="w"> </span>overlay<span class="w"> </span>build
+
+<span class="c1"># Build overlays for a specific node</span>
+wwctl<span class="w"> </span>overlay<span class="w"> </span>build<span class="w"> </span>n1
+
+<span class="c1"># Create a new site-local overlay</span>
+wwctl<span class="w"> </span>overlay<span class="w"> </span>create<span class="w"> </span>myoverlay
+
+<span class="c1"># Import a file from the host into an overlay</span>
+wwctl<span class="w"> </span>overlay<span class="w"> </span>import<span class="w"> </span>myoverlay<span class="w"> </span>/etc/motd
+
+<span class="c1"># Edit a file in an overlay (opens $EDITOR)</span>
+wwctl<span class="w"> </span>overlay<span class="w"> </span>edit<span class="w"> </span>myoverlay<span class="w"> </span>/etc/motd
+
+<span class="c1"># Show an overlay file (optionally rendered for a specific node)</span>
+wwctl<span class="w"> </span>overlay<span class="w"> </span>show<span class="w"> </span>myoverlay<span class="w"> </span>/etc/motd
+wwctl<span class="w"> </span>overlay<span class="w"> </span>show<span class="w"> </span>myoverlay<span class="w"> </span>/etc/motd.ww<span class="w"> </span>--render<span class="o">=</span>n1
+
+<span class="c1"># Assign overlays to all nodes via the default profile</span>
+wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--system-overlays<span class="o">=</span><span class="s2">&quot;wwinit,wwclient,fstab,hostname,ssh.host_keys,NetworkManager&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--runtime-overlays<span class="o">=</span><span class="s2">&quot;hosts,ssh.authorized_keys&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="glossary.html" class="btn btn-neutral float-left" title="Glossary" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="feature-status.html" class="btn btn-neutral float-right" title="Feature Status" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

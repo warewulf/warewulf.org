@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul class="current">
@@ -84,7 +86,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -221,7 +223,7 @@ support good security practices within the cluster wherever possible.</p>
 <h2>Provisioning Security<a class="headerlink" href="#provisioning-security" title="Link to this heading"></a></h2>
 <p>Provisioning is, by default, a relatively “insecure” process: there is generally
 nothing preventing a user on a cluster node from spoofing a provision request
-and downloading the node image and overlays for inspection. If any of these
+and downloading the OS image and overlays for inspection. If any of these
 include secrets (e.g., private keys) they are at risk of exposure.</p>
 <p>There are multiple ways to secure the Warewulf provisioning process:</p>
 <ul class="simple">
@@ -242,7 +244,7 @@ Warewulf server will only respond to requests with a matching asset tag.</p></li
 will only provide the runtime overlay to a <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> communicating from a
 privileged (&lt; 1024) TCP port. This prevents unprivileged cluster users from
 being able to retrieve the runtime overlay.</p></li>
-<li><p>When the nodes are booted via <cite>shim</cite> and <cite>grub</cite> Secure Boot can be enabled.
+<li><p>When the nodes are booted via <code class="docutils literal notranslate"><span class="pre">shim</span></code> and <code class="docutils literal notranslate"><span class="pre">grub</span></code> Secure Boot can be enabled.
 This means that the nodes only boot the kernel which is provided by the
 distributor and also custom complied modules can’t be loaded.</p></li>
 <li><p>TLS (transport layer security) can be enabled for the Warewulf server. When
@@ -254,7 +256,7 @@ system image are <em>always</em> transferred unencrypted.</p></li>
 <h2>SELinux<a class="headerlink" href="#selinux" title="Link to this heading"></a></h2>
 <p>The Warewulf server can be run with SELinux enabled in “targeted” and
 “enforcing” mode.</p>
-<p>For more information about running SELinux-enabled cluster node images, see
+<p>For more information about running SELinux-enabled cluster OS images, see
 <a class="reference internal" href="../images/selinux.html#selinux-images"><span class="std std-ref">SELinux-Enabled Images</span></a>.</p>
 </section>
 <section id="firewalld">

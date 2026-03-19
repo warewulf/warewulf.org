@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Node Images &mdash; Warewulf User Guide main documentation</title>
+  <title>OS Images &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -77,7 +79,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Node Images</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">OS Images</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#structure">Structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#importing-images">Importing Images</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#oci-registry">OCI Registry</a></li>
@@ -225,7 +227,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Node Images</li>
+      <li class="breadcrumb-item active">OS Images</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/images/images.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -235,13 +237,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="node-images">
-<span id="images"></span><h1>Node Images<a class="headerlink" href="#node-images" title="Link to this heading"></a></h1>
-<p>Warewulf node images are a “Virtual Node File System” (VNFS) that serves as a
-base image for cluster nodes. This is similar to a “golden master” image, except
+  <section id="os-images">
+<span id="images"></span><h1>OS Images<a class="headerlink" href="#os-images" title="Link to this heading"></a></h1>
+<p>Warewulf operating system (OS) images are a “Virtual Node File System” (VNFS)
+that serves as an image for cluster nodes. This is similar to a “golden master” image, except
 that the image source exists mutably within a directory on the Warewulf control
 node (e.g. a <code class="docutils literal notranslate"><span class="pre">chroot()</span></code>).</p>
-<p>Warewulf node images have several similarities to Linux containers; so Warewulf
+<p>Warewulf OS images have several similarities to Linux containers; so Warewulf
 v4 integrates directly within the container ecosystem to facilitate the process
 of image creation and image management: images can be built, for example, with
 Docker, Podman, or Apptainer, and imported directly from OCI registries or local
@@ -284,7 +286,7 @@ may be imported from an OCI registry, a local OCI archive, or a local directory
 or Apptainer sandbox.</p>
 <section id="oci-registry">
 <h3>OCI Registry<a class="headerlink" href="#oci-registry" title="Link to this heading"></a></h3>
-<p>You can import node images from an OCI registry, public or private.</p>
+<p>You can import OS images from an OCI registry, public or private.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:8<span class="w"> </span>rockylinux-8
 <span class="go">Getting image source signatures</span>
 <span class="go">Copying blob d7f16ed6f451 done</span>
@@ -300,11 +302,11 @@ or Apptainer sandbox.</p>
 <p class="admonition-title">Note</p>
 <p>Most images in Docker Hub are not “bootable”: they typically do not include
 a kernel, and likely don’t include any init system. For this reason, don’t
-expect a base image from DockerHub (e.g. <code class="docutils literal notranslate"><span class="pre">docker://rockylinux</span></code> or
+expect just any image from DockerHub (e.g. <code class="docutils literal notranslate"><span class="pre">docker://rockylinux</span></code> or
 <code class="docutils literal notranslate"><span class="pre">docker://debian</span></code>) to boot properly with Warewulf.</p>
-<p>The Warewulf project maintains a set of <a class="reference external" href="https://github.com/warewulf/warewulf-node-images">example node images</a> that are configured to
+<p>The Warewulf project maintains a set of <a class="reference external" href="https://github.com/warewulf/warewulf-node-images">example OS images</a> that are configured to
 boot when used with Warewulf. These images can be imported directly into
-Warewulf or used as base images for local custom image.</p>
+Warewulf or used as base images for local custom images.</p>
 </div>
 <p>A few environmental variables can be used to control communication with the OCI
 registry:</p>
@@ -331,7 +333,7 @@ wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w">
 </div>
 <p>The above is just an example. Consideration should be done before doing it this
 way if you are in a security sensitive environment or shared environments as
-this command line wil show up in the process table.</p>
+this command line will show up in the process table.</p>
 </section>
 <section id="local-oci-archive">
 <h3>Local OCI Archive<a class="headerlink" href="#local-oci-archive" title="Link to this heading"></a></h3>
@@ -482,7 +484,7 @@ paths:</p>
 <h3>Exit Script<a class="headerlink" href="#exit-script" title="Link to this heading"></a></h3>
 <p>Warewulf executes the script <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/image_exit.sh</span></code> in the image after
 a <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">shell</span></code> or <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">exec</span></code> and prior to (re)building the
-final node image for delivery. This is typically used to remove cache or log
+final OS image for delivery. This is typically used to remove cache or log
 files that may have been generated by the executed command or interactive
 session.</p>
 <p>For example, the default Rocky Linux images runs <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">clean</span> <span class="pre">all</span></code> to remove any
@@ -491,10 +493,10 @@ package repository caches that may have been generated.</p>
 </section>
 <section id="defining-new-images">
 <h2>Defining New Images<a class="headerlink" href="#defining-new-images" title="Link to this heading"></a></h2>
-<p>It is absolutely possible to import a base image into Warewulf and make all
+<p>It is absolutely possible to import an OS image into Warewulf and make all
 changes interactively with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">shell</span></code>; but it is often better to
 define new images with a container image definition file. This can be done using
-the OCI and Singularity (Apptainer) ecoystems.</p>
+the OCI and Singularity (Apptainer) ecosystems.</p>
 <section id="podman">
 <h3>Podman<a class="headerlink" href="#podman" title="Link to this heading"></a></h3>
 <p>An OCI Containerfile can build from an existing container image to add local
@@ -518,7 +520,7 @@ customizations.</p>
 <h3>Apptainer<a class="headerlink" href="#apptainer" title="Link to this heading"></a></h3>
 <p>It is absolutely possible to create an <a class="reference external" href="https://docs.docker.com/build/building/base-images/">OCI base image</a> from scratch, but it is
 particularly easy to do with Apptainer.</p>
-<p>Consider the following file called <cite>warewulf-rockylinux-9.def</cite>:</p>
+<p>Consider the following file called <code class="docutils literal notranslate"><span class="pre">warewulf-rockylinux-9.def</span></code>:</p>
 <div class="highlight-singularity notranslate"><div class="highlight"><pre><span></span><span class="k">Bootstrap</span>:<span class="w"> </span>yum
 <span class="k">MirrorURL</span>:<span class="w"> </span>https://download.rockylinux.org/pub/rocky/<span class="m">9</span>/BaseOS/x86_64/os/
 <span class="k">Include</span>:<span class="w"> </span>dnf
@@ -588,7 +590,7 @@ copy operation to fail.</p>
 <h2>Image Architecture<a class="headerlink" href="#image-architecture" title="Link to this heading"></a></h2>
 <p>By default, Warewulf will try to import an image of the same platform (e.g.,
 amd64, arm64) as the local system. To specify the platform to import, either
-specify <cite>WAREWULF_OCI_PLATFORM</cite> or use the argument <cite>–platform</cite> during import.</p>
+specify <code class="docutils literal notranslate"><span class="pre">WAREWULF_OCI_PLATFORM</span></code> or use the argument <code class="docutils literal notranslate"><span class="pre">--platform</span></code> during import.</p>
 <p>It is possible to build, edit, and provision images of different architectures
 (i.e. aarch64) from an x86_64 host by using QEMU. Simply run the appropriate
 command below based on your image management tools.</p>
