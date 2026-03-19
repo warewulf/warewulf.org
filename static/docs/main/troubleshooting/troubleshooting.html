@@ -257,18 +257,19 @@ to troubleshoot potential boot problems.</p>
 (Substitute your Warewulf server’s IP address in place of 10.0.0.1, update the
 port number if you have changed it from the default of 9873, and substitute your
 cluster node’s MAC address in place of 00:00:00:00:00:00.)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set uri http://10.0.0.1:9873/provision/00:00:00:00:00:00
-kernel --name kernel ${uri}?stage=kernel
-imgextract --name image ${uri}?stage=image&amp;compress=gz
-imgextract --name system ${uri}?stage=system&amp;compress=gz
-imgextract --name runtime ${uri}?stage=runtime&amp;compress=gz
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set base http://10.0.0.1:9873
+set hwaddr 00:00:00:00:00:00
+kernel --name kernel ${base}/kernel/${hwaddr}
+imgextract --name image ${base}/image/${hwaddr}?compress=gz
+imgextract --name system ${base}/system/${hwaddr}?compress=gz
+imgextract --name runtime ${base}/runtime/${hwaddr}?compress=gz
 boot kernel initrd=image initrd=system initrd=runtime
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>The <code class="docutils literal notranslate"><span class="pre">uri</span></code> variable points to <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> for future reference. This
-includes the cluster node’s MAC address so that Warewulf knows what image and
-overlays to provide.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">base</span></code> variable points to <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> for future reference. The MAC
+address is appended to each resource path so that Warewulf knows what image
+and overlays to provide.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">kernel</span></code> command fetches a kernel for later booting.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">imgextract</span></code> command fetches and decompresses the images that will make
 up the booted OS image. In a typical environment this is used to load a
@@ -305,14 +306,14 @@ otherwise find in <a class="reference external" href="https://github.com/warewul
 <p>For example, the following commands perform a (relatively) normal Warewulf boot.
 (Substitute your Warewulf server’s IP address in place of 10.0.0.1, and update
 the port number if you have changed it from the default of 9873.)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>uri=&quot;(http,10.0.0.1:9873)/provision/${net_default_mac}&quot;
-linux &quot;${uri}?stage=kernel&quot; wwid=${net_default_mac}
-initrd &quot;${uri}?stage=image&amp;compress=gz&quot; &quot;${uri}?stage=system&amp;compress=gz&quot; &quot;${uri}?stage=runtime&amp;compress=gz&quot;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>base=&quot;(http,10.0.0.1:9873)&quot;
+linux &quot;${base}/kernel/${net_default_mac}&quot; wwid=${net_default_mac}
+initrd &quot;${base}/image/${net_default_mac}?compress=gz&quot; &quot;${base}/system/${net_default_mac}?compress=gz&quot; &quot;${base}/runtime/${net_default_mac}?compress=gz&quot;
 boot
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>The <code class="docutils literal notranslate"><span class="pre">uri</span></code> variable points to <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> for future reference.
+<li><p>The <code class="docutils literal notranslate"><span class="pre">base</span></code> variable points to <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> for future reference.
 <code class="docutils literal notranslate"><span class="pre">${net_default_mac}</span></code> provides Warewulf with the MAC address of the booting
 node, so that Warewulf knows what image and overlays to provide it.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">linux</span></code> command tells GRUB what kernel to boot, as provided by
@@ -334,7 +335,7 @@ the node you are trying to boot.</p>
 </div>
 <p>For example, you may want to try booting to a pre-init shell with debug logging
 enabled. To do so, substitute the <code class="docutils literal notranslate"><span class="pre">linux</span></code> command above.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>linux &quot;${uri}?stage=kernel&quot; wwid=${net_default_mac} debug rdinit=/bin/sh
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>linux &quot;${base}/kernel/${net_default_mac}&quot; wwid=${net_default_mac} debug rdinit=/bin/sh
 </pre></div>
 </div>
 <div class="admonition note">
