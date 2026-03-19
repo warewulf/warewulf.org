@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul class="current">
@@ -80,7 +82,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -212,7 +214,7 @@
 <h1>Using dnsmasq<a class="headerlink" href="#using-dnsmasq" title="Link to this heading"></a></h1>
 <p>As an experimental feature, it is possible to use <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> instead of the ISC
 <code class="docutils literal notranslate"><span class="pre">dhcpd</span></code> server and <code class="docutils literal notranslate"><span class="pre">TFTP</span></code> server.</p>
-<p>In order to keep the file <code class="docutils literal notranslate"><span class="pre">/etc/dnsmasq.d/ww4-hosts.conf</span></code> is created and must
+<p>In order to keep the configuration manageable, the file <code class="docutils literal notranslate"><span class="pre">/etc/dnsmasq.d/ww4-hosts.conf</span></code> is created and must
 be included in the main <code class="docutils literal notranslate"><span class="pre">dnsmasq.conf</span></code> via the <code class="docutils literal notranslate"><span class="pre">conf-dir=/etc/dnsmasq.d</span></code>
 option.</p>
 <section id="installation">

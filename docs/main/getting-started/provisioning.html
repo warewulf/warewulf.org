@@ -60,6 +60,8 @@
 <li class="toctree-l1"><a class="reference internal" href="suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -83,7 +85,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -220,7 +222,7 @@ improve administrative scaling, each installed server is still subject to
 version and configuration drift, eventually becoming a point of discrete
 administration and debugging. The larger the cluster, the harder this problem is
 to solve.</p>
-<p>This is the problem that Warewulf was created solve.</p>
+<p>This is the problem that Warewulf was created to solve.</p>
 <section id="provisioning-overview">
 <h2>Provisioning Overview<a class="headerlink" href="#provisioning-overview" title="Link to this heading"></a></h2>
 <p>Provisioning is the process of preparing a system for use, typically by
@@ -280,7 +282,7 @@ server.</p>
 <ul class="simple">
 <li><p>In a single-stage provisioning configuration, the desired image and
 overlays are combined and provisioned immediately by the bootloader as the
-kernel’s initial root file system. This is straightfoward, but does not
+kernel’s initial root file system. This is straightforward, but does not
 work in all environments: some systems have memory layouts that are not
 handled properly by either iPXE or GRUB for sufficiently large image sizes,
 leading to strange, unpredictable results.</p></li>

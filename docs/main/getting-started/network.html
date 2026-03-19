@@ -58,6 +58,8 @@
 <li class="toctree-l1"><a class="reference internal" href="suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -81,7 +83,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -265,7 +267,7 @@ directly.</p></li>
 <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> accordingly.</p></li>
 </ul>
 <p>The first method is relatively trivial. The second method is described below.</p>
-<p>As first the first step, add the dummy node.</p>
+<p>As the first step, add the dummy node.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span>add<span class="w"> </span>deliverynet
 </pre></div>
 </div>
@@ -285,8 +287,8 @@ wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</s
 <span class="w">  </span>deliverynet
 </pre></div>
 </div>
-<p>The ip address is used as the network address of host in the delivery network
-and an additional tags is used for definition of the network itself and the
+<p>The IP address is used as the network address of the host in the delivery network
+and an additional tag is used for the definition of the network itself and the
 dynamic dhcp range. You can check the result with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">list</span></code>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>-a<span class="w"> </span>deliverynet
 <span class="go">NODE         FIELD                             PROFILE  VALUE</span>

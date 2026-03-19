@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -77,7 +79,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -213,7 +215,7 @@
   <section id="v4-6-2-release-notes">
 <h1>v4.6.2 Release Notes<a class="headerlink" href="#v4-6-2-release-notes" title="Link to this heading"></a></h1>
 <p>v4.6.2 is a regularly-scheduled minor release in the v4.6.x series. It also
-includes a preview implementation of the ability to provision the node image to
+includes a preview implementation of the ability to provision the OS image to
 a local disk.</p>
 <p>Significant changes are described below. Additional changes are listed in the
 <a class="reference external" href="https://github.com/warewulf/warewulf/blob/main/CHANGELOG.md">CHANGELOG</a>.</p>
@@ -227,9 +229,9 @@ dracut.</p>
 provisioned using new <code class="docutils literal notranslate"><span class="pre">sfdisk</span></code>, <code class="docutils literal notranslate"><span class="pre">mkfs</span></code>, and <code class="docutils literal notranslate"><span class="pre">mkswap</span></code> overlays, and to
 mount configured file systems using <code class="docutils literal notranslate"><span class="pre">systemd.mount</span></code> and <code class="docutils literal notranslate"><span class="pre">systemd.swap</span></code>
 overlays. These overlays may also each be configured using overlay-specific
-“resources”, which may additional control compared to Warewulf’s built-in disk,
+“resources”, which may provide additional control compared to Warewulf’s built-in disk,
 partition, and file system configuration.</p>
-<p>To support more complext partition layouts, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">&lt;node|partition&gt;</span> <span class="pre">set</span>
+<p>To support more complex partition layouts, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">&lt;node|profile&gt;</span> <span class="pre">set</span>
 <span class="pre">--parttype</span></code> has been added to specify non-default partition types. This is
 particularly useful when creating an EFI partition, which may be used in a
 future release to configure serverless local booting.</p>

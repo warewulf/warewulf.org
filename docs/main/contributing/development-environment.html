@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -77,7 +79,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -215,7 +217,7 @@
 <h1>Development Environment<a class="headerlink" href="#development-environment" title="Link to this heading"></a></h1>
 <p>To develop and test the Warewulf server, you need a single system (typically a
 virtual machine) to serve as a test server deployment. To actually test
-provisioning your development server also needs a dedicated network that it can
+provisioning, your development server also needs a dedicated network that it can
 run DHCP on. This can typically be provisioned as a virtual network bridge in
 virtual machine software.</p>
 <p>Options include:</p>
@@ -227,7 +229,7 @@ virtual machine software.</p>
 </ul>
 <p>A Warewulf development environment should likely use Rocky Linux 9 or openSUSE
 LEAP 15, though there are ongoing development efforts using Debian and Ubuntu as
-well.)</p>
+well.</p>
 <section id="compiling-warewulf-for-a-development-server">
 <h2>Compiling Warewulf for a Development Server<a class="headerlink" href="#compiling-warewulf-for-a-development-server" title="Link to this heading"></a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rocky Linux 9</span>
@@ -278,7 +280,7 @@ suite.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pkg.go.dev/testing">The golang testing package</a></p></li>
 <li><p><a class="reference external" href="https://go.dev/wiki/TableDrivenTests">Table Driven Tests</a></p></li>
-<li><p><a class="reference external" href="https://pkg.go.dev/github.com/stretchr/testify/assert">Testift assert</a></p></li>
+<li><p><a class="reference external" href="https://pkg.go.dev/github.com/stretchr/testify/assert">Testify assert</a></p></li>
 <li><p><a class="reference external" href="https://pkg.go.dev/github.com/warewulf/warewulf/internal/pkg/testenv">Warewulf testenv</a></p></li>
 </ul>
 </section>
@@ -287,17 +289,17 @@ suite.</p>
 <p>Visual Studio Code (VSC) can utilize a Dev Container for a self-contained
 environment that has all the necessary tools and dependencies to build and test
 Warewulf. The Dev Container is based on the Rocky 9 image and is built using the
-<cite>devcontainer.json</cite> file in the <cite>.devcontainer</cite> directory of the Warewulf
-repository.  To use this working Docker/Podman and VSC installations are
+<code class="docutils literal notranslate"><span class="pre">devcontainer.json</span></code> file in the <code class="docutils literal notranslate"><span class="pre">.devcontainer</span></code> directory of the Warewulf
+repository.  To use this, working Docker/Podman and VSC installations are
 required.  To use the Dev Container, click the “Open a Remote Window” button on
-the bottom left of the editor (<cite>&gt;&lt;</cite> icon) and select “Reopen in Container”.
+the bottom left of the editor (<code class="docutils literal notranslate"><span class="pre">&gt;&lt;</span></code> icon) and select “Reopen in Container”.
 This will build the container and open a new VSC window with the container as
 the development environment.</p>
 </section>
 <section id="using-vagrant-and-libvirt">
 <h2>Using Vagrant and Libvirt<a class="headerlink" href="#using-vagrant-and-libvirt" title="Link to this heading"></a></h2>
 <p>Vagrant can be used to quickly spin up a test/development environment for Warewulf.
-A <cite>Vagrantfile</cite> is provided in <cite>vagrant</cite> directory of the Warewulf repository.
+A <code class="docutils literal notranslate"><span class="pre">Vagrantfile</span></code> is provided in the <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> directory of the Warewulf repository.
 See the <a class="reference external" href="https://github.com/warewulf/warewulf/blob/main/vagrant/README.md">README.md</a>
 for more details.</p>
 </section>

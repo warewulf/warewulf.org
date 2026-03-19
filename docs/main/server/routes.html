@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul class="current">
@@ -105,7 +107,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -307,7 +309,7 @@ kernel is taken from the node’s assigned image.</p>
 </section>
 <section id="image-wwid">
 <h3><code class="docutils literal notranslate"><span class="pre">/image/{wwid}</span></code><a class="headerlink" href="#image-wwid" title="Link to this heading"></a></h3>
-<p>Serves the raw node image file for the node identified by <code class="docutils literal notranslate"><span class="pre">{wwid}</span></code>.</p>
+<p>Serves the raw OS image file for the node identified by <code class="docutils literal notranslate"><span class="pre">{wwid}</span></code>.</p>
 <p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">compress</span></code></p>
 </section>
 <section id="initramfs-wwid">
@@ -382,6 +384,12 @@ identified by <code class="docutils literal notranslate"><span class="pre">?wwid
 of the client’s IP address against the kernel’s ARP cache (<code class="docutils literal notranslate"><span class="pre">/proc/net/arp</span></code>).
 This route is intended for EFI HTTP Boot clients, where the firmware fetches
 a boot URI from DHCP and cannot perform variable substitution.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On large clusters the kernel’s default ARP cache limits may be exceeded,
+causing node identification to fail. See
+<a class="reference internal" href="../troubleshooting/known-issues.html#arp-cache-overflow-on-large-clusters"><span class="std std-ref">ARP Cache Overflow on Large Clusters</span></a> for tuning guidance.</p>
+</div>
 <p>The <code class="docutils literal notranslate"><span class="pre">{file}</span></code> component determines what is served:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">shim.efi</span></code>: Serves the <code class="docutils literal notranslate"><span class="pre">shim.efi</span></code> binary extracted from the node’s

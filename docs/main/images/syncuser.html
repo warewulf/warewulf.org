@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -77,9 +79,13 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">Image Kernels</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Syncuser</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Syncuser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#synchronizing-uids-gids-in-an-os-image">Synchronizing UIDs/GIDs in an OS image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-syncuser-overlay">The syncuser overlay</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="selinux.html">SELinux</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Overlays</span></p>
@@ -207,18 +213,32 @@
              
   <section id="syncuser">
 <h1>Syncuser<a class="headerlink" href="#syncuser" title="Link to this heading"></a></h1>
-<p>Warewulf can optionally synchronize UIDs and GIDs from the Warewulf server to an
-image. This can be particularly useful when there is no central directory (e.g.,
-an LDAP server).</p>
+<p>Warewulf’s syncuser feature has two distinct parts that work together:</p>
+<ol class="arabic simple">
+<li><p>The <strong>syncuser command</strong> synchronizes UIDs and GIDs from the Warewulf server
+into an OS image, updating <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code>, <code class="docutils literal notranslate"><span class="pre">/etc/group</span></code>, and file
+ownerships within the image.</p></li>
+<li><p>The <strong>syncuser overlay</strong> merges users and groups from both the OS image and
+the Warewulf server into the provisioned node’s <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> and
+<code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> at runtime.</p></li>
+</ol>
+<p>This is particularly useful when there is no central directory (e.g., an LDAP
+server). Together, these two parts ensure that UIDs and GIDs are consistent
+across the server and all cluster nodes.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Some system services (notably “munge”) require a user to have the same UID across all nodes.</p>
+<p>Some system services (notably “munge”) require a user to have the same UID
+across all nodes.</p>
 </div>
-<p>Combined with the “syncuser” overlay, Warewulf syncuser also supports defining
-local users on the Warewulf server for synchronization to cluster nodes.</p>
-<p>If there is mismatch between the server and the image, the import command will
-generate a warning.</p>
-<p>Syncuser may be invoked during image import, exec, shell, or build.</p>
+<section id="synchronizing-uids-gids-in-an-os-image">
+<h2>Synchronizing UIDs/GIDs in an OS image<a class="headerlink" href="#synchronizing-uids-gids-in-an-os-image" title="Link to this heading"></a></h2>
+<p>The syncuser command updates an OS image so that any user or group present on
+the Warewulf server has the same UID/GID inside the image. Users and groups
+that exist only in the image are preserved unless a UID/GID collision is
+detected. File ownerships within the image are also updated to match.</p>
+<p>If there is a mismatch between the server and the image, the import command
+will generate a warning.</p>
+<p>Syncuser may be invoked during image import, exec, shell, or build:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>--syncuser<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:9<span class="w"> </span>rockylinux-9
 <span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--syncuser<span class="w"> </span>rockylinux-9<span class="w"> </span>--<span class="w"> </span>/usr/bin/echo<span class="w"> </span><span class="s2">&quot;Hello, world!&quot;</span>
 <span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>shell<span class="w"> </span>--syncuser<span class="w"> </span>rockylinux-9
@@ -226,8 +246,19 @@ generate a warning.</p>
 <span class="gp"># </span>wwctl<span class="w"> </span>image<span class="w"> </span>syncuser<span class="w"> </span>rockylinux-9
 </pre></div>
 </div>
-<p>After syncuser, <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> and <code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> in the image are updated, and
-permissions on files belonging to these UIDs and GIDs are updated to match.</p>
+<p>After syncuser, <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> and <code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> in the image are updated,
+and permissions on files belonging to these UIDs and GIDs are updated to match.</p>
+</section>
+<section id="the-syncuser-overlay">
+<h2>The syncuser overlay<a class="headerlink" href="#the-syncuser-overlay" title="Link to this heading"></a></h2>
+<p>The syncuser overlay runs at provisioning time and merges <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> and
+<code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> from both the OS image and the Warewulf server. This makes users
+defined on the server (but not originally in the image) available on provisioned
+nodes.</p>
+<p>For the overlay to work correctly, the image should also have been prepared with
+the syncuser command (see above) so that UID/GID values are consistent.</p>
+<p>See <a class="reference internal" href="../overlays/overlays.html#syncuser"><span class="std std-ref">syncuser</span></a> in the overlays documentation for more detail.</p>
+</section>
 </section>
 
 

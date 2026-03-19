@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -77,7 +79,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -96,8 +98,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#grub">GRUB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dracut">Dracut</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ignition">Ignition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overlay-shadowing">Overlay Shadowing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-containers-on-cluster-nodes">Running Containers on Cluster Nodes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tmpfs-and-numa">tmpfs and NUMA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oci-blob-cache">OCI Blob Cache</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="known-issues.html">Known issues</a></li>
@@ -267,10 +271,10 @@ includes the cluster node’s MAC address so that Warewulf knows what image and
 overlays to provide.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">kernel</span></code> command fetches a kernel for later booting.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">imgextract</span></code> command fetches and decompresses the images that will make
-up the booted noe image. In a typical environment this is used to load a
+up the booted OS image. In a typical environment this is used to load a
 minimal “initial ramdisk” which, then, boots the rest of the system. Warewulf,
 by default, loads the entire image as an initial ramdisk, and also loads the
-system and runtime overlays at this time time.</p></li>
+system and runtime overlays at this time.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">boot</span></code> command tells iPXE to boot the system with the given kernel and
 ramdisks.</p></li>
 </ul>
@@ -289,7 +293,7 @@ enabled. To do so, substitute the <code class="docutils literal notranslate"><sp
 <p class="admonition-title">Note</p>
 <p>You may be more familiar with specifying <code class="docutils literal notranslate"><span class="pre">init=</span></code> on the kernel command
 line. <code class="docutils literal notranslate"><span class="pre">rdinit</span></code> indicates “ramdisk init.” Since Warewulf, by default, boots
-the node image as an initial ramdisk, we must use <code class="docutils literal notranslate"><span class="pre">rdinit=</span></code> here.</p>
+the OS image as an initial ramdisk, we must use <code class="docutils literal notranslate"><span class="pre">rdinit=</span></code> here.</p>
 </div>
 </section>
 <section id="grub">
@@ -318,7 +322,7 @@ node during runtime.</p></li>
 a typical environment this is used to load a minimal “initial ramdisk” which,
 then, boots the rest of the system. Warewulf, by default, loads the entire
 image as an initial ramdisk, and also loads the system and runtime overlays at
-this time time.</p></li>
+this time.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">boot</span></code> command tells GRUB to boot the system with the previously-defined
 configuration.</p></li>
 </ul>
@@ -337,7 +341,7 @@ enabled. To do so, substitute the <code class="docutils literal notranslate"><sp
 <p class="admonition-title">Note</p>
 <p>You may be more familiar with specifying <code class="docutils literal notranslate"><span class="pre">init=</span></code> on the kernel command
 line. <code class="docutils literal notranslate"><span class="pre">rdinit</span></code> indicates “ramdisk init.” Since Warewulf, by default, boots
-the node image as an initial ramdisk, we must use <code class="docutils literal notranslate"><span class="pre">rdinit=</span></code> here.</p>
+the OS image as an initial ramdisk, we must use <code class="docutils literal notranslate"><span class="pre">rdinit=</span></code> here.</p>
 </div>
 </section>
 <section id="dracut">
@@ -377,18 +381,75 @@ successful.)</p>
 well.</p></li>
 </ul>
 </section>
+<section id="overlay-shadowing">
+<h2>Overlay Shadowing<a class="headerlink" href="#overlay-shadowing" title="Link to this heading"></a></h2>
+<p>When Warewulf introduced the distinction between distribution overlays and site
+overlays, existing installations that had modified any distribution overlays
+were left with those modified files in the site overlay directory (typically
+<code class="docutils literal notranslate"><span class="pre">/var/lib/warewulf/overlays/</span></code>). Because a site overlay takes complete
+precedence over a distribution overlay with the same name — with no merging of
+individual files — the entire distribution overlay is shadowed. Any new files
+or updates added to the distribution overlay in a subsequent Warewulf upgrade
+will be hidden as long as a site overlay of the same name exists.</p>
+<p>To check whether any distribution overlays are being shadowed by site overlays,
+use <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">list</span></code>, which includes a <code class="docutils literal notranslate"><span class="pre">SITE</span></code> column:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wwctl</span> <span class="n">overlay</span> <span class="nb">list</span>
+</pre></div>
+</div>
+<p>Any overlay showing <code class="docutils literal notranslate"><span class="pre">true</span></code> in the <code class="docutils literal notranslate"><span class="pre">SITE</span></code> column that you did not
+intentionally create locally may be unintentionally shadowing its distribution
+counterpart.</p>
+<p>To see which files are present in a site overlay, use the <code class="docutils literal notranslate"><span class="pre">--all</span></code> flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wwctl</span> <span class="n">overlay</span> <span class="nb">list</span> <span class="o">--</span><span class="nb">all</span> <span class="o">&lt;</span><span class="n">overlay_name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>To see the filesystem paths of the overlays directly, use the <code class="docutils literal notranslate"><span class="pre">--path</span></code> flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wwctl</span> <span class="n">overlay</span> <span class="nb">list</span> <span class="o">--</span><span class="n">path</span>
+</pre></div>
+</div>
+<p>If you determine that a site overlay is unintentionally shadowing a
+distribution overlay, you can restore the distribution overlay by deleting the
+site overlay. Back up any intentional local modifications first, then delete
+the site overlay:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wwctl</span> <span class="n">overlay</span> <span class="n">delete</span> <span class="o">&lt;</span><span class="n">overlay_name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">delete</span></code> only ever deletes site overlays, so this command is
+safe to run without risk of removing the underlying distribution overlay. After
+deleting the site overlay, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">list</span></code> should show <code class="docutils literal notranslate"><span class="pre">false</span></code> in the
+<code class="docutils literal notranslate"><span class="pre">SITE</span></code> column for that overlay, confirming that the distribution overlay is
+now active.</p>
+</section>
 <section id="running-containers-on-cluster-nodes">
 <h2>Running Containers on Cluster Nodes<a class="headerlink" href="#running-containers-on-cluster-nodes" title="Link to this heading"></a></h2>
-<p>Some container runtimes, notably Podman, require file system features that are
-not available in <code class="docutils literal notranslate"><span class="pre">initrootfs</span></code>. Cluster nodes using Podman (and some other
-container runtimes) should be configured with <code class="docutils literal notranslate"><span class="pre">--root=tmpfs</span></code>.</p>
+<p>Container runtimes such as Podman require filesystem features — most notably
+OverlayFS support for image storage and container layers — that are not
+available with the default <code class="docutils literal notranslate"><span class="pre">initramfs</span></code> root filesystem. To run Podman or
+similar runtimes on cluster nodes, configure the node or profile to use
+<code class="docutils literal notranslate"><span class="pre">tmpfs</span></code> as the root filesystem:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Apply to all nodes via a profile</span>
+wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--root<span class="o">=</span>tmpfs
+
+<span class="c1"># Or apply to a specific node</span>
+wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>&lt;nodename&gt;<span class="w"> </span>--root<span class="o">=</span>tmpfs
+</pre></div>
+</div>
+<p>After changing the root filesystem type, reboot the affected nodes to apply
+the new configuration.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The OS image itself must have Podman (or the desired container runtime)
+installed. See <a class="reference internal" href="../images/images.html#images"><span class="std std-ref">OS Images</span></a> for guidance on customizing OS images.</p>
+</div>
+<p>For information on tuning tmpfs memory usage and NUMA interleaving behavior,
+see <a class="reference internal" href="#tmpfs-and-numa"><span class="std std-ref">tmpfs and NUMA</span></a> below.</p>
 </section>
 <section id="tmpfs-and-numa">
-<h2>tmpfs and NUMA<a class="headerlink" href="#tmpfs-and-numa" title="Link to this heading"></a></h2>
+<span id="id1"></span><h2>tmpfs and NUMA<a class="headerlink" href="#tmpfs-and-numa" title="Link to this heading"></a></h2>
 <p>Warewulf can optionally mount the root filesystem as <code class="docutils literal notranslate"><span class="pre">tmpfs</span></code> instead of the
 default <code class="docutils literal notranslate"><span class="pre">initramfs</span></code>. Warewulf will add <code class="docutils literal notranslate"><span class="pre">mpol=interleave</span></code> to the mount point
 which will distribute the memory across all NUMA nodes. This avoids the
-hotspotting that occurs when the default initramfs stores large node images on a
+hotspotting that occurs when the default initramfs stores large OS images on a
 single NUMA node. To enable this, set the rootfs type to tmpfs:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>--root<span class="o">=</span>tmpfs
 </pre></div>
@@ -403,12 +464,42 @@ wwctl<span class="w"> </span>profile<span class="w"> </span><span class="nb">set
 </div>
 <p>By default this is set to 50% of physical RAM. Note that tmpfs is required for
 SELinux overlays since initramfs cannot preserve SELinux contexts.</p>
+<p>Because the root is <code class="docutils literal notranslate"><span class="pre">tmpfs</span></code>, the kernel can also swap cold image pages to a
+local swap device, freeing RAM for running workloads. This does not apply to the
+default <code class="docutils literal notranslate"><span class="pre">initramfs</span></code> root (single-stage boot), where pages are pinned in memory
+and cannot be swapped. See <a class="reference internal" href="../nodes/disks.html#swap-and-image-memory"><span class="std std-ref">Swap and image memory usage</span></a> for a complete walkthrough.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>On some systems, it may also be necessary to include the <code class="docutils literal notranslate"><span class="pre">noefi</span></code> kernel
 argument. This works around specific EFI firmware bugs that can prevent
 proper memory release during the transition from <code class="docutils literal notranslate"><span class="pre">initramfs</span></code> to <code class="docutils literal notranslate"><span class="pre">tmpfs</span></code>.</p>
 </div>
+</section>
+<section id="oci-blob-cache">
+<span id="id2"></span><h2>OCI Blob Cache<a class="headerlink" href="#oci-blob-cache" title="Link to this heading"></a></h2>
+<p>Warewulf caches OCI image layers on disk to speed up repeated <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span>
+<span class="pre">import</span></code> operations. The cache can grow large when many images — or many
+versions of the same image — are imported over time.</p>
+<p><strong>v4.6 and later</strong></p>
+<p>The cache is stored at <code class="docutils literal notranslate"><span class="pre">$cachedir/warewulf</span></code> (default: <code class="docutils literal notranslate"><span class="pre">/var/cache/warewulf</span></code>
+on RPM-based distributions). It contains files and directories such as
+<code class="docutils literal notranslate"><span class="pre">blobs/</span></code>, <code class="docutils literal notranslate"><span class="pre">index.json</span></code>, and <code class="docutils literal notranslate"><span class="pre">oci-layout</span></code>.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">clean</span></code> to remove the cache:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>clean
+</pre></div>
+</div>
+<p>The cache is rebuilt automatically on the next <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">import</span></code>.</p>
+<p><strong>v4.5.x and earlier (legacy cache location)</strong></p>
+<p>In v4.5.x and earlier releases, the OCI blob cache was stored at
+<code class="docutils literal notranslate"><span class="pre">$datastore/oci</span></code> (default: <code class="docutils literal notranslate"><span class="pre">/usr/share/oci</span></code> in the Rocky Linux RPM
+packages). This location is not removed by <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">clean</span></code>.</p>
+<p>If you are upgrading from v4.5.x and want to reclaim the space used by the
+old cache, you can safely delete this directory manually:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>rm<span class="w"> </span>-rf<span class="w"> </span>/usr/share/oci
+</pre></div>
+</div>
+<p>Adjust the path if your installation used a non-default <code class="docutils literal notranslate"><span class="pre">datastore</span></code>
+setting in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>.</p>
 </section>
 </section>
 

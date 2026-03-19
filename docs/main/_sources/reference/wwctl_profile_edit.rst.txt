@@ -3,7 +3,7 @@
 wwctl profile edit
 ------------------
 
-Edit node(s) with editor
+Edit profile(s) with editor
 
 Synopsis
 ~~~~~~~~
@@ -13,7 +13,7 @@ This command opens an editor for the given profiles.
 
 ::
 
-  wwctl profile edit [OPTIONS] NODENAME
+  wwctl profile edit [OPTIONS] PROFILE
 
 Options
 ~~~~~~~

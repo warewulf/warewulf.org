@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -77,7 +79,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -213,21 +215,25 @@
              
   <section id="wwctl-image-syncuser">
 <span id="id1"></span><h1>wwctl image syncuser<a class="headerlink" href="#wwctl-image-syncuser" title="Link to this heading"></a></h1>
-<p>Synchronizes user in image</p>
+<p>Synchronize UIDs/GIDs from the server to an OS image</p>
 <section id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading"></a></h2>
-<p>Synchronize the uids and gids from the host to the image.
-Users/groups which are only present in the image will be preserved if no
-uid/gid collision is detected. File ownerships are also changed.</p>
+<p>Synchronize UIDs and GIDs from the server into an OS image, updating
+/etc/passwd, /etc/group, and file ownerships within the image. Users and
+groups that exist only in the image are preserved unless a UID/GID collision
+is detected.</p>
+<p>This command affects the image itself (a one-time operation at build/import
+time). To also make host users available on provisioned nodes at runtime, add
+the “syncuser” overlay to the node or profile.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wwctl</span> <span class="n">image</span> <span class="n">syncuser</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span> <span class="n">IMAGE</span>
 </pre></div>
 </div>
 </section>
 <section id="options">
 <h2>Options<a class="headerlink" href="#options" title="Link to this heading"></a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="o">--</span><span class="n">build</span>   <span class="n">Build</span> <span class="n">image</span> <span class="n">after</span> <span class="n">syncuser</span> <span class="ow">is</span> <span class="n">completed</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="o">--</span><span class="n">build</span>   <span class="n">Build</span> <span class="n">OS</span> <span class="n">image</span> <span class="n">after</span> <span class="n">syncuser</span> <span class="ow">is</span> <span class="n">completed</span>
 <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>    <span class="n">help</span> <span class="k">for</span> <span class="n">syncuser</span>
-    <span class="o">--</span><span class="n">write</span>   <span class="n">Synchronize</span> <span class="n">uis</span><span class="o">/</span><span class="n">gids</span> <span class="ow">and</span> <span class="n">write</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">image</span> <span class="p">(</span><span class="n">default</span> <span class="n">true</span><span class="p">)</span>
+    <span class="o">--</span><span class="n">write</span>   <span class="n">Synchronize</span> <span class="n">UIDs</span><span class="o">/</span><span class="n">GIDs</span> <span class="ow">and</span> <span class="n">write</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">OS</span> <span class="n">image</span> <span class="p">(</span><span class="n">default</span> <span class="n">true</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

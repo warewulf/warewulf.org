@@ -14,7 +14,7 @@ Manage the hostfile on the master node
 
 ::
 
-  wwctl configure hostfile  [OPTIONS]
+  wwctl configure hostfile [OPTIONS]
 
 Options
 ~~~~~~~

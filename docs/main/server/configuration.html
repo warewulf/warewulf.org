@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul class="current">
@@ -90,7 +92,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -222,7 +224,7 @@
 <h1>Server Configuration<a class="headerlink" href="#server-configuration" title="Link to this heading"></a></h1>
 <p>By default, the Warewulf server configuration is located at
 <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/warewulf.conf</span></code>. This is a YAML-formatted configuration file
-used by to configured the Warewulf server itself and its external services.</p>
+used to configure the Warewulf server itself and its external services.</p>
 <p>An initial <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> is packaged with Warewulf. Each section is covered
 in detail below.</p>
 <p>Once Warewulf has been installed and configured:</p>
@@ -315,7 +317,7 @@ sensitive information.</p>
 <p>When <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> uses TCP port 987 by default. (A different port
 can be specified at <code class="docutils literal notranslate"><span class="pre">wwclient:port</span></code>.)</p>
 <p>Changing this option requires rebuilding node overlays and rebooting compute
-nodes to configure them to use a privileged port for <cite>wwclient</cite>.</p>
+nodes to configure them to use a privileged port for <code class="docutils literal notranslate"><span class="pre">wwclient</span></code>.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">warewulf:update</span> <span class="pre">interval</span></code>: This defines the frequency (in seconds) with
 which the Warewulf client on the compute node fetches overlay updates.</p></li>
@@ -327,7 +329,7 @@ building overlays for new nodes.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">warewulf:host</span> <span class="pre">overlay</span></code>: Controls whether the special <code class="docutils literal notranslate"><span class="pre">host</span></code> overlay is
 applied to the Warewulf server during configuration. (The host overlay is used
 to configure external services.)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">warewulf::grubboot</span></code>: Controls whether iPXE (default) or GRUB is used as the
+<li><p><code class="docutils literal notranslate"><span class="pre">warewulf:grubboot</span></code>: Controls whether iPXE (default) or GRUB is used as the
 network bootloader.</p></li>
 </ul>
 </section>
@@ -423,7 +425,7 @@ service. Used during <code class="docutils literal notranslate"><span class="pre
 <section id="ssh">
 <h2>ssh<a class="headerlink" href="#ssh" title="Link to this heading"></a></h2>
 <p><em>New in Warewulf v4.5.1</em></p>
-<p>SSH key types to generate during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">ssh</span></code>. This create the
+<p>SSH key types to generate during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">ssh</span></code>. This creates the
 appropriate host keys (stored in <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/keys/</span></code>) and authentication
 keys for passwordless <code class="docutils literal notranslate"><span class="pre">ssh</span></code> to cluster nodes. It also installs shell profiles
 <code class="docutils literal notranslate"><span class="pre">/etc/profile.d/ssh_setup.csh</span></code> and <code class="docutils literal notranslate"><span class="pre">/etc/profile.d/ssh_setup.sh</span></code> to
@@ -438,7 +440,7 @@ Warewulf server.</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ssh:key</span> <span class="pre">types</span></code>: Warewulf generate host keys for each listed key type.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ssh:key</span> <span class="pre">types</span></code>: Warewulf generates host keys for each listed key type.</p></li>
 </ul>
 <p>The first listed key type is used to generate authentication ssh keys.</p>
 </section>
@@ -456,9 +458,9 @@ to operate in the host environment prior to deployment.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">mounts:source</span></code>: The path on the Warewulf server to mount into the
 image.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">mounts:dest</span></code>: The path in the image to use for the mount.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">mounts::readonly</span></code>: Whether the mount should be read-only (<code class="docutils literal notranslate"><span class="pre">true</span></code>)
+<li><p><code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">mounts:readonly</span></code>: Whether the mount should be read-only (<code class="docutils literal notranslate"><span class="pre">true</span></code>)
 or allow writes into the server path (<code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">mounts::copy</span></code>: When <code class="docutils literal notranslate"><span class="pre">true</span></code>, copy files into the image rather than
+<li><p><code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">mounts:copy</span></code>: When <code class="docutils literal notranslate"><span class="pre">true</span></code>, copy files into the image rather than
 mount. This is useful for initializing files with a starting value from the
 Warewulf server that should then be maintained as part of the image.</p></li>
 </ul>
@@ -481,8 +483,9 @@ Warewulf server that should then be maintained as part of the image.</p></li>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">paths:sysconfdir</span></code>: The parent directory for the <code class="docutils literal notranslate"><span class="pre">warewulf</span></code> configuration
 directory, which stores <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> and <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">paths::cachedir</span></code>: The parent directory for the <code class="docutils literal notranslate"><span class="pre">warewulf</span></code> cache of OCI
-images during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">import</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">paths:cachedir</span></code>: The parent directory for the <code class="docutils literal notranslate"><span class="pre">warewulf</span></code> cache of OCI
+images during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">import</span></code>. The cache is stored at
+<code class="docutils literal notranslate"><span class="pre">$cachedir/warewulf</span></code> and can be cleared with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">clean</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">paths:ipxesource</span></code>: Where to get iPXE binaries. These files are copied to
 <code class="docutils literal notranslate"><span class="pre">warewulf.conf:tftp:tftproot</span></code> by <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">tftp</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">datadir</span></code>: Parent directory for distribution overlays and BMC templates.</p></li>
@@ -532,7 +535,7 @@ default, only localhost has access.</p></li>
 <p>There are no explicit “hostfile” configuration options in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>; but
 <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">hostfile</span></code> updates the Warewulf server’s <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> file
 to include expected configuration for the server itself as well as the known
-names of the cluster nodes and thier interfaces.</p>
+names of the cluster nodes and their interfaces.</p>
 <p>Entries from the Warewulf server’s <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> file are distributed to
 cluster nodes by the “hosts” overlay.</p>
 </section>

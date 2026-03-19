@@ -65,6 +65,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -88,7 +90,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -227,7 +229,7 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you get an error message concerning <em>isc-dhcp-server.service</em> you
-probably need to configure the network intarface that isc-dhcp-server
+probably need to configure the network interface that isc-dhcp-server
 will listen to. Run <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">dpkg-reconfigure</span> <span class="pre">isc-dhcp-server</span></code> and enter
 the name of your cluster’s private network interface (e.g. enp2s0). After that, you might also need to run <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">enable</span> <span class="pre">isc-dhcp-server</span></code>.</p>
 </div>
@@ -311,8 +313,8 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">en
 <h2>Configure system services automatically<a class="headerlink" href="#configure-system-services-automatically" title="Link to this heading"></a></h2>
 <p>There are a number of services and configurations that Warewulf relies
 on to operate.  If you wish to configure all services, you can do so
-individually (omitting the <code class="docutils literal notranslate"><span class="pre">--all</span></code>) will print a help and usage
-instructions.</p>
+with the following command. Running <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span></code> individually
+(omitting the <code class="docutils literal notranslate"><span class="pre">--all</span></code>) will print help and usage instructions.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>wwctl<span class="w"> </span>configure<span class="w"> </span>--all
 </pre></div>
 </div>

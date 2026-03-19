@@ -53,6 +53,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -76,7 +78,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -224,15 +226,33 @@
 <p>A new <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">info</span></code> command lists variables used by an overlay
 template, including the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">&lt;node|profile&gt;</span> <span class="pre">set</span></code> argument used to set that
 variable.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>info<span class="w"> </span>ifcfg<span class="w"> </span>/etc/sysconfig/network-scripts/ifcfg.ww
+<span class="go">VARIABLE                OPTION     TYPE                     HELP</span>
+<span class="go">--------                ------     ----                     ----</span>
+<span class="gp">$</span>netdev.Device<span class="w">          </span>--netdev<span class="w">   </span>string<span class="w">                   </span>Set<span class="w"> </span>the<span class="w"> </span>device<span class="w"> </span><span class="k">for</span><span class="w"> </span>given<span class="w"> </span>network
+<span class="gp">$</span>netdev.Gateway<span class="w">         </span>--gateway<span class="w">  </span>IP<span class="w">                       </span>Set<span class="w"> </span>the<span class="w"> </span>node<span class="s1">&#39;s IPv4 network device gateway</span>
+<span class="gp">$</span><span class="s1">netdev.Hwaddr          --hwaddr   MAC                      Set the device&#39;</span>s<span class="w"> </span>HW<span class="w"> </span>address<span class="w"> </span><span class="k">for</span><span class="w"> </span>given<span class="w"> </span>network
+<span class="gp">$</span>netdev.Ipaddr<span class="w">          </span>--ipaddr<span class="w">   </span>IP<span class="w">                       </span>IPv4<span class="w"> </span>address<span class="w"> </span><span class="k">in</span><span class="w"> </span>given<span class="w"> </span>network
+<span class="gp">$</span>netdev.Ipaddr6<span class="w">         </span>--ipaddr6<span class="w">  </span>IP<span class="w">                       </span>IPv6<span class="w"> </span>address<span class="w"> </span><span class="k">in</span><span class="w"> </span>given<span class="w"> </span>network
+<span class="gp">$</span>netdev.MTU<span class="w">             </span>--mtu<span class="w">      </span>uint<span class="w">                     </span>Set<span class="w"> </span>the<span class="w"> </span>mtu
+<span class="gp">$</span>netdev.Netmask<span class="w">         </span>--netmask<span class="w">  </span>IP<span class="w">                       </span>Set<span class="w"> </span>the<span class="w"> </span>networks<span class="w"> </span>netmask
+<span class="gp">$</span>netdev.OnBoot<span class="w">          </span>--onboot<span class="w">   </span>wwtype.WWbool<span class="w">            </span>Enable/disable<span class="w"> </span>network<span class="w"> </span>device<span class="w"> </span><span class="o">(</span>true/false<span class="o">)</span>
+<span class="gp">$</span>netdev.Tags<span class="w">                       </span>map<span class="o">[</span>string<span class="o">]</span>string
+<span class="gp">$</span>netdev.Tags.DNSSEARCH<span class="w">             </span>string
+<span class="gp">$</span>netdev.Tags.master<span class="w">                </span>string
+<span class="gp">$</span>netdev.Type<span class="w">            </span>--type<span class="w">     </span>string<span class="w">                   </span>Set<span class="w"> </span>device<span class="w"> </span><span class="nb">type</span><span class="w"> </span>of<span class="w"> </span>given<span class="w"> </span>network
+<span class="go">.NetDevs                           map[string]*node.NetDev</span>
+</pre></div>
+</div>
 <p>Other variables and the overlay itself can also be documented explicitly within a template.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{{/* wwdoc: Configures chronyd to synchronize time with a specific time server. */}}
-{{/* .Tags.ntp_server: the NTP server to synchonize with */}}
+{{/* .Tags.ntp_server: the NTP server to synchronize with */}}
 </pre></div>
 </div>
 </section>
 <section id="wwctl-image-import-update">
 <h2>wwctl image import –update<a class="headerlink" href="#wwctl-image-import-update" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">import</span></code> come has included an <code class="docutils literal notranslate"><span class="pre">--update</span></code> option since
+<p>The <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">import</span></code> command has included an <code class="docutils literal notranslate"><span class="pre">--update</span></code> option since
 v4.6.0, but it has not been functional. The option now imports an image
 on-top-of an existing image and is meant to be used to update an existing image
 with new files from an updated upstream or external image (e.g., by importing a
@@ -269,23 +289,23 @@ development environment with libvirt.</p>
 </section>
 <section id="warewulf-dracut">
 <h2>warewulf-dracut<a class="headerlink" href="#warewulf-dracut" title="Link to this heading"></a></h2>
-<p>A bug between <code class="docutils literal notranslate"><span class="pre">warewulf-dracut</span></code> and the <code class="docutils literal notranslate"><span class="pre">ignition</span></code> overlay previously caused
+<p>A bug between <code class="docutils literal notranslate"><span class="pre">warewulf-dracut</span></code> and the <code class="docutils literal notranslate"><span class="pre">ignition</span></code> overlay previously prevented
 non-root filesystems from mounting when provisioning the image to disk. A fix in
 <code class="docutils literal notranslate"><span class="pre">warewulf-dracut</span></code> prevents ignition from running twice, allowing all file
 systems to mount properly. The <code class="docutils literal notranslate"><span class="pre">wwinit</span></code> dracut module also no longer runs the
-wwinit module if root is not set to <cite>root=wwclient*</cite>.</p>
+wwinit module if root is not set to <code class="docutils literal notranslate"><span class="pre">root=wwclient*</span></code>.</p>
 <p>These fixes require installing the updated <code class="docutils literal notranslate"><span class="pre">warewulf-dracut</span></code> package in the
-node image.</p>
+OS image.</p>
 </section>
 <section id="other-fixes">
 <h2>Other fixes<a class="headerlink" href="#other-fixes" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>Enhanced <cite>wwctl configure tftp</cite> to manage the SELinux context of TFTP directory. #1997</p></li>
-<li><p>Enhanced overlay templates to support absolute paths with <cite>{{ file }}</cite>. #2055</p></li>
+<li><p>Enhanced <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">tftp</span></code> to manage the SELinux context of TFTP directory. #1997</p></li>
+<li><p>Enhanced overlay templates to support absolute paths with <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">file</span> <span class="pre">}}</span></code>. #2055</p></li>
 <li><p>Fix ImageDelete API not returning error when checking if image is used by nodes/profiles. #1705</p></li>
-<li><p>Fix filesystem overwrite/force behavior in <cite>mkfs</cite> overlay. #2028</p></li>
-<li><p>Write <cite>$tftpdir/warewulf/grub.cfg</cite> to <cite>tftproot</cite> as configured in <cite>warewulf.conf</cite>. #2055</p></li>
-<li><p>Automatically create a GPT label when <cite>sfdisk</cite> overlay wipes disks. #2025</p></li>
+<li><p>Fix filesystem overwrite/force behavior in <code class="docutils literal notranslate"><span class="pre">mkfs</span></code> overlay. #2028</p></li>
+<li><p>Write <code class="docutils literal notranslate"><span class="pre">$tftpdir/warewulf/grub.cfg</span></code> to <code class="docutils literal notranslate"><span class="pre">tftproot</span></code> as configured in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>. #2055</p></li>
+<li><p>Automatically create a GPT label when <code class="docutils literal notranslate"><span class="pre">sfdisk</span></code> overlay wipes disks. #2025</p></li>
 </ul>
 </section>
 </section>

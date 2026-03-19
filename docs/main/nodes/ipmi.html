@@ -54,6 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Server</span></p>
 <ul>
@@ -83,7 +85,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Images</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../images/images.html">Node Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
@@ -219,7 +221,7 @@ serial console.</p>
 <h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
 <p>Typically, common settings for IPMI interfaces are set on a profile, leaving
 only the IP address set per-node.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">--ipmiwrite</span></code> is set to <cite>true</cite>, the <code class="docutils literal notranslate"><span class="pre">wwinit</span></code> overlay will write the
+<p>If <code class="docutils literal notranslate"><span class="pre">--ipmiwrite</span></code> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, the <code class="docutils literal notranslate"><span class="pre">wwinit</span></code> overlay will write the
 desired IPMI configuration to the node’s BMC during boot.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wwctl</span> <span class="n">profile</span> <span class="nb">set</span> <span class="n">default</span> \
   <span class="o">--</span><span class="n">ipminetmask</span><span class="o">=</span><span class="mf">255.255.255.0</span> \
