@@ -32,7 +32,6 @@ Options
       --diskdel string               delete the disk from the configuration
       --diskname string              set diskdevice name
       --diskwipe                     whether or not the partition tables shall be wiped
-  -f, --force                        Force configuration (even on error)
       --fsdel string                 delete the fs from the configuration
       --fsformat string              format of the file system
       --fsname string                set the file system name which must match a partition name
