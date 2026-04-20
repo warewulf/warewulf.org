@@ -322,15 +322,15 @@ abort string is found.</p>
 <span id="id3"></span><h3>ImportLink<a class="headerlink" href="#importlink" title="Link to this heading"></a></h3>
 <p>Causes the processed template file to become a symlink to the same target as the
 referenced symlink.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">ImportLink</span> <span class="s2">&quot;/etc/localtime&quot;</span> <span class="p">}}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="o">-</span> <span class="n">ImportLink</span> <span class="s2">&quot;/etc/localtime&quot;</span> <span class="o">-</span><span class="p">}}</span>
 </pre></div>
 </div>
 <p>When paired with <code class="docutils literal notranslate"><span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">ImportLink</span></code> can create multiple symlinks from a
 single template.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">file</span> <span class="s2">&quot;/tmp/test-link1&quot;</span><span class="p">}}</span>
-<span class="p">{{</span> <span class="n">softlink</span> <span class="s2">&quot;/tmp/test-target1&quot;</span> <span class="p">}}</span>
-<span class="p">{{</span> <span class="n">file</span> <span class="s2">&quot;/tmp/test-link2&quot;</span><span class="p">}}</span>
-<span class="p">{{</span> <span class="n">softlink</span> <span class="s2">&quot;/tmp/test-target2&quot;</span> <span class="p">}}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="o">-</span> <span class="n">file</span> <span class="s2">&quot;/tmp/test-link1&quot;</span> <span class="o">-</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span> <span class="n">softlink</span> <span class="s2">&quot;/tmp/test-target1&quot;</span> <span class="o">-</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span> <span class="n">file</span> <span class="s2">&quot;/tmp/test-link2&quot;</span> <span class="o">-</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span> <span class="n">softlink</span> <span class="s2">&quot;/tmp/test-target2&quot;</span> <span class="o">-</span><span class="p">}}</span>
 </pre></div>
 </div>
 </section>
@@ -349,9 +349,17 @@ single template.</p>
 <h3>file<a class="headerlink" href="#file" title="Link to this heading"></a></h3>
 <p>Write the content from the template to the specified file name. May be specified
 more than once in a template to write content to multiple files.</p>
+<p>When no <code class="docutils literal notranslate"><span class="pre">file</span></code> call is present, all template output is written to the
+<strong>default output path</strong>: the template filename with the <code class="docutils literal notranslate"><span class="pre">.ww</span></code> suffix stripped
+(e.g., <code class="docutils literal notranslate"><span class="pre">/etc/hosts.ww</span></code> → <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>).</p>
+<p>When one or more <code class="docutils literal notranslate"><span class="pre">file</span></code> calls are present, each call redirects subsequent
+template output to that named file. Any content rendered before the first
+<code class="docutils literal notranslate"><span class="pre">file</span></code> call is not written to disk. A <code class="docutils literal notranslate"><span class="pre">softlink</span></code> or <code class="docutils literal notranslate"><span class="pre">ImportLink</span></code> placed
+before any <code class="docutils literal notranslate"><span class="pre">file</span></code> call still applies to the default output path and is
+written to disk even when named files are also present.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{{- range $devname, $netdev := .NetDevs }}
 {{- $filename := print &quot;ifcfg-&quot; $devname &quot;.conf&quot; }}
-{{ file $filename }}
+{{- file $filename -}}
 {{/* content here */}}
 {{- end }}
 </pre></div>
@@ -360,7 +368,7 @@ more than once in a template to write content to multiple files.</p>
 <section id="softlink">
 <span id="id4"></span><h3>softlink<a class="headerlink" href="#softlink" title="Link to this heading"></a></h3>
 <p>Causes the processed template file to become a symlink to the referenced target.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">printf</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="s2">&quot;/usr/share/zoneinfo&quot;</span> <span class="o">.</span><span class="n">Tags</span><span class="o">.</span><span class="n">localtime</span> <span class="o">|</span> <span class="n">softlink</span> <span class="p">}}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="o">-</span> <span class="n">printf</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="s2">&quot;/usr/share/zoneinfo&quot;</span> <span class="o">.</span><span class="n">Tags</span><span class="o">.</span><span class="n">localtime</span> <span class="o">|</span> <span class="n">softlink</span> <span class="o">-</span><span class="p">}}</span>
 </pre></div>
 </div>
 <p>When paired with <code class="docutils literal notranslate"><span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">softlink</span></code> can create multiple symlinks from a
@@ -386,7 +394,7 @@ fields.</p>
 <section id="abort">
 <h3>abort<a class="headerlink" href="#abort" title="Link to this heading"></a></h3>
 <p>Immediately aborts processing the template and does not write a file.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">abort</span> <span class="p">}}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="o">-</span> <span class="n">abort</span> <span class="o">-</span><span class="p">}}</span>
 </pre></div>
 </div>
 </section>
@@ -396,7 +404,7 @@ fields.</p>
 <div><p>Disables the creation of a backup file when replacing files with the current
 template.</p>
 </div></blockquote>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">nobackup</span> <span class="p">}}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="o">-</span> <span class="n">nobackup</span> <span class="o">-</span><span class="p">}}</span>
 </pre></div>
 </div>
 </section>
@@ -424,7 +432,7 @@ to generate a combined <code class="docutils literal notranslate"><span class="p
 <section id="systemdescapepath">
 <h3>SystemdEscapePath<a class="headerlink" href="#systemdescapepath" title="Link to this heading"></a></h3>
 <p>Escapes a path for use in a systemd unit file.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{{ file (print ($fs.path | SystemdEscapePath) &quot;.mount&quot;) }}
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{{- file (print ($fs.path | SystemdEscapePath) &quot;.mount&quot;) -}}
 </pre></div>
 </div>
 <p>Escape rules are documented at <a class="reference external" href="https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#String%20Escaping%20for%20Inclusion%20in%20Unit%20Names">systemd.unit.</a></p>
