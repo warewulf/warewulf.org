@@ -36,4 +36,5 @@ SEE ALSO
 * :ref:`wwctl profile edit <wwctl_profile_edit>` 	 - Edit profile(s) with editor
 * :ref:`wwctl profile list <wwctl_profile_list>` 	 - List profiles and configurations
 * :ref:`wwctl profile set <wwctl_profile_set>` 	 - Configure node profile properties
+* :ref:`wwctl profile unset <wwctl_profile_unset>` 	 - Unset/clear profile properties
 

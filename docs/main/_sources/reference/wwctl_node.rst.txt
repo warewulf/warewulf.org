@@ -43,4 +43,5 @@ SEE ALSO
 * :ref:`wwctl node sensors <wwctl_node_sensors>` 	 - Show node IPMI sensor information
 * :ref:`wwctl node set <wwctl_node_set>` 	 - Configure node properties
 * :ref:`wwctl node status <wwctl_node_status>` 	 - View the provisioning status of nodes
+* :ref:`wwctl node unset <wwctl_node_unset>` 	 - Unset/clear node properties
 

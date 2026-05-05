@@ -151,6 +151,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_sensors.html">wwctl node sensors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_set.html">wwctl node set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_status.html">wwctl node status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_unset.html">wwctl node unset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay.html">wwctl overlay</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_build.html">wwctl overlay build</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chmod.html">wwctl overlay chmod</a></li>
@@ -176,6 +177,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_edit.html">wwctl profile edit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_list.html">wwctl profile list</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_set.html">wwctl profile set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_unset.html">wwctl profile unset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_server.html">wwctl server</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_ssh.html">wwctl ssh</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade.html">wwctl upgrade</a></li>
@@ -315,11 +317,40 @@ These may be specified as a comma-separated list or as multiple arguments.</p>
 </section>
 <section id="un-setting-node-fields">
 <h3>Un-setting Node Fields<a class="headerlink" href="#un-setting-node-fields" title="Link to this heading"></a></h3>
-<p>To un-set a field value, set the value to <code class="docutils literal notranslate"><span class="pre">UNDEF</span></code> or <code class="docutils literal notranslate"><span class="pre">UNSET</span></code> (both are
-accepted).</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--image<span class="o">=</span>UNDEF
+<p>Node fields can be cleared using the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">unset</span></code> command. Each field is
+specified as a boolean flag; the field is cleared when the flag is present.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">unset</span><span class="w"> </span>n1<span class="w"> </span>--image
+wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">unset</span><span class="w"> </span>n1<span class="w"> </span>--kernelargs
 </pre></div>
+</div>
+<p>To unset fields on a specific network interface, disk, partition, or filesystem,
+use the scoping flags <code class="docutils literal notranslate"><span class="pre">--netname</span></code>, <code class="docutils literal notranslate"><span class="pre">--diskname</span></code>, <code class="docutils literal notranslate"><span class="pre">--partname</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">--fsname</span></code>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">unset</span><span class="w"> </span>n1<span class="w"> </span>--netname<span class="o">=</span>secondary<span class="w"> </span>--ipaddr
+</pre></div>
+</div>
+<p>If a scoping flag is given without any sub-field flags, the entire named
+sub-entity is removed. For <code class="docutils literal notranslate"><span class="pre">--partname</span></code>, an optional <code class="docutils literal notranslate"><span class="pre">--diskname</span></code> scopes
+the deletion to a specific disk; without it, the named partition is removed
+from all disks.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">unset</span><span class="w"> </span>n1<span class="w"> </span>--netname<span class="o">=</span>secondary
+wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">unset</span><span class="w"> </span>n1<span class="w"> </span>--partname<span class="o">=</span>swap<span class="w"> </span>--diskname<span class="o">=</span>/dev/vda
+</pre></div>
+</div>
+<p>Tags can be selectively removed with <code class="docutils literal notranslate"><span class="pre">--tag</span></code>, <code class="docutils literal notranslate"><span class="pre">--nettag</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">--ipmitag</span></code>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">unset</span><span class="w"> </span>n1<span class="w"> </span>--tag<span class="o">=</span>localtime
+wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">unset</span><span class="w"> </span>n1<span class="w"> </span>--nettag<span class="o">=</span>DNS1
+</pre></div>
+</div>
+<p>A full list of available flags is shown by <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">unset</span> <span class="pre">--help</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also un-set some fields by setting their value to <code class="docutils literal notranslate"><span class="pre">UNDEF</span></code> or
+<code class="docutils literal notranslate"><span class="pre">UNSET</span></code> with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">set</span></code>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</span><span class="w"> </span>n1<span class="w"> </span>--image<span class="o">=</span>UNDEF
+</pre></div>
+</div>
 </div>
 </section>
 </section>
