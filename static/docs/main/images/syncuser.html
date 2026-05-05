@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Syncuser &mdash; Warewulf User Guide main documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
 
@@ -85,6 +85,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Syncuser</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#synchronizing-uids-gids-in-an-os-image">Synchronizing UIDs/GIDs in an OS image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-syncuser-overlay">The syncuser overlay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-specific-local-users-and-groups">Node-specific local users and groups</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="selinux.html">SELinux</a></li>
@@ -261,6 +262,43 @@ nodes.</p>
 <p>For the overlay to work correctly, the image should also have been prepared with
 the syncuser command (see above) so that UID/GID values are consistent.</p>
 <p>See <a class="reference internal" href="../overlays/overlays.html#syncuser"><span class="std std-ref">syncuser</span></a> in the overlays documentation for more detail.</p>
+</section>
+<section id="node-specific-local-users-and-groups">
+<h2>Node-specific local users and groups<a class="headerlink" href="#node-specific-local-users-and-groups" title="Link to this heading"></a></h2>
+<p>Warewulf supports defining <strong>node-specific local users and groups</strong> through
+the <a class="reference internal" href="../nodes/nodes.html#nodes-resources"><span class="std std-ref">resources</span></a> section of node definitions. These user and
+group entries are merged into the syncuser overlay and included in <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code> and
+<code class="docutils literal notranslate"><span class="pre">/etc/group</span></code> on the target nodes at provisioning time.</p>
+<p>This is useful for applications that require a node-local account (e.g.,
+database, application, or storage service users) without having to maintain
+centralized identity management.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users created through this method do not have passwords set. They are intended for service accounts and non-interactive use.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">nodes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">n1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">localgroups</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">gid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1002</span>
+<span class="w">          </span><span class="nt">members</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dbuser</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dbuserbackup</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dbgroup</span>
+<span class="w">      </span><span class="nt">localusers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">gid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1001</span>
+<span class="w">          </span><span class="nt">home</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dbuser</span>
+<span class="w">          </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/bin/nologin</span>
+<span class="w">          </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1001</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">gid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1005</span>
+<span class="w">          </span><span class="nt">home</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dbuserbackup</span>
+<span class="w">          </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/bin/nologin</span>
+<span class="w">          </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1005</span>
+</pre></div>
+</div>
 </section>
 </section>
 
