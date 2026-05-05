@@ -12,7 +12,7 @@ Synopsis
 This command sets configuration properties for nodes matching PATTERN.
 
 Note: use the string 'UNSET' to remove a configuration
-Node patterns are a comma-separated list of individual pattern.
+Node patterns are a comma-separated list of individual patterns.
 Each pattern can either be a full node name or a node range like node[01-03,05].
 
 ::
@@ -25,10 +25,10 @@ Options
 ::
 
   -a, --all                          Set all nodes
-      --asset string                 Set the node's Asset tag (key)
-  -c, --cluster string               Set cluster group
-      --comment string               Set arbitrary string comment
-  -e, --discoverable WWbool[=true]   Make discoverable in given network (true/false)
+      --asset string                 the node's Asset tag (key)
+  -c, --cluster string               cluster group
+      --comment string               arbitrary string comment
+  -e, --discoverable WWbool[=true]   discoverable in given network (true/false)
       --diskdel string               delete the disk from the configuration
       --diskname string              set diskdevice name
       --diskwipe                     whether or not the partition tables shall be wiped
@@ -37,53 +37,53 @@ Options
       --fsname string                set the file system name which must match a partition name
       --fspath string                the mount point of the file system
       --fswipe                       wipe file system at boot
-  -G, --gateway ip                   Set the node's IPv4 network device gateway
-      --gateway6 ip                  Set the node's IPv6 network device gateway
+  -G, --gateway ip                   the node's IPv4 network device gateway
+      --gateway6 ip                  the node's IPv6 network device gateway
   -h, --help                         help for set
-  -H, --hwaddr string                Set the device's HW address for given network
-      --image string                 Set image name
-  -i, --init string                  Define the init process to boot the image
+  -H, --hwaddr string                the device's HW address for given network
+      --image string                 image name
+  -i, --init string                  the init process to boot the image
   -I, --ipaddr ip                    IPv4 address in given network
       --ipaddr6 ip                   IPv6 address in given network
-      --ipmiaddr ip                  Set the IPMI IP address
-      --ipmiescapechar string        Set the IPMI escape character (defaults: '~')
-      --ipmigateway ip               Set the IPMI gateway
-      --ipmiinterface string         Set the node's IPMI interface (defaults: 'lan')
-      --ipminetmask ip               Set the IPMI netmask
-      --ipmipass string              Set the IPMI password
-      --ipmiport string              Set the IPMI port
+      --ipmiaddr ip                  the IPMI IP address
+      --ipmiescapechar string        the IPMI escape character (defaults: '~')
+      --ipmigateway ip               the IPMI gateway
+      --ipmiinterface string         the node's IPMI interface (defaults: 'lan')
+      --ipminetmask ip               the IPMI netmask
+      --ipmipass string              the IPMI password
+      --ipmiport string              the IPMI port
       --ipmitagadd stringToString    add ipmi tags (default [])
       --ipmitagdel strings           delete ipmi tags
       --ipmitemplate string          template used for ipmi command
-      --ipmiuser string              Set the IPMI username
-      --ipmiwrite WWbool[=true]      Enable the write of ipmi configuration (true/false)
-      --ipxe string                  Set the iPXE template name
-  -A, --kernelargs strings           Set kernel arguments
-      --kernelversion string         Set kernel version
-      --mtu string                   Set the mtu
+      --ipmiuser string              the IPMI username
+      --ipmiwrite WWbool[=true]      writing of IPMI configuration (true/false)
+      --ipxe string                  the iPXE template name
+  -A, --kernelargs strings           kernel arguments
+      --kernelversion string         kernel version
+      --mtu string                   the MTU
       --netdel string                network to delete
-  -N, --netdev string                Set the device for given network
-  -M, --netmask ip                   Set the networks netmask
+  -N, --netdev string                the device for given network
+  -M, --netmask ip                   the network's netmask
       --netname string               network which is modified (default "default")
       --nettagadd stringToString     add network tags (default [])
       --nettagdel strings            delete network tags
-      --onboot WWbool[=true]         Enable/disable network device (true/false)
-      --partcreate                   Create partition if it does not exist
+      --onboot WWbool[=true]         network device (true/false)
+      --partcreate                   create the partition if it does not exist
       --partdel string               delete the partition from the configuration
       --partname string              set the partition name so it can be used by a file system
-      --partnumber string            Set the partition number, if not set next free slot is used
-      --partsize string              Set the size of the partition, if not set maximal possible size is used
-      --parttype string              Set the partition type GUID
+      --partnumber string            the partition number (if not set, next free slot is used)
+      --partsize string              the partition size (if not set, maximum possible size is used)
+      --parttype string              the partition type GUID
       --partwipe                     if true, Ignition will clobber an existing partition if it does not match the config
-      --prefixlen6 string            Set the networks IPv6 prefix length
-  -p, --primarynet string            Set the primary network interface
-  -P, --profile strings              Set the node's profile members (comma separated)
-      --root string                  Define the rootfs
-  -R, --runtime-overlays strings     Set the runtime overlay
-  -O, --system-overlays strings      Set the system overlay
+      --prefixlen6 string            the network's IPv6 prefix length
+  -p, --primarynet string            the primary network interface
+  -P, --profile strings              the node's profile members (comma separated)
+      --root string                  the rootfs
+  -R, --runtime-overlays strings     the runtime overlay
+  -O, --system-overlays strings      the system overlay
       --tagadd stringToString        add tags (default [])
       --tagdel strings               delete tags
-  -T, --type string                  Set device type of given network
+  -T, --type string                  device type of given network
   -y, --yes                          Set 'yes' to all questions asked
 
 Options inherited from parent commands
