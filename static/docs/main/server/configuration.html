@@ -322,6 +322,13 @@ can be specified at <code class="docutils literal notranslate"><span class="pre"
 <p>Changing this option requires rebuilding node overlays and rebooting compute
 nodes to configure them to use a privileged port for <code class="docutils literal notranslate"><span class="pre">wwclient</span></code>.</p>
 </li>
+<li><p><code class="docutils literal notranslate"><span class="pre">warewulf:secure</span> <span class="pre">files</span></code>: Controls whether the <code class="docutils literal notranslate"><span class="pre">/files/</span></code> route requires
+requests to originate from a privileged port. When unset, this inherits from
+<code class="docutils literal notranslate"><span class="pre">warewulf:secure</span></code>.</p>
+<p>Set to <code class="docutils literal notranslate"><span class="pre">false</span></code> when <code class="docutils literal notranslate"><span class="pre">warewulf:secure</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code> to allow unprivileged
+clients (e.g. scripts or services not running as root) to fetch files from
+this route without requiring a privileged source port.</p>
+</li>
 <li><p><code class="docutils literal notranslate"><span class="pre">warewulf:update</span> <span class="pre">interval</span></code>: This defines the frequency (in seconds) with
 which the Warewulf client on the compute node fetches overlay updates.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">warewulf:autobuild</span> <span class="pre">overlays</span></code>: Controls whether per-node overlays will

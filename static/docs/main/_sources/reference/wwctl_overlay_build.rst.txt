@@ -20,11 +20,8 @@ Options
 
 ::
 
-  -h, --help              help for build
-  -o, --output string     Do not create an overlay image for distribution but write to
-                          	the given directory. An overlay must also be given to use this option.
-  -O, --overlay strings   Build only specific overlay(s)
-      --workers int       The number of parallel workers building overlays (<=0 indicates 1 worker per CPU)
+  -h, --help          help for build
+      --workers int   The number of parallel workers building overlays (<=0 indicates 1 worker per CPU)
 
 Options inherited from parent commands
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

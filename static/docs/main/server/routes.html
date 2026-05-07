@@ -72,7 +72,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#initramfs-wwid"><code class="docutils literal notranslate"><span class="pre">/initramfs/{wwid}</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#system-wwid"><code class="docutils literal notranslate"><span class="pre">/system/{wwid}</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#runtime-wwid"><code class="docutils literal notranslate"><span class="pre">/runtime/{wwid}</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#overlay-file-overlay-path"><code class="docutils literal notranslate"><span class="pre">/overlay-file/{overlay}/{path}</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#efiboot-file"><code class="docutils literal notranslate"><span class="pre">/efiboot/{file}</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#grub-wwid"><code class="docutils literal notranslate"><span class="pre">/grub/{wwid}</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#provision-wwid"><code class="docutils literal notranslate"><span class="pre">/provision/{wwid}</span></code></a></li>
@@ -83,6 +82,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#rest-api">REST API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#files-route">Files Route</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#files-path"><code class="docutils literal notranslate"><span class="pre">/files/{path}</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#security">Security</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#asset-key-validation">Asset key validation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#secure-mode">Secure mode</a></li>
@@ -254,7 +257,7 @@ is started on the port configured with <code class="docutils literal notranslate
 </div>
 <section id="url-patterns">
 <h2>URL Patterns<a class="headerlink" href="#url-patterns" title="Link to this heading"></a></h2>
-<p>Every provisioning route (except <code class="docutils literal notranslate"><span class="pre">/overlay-file/</span></code> and <code class="docutils literal notranslate"><span class="pre">/status</span></code>) supports
+<p>Every provisioning route (except <code class="docutils literal notranslate"><span class="pre">/status</span></code>) supports
 six equivalent URL patterns for specifying the node identity:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/{stage}/{wwid}           # wwid in path
 /{stage}?wwid={wwid}      # wwid as query parameter
@@ -331,12 +334,7 @@ configuration files that are static for the lifetime of the boot.</p>
 <p>When <code class="docutils literal notranslate"><span class="pre">autobuild</span> <span class="pre">overlays</span></code> is enabled in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>, the server
 will automatically rebuild the overlay if it is out of date relative to
 <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> or the overlay source files.</p>
-<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">compress</span></code>, <code class="docutils literal notranslate"><span class="pre">overlay</span></code></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">overlay</span></code>: A comma-separated list of overlay names. When specified, only
-the named overlays are served (rather than the node’s full system overlay
-set).</p></li>
-</ul>
+<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">compress</span></code></p>
 </section>
 <section id="runtime-wwid">
 <h3><code class="docutils literal notranslate"><span class="pre">/runtime/{wwid}</span></code><a class="headerlink" href="#runtime-wwid" title="Link to this heading"></a></h3>
@@ -351,34 +349,7 @@ overlay.</p>
 <p>When TLS is enabled in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>, this route requires that the request
 arrive over HTTPS. Plain-HTTP requests are rejected with <code class="docutils literal notranslate"><span class="pre">403</span> <span class="pre">Forbidden</span></code>. The
 HTTPS listener port is configured with <code class="docutils literal notranslate"><span class="pre">warewulf:tls</span> <span class="pre">port</span></code>.</p>
-<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">compress</span></code>, <code class="docutils literal notranslate"><span class="pre">overlay</span></code></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">overlay</span></code>: A comma-separated list of overlay names. Same behavior as for
-<code class="docutils literal notranslate"><span class="pre">/system/</span></code>.</p></li>
-</ul>
-</section>
-<section id="overlay-file-overlay-path">
-<h3><code class="docutils literal notranslate"><span class="pre">/overlay-file/{overlay}/{path}</span></code><a class="headerlink" href="#overlay-file-overlay-path" title="Link to this heading"></a></h3>
-<p>Provides direct access to an individual file within a named overlay. This
-route uses a different URL structure than the other provisioning routes: the
-overlay name is in the second path segment, and the file path within the overlay
-follows.</p>
-<p>If the <code class="docutils literal notranslate"><span class="pre">render</span></code> parameter is provided, the file is rendered as a Go template
-for the specified node and the rendered content is returned. If <code class="docutils literal notranslate"><span class="pre">render</span></code> is
-absent, the raw file bytes are returned without any template processing.</p>
-<p>If the requested path does not end in <code class="docutils literal notranslate"><span class="pre">.ww</span></code> but a <code class="docutils literal notranslate"><span class="pre">.ww</span></code>-suffixed version of
-the file exists, and a <code class="docutils literal notranslate"><span class="pre">render</span></code> node is specified, the server automatically
-serves the <code class="docutils literal notranslate"><span class="pre">.ww</span></code> template.</p>
-<p><strong>Query parameters:</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">render</span></code>: Node ID to render the template for. If not specified, the raw
-file is returned.</p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This route does not require authentication via <code class="docutils literal notranslate"><span class="pre">assetkey</span></code> and does not
-perform node lookup by hardware address.</p>
-</div>
+<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">compress</span></code></p>
 </section>
 <section id="efiboot-file">
 <h3><code class="docutils literal notranslate"><span class="pre">/efiboot/{file}</span></code><a class="headerlink" href="#efiboot-file" title="Link to this heading"></a></h3>
@@ -444,8 +415,7 @@ resolved via ARP.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">stage=runtime</span></code> → <code class="docutils literal notranslate"><span class="pre">/runtime/</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">stage=grub</span></code> → <code class="docutils literal notranslate"><span class="pre">/grub/</span></code></p></li>
 </ul>
-<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">stage</span></code> (required), <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">compress</span></code>,
-<code class="docutils literal notranslate"><span class="pre">overlay</span></code></p>
+<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">stage</span></code> (required), <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">uuid</span></code>, <code class="docutils literal notranslate"><span class="pre">compress</span></code></p>
 </section>
 </section>
 <section id="status-route">
@@ -480,6 +450,57 @@ and overlays. Interactive documentation is available at <code class="docutils li
 <p>When TLS is enabled, access to the REST API can additionally be restricted to
 HTTPS-only requests by setting <code class="docutils literal notranslate"><span class="pre">api:</span> <span class="pre">tls:</span> <span class="pre">true</span></code> in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>.</p>
 <p>See <a class="reference internal" href="api.html#rest-api"><span class="std std-ref">REST API</span></a> for full details.</p>
+</section>
+<section id="files-route">
+<h2>Files Route<a class="headerlink" href="#files-route" title="Link to this heading"></a></h2>
+<section id="files-path">
+<h3><code class="docutils literal notranslate"><span class="pre">/files/{path}</span></code><a class="headerlink" href="#files-path" title="Link to this heading"></a></h3>
+<p>Serves static files from the warewulf files directory (<code class="docutils literal notranslate"><span class="pre">wwfilesdir</span></code> in
+<code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>, defaulting to <code class="docutils literal notranslate"><span class="pre">/var/lib/warewulf/files</span></code>). Subdirectories
+are supported.</p>
+<p>Every request must identify a node, either via the <code class="docutils literal notranslate"><span class="pre">?wwid=</span></code> query parameter
+(a hardware address) or by ARP cache lookup of the requesting IP. If no node
+can be identified, the server returns <code class="docutils literal notranslate"><span class="pre">401</span> <span class="pre">Unauthorized</span></code>.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">secure</span></code> is enabled in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>, requests must originate from a
+privileged port (&lt; 1024); otherwise <code class="docutils literal notranslate"><span class="pre">403</span> <span class="pre">Forbidden</span></code> is returned. If the node
+has an <code class="docutils literal notranslate"><span class="pre">AssetKey</span></code> configured, the <code class="docutils literal notranslate"><span class="pre">?assetkey=</span></code> parameter must be present and
+match; a missing key returns <code class="docutils literal notranslate"><span class="pre">401</span> <span class="pre">Unauthorized</span></code> and an incorrect key returns
+<code class="docutils literal notranslate"><span class="pre">403</span> <span class="pre">Forbidden</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Place<span class="w"> </span>files<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>warewulf<span class="w"> </span>files<span class="w"> </span>directory:
+<span class="gp">$ </span>cp<span class="w"> </span>myfile.txt<span class="w"> </span>/var/lib/warewulf/files/
+<span class="gp">$ </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/lib/warewulf/files/scripts
+<span class="gp">$ </span>cp<span class="w"> </span>setup.sh<span class="w"> </span>/var/lib/warewulf/files/scripts/
+
+<span class="gp"># </span>Fetch<span class="w"> </span>from<span class="w"> </span>a<span class="w"> </span>compute<span class="w"> </span>node:
+<span class="gp">$ </span>curl<span class="w"> </span>http://&lt;server&gt;:9873/files/myfile.txt?wwid<span class="o">=</span><span class="m">00</span>:00:00:00:00:01
+<span class="gp">$ </span>curl<span class="w"> </span>http://&lt;server&gt;:9873/files/scripts/setup.sh?wwid<span class="o">=</span><span class="m">00</span>:00:00:00:00:01
+</pre></div>
+</div>
+<p>Directory listing is disabled; requests for a directory path return
+<code class="docutils literal notranslate"><span class="pre">404</span> <span class="pre">Not</span> <span class="pre">Found</span></code>.</p>
+<p><strong>Template rendering:</strong> Adding the <code class="docutils literal notranslate"><span class="pre">?render</span></code> query parameter renders the file
+as a Go template for the identified node, with the same template functions and
+data available as in overlay templates. Without <code class="docutils literal notranslate"><span class="pre">?render</span></code>, files are returned
+as raw bytes. The path must refer to a <code class="docutils literal notranslate"><span class="pre">.ww</span></code> template file. If the path does
+not end in <code class="docutils literal notranslate"><span class="pre">.ww</span></code> but a <code class="docutils literal notranslate"><span class="pre">.ww</span></code>-suffixed version exists, that file is used
+automatically. Using <code class="docutils literal notranslate"><span class="pre">?render</span></code> on a path where no <code class="docutils literal notranslate"><span class="pre">.ww</span></code> file can be found
+returns <code class="docutils literal notranslate"><span class="pre">400</span> <span class="pre">Bad</span> <span class="pre">Request</span></code> if the exact file exists, or <code class="docutils literal notranslate"><span class="pre">404</span> <span class="pre">Not</span> <span class="pre">Found</span></code> if
+neither form exists.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Place<span class="w"> </span>a<span class="w"> </span>template<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>files<span class="w"> </span>directory:
+<span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;hostname={{ .Hostname }}&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>/var/lib/warewulf/files/info.ww
+
+<span class="gp"># </span>Fetch<span class="w"> </span>the<span class="w"> </span>raw<span class="w"> </span>template:
+<span class="gp">$ </span>curl<span class="w"> </span>http://&lt;server&gt;:9873/files/info.ww?wwid<span class="o">=</span><span class="m">00</span>:00:00:00:00:01
+
+<span class="gp"># </span>Fetch<span class="w"> </span>the<span class="w"> </span>rendered<span class="w"> </span>template<span class="w"> </span><span class="o">(</span>explicit<span class="w"> </span>.ww<span class="w"> </span>suffix<span class="o">)</span>:
+<span class="gp">$ </span>curl<span class="w"> </span><span class="s1">&#39;http://&lt;server&gt;:9873/files/info.ww?render&amp;wwid=00:00:00:00:00:01&#39;</span>
+
+<span class="gp"># </span>Fetch<span class="w"> </span>the<span class="w"> </span>rendered<span class="w"> </span>template<span class="w"> </span><span class="o">(</span>implicit<span class="w"> </span>.ww<span class="w"> </span>suffix<span class="o">)</span>:
+<span class="gp">$ </span>curl<span class="w"> </span><span class="s1">&#39;http://&lt;server&gt;:9873/files/info?render&amp;wwid=00:00:00:00:00:01&#39;</span>
+</pre></div>
+</div>
+<p><strong>Query parameters:</strong> <code class="docutils literal notranslate"><span class="pre">wwid</span></code>, <code class="docutils literal notranslate"><span class="pre">assetkey</span></code>, <code class="docutils literal notranslate"><span class="pre">render</span></code></p>
+</section>
 </section>
 <section id="security">
 <span id="server-routes-security"></span><h2>Security<a class="headerlink" href="#security" title="Link to this heading"></a></h2>
