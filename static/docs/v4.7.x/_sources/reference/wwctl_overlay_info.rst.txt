@@ -1,0 +1,39 @@
+.. _wwctl_overlay_info:
+
+wwctl overlay info
+------------------
+
+Show variables for a template file in an overlay
+
+Synopsis
+~~~~~~~~
+
+
+This command will show the variables for a given template file in a given
+overlay.
+
+::
+
+  wwctl overlay info [flags] OVERLAY_NAME FILE_PATH
+
+Options
+~~~~~~~
+
+::
+
+  -h, --help   help for info
+
+Options inherited from parent commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  -d, --debug                 Run with debugging messages enabled.
+  -v, --verbose               Run with increased verbosity.
+      --warewulfconf string   Set the warewulf configuration file
+
+SEE ALSO
+~~~~~~~~
+
+* :ref:`wwctl overlay <wwctl_overlay>` 	 - Warewulf Overlay Management
+
