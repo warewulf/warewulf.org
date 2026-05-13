@@ -1,0 +1,416 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>v4.7.0 Release Notes &mdash; Warewulf User Guide main documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="v4.6.5 Release Notes" href="v4.6.5.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/provisioning.html">The Provisioning Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/network.html">Network Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/el-quickstart.html">Enterprise Linux Quickstart (Rocky Linux, CentOS, and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Server</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../server/installation.html">Server Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/configuration.html">Server Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/routes.html">Server Routes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/networking.html">Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/dnsmasq.html">Using dnsmasq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/bootloaders.html">Bootloaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/upgrade.html">Upgrading Warewulf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/api.html">REST API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/nodes.html">Cluster Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/disks.html">Disks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Overlays</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/overlays.html">Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/templates.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/known-issues.html">Known issues</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment.html">Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Command Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl.html">wwctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_clean.html">wwctl clean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure.html">wwctl configure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_dhcp.html">wwctl configure dhcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_hostfile.html">wwctl configure hostfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_nfs.html">wwctl configure nfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_ssh.html">wwctl configure ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tftp.html">wwctl configure tftp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tls.html">wwctl configure tls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_warewulfd.html">wwctl configure warewulfd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image.html">wwctl image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_build.html">wwctl image build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_copy.html">wwctl image copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_delete.html">wwctl image delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_exec.html">wwctl image exec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_import.html">wwctl image import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_kernels.html">wwctl image kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_list.html">wwctl image list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_rename.html">wwctl image rename</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_shell.html">wwctl image shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_show.html">wwctl image show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_syncuser.html">wwctl image syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node.html">wwctl node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_add.html">wwctl node add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_console.html">wwctl node console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_delete.html">wwctl node delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_edit.html">wwctl node edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_export.html">wwctl node export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_import.html">wwctl node import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_list.html">wwctl node list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_sensors.html">wwctl node sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_set.html">wwctl node set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_status.html">wwctl node status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_unset.html">wwctl node unset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay.html">wwctl overlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_build.html">wwctl overlay build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chmod.html">wwctl overlay chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chown.html">wwctl overlay chown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_create.html">wwctl overlay create</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_delete.html">wwctl overlay delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_edit.html">wwctl overlay edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_info.html">wwctl overlay info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_list.html">wwctl overlay list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_show.html">wwctl overlay show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power.html">wwctl power</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_cycle.html">wwctl power cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_off.html">wwctl power off</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_on.html">wwctl power on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_reset.html">wwctl power reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_soft.html">wwctl power soft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_status.html">wwctl power status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile.html">wwctl profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_add.html">wwctl profile add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_delete.html">wwctl profile delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_edit.html">wwctl profile edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_list.html">wwctl profile list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_set.html">wwctl profile set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_unset.html">wwctl profile unset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_server.html">wwctl server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_ssh.html">wwctl ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade.html">wwctl upgrade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_config.html">wwctl upgrade config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_nodes.html">wwctl upgrade nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_version.html">wwctl version</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/nodes.conf.html">nodes.conf(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="v4.6.0.html">v4.6.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.6.1.html">v4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.6.2.html">v4.6.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.6.3.html">v4.6.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.6.4.html">v4.6.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.6.5.html">v4.6.5</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">v4.7.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wwctl-unset">wwctl unset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#refactored-server-routes">Refactored Server Routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#new-files-route">New Files Route</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tls-support">TLS Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#removed-sub-overlay-support">Removed Sub-Overlay Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#internal-grpc-removal">Internal gRPC Removal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network-overlays">Network Overlays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#template-functions-and-whitespace">Template Functions and Whitespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#security">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#development-and-ci">Development and CI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-fixes">Other Fixes</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">v4.7.0 Release Notes</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/release/v4.7.0.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="v4-7-0-release-notes">
+<h1>v4.7.0 Release Notes<a class="headerlink" href="#v4-7-0-release-notes" title="Link to this heading"></a></h1>
+<p>v4.7.0 is a significant upgrade, with many changes relative to the v4.6.x
+series.</p>
+<p>Particularly significant changes, especially those affecting the user interface,
+are described below. Additional changes are listed in the <a class="reference external" href="https://github.com/warewulf/warewulf/blob/main/CHANGELOG.md">CHANGELOG</a>.</p>
+<p>Running <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">upgrade</span></code> should be sufficient when upgrading from v4.6.x and
+previous releases, but back up your configuration (<code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> and
+<code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>) when upgrading.</p>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h2>
+<p>The user documentation has received a substantial audit and update for
+v4.7.0:</p>
+<ul class="simple">
+<li><p>An initial one-page quick reference guide.</p></li>
+<li><p>New documentation describing the status of various top-level Warewulf
+features.</p></li>
+<li><p>New documentation for the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">clean</span></code> command.</p></li>
+<li><p>New documentation on reclaiming RAM by moving the image to swap.</p></li>
+<li><p>New documentation on configuring the ARP cache for large clusters.</p></li>
+<li><p>Expanded troubleshooting documentation for container runtimes.</p></li>
+<li><p>New documentation on detecting shadowed overlays.</p></li>
+<li><p>A new section on multiple-network server configurations, moved from
+getting-started to a dedicated server networking section.</p></li>
+<li><p>Audit and corrections to documentation, cobra help text, and log messages.</p></li>
+<li><p>Clarified functionality of <code class="docutils literal notranslate"><span class="pre">syncuser</span></code> commands and the <code class="docutils literal notranslate"><span class="pre">syncuser</span></code>
+overlay.</p></li>
+<li><p>The documentation now distinguishes more clearly between OS images and overlay
+images.</p></li>
+<li><p>A new troubleshooting section describes how to detect shadowed overlays.</p></li>
+</ul>
+</section>
+<section id="wwctl-unset">
+<h2>wwctl unset<a class="headerlink" href="#wwctl-unset" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">set</span></code> command was previously enhanced with automatic type-checking
+to ensure that input field values were valid for their target field. However,
+this broke the ability to unset some fields with a sentinel <code class="docutils literal notranslate"><span class="pre">UNDEF</span></code> value
+(e.g., because <code class="docutils literal notranslate"><span class="pre">UNDEF</span></code> is not a valid IP address).</p>
+<p>A new <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">&lt;node|profile&gt;</span> <span class="pre">unset</span></code> command provides explicit removal of
+individual configuration fields, replacing the use of empty-string assignment
+or <code class="docutils literal notranslate"><span class="pre">--del</span></code> flags on <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">&lt;node|profile&gt;</span> <span class="pre">set</span></code>. The <code class="docutils literal notranslate"><span class="pre">set</span></code> and <code class="docutils literal notranslate"><span class="pre">unset</span></code>
+commands are now implemented in a unified fashion using cobra’s
+<code class="docutils literal notranslate"><span class="pre">cmd.Flags().Changed()</span></code> to apply only explicitly-set fields.</p>
+<p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">&lt;node|profile&gt;</span> <span class="pre">set</span> <span class="pre">--partdel</span></code> and <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">&lt;node|profile&gt;</span> <span class="pre">unset</span>
+<span class="pre">--partname</span></code> now scope partition deletion to a specific disk when
+<code class="docutils literal notranslate"><span class="pre">--diskname</span></code> is provided; without <code class="docutils literal notranslate"><span class="pre">--diskname</span></code>, the partition is removed
+from all disks (the previous behavior). A new <code class="docutils literal notranslate"><span class="pre">--partwipe</span></code> flag has also
+been added to <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">&lt;node|profile&gt;</span> <span class="pre">set</span></code>.</p>
+</section>
+<section id="refactored-server-routes">
+<h2>Refactored Server Routes<a class="headerlink" href="#refactored-server-routes" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> HTTP API has been refactored to use a set of dedicated,
+purpose-specific server routes in place of the previous
+<code class="docutils literal notranslate"><span class="pre">/provision/{hwaddr}?stage=X</span></code> interface. The new routes are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/ipxe/</span></code> for iPXE scripts</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/kernel/</span></code> for kernel images</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/image/</span></code> for node images</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/initramfs/</span></code> for initramfs images</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/system/</span></code> for system overlays</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/runtime/</span></code> for runtime overlays</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/grub/</span></code> for GRUB configuration</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/efiboot/</span></code> for EFI boot files</p></li>
+</ul>
+<p>The iPXE, GRUB, and dracut boot scripts and templates have been updated to use
+the new routes, and <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> now uses the <code class="docutils literal notranslate"><span class="pre">/runtime/</span></code> route for runtime
+overlay downloads. A new <code class="docutils literal notranslate"><span class="pre">wwinit.server</span></code> kernel parameter is used for
+dracut/wwinit boot. (The previous <code class="docutils literal notranslate"><span class="pre">wwinit.uri</span></code> parameter, as well as the
+<code class="docutils literal notranslate"><span class="pre">/provision/</span></code> route, remains supported for backward compatibility.)</p>
+</section>
+<section id="new-files-route">
+<h2>New Files Route<a class="headerlink" href="#new-files-route" title="Link to this heading"></a></h2>
+<p>A new <code class="docutils literal notranslate"><span class="pre">/files/</span></code> server route serves static files from the Warewulf files
+directory (typically <code class="docutils literal notranslate"><span class="pre">/var/lib/warewulf/files/</span></code>). The route supports optional
+template rendering and an optional <code class="docutils literal notranslate"><span class="pre">.ww</span></code> suffix, allowing both raw and
+template-rendered files to be served.</p>
+<p>A new <code class="docutils literal notranslate"><span class="pre">warewulf:secure</span> <span class="pre">files</span></code> configuration option in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>
+controls whether the <code class="docutils literal notranslate"><span class="pre">/files/</span></code> route requires requests from a privileged
+port, independently of the global <code class="docutils literal notranslate"><span class="pre">warewulf:secure</span></code> setting.</p>
+</section>
+<section id="tls-support">
+<h2>TLS Support<a class="headerlink" href="#tls-support" title="Link to this heading"></a></h2>
+<p>Warewulf v4.7.0 adds TLS support to <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> and the REST API. A new
+<code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">tls</span></code> command generates and configures TLS keys and
+certificates for the Warewulf server.</p>
+</section>
+<section id="removed-sub-overlay-support">
+<h2>Removed Sub-Overlay Support<a class="headerlink" href="#removed-sub-overlay-support" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">/overlay-file/</span></code> route, the <code class="docutils literal notranslate"><span class="pre">?overlay=</span></code> query parameter on <code class="docutils literal notranslate"><span class="pre">/system/</span></code>
+and <code class="docutils literal notranslate"><span class="pre">/runtime/</span></code>, and the <code class="docutils literal notranslate"><span class="pre">--overlay</span></code> (<code class="docutils literal notranslate"><span class="pre">-O</span></code>) and <code class="docutils literal notranslate"><span class="pre">--output</span></code> (<code class="docutils literal notranslate"><span class="pre">-o</span></code>)
+flags on <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">build</span></code> have all been removed.</p>
+</section>
+<section id="internal-grpc-removal">
+<h2>Internal gRPC Removal<a class="headerlink" href="#internal-grpc-removal" title="Link to this heading"></a></h2>
+<p>The gRPC API libraries and protobuf types have been removed from Warewulf. The
+node, profile, and image functions previously implemented via gRPC have been
+refactored to use the same internal interfaces used by the REST API, simplifying
+the codebase and reducing the number of dependencies.</p>
+</section>
+<section id="network-overlays">
+<h2>Network Overlays<a class="headerlink" href="#network-overlays" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>New <code class="docutils literal notranslate"><span class="pre">chrony</span></code> overlay to configure <code class="docutils literal notranslate"><span class="pre">chronyd</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">netplan</span></code> overlay can now configure now emits default routes.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">syncuser</span></code> overlay now supports defining explicit local users and
+groups.</p></li>
+<li><p>A new <code class="docutils literal notranslate"><span class="pre">mig</span></code> overlay configures NVIDIA MIG devices.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">hosts</span></code> overlay has been added to the default system overlay list.</p></li>
+</ul>
+</section>
+<section id="template-functions-and-whitespace">
+<h2>Template Functions and Whitespace<a class="headerlink" href="#template-functions-and-whitespace" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">file</span> <span class="pre">}}</span></code>, <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">softlink</span> <span class="pre">}}</span></code>, and <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">ImportLink</span> <span class="pre">}}</span></code> template
+functions have been refactored to use state-based routing instead of sentinel
+strings. Whitespace-trimming syntax (e.g., <code class="docutils literal notranslate"><span class="pre">{{-</span> <span class="pre">file</span> <span class="pre">&quot;name&quot;</span> <span class="pre">-}}</span></code>) now
+correctly creates all named files and symlinks.</p>
+</section>
+<section id="security">
+<h2>Security<a class="headerlink" href="#security" title="Link to this heading"></a></h2>
+<p>Multiple theoretical path-traversal vulnerabilities in overlay handling have
+been fixed. (These vulnerabilities are not believed to have been exploitable,
+but have been addressed as a matter of best practice.)</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">assetkey</span></code> field is no longer leaked into <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> logs.</p>
+<p>The minimum Go version has been increased to 1.25.5 to pick up multiple stdlib
+CVE fixes, and many other library dependencies have been updated. See
+<a class="reference external" href="https://github.com/warewulf/warewulf/blob/main/CHANGELOG.md">CHANGELOG</a> for the full list.</p>
+</section>
+<section id="development-and-ci">
+<h2>Development and CI<a class="headerlink" href="#development-and-ci" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>A new CI integration test provisions QEMU VMs via Warewulf on Rocky Linux
+10, with matrix builds adding SUSE Linux 16.0 (Leap) coverage.</p></li>
+<li><p>The userdocs CI job has been sped up.</p></li>
+</ul>
+</section>
+<section id="other-fixes">
+<h2>Other Fixes<a class="headerlink" href="#other-fixes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Include API configuration during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">upgrade</span> <span class="pre">config</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">comment</span></code> field is no longer inherited from profiles by nodes.</p></li>
+<li><p>Fix the requisite dependency between the ignition disk target and the
+ignition service.</p></li>
+<li><p>Allow whitespace to be trimmed for <code class="docutils literal notranslate"><span class="pre">wwdoc</span></code> comments.</p></li>
+<li><p>Improved error handling for the <code class="docutils literal notranslate"><span class="pre">/newroot</span></code> mount during single-stage
+boot, and bugfixes for command-line arguments during single-stage image
+unpacking.</p></li>
+<li><p>Fixed incorrect help docs for <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">chown</span></code>.</p></li>
+<li><p>Raised the open file limit for the <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> service to match systemd
+precedence.</p></li>
+<li><p>A missing <code class="docutils literal notranslate"><span class="pre">goto</span></code> has been added to <code class="docutils literal notranslate"><span class="pre">default.ipxe</span></code> to fix an iPXE menu
+fallthrough bug.</p></li>
+<li><p>The Warewulf REST API now returns HTTP 409 when attempting to create an
+overlay that already exists.</p></li>
+<li><p>Runtime overlay download failure during dracut/wwinit boot is now non-fatal:
+the node continues to boot and <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> retries the download at runtime.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="v4.6.5.html" class="btn btn-neutral float-left" title="v4.6.5 Release Notes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
