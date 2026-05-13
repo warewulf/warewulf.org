@@ -1,0 +1,39 @@
+.. _wwctl_overlay_build:
+
+wwctl overlay build
+-------------------
+
+(Re)build node overlays
+
+Synopsis
+~~~~~~~~
+
+
+This command builds overlays for given nodes.
+
+::
+
+  wwctl overlay build [OPTIONS] NODENAME...
+
+Options
+~~~~~~~
+
+::
+
+  -h, --help          help for build
+      --workers int   The number of parallel workers building overlays (<=0 indicates 1 worker per CPU)
+
+Options inherited from parent commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  -d, --debug                 Run with debugging messages enabled.
+  -v, --verbose               Run with increased verbosity.
+      --warewulfconf string   Set the warewulf configuration file
+
+SEE ALSO
+~~~~~~~~
+
+* :ref:`wwctl overlay <wwctl_overlay>` 	 - Warewulf Overlay Management
+

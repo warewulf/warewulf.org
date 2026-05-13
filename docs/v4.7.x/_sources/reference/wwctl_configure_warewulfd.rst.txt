@@ -1,0 +1,38 @@
+.. _wwctl_configure_warewulfd:
+
+wwctl configure warewulfd
+-------------------------
+
+Enable and start warewulfd
+
+Synopsis
+~~~~~~~~
+
+
+Enable and starts the warewulfd service.
+
+::
+
+  wwctl configure warewulfd [OPTIONS]
+
+Options
+~~~~~~~
+
+::
+
+  -h, --help   help for warewulfd
+
+Options inherited from parent commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  -d, --debug                 Run with debugging messages enabled.
+  -v, --verbose               Run with increased verbosity.
+      --warewulfconf string   Set the warewulf configuration file
+
+SEE ALSO
+~~~~~~~~
+
+* :ref:`wwctl configure <wwctl_configure>` 	 - Manage system services
+
