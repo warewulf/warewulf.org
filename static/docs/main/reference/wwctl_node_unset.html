@@ -74,6 +74,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../nodes/nodes.html">Cluster Nodes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nodes/profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/groups.html">Node Groups</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nodes/network.html">Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nodes/ipmi.html">IPMI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nodes/disks.html">Disks</a></li>
@@ -114,6 +115,8 @@
 <li class="toctree-l1"><a class="reference internal" href="wwctl_configure_tftp.html">wwctl configure tftp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_configure_tls.html">wwctl configure tls</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_configure_warewulfd.html">wwctl configure warewulfd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl_group.html">wwctl group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl_group_list.html">wwctl group list</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_image.html">wwctl image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_image_build.html">wwctl image build</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_image_copy.html">wwctl image copy</a></li>
@@ -244,6 +247,7 @@ Each pattern can either be a full node name or a node range like node[01-03,05].
     <span class="o">--</span><span class="n">fswipe</span>             <span class="n">wipe</span> <span class="n">file</span> <span class="n">system</span> <span class="n">at</span> <span class="n">boot</span>
 <span class="o">-</span><span class="n">G</span><span class="p">,</span> <span class="o">--</span><span class="n">gateway</span>            <span class="n">the</span> <span class="n">node</span><span class="s1">&#39;s IPv4 network device gateway</span>
     <span class="o">--</span><span class="n">gateway6</span>           <span class="n">the</span> <span class="n">node</span><span class="s1">&#39;s IPv6 network device gateway</span>
+<span class="o">-</span><span class="n">g</span><span class="p">,</span> <span class="o">--</span><span class="n">groups</span>             <span class="n">the</span> <span class="n">groups</span> <span class="n">this</span> <span class="n">node</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">member</span> <span class="n">of</span> <span class="p">(</span><span class="n">comma</span> <span class="n">separated</span><span class="p">)</span>
 <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>               <span class="n">help</span> <span class="k">for</span> <span class="n">unset</span>
 <span class="o">-</span><span class="n">H</span><span class="p">,</span> <span class="o">--</span><span class="n">hwaddr</span>             <span class="n">the</span> <span class="n">device</span><span class="s1">&#39;s HW address for given network</span>
     <span class="o">--</span><span class="n">image</span>              <span class="n">image</span> <span class="n">name</span>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>wwctl profile &mdash; Warewulf User Guide main documentation</title>
+  <title>wwctl group list &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="wwctl profile add" href="wwctl_profile_add.html" />
-    <link rel="prev" title="wwctl power status" href="wwctl_power_status.html" /> 
+    <link rel="next" title="wwctl image" href="wwctl_image.html" />
+    <link rel="prev" title="wwctl group" href="wwctl_group.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -116,7 +116,13 @@
 <li class="toctree-l1"><a class="reference internal" href="wwctl_configure_tls.html">wwctl configure tls</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_configure_warewulfd.html">wwctl configure warewulfd</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_group.html">wwctl group</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wwctl_group_list.html">wwctl group list</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">wwctl group list</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#options-inherited-from-parent-commands">Options inherited from parent commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">SEE ALSO</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_image.html">wwctl image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_image_build.html">wwctl image build</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_image_copy.html">wwctl image copy</a></li>
@@ -160,13 +166,7 @@
 <li class="toctree-l1"><a class="reference internal" href="wwctl_power_reset.html">wwctl power reset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_power_soft.html">wwctl power soft</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_power_status.html">wwctl power status</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">wwctl profile</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#synopsis">Synopsis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#options">Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#options-inherited-from-parent-commands">Options inherited from parent commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#see-also">SEE ALSO</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="wwctl_profile.html">wwctl profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_profile_add.html">wwctl profile add</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_profile_delete.html">wwctl profile delete</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wwctl_profile_edit.html">wwctl profile edit</a></li>
@@ -210,9 +210,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">wwctl profile</li>
+      <li class="breadcrumb-item active">wwctl group list</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/reference/wwctl_profile.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/reference/wwctl_group_list.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -220,16 +220,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="wwctl-profile">
-<span id="id1"></span><h1>wwctl profile<a class="headerlink" href="#wwctl-profile" title="Link to this heading"></a></h1>
-<p>Node configuration profile management</p>
+  <section id="wwctl-group-list">
+<span id="id1"></span><h1>wwctl group list<a class="headerlink" href="#wwctl-group-list" title="Link to this heading"></a></h1>
+<p>List node groups and their members</p>
 <section id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading"></a></h2>
-<p>Management of node profile settings</p>
+<p>Show groups and their members.
+Membership is the union of the per-node <cite>groups:</cite> field and any
+<cite>groups:</cite> declared on a profile the node inherits. Without the
+GROUP argument, all groups are shown (including the built-in
+<cite>all</cite> group).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wwctl</span> <span class="n">group</span> <span class="nb">list</span> <span class="p">[</span><span class="n">GROUP</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
 </section>
 <section id="options">
 <h2>Options<a class="headerlink" href="#options" title="Link to this heading"></a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>   <span class="n">help</span> <span class="k">for</span> <span class="n">profile</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>       <span class="n">help</span> <span class="k">for</span> <span class="nb">list</span>
+<span class="o">-</span><span class="n">n</span><span class="p">,</span> <span class="o">--</span><span class="n">noheader</span>   <span class="n">Print</span> <span class="n">a</span> <span class="n">comma</span><span class="o">-</span><span class="n">separated</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">member</span> <span class="n">nodes</span> <span class="k">with</span> <span class="n">no</span> <span class="n">header</span> <span class="ow">or</span> <span class="n">table</span> <span class="n">formatting</span> <span class="p">(</span><span class="n">deduped</span> <span class="n">across</span> <span class="nb">all</span> <span class="n">requested</span> <span class="n">groups</span><span class="p">)</span><span class="o">.</span> <span class="n">Requires</span> <span class="n">at</span> <span class="n">least</span> <span class="n">one</span> <span class="n">GROUP</span><span class="o">.</span>
 </pre></div>
 </div>
 </section>
@@ -244,13 +252,7 @@
 <section id="see-also">
 <h2>SEE ALSO<a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="wwctl.html#wwctl"><span class="std std-ref">wwctl</span></a>   - Warewulf Control</p></li>
-<li><p><a class="reference internal" href="wwctl_profile_add.html#wwctl-profile-add"><span class="std std-ref">wwctl profile add</span></a>   - Add a new node profile</p></li>
-<li><p><a class="reference internal" href="wwctl_profile_delete.html#wwctl-profile-delete"><span class="std std-ref">wwctl profile delete</span></a>     - Delete a node profile</p></li>
-<li><p><a class="reference internal" href="wwctl_profile_edit.html#wwctl-profile-edit"><span class="std std-ref">wwctl profile edit</span></a>         - Edit profile(s) with editor</p></li>
-<li><p><a class="reference internal" href="wwctl_profile_list.html#wwctl-profile-list"><span class="std std-ref">wwctl profile list</span></a>         - List profiles and configurations</p></li>
-<li><p><a class="reference internal" href="wwctl_profile_set.html#wwctl-profile-set"><span class="std std-ref">wwctl profile set</span></a>   - Configure node profile properties</p></li>
-<li><p><a class="reference internal" href="wwctl_profile_unset.html#wwctl-profile-unset"><span class="std std-ref">wwctl profile unset</span></a>       - Unset/clear profile properties</p></li>
+<li><p><a class="reference internal" href="wwctl_group.html#wwctl-group"><span class="std std-ref">wwctl group</span></a>       - Inspect node groups</p></li>
 </ul>
 </section>
 </section>
@@ -259,8 +261,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="wwctl_power_status.html" class="btn btn-neutral float-left" title="wwctl power status" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="wwctl_profile_add.html" class="btn btn-neutral float-right" title="wwctl profile add" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="wwctl_group.html" class="btn btn-neutral float-left" title="wwctl group" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="wwctl_image.html" class="btn btn-neutral float-right" title="wwctl image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
