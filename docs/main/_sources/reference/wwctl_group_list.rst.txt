@@ -1,0 +1,43 @@
+.. _wwctl_group_list:
+
+wwctl group list
+----------------
+
+List node groups and their members
+
+Synopsis
+~~~~~~~~
+
+
+Show groups and their members.
+Membership is the union of the per-node `groups:` field and any
+`groups:` declared on a profile the node inherits. Without the
+GROUP argument, all groups are shown (including the built-in
+`all` group).
+
+::
+
+  wwctl group list [GROUP ...]
+
+Options
+~~~~~~~
+
+::
+
+  -h, --help       help for list
+  -n, --noheader   Print a comma-separated list of member nodes with no header or table formatting (deduped across all requested groups). Requires at least one GROUP.
+
+Options inherited from parent commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  -d, --debug                 Run with debugging messages enabled.
+  -v, --verbose               Run with increased verbosity.
+      --warewulfconf string   Set the warewulf configuration file
+
+SEE ALSO
+~~~~~~~~
+
+* :ref:`wwctl group <wwctl_group>` 	 - Inspect node groups
+

@@ -1,0 +1,35 @@
+.. _wwctl_group:
+
+wwctl group
+-----------
+
+Inspect node groups
+
+Synopsis
+~~~~~~~~
+
+
+Inspect groups declared on a node or profile groups: field
+
+Options
+~~~~~~~
+
+::
+
+  -h, --help   help for group
+
+Options inherited from parent commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  -d, --debug                 Run with debugging messages enabled.
+  -v, --verbose               Run with increased verbosity.
+      --warewulfconf string   Set the warewulf configuration file
+
+SEE ALSO
+~~~~~~~~
+
+* :ref:`wwctl <wwctl>` 	 - Warewulf Control
+* :ref:`wwctl group list <wwctl_group_list>` 	 - List node groups and their members
+

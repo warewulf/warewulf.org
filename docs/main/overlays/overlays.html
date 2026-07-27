@@ -74,6 +74,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../nodes/nodes.html">Cluster Nodes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nodes/profiles.html">Node Profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nodes/groups.html">Node Groups</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nodes/network.html">Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nodes/ipmi.html">IPMI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nodes/disks.html">Disks</a></li>
@@ -143,6 +144,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tftp.html">wwctl configure tftp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tls.html">wwctl configure tls</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_warewulfd.html">wwctl configure warewulfd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_group.html">wwctl group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_group_list.html">wwctl group list</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image.html">wwctl image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_build.html">wwctl image build</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_copy.html">wwctl image copy</a></li>
@@ -389,6 +392,15 @@ option.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It is not possible to delete files with an overlay.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>On many modern distributions, <code class="docutils literal notranslate"><span class="pre">/bin</span></code>, <code class="docutils literal notranslate"><span class="pre">/sbin</span></code>, <code class="docutils literal notranslate"><span class="pre">/lib</span></code>, and <code class="docutils literal notranslate"><span class="pre">/lib64</span></code>
+are symlinks into <code class="docutils literal notranslate"><span class="pre">/usr</span></code>. An overlay that targets one of these directories
+replaces that symlink with a directory, which can break the node’s filesystem
+in subtle ways (including two-stage Dracut boots failing at <code class="docutils literal notranslate"><span class="pre">switch_root</span></code>).
+Target the real <code class="docutils literal notranslate"><span class="pre">/usr</span></code> paths (e.g., <code class="docutils literal notranslate"><span class="pre">/usr/lib64</span></code>) instead. See
+<a class="reference internal" href="../troubleshooting/troubleshooting.html#overlay-merged-usr"><span class="std std-ref">Overlays and Merged-/usr Symlinks</span></a> for details.</p>
 </div>
 </section>
 </section>

@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Node Groups &mdash; Warewulf User Guide main documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=a8da1a53"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Network Interfaces" href="network.html" />
+    <link rel="prev" title="Node Profiles" href="profiles.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Warewulf User Guide
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/provisioning.html">The Provisioning Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/network.html">Network Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/el-quickstart.html">Enterprise Linux Quickstart (Rocky Linux, CentOS, and RHEL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/suse-quickstart.html">SUSE Quickstart (openSUSE Leap and SLES)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/debian-quickstart.html">Debian Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started/feature-status.html">Feature Status</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Server</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../server/installation.html">Server Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/wwctl.html">Controlling Warewulf (wwctl)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/configuration.html">Server Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/routes.html">Server Routes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/networking.html">Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/dnsmasq.html">Using dnsmasq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/bootloaders.html">Bootloaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/upgrade.html">Upgrading Warewulf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server/api.html">REST API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="nodes.html">Cluster Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">Node Profiles</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Node Groups</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#declaring-group-membership">Declaring Group Membership</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-all-built-in-group">The <code class="docutils literal notranslate"><span class="pre">&#64;all</span></code> Built-in Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#excluding-from-a-group">Excluding from a group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#combining-references-on-the-command-line">Combining References on the Command Line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspecting-groups">Inspecting Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspecting-nodes">Inspecting Nodes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ipmi.html">IPMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disks.html">Disks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Images</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../images/images.html">OS Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/kernel.html">Image Kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/syncuser.html">Syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../images/selinux.html">SELinux</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Overlays</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/overlays.html">Overlays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overlays/templates.html">Templating</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting/known-issues.html">Known issues</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment.html">Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Command Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl.html">wwctl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_clean.html">wwctl clean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure.html">wwctl configure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_dhcp.html">wwctl configure dhcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_hostfile.html">wwctl configure hostfile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_nfs.html">wwctl configure nfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_ssh.html">wwctl configure ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tftp.html">wwctl configure tftp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_tls.html">wwctl configure tls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_configure_warewulfd.html">wwctl configure warewulfd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_group.html">wwctl group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_group_list.html">wwctl group list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image.html">wwctl image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_build.html">wwctl image build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_copy.html">wwctl image copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_delete.html">wwctl image delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_exec.html">wwctl image exec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_import.html">wwctl image import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_kernels.html">wwctl image kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_list.html">wwctl image list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_rename.html">wwctl image rename</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_shell.html">wwctl image shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_show.html">wwctl image show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_image_syncuser.html">wwctl image syncuser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node.html">wwctl node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_add.html">wwctl node add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_console.html">wwctl node console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_delete.html">wwctl node delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_edit.html">wwctl node edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_export.html">wwctl node export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_import.html">wwctl node import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_list.html">wwctl node list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_sensors.html">wwctl node sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_set.html">wwctl node set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_status.html">wwctl node status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_unset.html">wwctl node unset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay.html">wwctl overlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_build.html">wwctl overlay build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chmod.html">wwctl overlay chmod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chown.html">wwctl overlay chown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_create.html">wwctl overlay create</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_delete.html">wwctl overlay delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_edit.html">wwctl overlay edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_import.html">wwctl overlay import</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_info.html">wwctl overlay info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_list.html">wwctl overlay list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_mkdir.html">wwctl overlay mkdir</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_show.html">wwctl overlay show</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power.html">wwctl power</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_cycle.html">wwctl power cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_off.html">wwctl power off</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_on.html">wwctl power on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_reset.html">wwctl power reset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_soft.html">wwctl power soft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_power_status.html">wwctl power status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile.html">wwctl profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_add.html">wwctl profile add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_delete.html">wwctl profile delete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_edit.html">wwctl profile edit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_list.html">wwctl profile list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_set.html">wwctl profile set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_profile_unset.html">wwctl profile unset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_server.html">wwctl server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_ssh.html">wwctl ssh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade.html">wwctl upgrade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_config.html">wwctl upgrade config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_upgrade_nodes.html">wwctl upgrade nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_version.html">wwctl version</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/nodes.conf.html">nodes.conf(5)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.1.html">v4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.2.html">v4.6.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.3.html">v4.6.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.4.html">v4.6.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.5.html">v4.6.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release/v4.7.0.html">v4.7.0</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Warewulf User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Node Groups</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/nodes/groups.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="node-groups">
+<h1>Node Groups<a class="headerlink" href="#node-groups" title="Link to this heading"></a></h1>
+<p>Groups let you refer to a set of nodes by a single short name on the
+<code class="docutils literal notranslate"><span class="pre">wwctl</span></code> command line. Most <code class="docutils literal notranslate"><span class="pre">wwctl</span></code> subcommands that take a list of nodes
+(<code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">power</span></code>, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">ssh</span></code>, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">build</span></code>, …) accept group
+references in addition to literal node names and <span class="xref std std-ref">hostlist</span>
+patterns. A group reference is the name prefixed with <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>power<span class="w"> </span>reset<span class="w"> </span>@rack1
+<span class="gp"># </span>wwctl<span class="w"> </span>ssh<span class="w"> </span>@gpu<span class="w"> </span>uptime
+<span class="gp"># </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>build<span class="w"> </span>@chemistry
+</pre></div>
+</div>
+<section id="declaring-group-membership">
+<h2>Declaring Group Membership<a class="headerlink" href="#declaring-group-membership" title="Link to this heading"></a></h2>
+<p>Group membership is declared on nodes and profiles via a <code class="docutils literal notranslate"><span class="pre">groups:</span></code> field;
+the two sources are additive, so a node is in group <code class="docutils literal notranslate"><span class="pre">foo</span></code> if it (or any
+profile it inherits) lists <code class="docutils literal notranslate"><span class="pre">foo</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">nodeprofiles</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">gpu</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpu-nodes</span>
+<span class="w">  </span><span class="nt">rack1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rack1</span>
+<span class="nt">nodes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">n01</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">profiles</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpu</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rack1</span>
+<span class="w">  </span><span class="nt">n02</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">profiles</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rack1</span>
+<span class="w">    </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">login</span>
+<span class="w">  </span><span class="nt">head01</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~all</span>
+</pre></div>
+</div>
+<p>In the example above, <code class="docutils literal notranslate"><span class="pre">&#64;gpu-nodes</span></code> resolves to every node that uses the
+<code class="docutils literal notranslate"><span class="pre">gpu</span></code> profile, <code class="docutils literal notranslate"><span class="pre">&#64;rack1</span></code> resolves to <code class="docutils literal notranslate"><span class="pre">n01</span></code> and <code class="docutils literal notranslate"><span class="pre">n02</span></code>, and <code class="docutils literal notranslate"><span class="pre">&#64;admin</span></code>
+resolves to <code class="docutils literal notranslate"><span class="pre">n02</span></code>. <code class="docutils literal notranslate"><span class="pre">head01</span></code> is included in <code class="docutils literal notranslate"><span class="pre">&#64;admin</span></code> but excluded from
+<code class="docutils literal notranslate"><span class="pre">&#64;all</span></code>.</p>
+</section>
+<section id="the-all-built-in-group">
+<h2>The <code class="docutils literal notranslate"><span class="pre">&#64;all</span></code> Built-in Group<a class="headerlink" href="#the-all-built-in-group" title="Link to this heading"></a></h2>
+<p>The name <code class="docutils literal notranslate"><span class="pre">all</span></code> is reserved. <code class="docutils literal notranslate"><span class="pre">&#64;all</span></code> always expands to every node defined
+in <code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code>, even if no user-defined groups exist. Nodes can be excluded
+from <code class="docutils literal notranslate"><span class="pre">all</span></code> by negating it via node or profile config.</p>
+</section>
+<section id="excluding-from-a-group">
+<h2>Excluding from a group<a class="headerlink" href="#excluding-from-a-group" title="Link to this heading"></a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">groups:</span></code> entry prefixed with <code class="docutils literal notranslate"><span class="pre">~</span></code> removes a group that would
+otherwise be inherited from a profile, the same way <code class="docutils literal notranslate"><span class="pre">profiles:</span></code> and
+overlay lists support negation. For example, given a <code class="docutils literal notranslate"><span class="pre">lab-course</span></code> profile
+that places all nodes in the <code class="docutils literal notranslate"><span class="pre">interactive</span></code> group:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">nodeprofiles</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">lab-course</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">interactive</span>
+<span class="nt">nodes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">n01</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">profiles</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lab-course</span>
+<span class="w">  </span><span class="nt">n02</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">profiles</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lab-course</span>
+<span class="w">    </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~interactive</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;interactive</span></code> resolves to <code class="docutils literal notranslate"><span class="pre">n01</span></code> only; <code class="docutils literal notranslate"><span class="pre">n02</span></code> has been removed from the
+group via negation.</p>
+</section>
+<section id="combining-references-on-the-command-line">
+<h2>Combining References on the Command Line<a class="headerlink" href="#combining-references-on-the-command-line" title="Link to this heading"></a></h2>
+<p>Plain node names, hostlists, and <code class="docutils literal notranslate"><span class="pre">&#64;group</span></code> references can be mixed in a
+single invocation. Duplicates are removed automatically.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>power<span class="w"> </span>reset<span class="w"> </span>n01<span class="w"> </span>@rack2<span class="w"> </span>login<span class="o">[</span><span class="m">01</span>-02<span class="o">]</span>
+</pre></div>
+</div>
+<p>If a referenced group does not exist, Warewulf logs a warning and
+contributes no nodes from that token; the rest of the command line still
+resolves normally.</p>
+</section>
+<section id="inspecting-groups">
+<h2>Inspecting Groups<a class="headerlink" href="#inspecting-groups" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">group</span> <span class="pre">list</span></code> enumerates every group referenced anywhere in the
+configuration along with its members:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>group<span class="w"> </span>list
+<span class="go">GROUP  MEMBERS</span>
+<span class="go">-----  -------</span>
+<span class="go">admin  n02</span>
+<span class="go">rack1  n01,n02,n03</span>
+</pre></div>
+</div>
+<p>Pass one or more names to filter the listing, including the built-in
+<code class="docutils literal notranslate"><span class="pre">all</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>group<span class="w"> </span>list<span class="w"> </span>rack1
+<span class="gp"># </span>wwctl<span class="w"> </span>group<span class="w"> </span>list<span class="w"> </span>all
+</pre></div>
+</div>
+<p>Pass <code class="docutils literal notranslate"><span class="pre">--noheader</span></code> / <code class="docutils literal notranslate"><span class="pre">-n</span></code> together with one or more group names to get
+just the membership as a single comma-separated, deduped list — useful for
+feeding the membership into non-<code class="docutils literal notranslate"><span class="pre">wwctl</span></code> tools:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>group<span class="w"> </span>list<span class="w"> </span>-n<span class="w"> </span>lab-course
+<span class="go">n01,n02,n03</span>
+<span class="gp"># </span>scontrol<span class="w"> </span>create<span class="w"> </span>reservation<span class="w"> </span><span class="o">[</span>...<span class="o">]</span><span class="w"> </span><span class="nv">nodes</span><span class="o">=</span><span class="k">$(</span>wwctl<span class="w"> </span>group<span class="w"> </span>list<span class="w"> </span>-n<span class="w"> </span>lab-course<span class="k">)</span>
+</pre></div>
+</div>
+</section>
+<section id="inspecting-nodes">
+<h2>Inspecting Nodes<a class="headerlink" href="#inspecting-nodes" title="Link to this heading"></a></h2>
+<p>To see which groups a <em>specific node</em> belongs to (and which source
+contributed each), use <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">list</span> <span class="pre">&lt;node&gt;</span> <span class="pre">-a</span></code> and look at the
+<code class="docutils literal notranslate"><span class="pre">Groups</span></code> row.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="profiles.html" class="btn btn-neutral float-left" title="Node Profiles" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="network.html" class="btn btn-neutral float-right" title="Network Interfaces" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

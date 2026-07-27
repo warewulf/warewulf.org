@@ -34,6 +34,7 @@ Options
       --fswipe                      wipe file system at boot
   -G, --gateway ip                  the node's IPv4 network device gateway
       --gateway6 ip                 the node's IPv6 network device gateway
+  -g, --groups strings              the groups this node is a member of (comma separated)
   -h, --help                        help for set
   -H, --hwaddr string               the device's HW address for given network
       --image string                image name

@@ -26,6 +26,7 @@ SEE ALSO
 
 * :ref:`wwctl clean <wwctl_clean>` 	 - Clean up
 * :ref:`wwctl configure <wwctl_configure>` 	 - Manage system services
+* :ref:`wwctl group <wwctl_group>` 	 - Inspect node groups
 * :ref:`wwctl image <wwctl_image>` 	 - Operating system image management
 * :ref:`wwctl node <wwctl_node>` 	 - Node management
 * :ref:`wwctl overlay <wwctl_overlay>` 	 - Warewulf Overlay Management
