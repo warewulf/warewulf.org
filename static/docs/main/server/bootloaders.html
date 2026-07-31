@@ -83,7 +83,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#http-boot">HTTP boot</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#two-stage-boot-dracut">Two-stage boot: dracut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#two-stage-boot-dracut">Two-stage boot: dracut</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#network-configuration-in-the-dracut-initramfs">Network configuration in the dracut initramfs</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading Warewulf</a></li>
@@ -582,6 +585,41 @@ during boot.</p>
 to 50% of physical memory. This size limit may be adjusted using the kernel
 argument <code class="docutils literal notranslate"><span class="pre">wwinit.tmpfs.size</span></code>. (This parameter is passed to the <code class="docutils literal notranslate"><span class="pre">size</span></code> option
 during tmpfs mount. See <code class="docutils literal notranslate"><span class="pre">tmpfs(5)</span></code> for more details.)</p>
+<section id="network-configuration-in-the-dracut-initramfs">
+<h3>Network configuration in the dracut initramfs<a class="headerlink" href="#network-configuration-in-the-dracut-initramfs" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">:dracut</span></code> entry passes <code class="docutils literal notranslate"><span class="pre">rd.neednet=1</span></code> and an <code class="docutils literal notranslate"><span class="pre">ip=</span></code> argument for each of
+the node’s network devices, so that the initramfs can fetch the image from the
+Warewulf server. The autoconfiguration method is chosen per device from the
+node’s configuration:</p>
+<ul class="simple">
+<li><p>a device with an <code class="docutils literal notranslate"><span class="pre">ipaddr6</span></code> and no <code class="docutils literal notranslate"><span class="pre">ipaddr</span></code> gets <code class="docutils literal notranslate"><span class="pre">ip=&lt;device&gt;:auto6</span></code>, so
+that the initramfs configures IPv6 (SLAAC, and DHCPv6 if the router
+advertisement asks for it) and does not wait for a DHCPv4 lease;</p></li>
+<li><p>every other device, including dual-stack devices, gets <code class="docutils literal notranslate"><span class="pre">ip=&lt;device&gt;:dhcp</span></code>.</p></li>
+</ul>
+<p>This matters because on an IPv6-only fabric a request for DHCPv4 is not merely
+redundant. NetworkManager’s initrd generator translates <code class="docutils literal notranslate"><span class="pre">ip=&lt;device&gt;:dhcp</span></code> into
+<code class="docutils literal notranslate"><span class="pre">ipv4.method=auto</span></code> with <code class="docutils literal notranslate"><span class="pre">ipv4.may-fail=no</span></code>, which makes a DHCPv4 lease a
+requirement for the connection to activate. Where no DHCPv4 server exists the
+connection never activates, nothing that waits on the network proceeds, and the
+boot ends in the dracut emergency shell with <code class="docutils literal notranslate"><span class="pre">FATAL:</span> <span class="pre">Unable</span> <span class="pre">to</span> <span class="pre">load</span> <span class="pre">stage:</span>
+<span class="pre">system</span></code>.</p>
+<p>The value a node will be served can be read without booting it.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://&lt;server&gt;:&lt;port&gt;/ipxe/&lt;hwaddr&gt;&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;set dracut_net&#39;</span>
+</pre></div>
+</div>
+<p>That prints one line for the <code class="docutils literal notranslate"><span class="pre">:dracut</span></code> entry and one for <code class="docutils literal notranslate"><span class="pre">:dracut_static</span></code>.
+The latter builds its <code class="docutils literal notranslate"><span class="pre">ip=</span></code> argument from <code class="docutils literal notranslate"><span class="pre">ipaddr</span></code>, <code class="docutils literal notranslate"><span class="pre">gateway</span></code> and
+<code class="docutils literal notranslate"><span class="pre">netmask</span></code>, so it does not support a node that has only an <code class="docutils literal notranslate"><span class="pre">ipaddr6</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When adjusting the method by hand in a copy of the template, prefer <code class="docutils literal notranslate"><span class="pre">auto6</span></code>
+over dracut’s <code class="docutils literal notranslate"><span class="pre">either6</span></code>. NetworkManager’s initrd generator does not
+recognise <code class="docutils literal notranslate"><span class="pre">either6</span></code>: it falls back to interpreting the argument
+positionally, fails to read the device name as an address, and discards the
+whole <code class="docutils literal notranslate"><span class="pre">ip=</span></code> argument.</p>
+</div>
+</section>
 </section>
 </section>
 
