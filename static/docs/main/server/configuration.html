@@ -525,11 +525,12 @@ if that port is otherwise in use, a different port may be specified.</p>
 </ul>
 </section>
 <section id="api">
-<h2>api<a class="headerlink" href="#api" title="Link to this heading"></a></h2>
+<span id="server-configuration-api"></span><h2>api<a class="headerlink" href="#api" title="Link to this heading"></a></h2>
 <p><em>New in Warewulf v4.6.1</em></p>
 <p>Configuration for the REST API of the <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> service.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">api</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">tls</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">  </span><span class="nt">allowed subnets</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">127.0.0.0/8</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">::1/128</span>
@@ -537,10 +538,13 @@ if that port is otherwise in use, a different port may be specified.</p>
 </div>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">api:enabled</span></code>: Whether the <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code> service should provide access via a
-REST interface.</p></li>
+REST interface. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">api:tls</span></code>: Whether the REST API requires HTTPS. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>. Also
+requires <code class="docutils literal notranslate"><span class="pre">warewulf:tls</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">api:allowed</span> <span class="pre">subnets</span></code>: Which subnets are allowed to access the REST API. By
-default, only localhost has access.</p></li>
+default, only localhost has access. Does not apply to <code class="docutils literal notranslate"><span class="pre">/api/docs</span></code>.</p></li>
 </ul>
+<p>See <a class="reference internal" href="api.html#rest-api"><span class="std std-ref">REST API</span></a> for authentication and the available endpoints.</p>
 </section>
 <section id="hostfile">
 <h2>hostfile<a class="headerlink" href="#hostfile" title="Link to this heading"></a></h2>
