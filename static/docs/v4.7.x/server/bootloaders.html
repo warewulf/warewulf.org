@@ -83,7 +83,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#http-boot">HTTP boot</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#two-stage-boot-dracut">Two-stage boot: dracut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#two-stage-boot-dracut">Two-stage boot: dracut</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#network-configuration-in-the-dracut-initramfs">Network configuration in the dracut initramfs</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading Warewulf</a></li>
@@ -467,9 +470,14 @@ booted by GRUB.</p>
 node discovery using GRUB.</p>
 </section>
 <section id="http-boot">
-<h3>HTTP boot<a class="headerlink" href="#http-boot" title="Link to this heading"></a></h3>
-<p>Modern EFI systems have the possibility to directly boot per http. The flow
-diagram is the following:</p>
+<span id="id4"></span><h3>HTTP boot<a class="headerlink" href="#http-boot" title="Link to this heading"></a></h3>
+<p>Modern EFI systems have the possibility to directly boot per http. HTTP boot is
+part of the GRUB boot chain described above, and is not a separate bootloader.
+The node firmware fetches <code class="docutils literal notranslate"><span class="pre">shim.efi</span></code> over HTTP instead of TFTP, and the rest
+of the chain proceeds as it does for a TFTP-booted GRUB node. Warewulf does not
+serve an iPXE binary over HTTP, so HTTP boot cannot be used to start the iPXE
+boot method.</p>
+<p>The flow diagram is the following:</p>
 <div class="graphviz"><img src="../_images/graphviz-87db61ce4ce3d0df3d1e943f16370ac1130d32b7.png" alt="digraph G{
     node [shape=box];
     efi [shape=record label=&quot;{EFI|boots from URI defined in filename}&quot;];
@@ -482,6 +490,27 @@ diagram is the following:</p>
   }" class="graphviz" /></div>
 <p>Warewulf delivers the initial <code class="docutils literal notranslate"><span class="pre">shim.efi</span></code> and <code class="docutils literal notranslate"><span class="pre">grub.efi</span></code> via http as taken
 directly from the node’s assigned image.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>HTTP boot has the following limitations in the current implementation.</p>
+<ul class="simple">
+<li><p>The DHCP rule that hands out the HTTP boot URI is generated differently by
+each DHCP backend. With ISC <code class="docutils literal notranslate"><span class="pre">dhcpd</span></code> (the default) the rule is written
+only when <code class="docutils literal notranslate"><span class="pre">grubboot</span></code> is enabled, and it matches any <code class="docutils literal notranslate"><span class="pre">HTTPClient</span></code> vendor
+class, so the rule matches clients of any architecture. With <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code>
+the rule is always written, but it matches only the vendor class
+<code class="docutils literal notranslate"><span class="pre">HTTPClient:Arch:00016</span></code>, which is the <a class="reference external" href="https://www.iana.org/assignments/dhcpv6-parameters/dhcpv6-parameters.xhtml#processor-architecture">IANA processor architecture type</a>
+for “x64 uefi boot from http”. An aarch64 client booting over HTTP presents
+architecture type 19, “arm uefi 64 boot from http”, and is therefore not
+matched.</p></li>
+<li><p>The HTTP boot URI is built from the server’s IPv4 address, so HTTP boot
+requires an IPv4 address on the provisioning interface and is not usable on
+an IPv6-only Warewulf server.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">/efiboot/</span></code> route identifies the requesting node from the <code class="docutils literal notranslate"><span class="pre">wwid</span></code>
+query parameter or, when that is absent, from a lookup of the client’s
+address in the IPv4 ARP cache. See <a class="reference internal" href="routes.html#server-routes"><span class="std std-ref">Server Routes</span></a> for details.</p></li>
+</ul>
+</div>
 </section>
 </section>
 <section id="two-stage-boot-dracut">
@@ -491,6 +520,10 @@ unable to load an image of a certain size directly with a traditional bootloader
 either iPXE or GRUB. As a workaround for such systems, Warewulf can be
 configured to load a dracut initramfs from the image and to use that initramfs
 to load the full image.</p>
+<p>The two-stage boot is independent of how the first-stage bootloader reaches the
+node. It runs over the normal network boot path, whether iPXE or GRUB was
+delivered over TFTP or over HTTP, and it does not require <a class="reference internal" href="#http-boot"><span class="std std-ref">HTTP boot</span></a> to be
+configured.</p>
 <p>Warewulf provides a dracut module to configure the dracut initramfs to load the
 image. This module is available in the <code class="docutils literal notranslate"><span class="pre">warewulf-dracut</span></code> subpackage, which
 must be installed in the image.</p>
@@ -549,6 +582,41 @@ during boot.</p>
 to 50% of physical memory. This size limit may be adjusted using the kernel
 argument <code class="docutils literal notranslate"><span class="pre">wwinit.tmpfs.size</span></code>. (This parameter is passed to the <code class="docutils literal notranslate"><span class="pre">size</span></code> option
 during tmpfs mount. See <code class="docutils literal notranslate"><span class="pre">tmpfs(5)</span></code> for more details.)</p>
+<section id="network-configuration-in-the-dracut-initramfs">
+<h3>Network configuration in the dracut initramfs<a class="headerlink" href="#network-configuration-in-the-dracut-initramfs" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">:dracut</span></code> entry passes <code class="docutils literal notranslate"><span class="pre">rd.neednet=1</span></code> and an <code class="docutils literal notranslate"><span class="pre">ip=</span></code> argument for each of
+the node’s network devices, so that the initramfs can fetch the image from the
+Warewulf server. The autoconfiguration method is chosen per device from the
+node’s configuration:</p>
+<ul class="simple">
+<li><p>a device with an <code class="docutils literal notranslate"><span class="pre">ipaddr6</span></code> and no <code class="docutils literal notranslate"><span class="pre">ipaddr</span></code> gets <code class="docutils literal notranslate"><span class="pre">ip=&lt;device&gt;:auto6</span></code>, so
+that the initramfs configures IPv6 (SLAAC, and DHCPv6 if the router
+advertisement asks for it) and does not wait for a DHCPv4 lease;</p></li>
+<li><p>every other device, including dual-stack devices, gets <code class="docutils literal notranslate"><span class="pre">ip=&lt;device&gt;:dhcp</span></code>.</p></li>
+</ul>
+<p>This matters because on an IPv6-only fabric a request for DHCPv4 is not merely
+redundant. NetworkManager’s initrd generator translates <code class="docutils literal notranslate"><span class="pre">ip=&lt;device&gt;:dhcp</span></code> into
+<code class="docutils literal notranslate"><span class="pre">ipv4.method=auto</span></code> with <code class="docutils literal notranslate"><span class="pre">ipv4.may-fail=no</span></code>, which makes a DHCPv4 lease a
+requirement for the connection to activate. Where no DHCPv4 server exists the
+connection never activates, nothing that waits on the network proceeds, and the
+boot ends in the dracut emergency shell with <code class="docutils literal notranslate"><span class="pre">FATAL:</span> <span class="pre">Unable</span> <span class="pre">to</span> <span class="pre">load</span> <span class="pre">stage:</span>
+<span class="pre">system</span></code>.</p>
+<p>The value a node will be served can be read without booting it.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://&lt;server&gt;:&lt;port&gt;/ipxe/&lt;hwaddr&gt;&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;set dracut_net&#39;</span>
+</pre></div>
+</div>
+<p>That prints one line for the <code class="docutils literal notranslate"><span class="pre">:dracut</span></code> entry and one for <code class="docutils literal notranslate"><span class="pre">:dracut_static</span></code>.
+The latter builds its <code class="docutils literal notranslate"><span class="pre">ip=</span></code> argument from <code class="docutils literal notranslate"><span class="pre">ipaddr</span></code>, <code class="docutils literal notranslate"><span class="pre">gateway</span></code> and
+<code class="docutils literal notranslate"><span class="pre">netmask</span></code>, so it does not support a node that has only an <code class="docutils literal notranslate"><span class="pre">ipaddr6</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When adjusting the method by hand in a copy of the template, prefer <code class="docutils literal notranslate"><span class="pre">auto6</span></code>
+over dracut’s <code class="docutils literal notranslate"><span class="pre">either6</span></code>. NetworkManager’s initrd generator does not
+recognise <code class="docutils literal notranslate"><span class="pre">either6</span></code>: it falls back to interpreting the argument
+positionally, fails to read the device name as an address, and discards the
+whole <code class="docutils literal notranslate"><span class="pre">ip=</span></code> argument.</p>
+</div>
+</section>
 </section>
 </section>
 
