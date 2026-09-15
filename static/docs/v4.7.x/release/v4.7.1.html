@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Documentation &mdash; Warewulf User Guide main documentation</title>
+  <title>v4.7.1 Release Notes &mdash; Warewulf User Guide main documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -21,8 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Debugging" href="debugging.html" />
-    <link rel="prev" title="Development Environment" href="development-environment.html" /> 
+    <link rel="prev" title="v4.7.0 Release Notes" href="v4.7.0.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -96,11 +95,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting/known-issues.html">Known issues</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="development-environment.html">Development Environment</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment.html">Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Command Reference</span></p>
 <ul>
@@ -177,15 +176,27 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/man5/warewulf.conf.html">warewulf.conf(5)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.0.html">v4.6.0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.1.html">v4.6.1</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.2.html">v4.6.2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.3.html">v4.6.3</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.4.html">v4.6.4</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release/v4.6.5.html">v4.6.5</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release/v4.7.0.html">v4.7.0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release/v4.7.1.html">v4.7.1</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="v4.6.0.html">v4.6.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.6.1.html">v4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.6.2.html">v4.6.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.6.3.html">v4.6.3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.6.4.html">v4.6.4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.6.5.html">v4.6.5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v4.7.0.html">v4.7.0</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">v4.7.1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#wwctl-power-could-act-on-the-warewulf-server">wwctl power could act on the Warewulf server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wwclient-could-fail-with-an-illegal-instruction">wwclient could fail with an illegal instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#image-and-overlay-corruption-with-large-inode-numbers">Image and overlay corruption with large inode numbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kernel-version-detection">Kernel version detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ipv6-only-servers-and-nodes">IPv6-only servers and nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dsa-host-keys-removed-from-the-defaults">DSA host keys removed from the defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#provision-to-disk-filesystem-mounting">provision-to-disk filesystem mounting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wwclient-service">wwclient.service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-fixes">Other fixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -202,9 +213,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Documentation</li>
+      <li class="breadcrumb-item active">v4.7.1 Release Notes</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/contributing/documentation.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/warewulf/warewulf/blob/main/userdocs/release/v4.7.1.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -212,25 +223,122 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="documentation">
-<h1>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h1>
-<p>You can contribute to the documentation by <a class="reference external" href="https://github.com/warewulf/warewulf/issues/new">raising an issue to suggest an
-improvement</a> or by sending a
-<a class="reference external" href="https://github.com/warewulf/warewulf/compare">pull request</a> on <a class="reference external" href="https://github.com/warewulf/warewulf">our GitHub
-repository</a>.</p>
-<p>The current documentation is generated with <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a>.</p>
-<p>For more information on using Git and GitHub to create a pull request
-suggesting additions and edits to the docs, see the <a class="reference external" href="contributing">section on
-contributing to the code</a>. The procedure is identical
-for contributions to documentation and code.</p>
+  <section id="v4-7-1-release-notes">
+<h1>v4.7.1 Release Notes<a class="headerlink" href="#v4-7-1-release-notes" title="Link to this heading"></a></h1>
+<p>v4.7.1 is a bug-fix release in the v4.7.x series.</p>
+<p>Significant changes are described below. Additional changes are listed in the
+<a class="reference external" href="https://github.com/warewulf/warewulf/blob/main/CHANGELOG.md">CHANGELOG</a>.</p>
+<section id="wwctl-power-could-act-on-the-warewulf-server">
+<h2>wwctl power could act on the Warewulf server<a class="headerlink" href="#wwctl-power-could-act-on-the-warewulf-server" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">power</span></code> (<code class="docutils literal notranslate"><span class="pre">cycle</span></code>, <code class="docutils literal notranslate"><span class="pre">off</span></code>, <code class="docutils literal notranslate"><span class="pre">on</span></code>, <code class="docutils literal notranslate"><span class="pre">reset</span></code>, <code class="docutils literal notranslate"><span class="pre">soft</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">status</span></code>) ran <code class="docutils literal notranslate"><span class="pre">ipmitool</span></code> without a <code class="docutils literal notranslate"><span class="pre">-H</span></code> argument for any node with no
+<code class="docutils literal notranslate"><span class="pre">ipmi:</span> <span class="pre">ipaddr:</span></code> configured. Without an explicit host, <code class="docutils literal notranslate"><span class="pre">ipmitool</span></code> falls back
+to the local BMC, so a command intended for a node could power off or reset the
+Warewulf server itself.</p>
+<p>Such nodes are now skipped, and the command exits non-zero.</p>
+</section>
+<section id="wwclient-could-fail-with-an-illegal-instruction">
+<h2>wwclient could fail with an illegal instruction<a class="headerlink" href="#wwclient-could-fail-with-an-illegal-instruction" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wwclient</span></code> is distributed as a static binary built on the Warewulf server, but
+was compiled without pinning <code class="docutils literal notranslate"><span class="pre">GOAMD64</span></code>. The Go toolchain selected a
+microarchitecture level based on the build host, and the resulting binary could
+fail with an illegal instruction on older nodes.</p>
+<p><code class="docutils literal notranslate"><span class="pre">wwclient</span></code> is now built with <code class="docutils literal notranslate"><span class="pre">GOAMD64=v1</span></code> and runs on any 64-bit x86
+processor.</p>
+</section>
+<section id="image-and-overlay-corruption-with-large-inode-numbers">
+<h2>Image and overlay corruption with large inode numbers<a class="headerlink" href="#image-and-overlay-corruption-with-large-inode-numbers" title="Link to this heading"></a></h2>
+<p>When building node images and overlays on a file system with 64-bit inode
+numbers, cpio truncated those numbers to 32 bits. Distinct files could collide
+on the truncated value and be written as hardlinks to each other, silently
+corrupting the resulting image.</p>
+<p>Warewulf now passes <code class="docutils literal notranslate"><span class="pre">--renumber-inodes</span></code> to cpio where the installed version
+supports it (GNU cpio 2.13 and later).</p>
+</section>
+<section id="kernel-version-detection">
+<h2>Kernel version detection<a class="headerlink" href="#kernel-version-detection" title="Link to this heading"></a></h2>
+<p>Kernel versions whose RPM release field contains a version-like suffix after the
+dist tag, such as <code class="docutils literal notranslate"><span class="pre">5.14.0-687.10.1.el9_8.0.1</span></code>, were mis-detected: Warewulf
+reported <code class="docutils literal notranslate"><span class="pre">8.0.1</span></code> rather than <code class="docutils literal notranslate"><span class="pre">5.14.0-687.10.1</span></code>, because <code class="docutils literal notranslate"><span class="pre">ParseVersion</span></code>
+returned the last regular expression match found in the kernel path. This also
+caused the wrong kernel to be selected as the default. #2199</p>
+</section>
+<section id="ipv6-only-servers-and-nodes">
+<h2>IPv6-only servers and nodes<a class="headerlink" href="#ipv6-only-servers-and-nodes" title="Link to this heading"></a></h2>
+<p>Several independent defects prevented Warewulf from operating on IPv6-only
+deployments.</p>
+<p>The two-stage dracut boot rendered <code class="docutils literal notranslate"><span class="pre">ip=&lt;device&gt;:dhcp</span></code> for every device, which
+NetworkManager’s initrd generator turns into a mandatory DHCPv4 lease. The
+connection never activated and the initramfs never fetched the image. A device
+with <code class="docutils literal notranslate"><span class="pre">ipaddr6</span></code> and no <code class="docutils literal notranslate"><span class="pre">ipaddr</span></code> now renders <code class="docutils literal notranslate"><span class="pre">ip=&lt;device&gt;:auto6</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">status</span></code> now falls back to <code class="docutils literal notranslate"><span class="pre">ipaddr6</span></code> when <code class="docutils literal notranslate"><span class="pre">ipaddr</span></code> is unset,
+brackets IPv6 literals in the status URL, and bounds the request with a timeout.</p>
+<p>The IPv4-only sections in the dnsmasq host overlay template are now guarded on
+<code class="docutils literal notranslate"><span class="pre">ipaddr</span></code>. This prevents an erroneous empty <code class="docutils literal notranslate"><span class="pre">listen-address=</span></code> line, the IPv4
+boot block with blank <code class="docutils literal notranslate"><span class="pre">http://</span></code> boot URLs, and an invalid
+<code class="docutils literal notranslate"><span class="pre">dhcp-range=,static,,6h</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">NetworkManager</span></code> overlay no longer generates invalid <code class="docutils literal notranslate"><span class="pre">[ipv4]</span></code> sections
+for IPv6-only interfaces. (<code class="docutils literal notranslate"><span class="pre">gateway=</span></code>, <code class="docutils literal notranslate"><span class="pre">dns=</span></code>, <code class="docutils literal notranslate"><span class="pre">dns-search=</span></code>, and
+route lines were previously emitted even under <code class="docutils literal notranslate"><span class="pre">method=disabled</span></code>.)</p>
+</section>
+<section id="dsa-host-keys-removed-from-the-defaults">
+<h2>DSA host keys removed from the defaults<a class="headerlink" href="#dsa-host-keys-removed-from-the-defaults" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">dsa</span></code> has been removed from the default <code class="docutils literal notranslate"><span class="pre">ssh:</span> <span class="pre">key</span> <span class="pre">types</span></code> in
+<code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>. On EL9 and other systems with OpenSSH 8.7p1 or later, sshd
+silently skips DSA host keys, which could leave nodes with no usable host keys
+at all. #1185</p>
+<p>Sites that have customized <code class="docutils literal notranslate"><span class="pre">ssh:</span> <span class="pre">key</span> <span class="pre">types</span></code> in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> are
+unaffected.</p>
+</section>
+<section id="provision-to-disk-filesystem-mounting">
+<h2>provision-to-disk filesystem mounting<a class="headerlink" href="#provision-to-disk-filesystem-mounting" title="Link to this heading"></a></h2>
+<p>Non-root filesystems are now mounted before the image is extracted during
+provision-to-disk, so files are written to the correct partitions rather than
+all landing on the root filesystem. #2147</p>
+<p>This fix adds a <code class="docutils literal notranslate"><span class="pre">/warewulf/mounts</span></code> file to the <code class="docutils literal notranslate"><span class="pre">wwinit</span></code> overlay and a
+corresponding step to the <code class="docutils literal notranslate"><span class="pre">wwinit</span></code> dracut module. <strong>Nodes must rebuild their
+initramfs</strong> with the updated <code class="docutils literal notranslate"><span class="pre">warewulf-dracut</span></code> package for it to take effect.</p>
+</section>
+<section id="wwclient-service">
+<h2>wwclient.service<a class="headerlink" href="#wwclient-service" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">wwclient</span></code> systemd unit dropped the obsolete <code class="docutils literal notranslate"><span class="pre">PIDFile</span></code> directive, which
+has no meaning for a <code class="docutils literal notranslate"><span class="pre">Type=notify</span></code> service, and replaced <code class="docutils literal notranslate"><span class="pre">TimeoutSec=60</span></code>
+with <code class="docutils literal notranslate"><span class="pre">TimeoutStartSec=infinity</span></code>, <code class="docutils literal notranslate"><span class="pre">TimeoutStopSec=90</span></code>, <code class="docutils literal notranslate"><span class="pre">Restart=on-failure</span></code>
+and <code class="docutils literal notranslate"><span class="pre">StartLimitIntervalSec=0</span></code> to accommodate wwclient’s own retry logic. #2203</p>
+<p>A node that cannot reach the Warewulf server now continues retrying rather than
+failing the unit after 60 seconds.</p>
+</section>
+<section id="other-fixes">
+<h2>Other fixes<a class="headerlink" href="#other-fixes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">import</span></code> now reloads <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code>, matching every other mutating
+<code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span></code> command. Previously imported nodes were invisible to
+<code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">status</span></code>, PXE, and wwclient until a reload or restart.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">profile</span> <span class="pre">set</span> <span class="pre">--nettagadd</span></code> no longer silently ignores the given tags
+when the network device already exists.</p></li>
+<li><p>Overlay templates that create multiple files now create the parent directories
+for those files if they do not yet exist.</p></li>
+<li><p>Overlay templates that create symbolic links now replace an existing link, and
+an existing file, rather than failing. #2252</p></li>
+<li><p>Fix MTU configuration with the <code class="docutils literal notranslate"><span class="pre">wicked</span></code> overlay. #2248</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">curl</span></code> is no longer silenced when downloading with dracut, making boot
+failures easier to diagnose. #2200</p></li>
+<li><p>Fix the example <code class="docutils literal notranslate"><span class="pre">genders.ww</span></code> template, which still used a <code class="docutils literal notranslate"><span class="pre">.Get</span></code> accessor
+API that no longer exists.</p></li>
+</ul>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<p>Dependencies have been updated, including <code class="docutils literal notranslate"><span class="pre">go-jose</span></code> 4.1.4 to address
+CVE-2026-34986. See the <a class="reference external" href="https://github.com/warewulf/warewulf/blob/main/CHANGELOG.md">CHANGELOG</a> for the full list.</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="development-environment.html" class="btn btn-neutral float-left" title="Development Environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="debugging.html" class="btn btn-neutral float-right" title="Debugging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="v4.7.0.html" class="btn btn-neutral float-left" title="v4.7.0 Release Notes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
