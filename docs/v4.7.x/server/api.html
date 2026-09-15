@@ -69,6 +69,7 @@
 <li class="toctree-l1"><a class="reference internal" href="bootloaders.html">Bootloaders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="upgrade.html">Upgrading Warewulf</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">REST API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#interactive-documentation">Interactive Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#authentication">Authentication</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#node">Node</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#profile">Profile</a></li>
@@ -220,7 +221,18 @@
              
   <section id="rest-api">
 <span id="id1"></span><h1>REST API<a class="headerlink" href="#rest-api" title="Link to this heading"></a></h1>
-<p>On-line documentation for the API is available at <code class="docutils literal notranslate"><span class="pre">/api/docs</span></code>.</p>
+<section id="interactive-documentation">
+<h2>Interactive Documentation<a class="headerlink" href="#interactive-documentation" title="Link to this heading"></a></h2>
+<p>The API is disabled by default. Set <code class="docutils literal notranslate"><span class="pre">api:enabled:</span> <span class="pre">true</span></code> in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>
+and restart <code class="docutils literal notranslate"><span class="pre">warewulfd</span></code>.</p>
+<p>Interactive Swagger UI documentation is then served at <code class="docutils literal notranslate"><span class="pre">/api/docs</span></code>, for
+example <a class="reference external" href="http://localhost:9873/api/docs">http://localhost:9873/api/docs</a>, with its OpenAPI schema at
+<code class="docutils literal notranslate"><span class="pre">/api/docs/openapi.json</span></code>. Substitute the address and <code class="docutils literal notranslate"><span class="pre">warewulf:port</span></code> of the
+Warewulf server, or <code class="docutils literal notranslate"><span class="pre">https</span></code> and <code class="docutils literal notranslate"><span class="pre">warewulf:tls</span> <span class="pre">port</span></code> (default <code class="docutils literal notranslate"><span class="pre">9874</span></code>) if
+<code class="docutils literal notranslate"><span class="pre">api:tls</span></code> is enabled.</p>
+<p>The endpoints themselves require a user in <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/auth.conf</span></code>. See
+<a class="reference internal" href="#authentication">Authentication</a> below.</p>
+</section>
 <section id="authentication">
 <h2>Authentication<a class="headerlink" href="#authentication" title="Link to this heading"></a></h2>
 <p>Authentication is managed at <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/auth.conf</span></code>. This is a

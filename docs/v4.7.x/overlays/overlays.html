@@ -390,6 +390,15 @@ option.</p>
 <p class="admonition-title">Note</p>
 <p>It is not possible to delete files with an overlay.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>On many modern distributions, <code class="docutils literal notranslate"><span class="pre">/bin</span></code>, <code class="docutils literal notranslate"><span class="pre">/sbin</span></code>, <code class="docutils literal notranslate"><span class="pre">/lib</span></code>, and <code class="docutils literal notranslate"><span class="pre">/lib64</span></code>
+are symlinks into <code class="docutils literal notranslate"><span class="pre">/usr</span></code>. An overlay that targets one of these directories
+replaces that symlink with a directory, which can break the node’s filesystem
+in subtle ways (including two-stage Dracut boots failing at <code class="docutils literal notranslate"><span class="pre">switch_root</span></code>).
+Target the real <code class="docutils literal notranslate"><span class="pre">/usr</span></code> paths (e.g., <code class="docutils literal notranslate"><span class="pre">/usr/lib64</span></code>) instead. See
+<a class="reference internal" href="../troubleshooting/troubleshooting.html#overlay-merged-usr"><span class="std std-ref">Overlays and Merged-/usr Symlinks</span></a> for details.</p>
+</div>
 </section>
 </section>
 <section id="permissions">
@@ -460,6 +469,7 @@ the desired system.</p>
 <li><p>ifupdown</p></li>
 <li><p>NetworkManager</p></li>
 <li><p>wicked</p></li>
+<li><p>netplan</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
