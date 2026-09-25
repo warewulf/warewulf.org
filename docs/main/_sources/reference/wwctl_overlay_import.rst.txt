@@ -21,6 +21,7 @@ Options
 
 ::
 
+      --archive       Import a compressed overlay artifact as a new overlay
   -h, --help          help for import
   -o, --overwrite     Overwrite file if exists
   -p, --parents       Create any necessary parent directories

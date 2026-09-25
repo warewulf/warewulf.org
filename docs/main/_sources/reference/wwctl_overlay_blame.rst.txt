@@ -1,0 +1,42 @@
+.. _wwctl_overlay_blame:
+
+wwctl overlay blame
+-------------------
+
+Show which overlays provide node files
+
+Synopsis
+~~~~~~~~
+
+
+This command traces node overlay files back to their source overlays.
+
+::
+
+  wwctl overlay blame [OPTIONS] NODE
+
+Options
+~~~~~~~
+
+::
+
+      --format string        Output format: table|json (default "table")
+  -h, --help                 help for blame
+      --path string          Only show contributors for this exact deployed path
+      --path-prefix string   Only show deployed paths under this prefix
+      --show-mode-changes    Include directory paths as mode-relevant contributors
+
+Options inherited from parent commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  -d, --debug                 Run with debugging messages enabled.
+  -v, --verbose               Run with increased verbosity.
+      --warewulfconf string   Set the warewulf configuration file
+
+SEE ALSO
+~~~~~~~~
+
+* :ref:`wwctl overlay <wwctl_overlay>` 	 - Warewulf Overlay Management
+

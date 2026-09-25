@@ -21,7 +21,10 @@ Options
 
 ::
 
-  -h, --help   help for info
+      --format string   Output format: table|json (default "table")
+  -h, --help            help for info
+      --node string     Resolve template variables for the given node
+      --render          Render a node-specific preview without writing files
 
 Options inherited from parent commands
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
