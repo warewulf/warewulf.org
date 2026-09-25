@@ -89,6 +89,7 @@
 <p class="caption" role="heading"><span class="caption-text">Overlays</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Overlays</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tracing-overlay-file-sources">Tracing Overlay File Sources</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#overlay-variables">Overlay Variables</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#structure">Structure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#adding-overlays-to-nodes">Adding Overlays to Nodes</a></li>
@@ -171,6 +172,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_status.html">wwctl node status</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_node_unset.html">wwctl node unset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay.html">wwctl overlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_blame.html">wwctl overlay blame</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_build.html">wwctl overlay build</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chmod.html">wwctl overlay chmod</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/wwctl_overlay_chown.html">wwctl overlay chown</a></li>
@@ -265,6 +267,52 @@ within the overlays with <code class="docutils literal notranslate"><span class=
 <span class="go">fstab         etc/fstab.ww  false</span>
 </pre></div>
 </div>
+<section id="tracing-overlay-file-sources">
+<h2>Tracing Overlay File Sources<a class="headerlink" href="#tracing-overlay-file-sources" title="Link to this heading"></a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">blame</span></code> to show which configured overlays contribute files
+to a node. This is useful when a node receives the same path from multiple
+overlays, or when a file is inherited from a profile and it is not obvious which
+overlay owns it.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>blame<span class="w"> </span>n1
+<span class="go">/etc/issue                         issue                [system overlay]</span>
+<span class="go">/etc/systemd/network/10-ww4        systemd.netname      [system overlay]</span>
+<span class="go">/etc/hosts                         hosts                [runtime overlay]</span>
+</pre></div>
+</div>
+<p>The command uses the node’s merged configuration, so overlays inherited from
+profiles are included. System overlays are listed first, followed by runtime
+overlays, and paths are displayed as they are deployed on the node. If multiple
+overlays provide the same deployed path, each contributing overlay is printed on
+its own line.</p>
+<p>Template files ending in <code class="docutils literal notranslate"><span class="pre">.ww</span></code> are evaluated for output path discovery. This
+means templates that emit multiple files with <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">file</span> <span class="pre">&quot;...&quot;</span> <span class="pre">}}</span></code>, create
+symlinks with <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">softlink</span> <span class="pre">&quot;...&quot;</span> <span class="pre">}}</span></code>, or abort rendering are reported according
+to the paths they would deploy.</p>
+<p>Filter the output to a subtree with <code class="docutils literal notranslate"><span class="pre">--path-prefix</span></code>. Prefix matching is path
+boundary aware, so <code class="docutils literal notranslate"><span class="pre">/etc</span></code> matches <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> but not <code class="docutils literal notranslate"><span class="pre">/etc2/file</span></code>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>overlay<span class="w"> </span>blame<span class="w"> </span>--path-prefix<span class="w"> </span>/etc/systemd<span class="w"> </span>n1
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--path</span></code> to focus on one exact deployed path. This is useful when you know
+which file is wrong and need to identify every configured overlay that contributes
+that path. Exact matching means <code class="docutils literal notranslate"><span class="pre">--path</span> <span class="pre">/etc</span></code> does not match <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>overlay<span class="w"> </span>blame<span class="w"> </span>--path<span class="w"> </span>/etc/hosts<span class="w"> </span>n1
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--format</span> <span class="pre">json</span></code> when the output should be consumed by scripts.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>overlay<span class="w"> </span>blame<span class="w"> </span>--format<span class="w"> </span>json<span class="w"> </span>n1
+</pre></div>
+</div>
+<p>The JSON output contains one object per contributing overlay path with the
+deployed <code class="docutils literal notranslate"><span class="pre">path</span></code>, source <code class="docutils literal notranslate"><span class="pre">overlay</span></code>, and overlay <code class="docutils literal notranslate"><span class="pre">context</span></code> (<code class="docutils literal notranslate"><span class="pre">system</span></code> or
+<code class="docutils literal notranslate"><span class="pre">runtime</span></code>).</p>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">blame</span></code> reports files, symlinks, and templates. Use
+<code class="docutils literal notranslate"><span class="pre">--show-mode-changes</span></code> to also include directory paths, which can be relevant
+when directory modes or ownership are controlled by overlays.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>overlay<span class="w"> </span>blame<span class="w"> </span>--show-mode-changes<span class="w"> </span>n1
+</pre></div>
+</div>
+</section>
 <section id="overlay-variables">
 <h2>Overlay Variables<a class="headerlink" href="#overlay-variables" title="Link to this heading"></a></h2>
 <p>The command <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">info</span></code> shows the variables used in an overlay
@@ -291,6 +339,32 @@ template, along with the help text for each variable.</p>
 <span class="gp">$</span>netdev.Tags.vlan_id
 <span class="gp">$</span>netdev.Tags.xmit_hash_policy
 <span class="gp">$</span>netdev.Type<span class="w">                    </span>Set<span class="w"> </span>device<span class="w"> </span><span class="nb">type</span><span class="w"> </span>of<span class="w"> </span>given<span class="w"> </span>network<span class="w">               </span>string<span class="w">  </span>--type
+</pre></div>
+</div>
+<p>Pass <code class="docutils literal notranslate"><span class="pre">--node</span></code> to resolve template variables against a node’s merged
+configuration. This adds a <code class="docutils literal notranslate"><span class="pre">VALUE</span></code> column for variables that have a single
+node-specific value.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>info<span class="w"> </span>--node<span class="w"> </span>n1<span class="w"> </span>issue<span class="w"> </span>etc/issue.ww
+<span class="go">VARIABLE         VALUE       OPTION           TYPE                     HELP</span>
+<span class="go">--------         -----       ------           ----                     ----</span>
+<span class="go">.Id              n1                           string</span>
+<span class="go">.ImageName       leap-15.6   --image          string                   Set image name</span>
+<span class="go">.Kernel.Version  6.6.0       --kernelversion  string                   Set kernel version</span>
+<span class="go">.NetDevs         2 entries                    map[string]*node.NetDev</span>
+<span class="gp">$</span>netdev.Ipaddr<span class="w">   </span><span class="nv">default</span><span class="o">=</span><span class="m">10</span>.0.0.10,<span class="w"> </span><span class="nv">ib0</span><span class="o">=</span><span class="m">192</span>.168.1.10<span class="w">  </span>--ipaddr<span class="w">  </span>IP<span class="w">     </span>IPv4<span class="w"> </span>address<span class="w"> </span><span class="k">in</span><span class="w"> </span>given<span class="w"> </span>network
+</pre></div>
+</div>
+<p>Variables created inside template loops, such as <code class="docutils literal notranslate"><span class="pre">$netdev.Ipaddr</span></code> inside a
+<code class="docutils literal notranslate"><span class="pre">range</span></code> over network devices, are expanded per entry when the source
+collection can be identified. Empty collections are reported explicitly, for
+example <code class="docutils literal notranslate"><span class="pre">&lt;dynamic:</span> <span class="pre">.NetDevs</span> <span class="pre">has</span> <span class="pre">0</span> <span class="pre">entries&gt;</span></code>.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--render</span></code> with <code class="docutils literal notranslate"><span class="pre">--node</span></code> to preview the rendered template without
+building or writing an overlay image.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>overlay<span class="w"> </span>info<span class="w"> </span>--node<span class="w"> </span>n1<span class="w"> </span>--render<span class="w"> </span>issue<span class="w"> </span>etc/issue.ww
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--format</span> <span class="pre">json</span></code> for machine-readable output.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>overlay<span class="w"> </span>info<span class="w"> </span>--node<span class="w"> </span>n1<span class="w"> </span>--format<span class="w"> </span>json<span class="w"> </span>issue<span class="w"> </span>etc/issue.ww
 </pre></div>
 </div>
 <section id="structure">
@@ -462,6 +536,15 @@ be set via an overlay in <code class="docutils literal notranslate"><span class=
 same architecture as the Warewulf server. Architecture-specific wwclient.aarch64
 and wwclient.x86_64 overlays are available as well. This supports using wwclient
 on cluster nodes with a different architecture than the Warewulf server.</p>
+<p><code class="docutils literal notranslate"><span class="pre">wwclient</span></code> also provides <code class="docutils literal notranslate"><span class="pre">overlay-diff</span></code> to capture a baseline snapshot and
+later compare a source directory against that baseline. This reports
+deterministic file-level differences and is useful when creating or validating
+overlay content:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwclient<span class="w"> </span>overlay-diff<span class="w"> </span>start<span class="w"> </span>--source<span class="w"> </span>./node-root<span class="w"> </span>--state-file<span class="w"> </span>./capture.json
+<span class="c1"># make configuration changes under ./node-root</span>
+wwclient<span class="w"> </span>overlay-diff<span class="w"> </span>stop<span class="w"> </span>--source<span class="w"> </span>./node-root<span class="w"> </span>--state-file<span class="w"> </span>./capture.json<span class="w"> </span>--no-interactive
+</pre></div>
+</div>
 </section>
 <section id="network-interfaces">
 <h2>Network interfaces<a class="headerlink" href="#network-interfaces" title="Link to this heading"></a></h2>

@@ -31,6 +31,7 @@ SEE ALSO
 ~~~~~~~~
 
 * :ref:`wwctl <wwctl>` 	 - Warewulf Control
+* :ref:`wwctl overlay blame <wwctl_overlay_blame>` 	 - Show which overlays provide node files
 * :ref:`wwctl overlay build <wwctl_overlay_build>` 	 - (Re)build node overlays
 * :ref:`wwctl overlay chmod <wwctl_overlay_chmod>` 	 - Change file permissions in an overlay
 * :ref:`wwctl overlay chown <wwctl_overlay_chown>` 	 - Change file ownership within an overlay
