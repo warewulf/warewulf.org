@@ -23,6 +23,7 @@ Options
   -h, --help            help for show
   -q, --quiet           do not print information if multiple, backup files are written
   -r, --render string   node used for the variables in the template
+      --render-host     render the template as for the Warewulf server itself
 
 Options inherited from parent commands
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

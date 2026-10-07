@@ -186,6 +186,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#dhcp">DHCP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tftp">TFTP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nfs">NFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssh">SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hostfile">HOSTFILE</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#example">EXAMPLE</a></li>
@@ -324,8 +326,8 @@ inform how <strong>wwctl-configure(1)</strong> should configure the DHCP service
 <dl class="simple">
 <dt><strong>range start</strong></dt><dd><p>An IP address which defines the start of a dynamic address range
 which can be used when configuring the DHCP service. Provided to the
-host overlay as the variable <strong>$.Dhcp.RangeStart</strong>, typically for use
-in generating dhcpd.conf or similar.</p>
+host overlays as the variable <strong>$.Dhcp.RangeStart</strong>, typically for
+use in generating dhcpd.conf or similar.</p>
 </dd>
 </dl>
 <p>Templates typically expect this range to be within the <strong>network</strong>
@@ -333,7 +335,7 @@ defined above.</p>
 <dl class="simple">
 <dt><strong>range end</strong></dt><dd><p>An IP address which defines the end of a dynamic address range which
 can be used when configuring the DHCP service. Provided to the host
-overlay as the variable <strong>$.Dhcp.RangeEnd</strong>, typically for use in
+overlays as the variable <strong>$.Dhcp.RangeEnd</strong>, typically for use in
 generating dhcpd.conf or similar.</p>
 </dd>
 </dl>
@@ -345,6 +347,18 @@ service during <strong>wwctl-configure(1)</strong>, if necessary.</p>
 </dd>
 </dl>
 <p>Default: dhcpd</p>
+<dl class="simple">
+<dt><strong>overlays</strong></dt><dd><p>A comma-separated list of host overlays which <strong>wwctl-configure(1)</strong>
+applies when configuring the DHCP service. Overlays are applied left
+to right, with files from the rightmost overlay taking precedence.</p>
+</dd>
+</dl>
+<p>There is no compiled-in default: the value is supplied by the
+<strong>warewulf.conf</strong> packaged for the operating system, and
+<strong>wwctl-upgrade(1)</strong> recommends one based on <strong>systemd name</strong>. Typically
+<strong>dhcpd</strong>, or <strong>dnsmasq</strong> where dnsmasq provides DHCP.</p>
+<p>If a service has no overlays, <strong>wwctl-configure(1)</strong> warns and does not
+regenerate that service’s configuration.</p>
 </section>
 <section id="tftp">
 <h3>TFTP<a class="headerlink" href="#tftp" title="Link to this heading"></a></h3>
@@ -363,6 +377,13 @@ service during <strong>wwctl-configure(1)</strong>, if necessary.</p>
 </dd>
 </dl>
 <p>Default: tftp</p>
+<dl class="simple">
+<dt><strong>overlays</strong></dt><dd><p>A comma-separated list of host overlays which <strong>wwctl-configure(1)</strong>
+applies when configuring the TFTP service. Typically <strong>tftproot</strong>, or
+<strong>dnsmasq,tftproot</strong> where dnsmasq provides TFTP. See <strong>overlays</strong>
+under <strong>DHCP</strong> above.</p>
+</dd>
+</dl>
 </section>
 <section id="nfs">
 <h3>NFS<a class="headerlink" href="#nfs" title="Link to this heading"></a></h3>
@@ -381,12 +402,12 @@ list is, itself, a map of parameters for the export. (See the
 <strong>EXAMPLE</strong> section for overall structure.)</p>
 <dl class="simple">
 <dt><strong>path</strong></dt><dd><p>The path on the server to be exported via the NFS service.
-Provided to the host overlay as the variable
+Provided to the host overlays as the variable
 <strong>.Nfs.ExportsExtended[].Path</strong>, typically for use in generating
 /etc/exports or similar.</p>
 </dd>
 <dt><strong>export options</strong></dt><dd><p>The NFS export options to use when exporting the given <strong>path</strong>
-via the NFS service. Provided to the host overlay as the variable
+via the NFS service. Provided to the host overlays as the variable
 <strong>.Nfs.ExportsExtended[].ExportOptions</strong>, typically for use in
 generating /etc/exports or similar.</p>
 </dd>
@@ -398,6 +419,45 @@ during <strong>wwctl-configure(1)</strong>, if necessary.</p>
 </dd>
 </dl>
 <p>Default: nfsd</p>
+<dl class="simple">
+<dt><strong>overlays</strong></dt><dd><p>A comma-separated list of host overlays which <strong>wwctl-configure(1)</strong>
+applies when configuring the NFS service. Typically <strong>nfsd</strong>. See
+<strong>overlays</strong> under <strong>DHCP</strong> above.</p>
+</dd>
+</dl>
+</section>
+<section id="ssh">
+<h3>SSH<a class="headerlink" href="#ssh" title="Link to this heading"></a></h3>
+<p>The <strong>ssh</strong> parameter is a map of individual sub-parameters which inform
+how <strong>wwctl-configure(1)</strong> should configure ssh on the Warewulf server.
+(See the <strong>EXAMPLE</strong> section for overall structure.)</p>
+<dl class="simple">
+<dt><strong>key types</strong></dt><dd><p>The ssh key types for which <strong>wwctl-configure(1)</strong> generates cluster
+host keys. The first type listed is also used to generate user
+authentication keys.</p>
+</dd>
+</dl>
+<p>Default: ed25519, ecdsa, rsa</p>
+<dl class="simple">
+<dt><strong>overlays</strong></dt><dd><p>A comma-separated list of host overlays which <strong>wwctl-configure(1)</strong>
+applies when configuring ssh. Typically <strong>ssh.wwctl</strong>. See
+<strong>overlays</strong> under <strong>DHCP</strong> above.</p>
+</dd>
+</dl>
+</section>
+<section id="hostfile">
+<h3>HOSTFILE<a class="headerlink" href="#hostfile" title="Link to this heading"></a></h3>
+<p>The <strong>hostfile</strong> parameter is a map of individual sub-parameters which
+inform how <strong>wwctl-configure(1)</strong> should generate the Warewulf server’s
+<strong>/etc/hosts</strong>. (See the <strong>EXAMPLE</strong> section for overall structure.)</p>
+<dl class="simple">
+<dt><strong>overlays</strong></dt><dd><p>A comma-separated list of host overlays which <strong>wwctl-configure(1)</strong>
+applies when configuring <strong>/etc/hosts</strong>. Typically <strong>hosts</strong>, which
+is also assigned to nodes so that they generate their own
+<strong>/etc/hosts</strong> from the same template. See <strong>overlays</strong> under
+<strong>DHCP</strong> above.</p>
+</dd>
+</dl>
 </section>
 </section>
 <section id="example">
@@ -419,9 +479,11 @@ services enabled.</p>
   <span class="nb">range</span> <span class="n">start</span><span class="p">:</span> <span class="mf">10.0.0.10</span>
   <span class="nb">range</span> <span class="n">end</span><span class="p">:</span> <span class="mf">10.0.0.99</span>
   <span class="n">systemd</span> <span class="n">name</span><span class="p">:</span> <span class="n">dhcpd</span>
+  <span class="n">overlays</span><span class="p">:</span> <span class="n">dhcpd</span>
 <span class="n">tftp</span><span class="p">:</span>
   <span class="n">enabled</span><span class="p">:</span> <span class="n">true</span>
   <span class="n">systemd</span> <span class="n">name</span><span class="p">:</span> <span class="n">tftp</span>
+  <span class="n">overlays</span><span class="p">:</span> <span class="n">tftproot</span>
 <span class="n">nfs</span><span class="p">:</span>
   <span class="n">enabled</span><span class="p">:</span> <span class="n">true</span>
   <span class="n">export</span> <span class="n">paths</span><span class="p">:</span>
@@ -430,6 +492,15 @@ services enabled.</p>
   <span class="o">-</span> <span class="n">path</span><span class="p">:</span> <span class="o">/</span><span class="n">opt</span>
     <span class="n">export</span> <span class="n">options</span><span class="p">:</span> <span class="n">ro</span><span class="p">,</span><span class="n">sync</span><span class="p">,</span><span class="n">no_root_squash</span>
   <span class="n">systemd</span> <span class="n">name</span><span class="p">:</span> <span class="n">nfs</span><span class="o">-</span><span class="n">server</span>
+  <span class="n">overlays</span><span class="p">:</span> <span class="n">nfsd</span>
+<span class="n">ssh</span><span class="p">:</span>
+  <span class="n">key</span> <span class="n">types</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">ed25519</span>
+    <span class="o">-</span> <span class="n">ecdsa</span>
+    <span class="o">-</span> <span class="n">rsa</span>
+  <span class="n">overlays</span><span class="p">:</span> <span class="n">ssh</span><span class="o">.</span><span class="n">wwctl</span>
+<span class="n">hostfile</span><span class="p">:</span>
+  <span class="n">overlays</span><span class="p">:</span> <span class="n">hosts</span>
 </pre></div>
 </div>
 </section>

@@ -304,10 +304,12 @@ address of your cluster’s private network interface.</p>
 <span class="w">  </span><span class="nt">range start</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.1.1</span>
 <span class="w">  </span><span class="nt">range end</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.1.255</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dhcpd</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dhcpd</span>
 <span class="nt">tftp</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">tftproot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/tftpboot</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tftp</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tftproot</span>
 <span class="w">  </span><span class="nt">ipxe</span><span class="p">:</span>
 <span class="w">    </span><span class="s">&quot;00:00&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">undionly.kpxe</span>
 <span class="w">    </span><span class="s">&quot;00:07&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ipxe-snponly-x86_64.efi</span>
@@ -321,6 +323,11 @@ address of your cluster’s private network interface.</p>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt</span>
 <span class="w">    </span><span class="nt">export options</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ro,sync,no_root_squash</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfs-server</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfsd</span>
+<span class="nt">ssh</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh.wwctl</span>
+<span class="nt">hostfile</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hosts</span>
 <span class="nt">image mounts</span><span class="p">:</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
 <span class="w">  </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
