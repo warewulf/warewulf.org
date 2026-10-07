@@ -67,7 +67,10 @@
 <li class="toctree-l1"><a class="reference internal" href="dnsmasq.html">Using dnsmasq</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bootloaders.html">Bootloaders</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Upgrading Warewulf</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Upgrading Warewulf</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#per-service-host-overlays">Per-service host overlays</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">REST API</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Nodes and Profiles</span></p>
@@ -234,6 +237,35 @@ manually.</p>
 <p>Both upgrade commands support specifying <code class="docutils literal notranslate"><span class="pre">--output-path=-</span></code> to print the
 upgraded configuration file to standard out for inspection before replacing the
 configuration files.</p>
+<section id="per-service-host-overlays">
+<h2>Per-service host overlays<a class="headerlink" href="#per-service-host-overlays" title="Link to this heading"></a></h2>
+<p>Warewulf no longer applies a single <code class="docutils literal notranslate"><span class="pre">host</span></code> overlay implicitly. Each service
+configured by <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span></code> applies only the host overlays listed in its
+<code class="docutils literal notranslate"><span class="pre">overlays</span></code> key in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">dhcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dhcpd</span>
+<span class="nt">tftp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tftproot</span>
+<span class="nt">nfs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfsd</span>
+<span class="nt">ssh</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh.wwctl</span>
+<span class="nt">hostfile</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hosts</span>
+</pre></div>
+</div>
+<p>There are no defaults for these keys. A service with no <code class="docutils literal notranslate"><span class="pre">overlays</span></code> listed is
+skipped with a warning, and its configuration files (for example
+<code class="docutils literal notranslate"><span class="pre">dhcpd.conf</span></code>, <code class="docutils literal notranslate"><span class="pre">/etc/exports</span></code>, <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>, or <code class="docutils literal notranslate"><span class="pre">grub.cfg</span></code>) are no
+longer updated.</p>
+<p>Package upgrades do not replace an existing <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>, so run <code class="docutils literal notranslate"><span class="pre">wwctl</span>
+<span class="pre">upgrade</span> <span class="pre">config</span></code> after upgrading to add the recommended <code class="docutils literal notranslate"><span class="pre">overlays</span></code> for each
+service, then re-run <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">--all</span></code>.</p>
+<p>If a site <code class="docutils literal notranslate"><span class="pre">host</span></code> overlay is still present, <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">upgrade</span> <span class="pre">config</span></code> also appends
+<code class="docutils literal notranslate"><span class="pre">host</span></code> to each service’s <code class="docutils literal notranslate"><span class="pre">overlays</span></code> so that its customizations continue to
+be applied. Move those customizations into the overlay for the relevant service
+and remove the <code class="docutils literal notranslate"><span class="pre">host</span></code> entries. See <a class="reference internal" href="../overlays/overlays.html#host-overlays"><span class="std std-ref">Host Overlays</span></a>.</p>
+</section>
 </section>
 
 

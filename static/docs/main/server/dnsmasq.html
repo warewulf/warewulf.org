@@ -247,14 +247,17 @@ zypper<span class="w"> </span>install<span class="w"> </span>dnsmasq
 typically at <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/warewulf.conf</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tftp</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dnsmasq</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dnsmasq,tftproot</span>
 <span class="nt">dhcp</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dnsmasq</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dnsmasq</span>
 </pre></div>
 </div>
 <p>The configuration of <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> often doesn’t need to be changed, as the
 default configuration includes all files with following pattern
 <code class="docutils literal notranslate"><span class="pre">/etc/dnsmasq.d/*conf</span></code> into its configuration. This configuration is created
-by the overlay template <code class="docutils literal notranslate"><span class="pre">host:/etc/dnsmasq.d/ww4-hosts.conf.ww</span></code>.</p>
+by the overlay templates <code class="docutils literal notranslate"><span class="pre">dnsmasq:/etc/dnsmasq.d/ww4-hosts.conf.ww</span></code> and
+<code class="docutils literal notranslate"><span class="pre">dnsmasq:/etc/dnsmasq.d/ww4-listen.conf.ww</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In certain distributions, such as Rocky Linux 9, <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> is configured to

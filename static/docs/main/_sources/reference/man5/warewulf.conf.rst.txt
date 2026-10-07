@@ -107,8 +107,8 @@ Default: true
 **range start**
    An IP address which defines the start of a dynamic address range
    which can be used when configuring the DHCP service. Provided to the
-   host overlay as the variable **$.Dhcp.RangeStart**, typically for use
-   in generating dhcpd.conf or similar.
+   host overlays as the variable **$.Dhcp.RangeStart**, typically for
+   use in generating dhcpd.conf or similar.
 
 Templates typically expect this range to be within the **network**
 defined above.
@@ -116,7 +116,7 @@ defined above.
 **range end**
    An IP address which defines the end of a dynamic address range which
    can be used when configuring the DHCP service. Provided to the host
-   overlay as the variable **$.Dhcp.RangeEnd**, typically for use in
+   overlays as the variable **$.Dhcp.RangeEnd**, typically for use in
    generating dhcpd.conf or similar.
 
 Templates typically expect this range to be within the **network**
@@ -127,6 +127,19 @@ defined above.
    service during **wwctl-configure(1)**, if necessary.
 
 Default: dhcpd
+
+**overlays**
+   A comma-separated list of host overlays which **wwctl-configure(1)**
+   applies when configuring the DHCP service. Overlays are applied left
+   to right, with files from the rightmost overlay taking precedence.
+
+There is no compiled-in default: the value is supplied by the
+**warewulf.conf** packaged for the operating system, and
+**wwctl-upgrade(1)** recommends one based on **systemd name**. Typically
+**dhcpd**, or **dnsmasq** where dnsmasq provides DHCP.
+
+If a service has no overlays, **wwctl-configure(1)** warns and does not
+regenerate that service's configuration.
 
 TFTP
 ----
@@ -146,6 +159,12 @@ Default: true
    service during **wwctl-configure(1)**, if necessary.
 
 Default: tftp
+
+**overlays**
+   A comma-separated list of host overlays which **wwctl-configure(1)**
+   applies when configuring the TFTP service. Typically **tftproot**, or
+   **dnsmasq,tftproot** where dnsmasq provides TFTP. See **overlays**
+   under **DHCP** above.
 
 NFS
 ---
@@ -167,13 +186,13 @@ Default: true
 
    **path**
       The path on the server to be exported via the NFS service.
-      Provided to the host overlay as the variable
+      Provided to the host overlays as the variable
       **.Nfs.ExportsExtended[].Path**, typically for use in generating
       /etc/exports or similar.
 
    **export options**
       The NFS export options to use when exporting the given **path**
-      via the NFS service. Provided to the host overlay as the variable
+      via the NFS service. Provided to the host overlays as the variable
       **.Nfs.ExportsExtended[].ExportOptions**, typically for use in
       generating /etc/exports or similar.
 
@@ -184,6 +203,44 @@ Default: true
    during **wwctl-configure(1)**, if necessary.
 
 Default: nfsd
+
+**overlays**
+   A comma-separated list of host overlays which **wwctl-configure(1)**
+   applies when configuring the NFS service. Typically **nfsd**. See
+   **overlays** under **DHCP** above.
+
+SSH
+---
+
+The **ssh** parameter is a map of individual sub-parameters which inform
+how **wwctl-configure(1)** should configure ssh on the Warewulf server.
+(See the **EXAMPLE** section for overall structure.)
+
+**key types**
+   The ssh key types for which **wwctl-configure(1)** generates cluster
+   host keys. The first type listed is also used to generate user
+   authentication keys.
+
+Default: ed25519, ecdsa, rsa
+
+**overlays**
+   A comma-separated list of host overlays which **wwctl-configure(1)**
+   applies when configuring ssh. Typically **ssh.wwctl**. See
+   **overlays** under **DHCP** above.
+
+HOSTFILE
+--------
+
+The **hostfile** parameter is a map of individual sub-parameters which
+inform how **wwctl-configure(1)** should generate the Warewulf server's
+**/etc/hosts**. (See the **EXAMPLE** section for overall structure.)
+
+**overlays**
+   A comma-separated list of host overlays which **wwctl-configure(1)**
+   applies when configuring **/etc/hosts**. Typically **hosts**, which
+   is also assigned to nodes so that they generate their own
+   **/etc/hosts** from the same template. See **overlays** under
+   **DHCP** above.
 
 EXAMPLE
 =======
@@ -208,9 +265,11 @@ services enabled.
      range start: 10.0.0.10
      range end: 10.0.0.99
      systemd name: dhcpd
+     overlays: dhcpd
    tftp:
      enabled: true
      systemd name: tftp
+     overlays: tftproot
    nfs:
      enabled: true
      export paths:
@@ -219,6 +278,15 @@ services enabled.
      - path: /opt
        export options: ro,sync,no_root_squash
      systemd name: nfs-server
+     overlays: nfsd
+   ssh:
+     key types:
+       - ed25519
+       - ecdsa
+       - rsa
+     overlays: ssh.wwctl
+   hostfile:
+     overlays: hosts
 
 SEE ALSO
 ========

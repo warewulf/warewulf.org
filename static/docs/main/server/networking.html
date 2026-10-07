@@ -286,8 +286,8 @@ dynamic dhcp range. You can check the result with <code class="docutils literal 
 </pre></div>
 </div>
 <p>Now the templates of <code class="docutils literal notranslate"><span class="pre">dhcpd</span></code> and/or <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> must be modified.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>overlay<span class="w"> </span>edit<span class="w"> </span>host<span class="w"> </span>etc/dhcpd.conf.ww
-wwctl<span class="w"> </span>overlay<span class="w"> </span>edit<span class="w"> </span>host<span class="w"> </span>etc/dnsmasq.d/ww4-hosts.ww
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>overlay<span class="w"> </span>edit<span class="w"> </span>dhcpd<span class="w"> </span>etc/dhcp/dhcpd.conf.ww
+wwctl<span class="w"> </span>overlay<span class="w"> </span>edit<span class="w"> </span>dnsmasq<span class="w"> </span>etc/dnsmasq.d/ww4-hosts.conf.ww
 </pre></div>
 </div>
 <p>For the <code class="docutils literal notranslate"><span class="pre">dhcp</span></code> template you should add following lines</p>

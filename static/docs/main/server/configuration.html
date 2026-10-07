@@ -67,11 +67,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#tftp">tftp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#nfs">nfs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ssh">ssh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hostfile">hostfile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#image-mounts">image mounts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#paths">paths</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#wwclient">wwclient</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#api">api</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hostfile">hostfile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#logging">logging</a></li>
 </ul>
 </li>
@@ -257,10 +257,12 @@ server</p></li>
 <span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dhcpd</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dhcpd</span>
 <span class="nt">tftp</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">tftproot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/tftpboot</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tftp</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tftproot</span>
 <span class="w">  </span><span class="nt">ipxe</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">00:0B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arm64-efi/snponly.efi</span>
 <span class="w">    </span><span class="s">&quot;00:00&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">undionly.kpxe</span>
@@ -269,11 +271,15 @@ server</p></li>
 <span class="nt">nfs</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfsd</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfsd</span>
 <span class="nt">ssh</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">key types</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ed25519</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ecdsa</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rsa</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh.wwctl</span>
+<span class="nt">hostfile</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hosts</span>
 <span class="nt">image mounts</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
 <span class="w">    </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
@@ -341,9 +347,9 @@ automatically be rebuilt. (e.g., when an underlying overlay is changed)</p>
 <p>Overlay autobuild is not 100% reliable; but it is particularly useful for
 building overlays for new nodes.</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">warewulf:host</span> <span class="pre">overlay</span></code>: Controls whether the special <code class="docutils literal notranslate"><span class="pre">host</span></code> overlay is
-applied to the Warewulf server during configuration. (The host overlay is used
-to configure external services.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">warewulf:host</span> <span class="pre">overlay</span></code>: Controls whether the host overlays are applied to
+the Warewulf server during configuration. (Host overlays are used to
+configure external services on the server. See <a class="reference internal" href="../overlays/overlays.html#host-overlays"><span class="std std-ref">Host Overlays</span></a>.)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">warewulf:grubboot</span></code>: Controls whether iPXE (default) or GRUB is used as the
 network bootloader.</p></li>
 </ul>
@@ -357,6 +363,7 @@ DHCP service.</p>
 <span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dhcpd</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dhcpd</span>
 </pre></div>
 </div>
 <ul>
@@ -377,6 +384,9 @@ start).</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">dhcp:systemd</span> <span class="pre">name</span></code>: Identifies the systemd service that manages the DHCP
 service. Used during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">dhcp</span></code> to restart the service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dhcp:overlays</span></code>: A comma-separated list of host overlays to apply during
+<code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">dhcp</span></code>. Typically <code class="docutils literal notranslate"><span class="pre">dhcpd</span></code>, or <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> where dnsmasq
+provides DHCP. See <a class="reference internal" href="../overlays/overlays.html#host-overlays"><span class="std std-ref">Host Overlays</span></a>.</p></li>
 </ul>
 </section>
 <section id="tftp">
@@ -388,6 +398,7 @@ directory and enables the TFTP service.</p>
 <span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">tftproot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/tftpboot</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tftp</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tftproot</span>
 <span class="w">  </span><span class="nt">ipxe</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">00:0B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arm64-efi/snponly.efi</span>
 <span class="w">    </span><span class="s">&quot;00:00&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">undionly.kpxe</span>
@@ -403,6 +414,8 @@ server. Warewulf creates a <code class="docutils literal notranslate"><span clas
 GRUB bootloader files to this location depending on the server configuration.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">systemd</span> <span class="pre">name</span></code>: Identifies the systemd service that manages the TFTP
 service. Used during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">tftp</span></code> to restart the service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tftp:overlays</span></code>: A comma-separated list of host overlays to apply during
+<code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">tftp</span></code>. Typically <code class="docutils literal notranslate"><span class="pre">tftproot</span></code>. See <a class="reference internal" href="../overlays/overlays.html#host-overlays"><span class="std std-ref">Host Overlays</span></a>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ipxe</span></code>: A map of DHCP option architecture-types to the iPXE binary that
 should be used for that architecture. iPXE binaries are searched for in
 <code class="docutils literal notranslate"><span class="pre">paths:ipxesource</span></code>. By default, these paths correspond to the location of
@@ -424,6 +437,7 @@ Warewulf server and enables and starts the NFS service.</p>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt</span>
 <span class="w">      </span><span class="nt">export options</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ro,sync,no_root_squash</span>
 <span class="w">  </span><span class="nt">systemd name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfsd</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nfsd</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -435,6 +449,8 @@ server. Each export defines a <code class="docutils literal notranslate"><span c
 <span class="pre">options</span></code> for that export.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">systemd</span> <span class="pre">name</span></code>: Identifies the systemd service that manages the NFS
 service. Used during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">nfs</span></code> to restart the service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nfs:overlays</span></code>: A comma-separated list of host overlays to apply during
+<code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">nfs</span></code>. Typically <code class="docutils literal notranslate"><span class="pre">nfsd</span></code>. See <a class="reference internal" href="../overlays/overlays.html#host-overlays"><span class="std std-ref">Host Overlays</span></a>.</p></li>
 </ul>
 </section>
 <section id="ssh">
@@ -451,12 +467,32 @@ Warewulf server.</p>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ed25519</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ecdsa</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rsa</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh.wwctl</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ssh:key</span> <span class="pre">types</span></code>: Warewulf generates host keys for each listed key type.</p></li>
 </ul>
 <p>The first listed key type is used to generate authentication ssh keys.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ssh:overlays</span></code>: A comma-separated list of host overlays to apply during
+<code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">ssh</span></code>. Typically <code class="docutils literal notranslate"><span class="pre">ssh.wwctl</span></code>. See <a class="reference internal" href="../overlays/overlays.html#host-overlays"><span class="std std-ref">Host Overlays</span></a>.</p></li>
+</ul>
+</section>
+<section id="hostfile">
+<h2>hostfile<a class="headerlink" href="#hostfile" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">hostfile</span></code> updates the Warewulf server’s <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> file
+to include expected configuration for the server itself as well as the known
+names of the cluster nodes and their interfaces.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hostfile</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hosts</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hostfile:overlays</span></code>: A comma-separated list of host overlays to apply
+during <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">hostfile</span></code>. Typically <code class="docutils literal notranslate"><span class="pre">hosts</span></code>. See
+<a class="reference internal" href="../overlays/overlays.html#host-overlays"><span class="std std-ref">Host Overlays</span></a>.</p></li>
+</ul>
 </section>
 <section id="image-mounts">
 <h2>image mounts<a class="headerlink" href="#image-mounts" title="Link to this heading"></a></h2>
@@ -547,15 +583,6 @@ requires <code class="docutils literal notranslate"><span class="pre">warewulf:t
 default, only localhost has access. Does not apply to <code class="docutils literal notranslate"><span class="pre">/api/docs</span></code>.</p></li>
 </ul>
 <p>See <a class="reference internal" href="api.html#rest-api"><span class="std std-ref">REST API</span></a> for authentication and the available endpoints.</p>
-</section>
-<section id="hostfile">
-<h2>hostfile<a class="headerlink" href="#hostfile" title="Link to this heading"></a></h2>
-<p>There are no explicit “hostfile” configuration options in <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>; but
-<code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">hostfile</span></code> updates the Warewulf server’s <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> file
-to include expected configuration for the server itself as well as the known
-names of the cluster nodes and their interfaces.</p>
-<p>Entries from the Warewulf server’s <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> file are distributed to
-cluster nodes by the “hosts” overlay.</p>
 </section>
 <section id="logging">
 <h2>logging<a class="headerlink" href="#logging" title="Link to this heading"></a></h2>

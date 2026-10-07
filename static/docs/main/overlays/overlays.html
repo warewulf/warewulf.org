@@ -116,7 +116,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#mkswap">mkswap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#systemd-mounts">systemd mounts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mig">mig</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#host">host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#host-overlays">Host Overlays</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Templating</a></li>
@@ -461,8 +461,15 @@ wwctl<span class="w"> </span>overlay<span class="w"> </span>show<span class="w">
 <p>More information about templates is available in <a class="reference internal" href="templates.html#templates"><span class="std std-ref">its own section</span></a>.</p>
 <p>The content of the file for the given overlay is displayed with this command.
 With the <code class="docutils literal notranslate"><span class="pre">--render</span></code> option a template is rendered as it will be rendered for
-the given node. The node name is a mandatory argument to the <code class="docutils literal notranslate"><span class="pre">--render</span></code> flag.
-Additional information for the file can be suppressed with the <code class="docutils literal notranslate"><span class="pre">--quiet</span></code>
+the given node. The node name is a mandatory argument to the <code class="docutils literal notranslate"><span class="pre">--render</span></code> flag,
+and must name a defined node.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--render-host</span></code> to render a template as it will be rendered for the
+Warewulf server itself, which is how <a class="reference internal" href="#host-overlays"><span class="std std-ref">host overlays</span></a> are
+built. <code class="docutils literal notranslate"><span class="pre">--render</span></code> and <code class="docutils literal notranslate"><span class="pre">--render-host</span></code> are mutually exclusive.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wwctl<span class="w"> </span>overlay<span class="w"> </span>show<span class="w"> </span>hosts<span class="w"> </span>etc/hosts.ww<span class="w"> </span>--render-host
+</pre></div>
+</div>
+<p>Additional information for the file can be suppressed with the <code class="docutils literal notranslate"><span class="pre">--quiet</span></code>
 option.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -826,24 +833,136 @@ for Slurm’s <code class="docutils literal notranslate"><span class="pre">gres.
 </pre></div>
 </div>
 </section>
-<section id="host">
-<h2>host<a class="headerlink" href="#host" title="Link to this heading"></a></h2>
-<p>Configuration files used for the configuration of the Warewulf host /
-server are stored in the <strong>host</strong> overlay. Unlike other overlays, it
-<em>must</em> have the name <code class="docutils literal notranslate"><span class="pre">host</span></code>. Existing files on the host are copied
-to backup files with a <code class="docutils literal notranslate"><span class="pre">wwbackup</span></code> suffix at the first
-run. (Subsequent use of the host overlay won’t overwrite existing
-<code class="docutils literal notranslate"><span class="pre">wwbackup</span></code> files.)</p>
-<p>The following services get configuration files via the host overlay:</p>
-<ul class="simple">
-<li><p>ssh keys are created with the scripts <code class="docutils literal notranslate"><span class="pre">ssh_setup.sh</span></code> and
-<code class="docutils literal notranslate"><span class="pre">ssh_setup.csh</span></code></p></li>
-<li><p>hosts entries are created by manipulating <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> with the
-template <code class="docutils literal notranslate"><span class="pre">hosts.ww</span></code></p></li>
-<li><p>nfs kernel server receives its exports from the template
-<code class="docutils literal notranslate"><span class="pre">exports.ww</span></code></p></li>
-<li><p>the dhcpd service is configured with <code class="docutils literal notranslate"><span class="pre">dhcpd.conf.ww</span></code></p></li>
-</ul>
+<section id="host-overlays">
+<span id="id4"></span><h2>Host Overlays<a class="headerlink" href="#host-overlays" title="Link to this heading"></a></h2>
+<p>Most overlays configure a Warewulf node. <strong>Host overlays</strong> configure the
+Warewulf server itself. They are applied to the server’s own <code class="docutils literal notranslate"><span class="pre">/</span></code> rather than
+into a node image.</p>
+<p>Warewulf ships host overlays specific to the services they configure:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Overlay</p></th>
+<th class="head"><p>Templates</p></th>
+<th class="head"><p>Configures</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dhcpd</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">etc/dhcp/dhcpd.conf.ww</span></code></p></td>
+<td><p>The ISC <code class="docutils literal notranslate"><span class="pre">dhcpd</span></code> service. Also installs <code class="docutils literal notranslate"><span class="pre">/etc/dhcpd.conf</span></code> as a
+symlink to <code class="docutils literal notranslate"><span class="pre">/etc/dhcp/dhcpd.conf</span></code>, for distributions (such as
+openSUSE) which read the former path.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">etc/dnsmasq.d/ww4-hosts.conf.ww</span></code>,
+<code class="docutils literal notranslate"><span class="pre">etc/dnsmasq.d/ww4-listen.conf.ww</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code>, as an alternative to <code class="docutils literal notranslate"><span class="pre">dhcpd</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hosts</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">etc/hosts.ww</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>, with an entry for every node network device and BMC.
+This is the one overlay that is both a host overlay and a node
+overlay: the same template renders the server’s file and the nodes’.
+On the server it preserves everything above a
+<code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">Do</span> <span class="pre">not</span> <span class="pre">edit</span> <span class="pre">after</span> <span class="pre">this</span> <span class="pre">line</span></code> marker and regenerates the rest,
+so hand-written entries survive; on a node it generates the whole
+file, including the loopback entries.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nfsd</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">etc/exports.ww</span></code></p></td>
+<td><p>The exports of the NFS kernel server.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ssh.wwctl</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">etc/profile.d/ssh_setup.sh.ww</span></code>,
+<code class="docutils literal notranslate"><span class="pre">etc/profile.d/ssh_setup.csh.ww</span></code></p></td>
+<td><p>Login scripts which generate a cluster ssh key for each user on their
+first login to the server.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tftproot</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">grub.cfg.ww</span></code></p></td>
+<td><p>The top-level <code class="docutils literal notranslate"><span class="pre">grub.cfg</span></code> in the TFTP root, which is read by nodes
+that boot via GRUB (see <code class="docutils literal notranslate"><span class="pre">warewulf:grubboot</span></code>).</p></td>
+</tr>
+</tbody>
+</table>
+<p>Each host overlay is applied by the <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span></code> subcommand for the
+service it configures, and all of them by <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">--all</span></code>. Applying
+them can be disabled entirely with <code class="docutils literal notranslate"><span class="pre">warewulf:host</span> <span class="pre">overlay</span></code> in
+<code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>.</p>
+<p>Which overlays each service applies is configured with an <code class="docutils literal notranslate"><span class="pre">overlays</span></code>
+setting in that service’s section of <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Applied by</p></th>
+<th class="head"><p>Typical value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dhcp:overlays</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">dhcp</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dhcpd</span></code> (<code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> where dnsmasq provides DHCP)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tftp:overlays</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">tftp</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tftproot</span></code> (<code class="docutils literal notranslate"><span class="pre">dnsmasq,tftproot</span></code> where dnsmasq provides TFTP)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nfs:overlays</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">nfs</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nfsd</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ssh:overlays</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">ssh</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ssh.wwctl</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hostfile:overlays</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">hostfile</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hosts</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>These settings have no compiled-in default: the values above come from the
+<code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> packaged for each operating system. When a service lists more
+than one overlay, the overlays are applied left to right, with files from the
+rightmost overlay taking precedence.</p>
+<p>There are two ways to change what a service writes to the server.</p>
+<p><strong>Shadow an overlay.</strong> A site overlay takes precedence over a distribution
+overlay of the same name, so creating a site overlay named <code class="docutils literal notranslate"><span class="pre">dhcpd</span></code> replaces
+the distribution <code class="docutils literal notranslate"><span class="pre">dhcpd</span></code> overlay entirely for every service that lists it.
+<code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">edit</span></code> and <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">import</span></code> clone a distribution overlay
+to a site overlay on first use, so editing a host overlay template shadows it
+automatically. Because the site overlay replaces the whole overlay rather than
+merging file by file, a shadowed overlay keeps only the files it contains
+itself, and it no longer receives template updates from Warewulf packages.</p>
+<p><strong>Add a site-local overlay to the list.</strong> Leave the shipped overlay in place
+and append your own overlay to that service’s <code class="docutils literal notranslate"><span class="pre">overlays</span></code> list. The list is
+applied left to right, so the rightmost overlay wins for any file that
+appears in more than one:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">dhcp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">overlays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dhcpd,mysite-dhcpd</span>
+</pre></div>
+</div>
+<p>Here <code class="docutils literal notranslate"><span class="pre">mysite-dhcpd</span></code> can add files that <code class="docutils literal notranslate"><span class="pre">dhcpd</span></code> does not provide, or
+override individual files from it, while still tracking packaged updates to
+the rest of <code class="docutils literal notranslate"><span class="pre">dhcpd</span></code>. Create such an overlay with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">create</span>
+<span class="pre">mysite-dhcpd</span></code>.</p>
+<p>Existing files on the server are copied to backup files with a <code class="docutils literal notranslate"><span class="pre">wwbackup</span></code>
+suffix at the first run. (Subsequent use of a host overlay won’t overwrite
+existing <code class="docutils literal notranslate"><span class="pre">wwbackup</span></code> files.)</p>
+<p><code class="docutils literal notranslate"><span class="pre">wwctl</span></code> logs a security warning when it applies a host overlay whose
+<code class="docutils literal notranslate"><span class="pre">rootfs</span></code> directory is writable by group or other.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These templates were previously all part of a single overlay named
+<code class="docutils literal notranslate"><span class="pre">host</span></code>, which every service applied. Warewulf no longer ships a <code class="docutils literal notranslate"><span class="pre">host</span></code>
+overlay, and no longer applies a site overlay of that name implicitly.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">upgrade</span> <span class="pre">config</span></code> finds a site <code class="docutils literal notranslate"><span class="pre">host</span></code> overlay still on disk, it
+appends <code class="docutils literal notranslate"><span class="pre">host</span></code> to each service’s <code class="docutils literal notranslate"><span class="pre">overlays</span></code>, at the end of the list
+where it keeps the precedence it used to have, so that local
+customizations continue to take effect. Move those customizations into the
+overlay for the relevant service and remove the <code class="docutils literal notranslate"><span class="pre">host</span></code> entries; until
+you do, each service continues to apply the whole of the old overlay.</p>
+</div>
 </section>
 </section>
 
