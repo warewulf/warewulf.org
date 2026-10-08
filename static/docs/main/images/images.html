@@ -86,6 +86,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#importing-images">Importing Images</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#oci-registry">OCI Registry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#local-oci-archive">Local OCI Archive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-sif-images">Local SIF Images</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#local-directories-and-apptainer-sandboxes">Local Directories and Apptainer Sandboxes</a></li>
 </ul>
 </li>
@@ -291,8 +292,8 @@ directory which represents the actual root directory for the image.</p>
 <section id="importing-images">
 <h2>Importing Images<a class="headerlink" href="#importing-images" title="Link to this heading"></a></h2>
 <p>Before any cluster nodes can be provisioned, you must import an image. Images
-may be imported from an OCI registry, a local OCI archive, or a local directory
-or Apptainer sandbox.</p>
+may be imported from an OCI registry, a local OCI archive, a local SIF image, or
+a local directory or Apptainer sandbox.</p>
 <section id="oci-registry">
 <h3>OCI Registry<a class="headerlink" href="#oci-registry" title="Link to this heading"></a></h3>
 <p>You can import OS images from an OCI registry, public or private.</p>
@@ -352,6 +353,32 @@ Podman can save a <code class="docutils literal notranslate"><span class="pre">.
 wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>rockylinux-8.tar<span class="w"> </span>rockylinux-8
 </pre></div>
 </div>
+</section>
+<section id="local-sif-images">
+<h3>Local SIF Images<a class="headerlink" href="#local-sif-images" title="Link to this heading"></a></h3>
+<p>Images in the Singularity Image Format (SIF), as built by Apptainer or
+SingularityCE, can be imported directly. Warewulf detects SIF images by their
+contents, so the file does not need a <code class="docutils literal notranslate"><span class="pre">.sif</span></code> extension. The image is
+extracted with <code class="docutils literal notranslate"><span class="pre">unsquashfs</span></code> from squashfs-tools (<code class="docutils literal notranslate"><span class="pre">squashfs</span></code> on SUSE), so
+Apptainer does not need to be installed on the Warewulf server.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>apptainer<span class="w"> </span>build<span class="w"> </span>rockylinux-8.sif<span class="w"> </span>docker://ghcr.io/warewulf/warewulf-rockylinux:8
+wwctl<span class="w"> </span>image<span class="w"> </span>import<span class="w"> </span>rockylinux-8.sif<span class="w"> </span>rockylinux-8
+</pre></div>
+</div>
+<p>If no name is given, the file name without its <code class="docutils literal notranslate"><span class="pre">.sif</span></code> extension is used.</p>
+<p>The primary system partition of the SIF image is extracted into the image. It
+must be a squashfs filesystem using a compressor that the installed
+<code class="docutils literal notranslate"><span class="pre">unsquashfs</span></code> supports. With squashfs-tools older than 4.4 (for example, on
+EL8), the partition is first copied to a temporary file next to the image,
+which needs free space equal to its size.
+OCI-SIF images (for example, those built with <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">build</span> <span class="pre">--oci</span></code>) and
+encrypted SIF images are not supported, and SIF signatures are not verified.
+When SELinux is enabled, the SELinux labels of the imported files are reset to
+the local policy with <code class="docutils literal notranslate"><span class="pre">restorecon</span></code>.
+Overlay partitions (for example, those added with
+<code class="docutils literal notranslate"><span class="pre">apptainer</span> <span class="pre">overlay</span> <span class="pre">create</span></code>) are not imported, and <code class="docutils literal notranslate"><span class="pre">--platform</span></code> does not
+apply to SIF images. An existing image cannot be updated from a SIF image with
+<code class="docutils literal notranslate"><span class="pre">--update</span></code>; use <code class="docutils literal notranslate"><span class="pre">--force</span></code> to replace it.</p>
 </section>
 <section id="local-directories-and-apptainer-sandboxes">
 <h3>Local Directories and Apptainer Sandboxes<a class="headerlink" href="#local-directories-and-apptainer-sandboxes" title="Link to this heading"></a></h3>
@@ -551,8 +578,8 @@ rm<span class="w"> </span>-rf<span class="w"> </span>/boot/*<span class="w"> </s
 dnf<span class="w"> </span>clean<span class="w"> </span>all
 </pre></div>
 </div>
-<p>Warewulf cannot directly import a container image from an Apptainer SIF yet, so
-an Apptainer image must be built as a <em>sandbox</em>.</p>
+<p>A SIF image built from this definition can be imported directly (see <a class="reference internal" href="#local-sif-images">Local SIF
+Images</a>), or the image can be built as a <em>sandbox</em>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>warewulf-rockylinux-9<span class="w"> </span>warewulf-rockylinux-9.def
 <span class="go">[...]</span>
 <span class="go">INFO:    Creating sandbox directory...</span>
@@ -565,8 +592,8 @@ an Apptainer image must be built as a <em>sandbox</em>.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Although warewulf does not currently support importing a SIF directly, a SIF
-can be converted to a sandbox with Apptainer and then imported into Warewulf.</p>
+<p>SIF images that Warewulf cannot import directly (see <a class="reference internal" href="#local-sif-images">Local SIF Images</a>) can
+be converted to a sandbox with Apptainer and then imported into Warewulf.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>apptainer<span class="w"> </span>build<span class="w"> </span>--sandbox<span class="w"> </span>my-sandbox<span class="w"> </span>my-image.sif
 <span class="gp"># </span>wwctl<span class="w"> </span>container<span class="w"> </span>import<span class="w"> </span>./my-sandbox<span class="w"> </span>my-image
 </pre></div>

@@ -249,7 +249,7 @@ v4.7.1 release on Enterprise Linux 9:</p>
 <p>If you prefer, you can also install Warewulf from source.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>git
 dnf<span class="w"> </span>install<span class="w"> </span>epel-release
-dnf<span class="w"> </span>install<span class="w"> </span>golang<span class="w"> </span><span class="o">{</span>libassuan,gpgme<span class="o">}</span>-devel<span class="w"> </span>unzip<span class="w"> </span>tftp-server<span class="w"> </span>dhcp-server<span class="w"> </span>nfs-utils<span class="w"> </span>ipxe-bootimgs-<span class="o">{</span>x86,aarch64<span class="o">}</span>
+dnf<span class="w"> </span>install<span class="w"> </span>golang<span class="w"> </span><span class="o">{</span>libassuan,gpgme<span class="o">}</span>-devel<span class="w"> </span>unzip<span class="w"> </span>tftp-server<span class="w"> </span>dhcp-server<span class="w"> </span>nfs-utils<span class="w"> </span>squashfs-tools<span class="w"> </span>ipxe-bootimgs-<span class="o">{</span>x86,aarch64<span class="o">}</span>
 
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf.git
 <span class="nb">cd</span><span class="w"> </span>warewulf
