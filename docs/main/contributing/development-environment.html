@@ -242,7 +242,7 @@ well.</p>
 <section id="compiling-warewulf-for-a-development-server">
 <h2>Compiling Warewulf for a Development Server<a class="headerlink" href="#compiling-warewulf-for-a-development-server" title="Link to this heading"></a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rocky Linux 9</span>
-dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>git<span class="w"> </span>epel-release<span class="w"> </span>golang<span class="w"> </span><span class="o">{</span>libassuan,gpgme<span class="o">}</span>-devel<span class="w"> </span>unzip<span class="w"> </span>tftp-server<span class="w"> </span>dhcp-server<span class="w"> </span>nfs-utils<span class="w"> </span>ipxe-bootimgs-<span class="o">{</span>x86,aarch64<span class="o">}</span>
+dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>git<span class="w"> </span>epel-release<span class="w"> </span>golang<span class="w"> </span><span class="o">{</span>libassuan,gpgme<span class="o">}</span>-devel<span class="w"> </span>unzip<span class="w"> </span>tftp-server<span class="w"> </span>dhcp-server<span class="w"> </span>nfs-utils<span class="w"> </span>squashfs-tools<span class="w"> </span>ipxe-bootimgs-<span class="o">{</span>x86,aarch64<span class="o">}</span>
 
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/warewulf/warewulf.git
 <span class="nb">cd</span><span class="w"> </span>warewulf

@@ -237,10 +237,16 @@ are:</p>
 <li><p>docker-daemon://example:latest</p></li>
 <li><p><a class="reference external" href="file://path/to/archive/tar/ball">file://path/to/archive/tar/ball</a></p></li>
 <li><p>/path/to/archive/tar/ball</p></li>
+<li><p><a class="reference external" href="file://path/to/image.sif">file://path/to/image.sif</a></p></li>
+<li><p>/path/to/image.sif</p></li>
 <li><p>/path/to/chroot/</p></li>
 </ul>
 </div></blockquote>
-<p>Imported images are used to create bootable images.</p>
+<p>SIF images are detected by their contents and must have a squashfs primary
+system partition. They are extracted with unsquashfs (squashfs-tools);
+Apptainer and Singularity are not required. An existing image cannot be
+updated from a SIF image with –update; use –force to replace it.
+Imported images are used to create bootable images.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wwctl</span> <span class="n">image</span> <span class="kn">import</span> <span class="p">[</span><span class="n">OPTIONS</span><span class="p">]</span> <span class="n">SOURCE</span> <span class="p">[</span><span class="n">NAME</span><span class="p">]</span>
 </pre></div>
 </div>
