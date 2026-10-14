@@ -100,10 +100,14 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development-environment.html">Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">Code Guidelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Debugging</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#validating-the-code-with-vet">Validating the code with vet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-the-full-test-suite">Running the Full Test Suite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rendering-templates">Rendering Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-in-an-image">Working in an Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging-node-boot">Debugging Node Boot</a></li>
 </ul>
 </li>
 </ul>
@@ -248,6 +252,28 @@ example, you can install delve as a regular user directly with Go.</p>
 </div>
 <p>Visual Studio Code also includes a full-featured golang debugger that includes
 testsuite integration.</p>
+</section>
+<section id="rendering-templates">
+<h2>Rendering Templates<a class="headerlink" href="#rendering-templates" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">show</span> <span class="pre">--render</span> <span class="pre">&lt;node&gt;</span> <span class="pre">&lt;overlay&gt;</span> <span class="pre">&lt;template&gt;</span></code> renders a template
+for a node without building the overlay, and <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">info</span> <span class="pre">&lt;overlay&gt;</span>
+<span class="pre">&lt;template&gt;</span></code> lists the variables it uses.</p>
+<p>To see which external commands <code class="docutils literal notranslate"><span class="pre">wwctl</span></code> runs (<code class="docutils literal notranslate"><span class="pre">cpio</span></code>, <code class="docutils literal notranslate"><span class="pre">mksquashfs</span></code>, …),
+trace them:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>strace<span class="w"> </span>-f<span class="w"> </span>-e<span class="w"> </span><span class="nv">trace</span><span class="o">=</span>execve<span class="w"> </span>wwctl<span class="w"> </span>overlay<span class="w"> </span>build<span class="w"> </span>&lt;node&gt;
+</pre></div>
+</div>
+</section>
+<section id="working-in-an-image">
+<h2>Working in an Image<a class="headerlink" href="#working-in-an-image" title="Link to this heading"></a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">image</span> <span class="pre">exec</span> <span class="pre">&lt;image&gt;</span> <span class="pre">--</span> <span class="pre">&lt;command&gt;</span></code> instead of <code class="docutils literal notranslate"><span class="pre">chroot</span></code>; it sets up
+<code class="docutils literal notranslate"><span class="pre">/proc</span></code>, <code class="docutils literal notranslate"><span class="pre">/sys</span></code>, and <code class="docutils literal notranslate"><span class="pre">/dev</span></code> inside the image.</p>
+</section>
+<section id="debugging-node-boot">
+<h2>Debugging Node Boot<a class="headerlink" href="#debugging-node-boot" title="Link to this heading"></a></h2>
+<p>Remove <code class="docutils literal notranslate"><span class="pre">quiet</span></code> from the node’s kernel arguments and add <code class="docutils literal notranslate"><span class="pre">rd.shell</span></code> to get a
+shell in the initramfs on failure. Set a serial console that matches the
+hardware (<code class="docutils literal notranslate"><span class="pre">console=ttyS0</span></code>; <code class="docutils literal notranslate"><span class="pre">console=ttyAMA0</span></code> on aarch64 QEMU <code class="docutils literal notranslate"><span class="pre">virt</span></code>).</p>
 </section>
 </section>
 

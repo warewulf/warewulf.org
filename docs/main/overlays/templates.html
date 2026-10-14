@@ -101,6 +101,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#includeblock">IncludeBlock</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#importlink">ImportLink</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#basename">basename</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inc-dec">inc / dec</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#file">file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#softlink">softlink</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#readlink">readlink</a></li>
@@ -128,6 +129,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/development-environment.html">Development Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/code.html">Code Guidelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/documentation.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing/debugging.html">Debugging</a></li>
 </ul>
@@ -278,6 +280,8 @@ commands.</p></li>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="o">/*</span> <span class="n">wwdoc</span><span class="p">:</span> <span class="n">Your</span> <span class="n">documentation</span> <span class="n">text</span> <span class="o">*/</span><span class="p">}}</span>
 </pre></div>
 </div>
+<p>New templates should include a <code class="docutils literal notranslate"><span class="pre">wwdoc</span></code> comment. To test a template, see
+<a class="reference internal" href="../contributing/development-environment.html#writing-tests"><span class="std std-ref">Writing Tests</span></a>.</p>
 </section>
 <section id="template-variables">
 <h2>Template variables<a class="headerlink" href="#template-variables" title="Link to this heading"></a></h2>
@@ -336,10 +340,10 @@ referenced symlink.</p>
 </div>
 <p>When paired with <code class="docutils literal notranslate"><span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">ImportLink</span></code> can create multiple symlinks from a
 single template.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="o">-</span> <span class="n">file</span> <span class="s2">&quot;/tmp/test-link1&quot;</span> <span class="o">-</span><span class="p">}}</span>
-<span class="p">{{</span><span class="o">-</span> <span class="n">softlink</span> <span class="s2">&quot;/tmp/test-target1&quot;</span> <span class="o">-</span><span class="p">}}</span>
-<span class="p">{{</span><span class="o">-</span> <span class="n">file</span> <span class="s2">&quot;/tmp/test-link2&quot;</span> <span class="o">-</span><span class="p">}}</span>
-<span class="p">{{</span><span class="o">-</span> <span class="n">softlink</span> <span class="s2">&quot;/tmp/test-target2&quot;</span> <span class="o">-</span><span class="p">}}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="o">-</span> <span class="n">file</span> <span class="s2">&quot;/etc/localtime-link1&quot;</span> <span class="o">-</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span> <span class="n">ImportLink</span> <span class="s2">&quot;/etc/localtime&quot;</span> <span class="o">-</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span> <span class="n">file</span> <span class="s2">&quot;/etc/localtime-link2&quot;</span> <span class="o">-</span><span class="p">}}</span>
+<span class="p">{{</span><span class="o">-</span> <span class="n">ImportLink</span> <span class="s2">&quot;/etc/localtime&quot;</span> <span class="o">-</span><span class="p">}}</span>
 </pre></div>
 </div>
 </section>
@@ -350,6 +354,16 @@ single template.</p>
  if option architecture-type = {{ $type }} {
      filename &quot;/warewulf/{{ basename $name }}&quot;;
  }
+{{- end }}
+</pre></div>
+</div>
+</section>
+<section id="inc-dec">
+<h3>inc / dec<a class="headerlink" href="#inc-dec" title="Link to this heading"></a></h3>
+<p>Add or subtract one from an integer, e.g. to number items from one instead of
+zero.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{{- range $i, $profile := .Profiles }}
+profile{{ inc $i }}={{ $profile }}
 {{- end }}
 </pre></div>
 </div>
@@ -387,7 +401,7 @@ single template.</p>
 <span id="id5"></span><h3>readlink<a class="headerlink" href="#readlink" title="Link to this heading"></a></h3>
 <p>Equivalent to <code class="docutils literal notranslate"><span class="pre">filepath.EvalSymlinks</span></code>. Returns the target path of a named
 symlink.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">readlink</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span> <span class="p">}}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span> <span class="n">readlink</span> <span class="s2">&quot;/etc/localtime&quot;</span> <span class="p">}}</span>
 </pre></div>
 </div>
 </section>
@@ -404,6 +418,17 @@ fields.</p>
 <h3>abort<a class="headerlink" href="#abort" title="Link to this heading"></a></h3>
 <p>Immediately aborts processing the template and does not write a file.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="o">-</span> <span class="n">abort</span> <span class="o">-</span><span class="p">}}</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">abort</span></code> when the data a template needs is missing, rather than writing an
+empty file. For example, the <code class="docutils literal notranslate"><span class="pre">wwinit</span></code> overlay writes <code class="docutils literal notranslate"><span class="pre">warewulf.crt</span></code> only when
+the server certificate exists:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{{- $crt := Include &quot;tls/warewulf.crt&quot; -}}
+{{- if eq $crt &quot;&quot; -}}
+{{ abort }}
+{{- else -}}
+{{ $crt }}
+{{- end -}}
 </pre></div>
 </div>
 </section>
