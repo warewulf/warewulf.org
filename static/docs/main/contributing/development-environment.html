@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Documentation" href="documentation.html" />
+    <link rel="next" title="Code Guidelines" href="code.html" />
     <link rel="prev" title="Contributing" href="contributing.html" /> 
 </head>
 
@@ -102,10 +102,12 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Development Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#compiling-warewulf-for-a-development-server">Compiling Warewulf for a Development Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-the-test-suite">Running the Test Suite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-tests">Writing Tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#using-a-dev-container">Using a Dev Container</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#using-vagrant-and-libvirt">Using Vagrant and Libvirt</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">Code Guidelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a></li>
 </ul>
@@ -293,6 +295,45 @@ suite.</p>
 <li><p><a class="reference external" href="https://pkg.go.dev/github.com/warewulf/warewulf/internal/pkg/testenv">Warewulf testenv</a></p></li>
 </ul>
 </section>
+<section id="writing-tests">
+<span id="id1"></span><h2>Writing Tests<a class="headerlink" href="#writing-tests" title="Link to this heading"></a></h2>
+<p>New functionality needs tests, and a bug fix should include a test that fails
+without the fix. Tests are table-driven and use <a class="reference external" href="https://pkg.go.dev/github.com/stretchr/testify/assert">testify assert</a>.</p>
+<p>Tests that touch configuration, overlays, or images use
+<code class="docutils literal notranslate"><span class="pre">internal/pkg/testenv</span></code>. It creates a temporary Warewulf tree with its own
+<code class="docutils literal notranslate"><span class="pre">nodes.conf</span></code> and <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code> and points Warewulf’s paths at it. (The
+separate <code class="docutils literal notranslate"><span class="pre">warewulf-testenv</span></code> repository is a virtual test cluster, not this
+package.)</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">env</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">testenv</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+<span class="k">defer</span><span class="w"> </span><span class="nx">env</span><span class="p">.</span><span class="nx">RemoveAll</span><span class="p">()</span>
+<span class="nx">env</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="s">&quot;etc/warewulf/nodes.conf&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">`nodes:</span>
+<span class="s">  n1: {}`</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">WriteFile</span></code>, <code class="docutils literal notranslate"><span class="pre">ImportFile</span></code>, and <code class="docutils literal notranslate"><span class="pre">ImportDir</span></code> populate the tree; <code class="docutils literal notranslate"><span class="pre">ReadFile</span></code>
+and <code class="docutils literal notranslate"><span class="pre">GetPath</span></code> inspect it. After rewriting <code class="docutils literal notranslate"><span class="pre">warewulf.conf</span></code>, call
+<code class="docutils literal notranslate"><span class="pre">env.Configure()</span></code> so Warewulf re-reads it.</p>
+<p>To test a <code class="docutils literal notranslate"><span class="pre">wwctl</span></code> subcommand, run its <code class="docutils literal notranslate"><span class="pre">GetCommand()</span></code> with arguments and
+check the result. <code class="docutils literal notranslate"><span class="pre">internal/app/wwctl/node/set/main_test.go</span></code> is a complete
+example; it calls <code class="docutils literal notranslate"><span class="pre">warewulfd.SetNoDaemon()</span></code> so the command does not try to
+reach a running daemon.</p>
+<p>To test an overlay template, add a case to
+<code class="docutils literal notranslate"><span class="pre">overlays/&lt;name&gt;/internal/&lt;name&gt;_test.go</span></code>. Each test imports the template
+into a <code class="docutils literal notranslate"><span class="pre">testenv</span></code>, renders it for a node with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">overlay</span> <span class="pre">show</span> <span class="pre">--render</span></code>,
+and compares the log output with an expected string.
+<code class="docutils literal notranslate"><span class="pre">overlays/hostname/internal/hostname_test.go</span></code> is the smallest example. When a
+template can <code class="docutils literal notranslate"><span class="pre">abort</span></code>, include a case for it. An aborted template with no
+output before the <code class="docutils literal notranslate"><span class="pre">abort</span></code> logs:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>backupFile: true
+writeFile: false
+
+Aborted
+</pre></div>
+</div>
+<p>Take expected output from a test run rather than writing it by hand.</p>
+<p>Run one package’s tests with <code class="docutils literal notranslate"><span class="pre">TZ=UTC</span> <span class="pre">go</span> <span class="pre">test</span> <span class="pre">./internal/pkg/overlay/...</span></code>
+(after <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">config</span></code>), or the whole suite with <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code>.</p>
+</section>
 <section id="using-a-dev-container">
 <h2>Using a Dev Container<a class="headerlink" href="#using-a-dev-container" title="Link to this heading"></a></h2>
 <p>Visual Studio Code (VSC) can utilize a Dev Container for a self-contained
@@ -319,7 +360,7 @@ for more details.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="contributing.html" class="btn btn-neutral float-left" title="Contributing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="documentation.html" class="btn btn-neutral float-right" title="Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="code.html" class="btn btn-neutral float-right" title="Code Guidelines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
