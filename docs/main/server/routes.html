@@ -297,7 +297,8 @@ any content. See <a class="reference internal" href="#server-routes-security"><s
 <li><p><code class="docutils literal notranslate"><span class="pre">compress</span></code>: Compression format for the response. The only supported value
 is <code class="docutils literal notranslate"><span class="pre">gz</span></code>. When <code class="docutils literal notranslate"><span class="pre">compress=gz</span></code> is specified, the server serves a pre-built
 gzip-compressed version of the file. If no compressed version exists, the
-server returns <code class="docutils literal notranslate"><span class="pre">404</span> <span class="pre">Not</span> <span class="pre">Found</span></code>.</p></li>
+server returns <code class="docutils literal notranslate"><span class="pre">404</span> <span class="pre">Not</span> <span class="pre">Found</span></code>. Any other value returns <code class="docutils literal notranslate"><span class="pre">400</span> <span class="pre">Bad</span>
+<span class="pre">Request</span></code>.</p></li>
 </ul>
 </section>
 <section id="provisioning-routes">
