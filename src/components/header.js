@@ -1,209 +1,103 @@
+import * as React from "react"
 import { Link } from "gatsby"
-import PropTypes from "prop-types"
-import React, { useState } from "react"
 import Logo from "../images/logo.svg"
+import LogoDark from "../images/logo-dark.svg"
+import { nav, links } from "../data/site"
+import { GitHubIcon, MenuIcon, CloseIcon } from "./icons"
 
-function Header({ siteTitle }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const linkClass = ({ isCurrent, isPartiallyCurrent }) => {
+  const active = isPartiallyCurrent || isCurrent
+  return {
+    className: `rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+      active
+        ? "text-brand-800 dark:text-brand-200"
+        : "text-ink-soft hover:text-brand-800 dark:text-gray-300 dark:hover:text-white"
+    }`,
+    "aria-current": active ? "page" : undefined,
+  }
+}
+
+export default function Header() {
+  const [open, setOpen] = React.useState(false)
+
+  React.useEffect(() => {
+    if (!open) return
+    const onKey = e => e.key === "Escape" && setOpen(false)
+    document.addEventListener("keydown", onKey)
+    return () => document.removeEventListener("keydown", onKey)
+  }, [open])
 
   return (
-    <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-      <div className="relative flex items-center justify-between">
-        <div className="flex items-center">
-          <Link
-            to="/"
-            aria-label="Warewulf"
-            title="Warewulf"
-            className="inline-flex items-center mr-8"
+    <header className="sticky top-0 z-50 border-b border-gray-200/70 bg-white/85 backdrop-blur dark:border-white/10 dark:bg-brand-950/85">
+      <div className="container-page flex h-16 items-center justify-between">
+        <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
+          <img src={Logo} alt="Warewulf" className="h-14 w-auto dark:hidden" />
+          <img src={LogoDark} alt="Warewulf" className="hidden h-14 w-auto dark:block" />
+        </Link>
+
+        <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
+          {nav.map(item => (
+            <Link key={item.href} to={item.href} getProps={linkClass} partiallyActive>
+              {item.name}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="hidden items-center gap-3 md:flex">
+          <a
+            href={links.github}
+            aria-label="Warewulf on GitHub"
+            className="rounded-md p-2 text-ink-soft hover:text-brand-800 dark:text-gray-300 dark:hover:text-white"
           >
-            <img className="w-36" src={Logo} alt="Warewulf Logo" />
-          </Link>
-          <ul className="flex items-center hidden space-x-8 lg:flex">
-          <li>
-              <Link
-                to="/news"
-                aria-label="News"
-                title="News"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
-              >
-                News
-              </Link>
-            </li>
+            <GitHubIcon />
+          </a>
+          <a href={links.intro} className="btn-primary !px-4 !py-2 !text-sm">
+            Get started
+          </a>
+        </div>
+
+        <button
+          type="button"
+          className="-mr-2 rounded-md p-2 md:hidden"
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+          aria-label={open ? "Close menu" : "Open menu"}
+          onClick={() => setOpen(o => !o)}
+        >
+          {open ? <CloseIcon /> : <MenuIcon />}
+        </button>
+      </div>
+
+      {open && (
+        <nav
+          id="mobile-nav"
+          aria-label="Mobile"
+          className="border-t border-gray-200 bg-white px-4 pb-6 pt-3 dark:border-white/10 dark:bg-brand-950 md:hidden"
+        >
+          <ul className="space-y-1">
+            {nav.map(item => (
+              <li key={item.href}>
+                <Link
+                  to={item.href}
+                  partiallyActive
+                  getProps={p => ({ ...linkClass(p), className: linkClass(p).className + " block !text-base" })}
+                  onClick={() => setOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
             <li>
-              <Link
-                to="/docs"
-                aria-label="Documentation"
-                title="Documentation"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
-              >
-                Documentation
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/help"
-                aria-label="Getting Help"
-                title="Help"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
-              >
-                Getting Help
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/about"
-                aria-label="About"
-                title="About"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
-              >
-                About
-              </Link>
+              <a href={links.github} className="block rounded-md px-3 py-2 text-base font-medium text-ink-soft dark:text-gray-300">
+                GitHub
+              </a>
             </li>
           </ul>
-        </div>
-        <ul className="flex items-center hidden space-x-8 lg:flex">
-          <li>
-            <Link
-              to="https://github.com/warewulf/warewulf"
-              aria-label="GitHub"
-              title="GitHub"
-              className="text-gray-700 hover:text-green-500 transition-colors duration-200"
-            >
-              <svg viewBox="0 0 24 24" className="w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-            </Link>
-          </li>
-          <li>
-            <a
-              href="https://warewulf.org/docs/v4.6.x/getting-started/introduction.html"
-              className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-900 hover:bg-green-800 focus:shadow-outline focus:outline-none"
-              aria-label="Get Started"
-              title="Get Started"
-            >
-              Get Started
-            </a>
-          </li>
-        </ul>
-        <div className="lg:hidden">
-          <button
-            aria-label="Open Menu"
-            title="Open Menu"
-            className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
-            onClick={() => setIsMenuOpen(true)}
-          >
-            <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M23,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,13,23,13z"
-              />
-              <path
-                fill="currentColor"
-                d="M23,6H1C0.4,6,0,5.6,0,5s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,6,23,6z"
-              />
-              <path
-                fill="currentColor"
-                d="M23,20H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,20,23,20z"
-              />
-            </svg>
-          </button>
-          {isMenuOpen && (
-            <div className="absolute top-0 left-0 w-full">
-              <div className="p-5 bg-white border rounded shadow-sm">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <a
-                      href="/"
-                      aria-label="Warewulf"
-                      title="Warewulf"
-                      className="inline-flex items-center"
-                    >
-                      <img className="w-36" src={Logo} alt="Warewulf Logo"/>
-                    </a>
-                  </div>
-                  <div>
-                    <button
-                      aria-label="Close Menu"
-                      title="Close Menu"
-                      className="p-2 -mt-2 -mr-2 transition duration-200 rounded hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
-                        <path
-                          fill="currentColor"
-                          d="M19.7,4.3c-0.4-0.4-1-0.4-1.4,0L12,10.6L5.7,4.3c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l6.3,6.3l-6.3,6.3 c-0.4,0.4-0.4,1,0,1.4C4.5,19.9,4.7,20,5,20s0.5-0.1,0.7-0.3l6.3-6.3l6.3,6.3c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3 c0.4-0.4,0.4-1,0-1.4L13.4,12l6.3-6.3C20.1,5.3,20.1,4.7,19.7,4.3z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <nav>
-                  <ul className="space-y-4">
-                    <li>
-                      <a
-                        href="/news"
-                        aria-label="News"
-                        title="News"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
-                      >
-                        News
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/docs"
-                        aria-label="Documentation"
-                        title="Documentation"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
-                      >
-                        Documentation
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/help"
-                        aria-label="Getting Help"
-                        title="Getting Help"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
-                      >
-                        Getting Help
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/about"
-                        aria-label="About the Warewulf Project"
-                        title="About"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-green-500"
-                      >
-                        About
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="https://warewulf.org/docs/v4.6.x/getting-started/introduction.html"
-                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-900 hover:bg-green-800 focus:shadow-outline focus:outline-none"
-                        aria-label="Getting Started"
-                        title="Getting Started"
-                      >
-                        Get Started
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+          <a href={links.intro} className="btn-primary mt-4 w-full">
+            Get started
+          </a>
+        </nav>
+      )}
+    </header>
   )
 }
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
-}
-
-export default Header
