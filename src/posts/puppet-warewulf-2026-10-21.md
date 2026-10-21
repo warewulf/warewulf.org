@@ -58,7 +58,7 @@ every parameter.
 Thanks to Evann Dreumont and the ULHPC team for building this module and sharing
 it with the community. Questions, bug reports, and contributions are welcome on
 the [puppet-warewulf GitHub project][1]. If you manage Warewulf with another
-configuration management tool, stop byy the [Warewulf Slack][4] and tell us
+configuration management tool, stop by the [Warewulf Slack][4] and tell us
 about it!
 
 [4]: /help
