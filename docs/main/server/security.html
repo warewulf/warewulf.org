@@ -313,6 +313,9 @@ configuration.</p>
 self-signed certificate can be created with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">tls</span></code>.</p>
 <p>By default, the key and certificate are stored in <code class="docutils literal notranslate"><span class="pre">/etc/warewulf/tls/</span></code>.</p>
 <p>You can also import your own keys with <code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">configure</span> <span class="pre">tls</span> <span class="pre">--import</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">warewulf</span></code> <code class="docutils literal notranslate"><span class="pre">firewalld</span></code> service opens port <code class="docutils literal notranslate"><span class="pre">9874</span></code> as well as <code class="docutils literal notranslate"><span class="pre">9873</span></code>.
+If you set a different <code class="docutils literal notranslate"><span class="pre">tls</span> <span class="pre">port</span></code>, or use <code class="docutils literal notranslate"><span class="pre">nftables</span></code> directly, permit that
+port yourself.</p>
 <p>If HTTPS is enabled the delivery of the runtime overlay is disabled over HTTP,
 and the runtime overlay is only retrieved by <code class="docutils literal notranslate"><span class="pre">wwclient</span></code>.</p>
 <p>To additionally require TLS for access to the REST API, set <code class="docutils literal notranslate"><span class="pre">tls:</span> <span class="pre">true</span></code> under
