@@ -1,12 +1,6 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
-
-// You can delete this file if you're not using it
-
-exports.createPages = async ({ graphql, actions }) => {
+// /docs/development/* was renamed to /docs/main/*.
+// (Static host: the legacy pages under static/docs/development remain in place.)
+exports.createPages = async ({ actions }) => {
   const { createRedirect } = actions
 
   createRedirect({

@@ -1,130 +1,83 @@
 import * as React from "react"
-import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-
+import PageHeader from "../components/page-header"
 import CtrlIQLogo from "../images/ctrliq.png"
-import SUSELogo from "../images/suse.svg"
+import SUSELogo from "../images/suse.png"
+import { links } from "../data/site"
+import { BookIcon, ChatIcon, BugIcon, VideoIcon, ExternalIcon } from "../components/icons"
 
-const HelpPage = () => (
-  <Layout>
-    <Seo title="Help" />
-    <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-      <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
-        <h2 className="max-w-lg mb-6 font-sans text-5xl font-extrabold leading-none tracking-tight text-gray-900 sm:text-6xl md:mx-auto">
-          Community Help
-        </h2>
-        <p className="text-base text-gray-700 md:text-lg">
-          Warewulf has freely available support resources to help.
-        </p>
-      </div>
-      <div className="grid gap-4 row-gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="flex flex-col justify-between p-5 border rounded shadow-sm">
-          <div>
-            <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-green-50">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-green-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-            </div>
-            <h6 className="mb-2 font-semibold leading-5">Documentation</h6>
-            <p className="mb-3 text-sm text-gray-900">
-              Here is everything you need to know to get started, along with in-depth documentation for each version.
-            </p>
-          </div>
-          <Link
-            to="/docs"
-            aria-label="Documentation"
-            className="inline-flex items-center font-semibold transition-colors duration-200 text-green-900 hover:text-green-700"
-          >
-            View Documentation
-          </Link>
+const community = [
+  { icon: BookIcon, name: "Read the docs", text: "Quickstarts, concepts, and the full command reference. Most answers are here.", cta: "Open documentation", href: "/docs/" },
+  { icon: ChatIcon, name: "Ask on Slack", text: "Talk with users and maintainers. Best for questions and troubleshooting.", cta: "Join the Slack", href: links.slack },
+  { icon: BugIcon, name: "Report a bug", text: "Found a defect or want a feature? Search the tracker, then open an issue.", cta: "Open GitHub issues", href: `${links.github}/issues` },
+  { icon: VideoIcon, name: "Watch the TSC", text: "Steering committee meetings are public and recorded, every 1st and 3rd Wednesday.", cta: "YouTube channel", href: links.youtube },
+]
+
+const vendors = [
+  {
+    name: "CIQ",
+    logo: CtrlIQLogo,
+    text: "Support and services from the project founder and core developers. CIQ also supports Apptainer and Rocky Linux.",
+    href: links.ciq,
+  },
+  {
+    name: "SUSE",
+    logo: SUSELogo,
+    text: "A core contributor to Warewulf. Commercial support is included with SUSE Linux Enterprise HPC and related products.",
+    href: links.suse,
+  },
+]
+
+export default function HelpPage() {
+  return (
+    <Layout>
+      <PageHeader eyebrow="Get help" title="We're here to help">
+        Start with the community, which is quick and free. If you need guaranteed response times, commercial support is available.
+      </PageHeader>
+
+      <section className="container-page py-14" aria-labelledby="community">
+        <h2 id="community" className="text-2xl font-bold tracking-tight">Community support</h2>
+        <ul className="mt-6 grid gap-6 sm:grid-cols-2">
+          {community.map(c => (
+            <li key={c.name} className="card flex flex-col">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-100 text-brand-800 dark:bg-brand-800 dark:text-brand-100">
+                <c.icon className="h-6 w-6" />
+              </span>
+              <h3 className="mt-4 text-lg font-semibold">{c.name}</h3>
+              <p className="mt-2 flex-1 text-ink-soft dark:text-gray-300">{c.text}</p>
+              <a href={c.href} className="mt-4 inline-flex items-center gap-1.5 font-semibold text-brand-700 hover:underline dark:text-brand-300">
+                {c.cta} {c.href.startsWith("http") && <ExternalIcon className="h-4 w-4" />}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="border-t border-gray-200 bg-gray-50 py-14 dark:border-white/10 dark:bg-black/20" aria-labelledby="commercial">
+        <div className="container-page">
+          <h2 id="commercial" className="text-2xl font-bold tracking-tight">Commercial support</h2>
+          <p className="mt-2 max-w-2xl text-ink-soft dark:text-gray-300">
+            Organizations that depend on Warewulf in production can work directly with these project contributors.
+          </p>
+          <ul className="mt-6 grid gap-6 md:grid-cols-2">
+            {vendors.map(s => (
+              <li key={s.name} className="card flex flex-col !bg-white dark:!bg-white/5">
+                <div className="flex h-20 w-40 items-center justify-center rounded-xl bg-white p-3 ring-1 ring-gray-200 dark:ring-white/20">
+                  <img src={s.logo} alt={`${s.name} logo`} className="h-full w-full object-contain" />
+                </div>
+                <p className="mt-4 flex-1 text-ink-soft dark:text-gray-300">{s.text}</p>
+                <a href={s.href} className="btn-secondary mt-5 self-start">
+                  Contact {s.name} <ExternalIcon className="h-4 w-4" />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="flex flex-col justify-between p-5 border rounded shadow-sm">
-          <div>
-            <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-green-50">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-green-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"></path><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"></path><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"></path><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"></path><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"></path><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"></path><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"></path></svg>
-            </div>
-            <h6 className="mb-2 font-semibold leading-5">Slack Community</h6>
-            <p className="mb-3 text-sm text-gray-900">
-              Questions? Feel free to reach out to our knowledgeable and friendly Slack community, who's always willing to help.
-            </p>
-          </div>
-          <Link
-            to="https://join.slack.com/t/warewulf/shared_invite/zt-31b6o6gus-DpLkbJjyIdofPk5aJU4y8A"
-            aria-label="Slack"
-            className="inline-flex items-center font-semibold transition-colors duration-200 text-green-900 hover:text-green-700"
-          >
-            Join Slack
-          </Link>
-        </div>
-        <div className="flex flex-col justify-between p-5 border rounded shadow-sm">
-          <div>
-            <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-green-50">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-green-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
-            </div>
-            <h6 className="mb-2 font-semibold leading-5">GitHub</h6>
-            <p className="mb-3 text-sm text-gray-900">
-              Want the source code or to contribute? Found an issue? Head over to the Warewulf GitHub repo (and don't forget to give the project a <em>star</em>).
-            </p>
-          </div>
-          <Link
-            to="https://github.com/warewulf/warewulf"
-            aria-label="GitHub Repository"
-            className="inline-flex items-center font-semibold transition-colors duration-200 text-green-900 hover:text-green-700"
-          >
-            View GitHub Repo
-          </Link>
-        </div>
-      </div>
-    </div>
-    <div className="px-4 bg-gray-100 py-10">
-      <div className="max-w-2xl mb-10 mt-20 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
-        <h2 className="max-w-xl mb-6 font-sans text-4xl font-extrabold leading-none tracking-tight text-gray-900 sm:text-5xl md:mx-auto">
-          Commercial Support
-        </h2>
-        <p className="mb-5 text-base text-gray-700 md:text-lg">
-          Support, services, and other commercial needs for Warewulf are available by the project
-          lead and founder along with the primary core developers through CIQ (Ctrl IQ, Inc.).
-        </p>
-        <img src={CtrlIQLogo} className="inline-flex justify-center items-center w-24 mb-5" alt="CIQ logo"/><br />
-        <p className="mb-10 text-sm text-gray-900">
-          CIQ is the leading innovator of modernization of high-performance infrastructures and cloud-native
-          computing and directly offers support and services of several open-source projects like Apptainer,
-          Warewulf, and Rocky Linux.
-        </p>
+      </section>
+    </Layout>
+  )
+}
 
-        <Link
-          to="https://ciq.com/products/warewulf/"
-          class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-900 hover:bg-green-800 focus:shadow-outline focus:outline-none"
-          aria-label="Warewulf Support"
-          title="Warewulf Support"
-        >
-          Get Support
-        </Link>
-        <p className="mb-5 text-base text-gray-700 md:text-lg">
-	As an active member and contributor of the open source community and
-	recognized enterprise Linux leader, SUSE offers commercial support and
-	services for Warewulf as part of the SUSE Linux Enterprise Server /
-	SUSE Linux Enterprise HPC products.
-        </p>
-        <img src={SUSELogo} className="inline-flex justify-center items-center w-24 mb-5" alt="SUSE logo"/><br />
-        <p className="mb-10 text-sm text-gray-900">
-	SUSE is a core contributor the the development of Warewulf. With more
-	than 30 years of open source and Enterprise Linux expertise, SUSE
-	offers commerical support and services for key	HPC components
-	including Warewulf, Slurm, Spack and soon to come, Apptainer.
-        </p>
-
-        <Link
-          to="https://www.suse.com/products/server/"
-          class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-900 hover:bg-green-800 focus:shadow-outline focus:outline-none"
-          aria-label="Warewulf Support"
-          title="Warewulf Support"
-        >
-          Get Support
-        </Link>
-      </div>
-    </div>
-  </Layout>
-)
-
-export default HelpPage
+export const Head = () => <Seo title="Get help" pathname="/help/" description="Community and commercial support for Warewulf." />
