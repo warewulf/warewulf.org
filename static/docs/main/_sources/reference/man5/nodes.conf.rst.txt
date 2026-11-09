@@ -22,4 +22,4 @@ mechanism for updating **nodes.conf** is via **wwctl(1)**.
 SEE ALSO
 ========
 
-**wwctl(1)**, **wwctl-nodes(1)**, **wwctl-profile(1)**
+**wwctl(1)**, **wwctl-node(1)**, **wwctl-profile(1)**
