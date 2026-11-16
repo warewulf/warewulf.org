@@ -52,7 +52,7 @@ overall structure.)
    It is recommended not to change this so there is no misalignment with
    node's expectations of how to contact the Warewulf service.
 
-Default: 9873
+   Default: 9873
 
 **secure**
    When true, this limits the Warewulf server to only respond to runtime
@@ -60,36 +60,36 @@ Default: 9873
    non-root users from requesting the runtime overlay, which may contain
    sensitive information.
 
-When true, wwclient uses TCP port 987.
+   When true, wwclient uses TCP port 987.
 
-Changing this option requires rebuilding node overlays and rebooting
-compute nodes, to configure them to use a privileged port.
+   Changing this option requires rebuilding node overlays and rebooting
+   compute nodes, to configure them to use a privileged port.
 
-Default: true
+   Default: true
 
 **update interval**
    The frequency (in seconds) with which wwclient will fetch its
    configuration (e.g., its overlays) from the Warewulf server.
 
-Default: 60
+   Default: 60
 
 **autobuild overlays**
    When true, overlays will be automatically rebuilt when indicated by
    changes to nodes, profiles, and overlays.
 
-Default: true
+   Default: true
 
 **host overlay**
    Host overlays are used to configure dependent services on the
    Warewulf server. When disabled, these services' configuration files
    will not be updated by **wwctl-configure(1)**.
 
-Default: true
+   Default: true
 
 **datastore**
    The location where Warewulf caches and stores OCI data.
 
-Default: /var/lib/warewulf
+   Default: /var/lib/warewulf
 
 DHCP
 ----
@@ -102,7 +102,7 @@ inform how **wwctl-configure(1)** should configure the DHCP service.
    When false, the DHCP service will not be configured by
    **wwctl-configure(1)**.
 
-Default: true
+   Default: true
 
 **range start**
    An IP address which defines the start of a dynamic address range
@@ -110,8 +110,8 @@ Default: true
    host overlays as the variable **$.Dhcp.RangeStart**, typically for
    use in generating dhcpd.conf or similar.
 
-Templates typically expect this range to be within the **network**
-defined above.
+   Templates typically expect this range to be within the **network**
+   defined above.
 
 **range end**
    An IP address which defines the end of a dynamic address range which
@@ -119,27 +119,27 @@ defined above.
    overlays as the variable **$.Dhcp.RangeEnd**, typically for use in
    generating dhcpd.conf or similar.
 
-Templates typically expect this range to be within the **network**
-defined above.
+   Templates typically expect this range to be within the **network**
+   defined above.
 
 **systemd name**
    The systemd unit name which will be used to (re)start the DHCP
    service during **wwctl-configure(1)**, if necessary.
 
-Default: dhcpd
+   Default: dhcpd
 
 **overlays**
    A comma-separated list of host overlays which **wwctl-configure(1)**
    applies when configuring the DHCP service. Overlays are applied left
    to right, with files from the rightmost overlay taking precedence.
 
-There is no compiled-in default: the value is supplied by the
-**warewulf.conf** packaged for the operating system, and
-**wwctl-upgrade(1)** recommends one based on **systemd name**. Typically
-**dhcpd**, or **dnsmasq** where dnsmasq provides DHCP.
+   There is no compiled-in default: the value is supplied by the
+   **warewulf.conf** packaged for the operating system, and
+   **wwctl-upgrade(1)** recommends one based on **systemd name**.
+   Typically **dhcpd**, or **dnsmasq** where dnsmasq provides DHCP.
 
-If a service has no overlays, **wwctl-configure(1)** warns and does not
-regenerate that service's configuration.
+   If a service has no overlays, **wwctl-configure(1)** warns and does
+   not regenerate that service's configuration.
 
 TFTP
 ----
@@ -152,13 +152,13 @@ inform how **wwctl-configure(1)** should configure the TFTP service.
    When false, the TFTP service will not be configured by
    **wwctl-configure(1)**.
 
-Default: true
+   Default: true
 
 **systemd name**
    The systemd unit name which will be used to (re)start the TFTP
    service during **wwctl-configure(1)**, if necessary.
 
-Default: tftp
+   Default: tftp
 
 **overlays**
    A comma-separated list of host overlays which **wwctl-configure(1)**
@@ -177,12 +177,14 @@ The nfs parameter is a map of individual sub-parameters which inform how
    When false, the NFS service will not be configured by
    **wwctl-configure(1)**.
 
-Default: true
+   Default: true
 
 **export paths**
    A list of paths to be exported by the NFS service. Each item in the
    list is, itself, a map of parameters for the export. (See the
    **EXAMPLE** section for overall structure.)
+
+..
 
    **path**
       The path on the server to be exported via the NFS service.
@@ -196,13 +198,13 @@ Default: true
       **.Nfs.ExportsExtended[].ExportOptions**, typically for use in
       generating /etc/exports or similar.
 
-   Default: rw,sync,no_subtree_check
+      Default: rw,sync,no_subtree_check
 
 **systemd name**
    The systemd unit name which will be used to (re)start the NFS service
    during **wwctl-configure(1)**, if necessary.
 
-Default: nfsd
+   Default: nfsd
 
 **overlays**
    A comma-separated list of host overlays which **wwctl-configure(1)**
@@ -221,7 +223,7 @@ how **wwctl-configure(1)** should configure ssh on the Warewulf server.
    host keys. The first type listed is also used to generate user
    authentication keys.
 
-Default: ed25519, ecdsa, rsa
+   Default: ed25519, ecdsa, rsa
 
 **overlays**
    A comma-separated list of host overlays which **wwctl-configure(1)**

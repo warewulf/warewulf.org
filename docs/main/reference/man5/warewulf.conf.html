@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>warewulf.conf(5) &mdash; Warewulf User Guide main documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
 
@@ -271,115 +271,93 @@ cluster’s private interface.</p>
 <p>The <strong>warewulf</strong> parameter is a map of individual sub-parameters which
 configure Warewulf specifically. (See the <strong>EXAMPLE</strong> section for
 overall structure.)</p>
-<dl class="simple">
+<dl>
 <dt><strong>port</strong></dt><dd><p>This is the port that the Warewulf web server will be listening on.
 It is recommended not to change this so there is no misalignment with
 node’s expectations of how to contact the Warewulf service.</p>
-</dd>
-</dl>
 <p>Default: 9873</p>
-<dl class="simple">
+</dd>
 <dt><strong>secure</strong></dt><dd><p>When true, this limits the Warewulf server to only respond to runtime
 overlay requests originating from a privileged port. This prevents
 non-root users from requesting the runtime overlay, which may contain
 sensitive information.</p>
-</dd>
-</dl>
 <p>When true, wwclient uses TCP port 987.</p>
 <p>Changing this option requires rebuilding node overlays and rebooting
 compute nodes, to configure them to use a privileged port.</p>
 <p>Default: true</p>
-<dl class="simple">
+</dd>
 <dt><strong>update interval</strong></dt><dd><p>The frequency (in seconds) with which wwclient will fetch its
 configuration (e.g., its overlays) from the Warewulf server.</p>
-</dd>
-</dl>
 <p>Default: 60</p>
-<dl class="simple">
+</dd>
 <dt><strong>autobuild overlays</strong></dt><dd><p>When true, overlays will be automatically rebuilt when indicated by
 changes to nodes, profiles, and overlays.</p>
-</dd>
-</dl>
 <p>Default: true</p>
-<dl class="simple">
+</dd>
 <dt><strong>host overlay</strong></dt><dd><p>Host overlays are used to configure dependent services on the
 Warewulf server. When disabled, these services’ configuration files
 will not be updated by <strong>wwctl-configure(1)</strong>.</p>
-</dd>
-</dl>
 <p>Default: true</p>
-<dl class="simple">
+</dd>
 <dt><strong>datastore</strong></dt><dd><p>The location where Warewulf caches and stores OCI data.</p>
+<p>Default: /var/lib/warewulf</p>
 </dd>
 </dl>
-<p>Default: /var/lib/warewulf</p>
 </section>
 <section id="dhcp">
 <h3>DHCP<a class="headerlink" href="#dhcp" title="Link to this heading"></a></h3>
 <p>The <strong>dhcp</strong> parameter is a map of individual sub-parameters which
 inform how <strong>wwctl-configure(1)</strong> should configure the DHCP service.
 (See the <strong>EXAMPLE</strong> section for overall structure.)</p>
-<dl class="simple">
+<dl>
 <dt><strong>enabled</strong></dt><dd><p>When false, the DHCP service will not be configured by
 <strong>wwctl-configure(1)</strong>.</p>
-</dd>
-</dl>
 <p>Default: true</p>
-<dl class="simple">
+</dd>
 <dt><strong>range start</strong></dt><dd><p>An IP address which defines the start of a dynamic address range
 which can be used when configuring the DHCP service. Provided to the
 host overlays as the variable <strong>$.Dhcp.RangeStart</strong>, typically for
 use in generating dhcpd.conf or similar.</p>
-</dd>
-</dl>
 <p>Templates typically expect this range to be within the <strong>network</strong>
 defined above.</p>
-<dl class="simple">
+</dd>
 <dt><strong>range end</strong></dt><dd><p>An IP address which defines the end of a dynamic address range which
 can be used when configuring the DHCP service. Provided to the host
 overlays as the variable <strong>$.Dhcp.RangeEnd</strong>, typically for use in
 generating dhcpd.conf or similar.</p>
-</dd>
-</dl>
 <p>Templates typically expect this range to be within the <strong>network</strong>
 defined above.</p>
-<dl class="simple">
+</dd>
 <dt><strong>systemd name</strong></dt><dd><p>The systemd unit name which will be used to (re)start the DHCP
 service during <strong>wwctl-configure(1)</strong>, if necessary.</p>
-</dd>
-</dl>
 <p>Default: dhcpd</p>
-<dl class="simple">
+</dd>
 <dt><strong>overlays</strong></dt><dd><p>A comma-separated list of host overlays which <strong>wwctl-configure(1)</strong>
 applies when configuring the DHCP service. Overlays are applied left
 to right, with files from the rightmost overlay taking precedence.</p>
-</dd>
-</dl>
 <p>There is no compiled-in default: the value is supplied by the
 <strong>warewulf.conf</strong> packaged for the operating system, and
-<strong>wwctl-upgrade(1)</strong> recommends one based on <strong>systemd name</strong>. Typically
-<strong>dhcpd</strong>, or <strong>dnsmasq</strong> where dnsmasq provides DHCP.</p>
-<p>If a service has no overlays, <strong>wwctl-configure(1)</strong> warns and does not
-regenerate that service’s configuration.</p>
+<strong>wwctl-upgrade(1)</strong> recommends one based on <strong>systemd name</strong>.
+Typically <strong>dhcpd</strong>, or <strong>dnsmasq</strong> where dnsmasq provides DHCP.</p>
+<p>If a service has no overlays, <strong>wwctl-configure(1)</strong> warns and does
+not regenerate that service’s configuration.</p>
+</dd>
+</dl>
 </section>
 <section id="tftp">
 <h3>TFTP<a class="headerlink" href="#tftp" title="Link to this heading"></a></h3>
 <p>The <strong>tftp</strong> parameter is a map of individual sub-parameters which
 inform how <strong>wwctl-configure(1)</strong> should configure the TFTP service.
 (See the <strong>EXAMPLE</strong> section for overall structure.)</p>
-<dl class="simple">
+<dl>
 <dt><strong>enabled</strong></dt><dd><p>When false, the TFTP service will not be configured by
 <strong>wwctl-configure(1)</strong>.</p>
-</dd>
-</dl>
 <p>Default: true</p>
-<dl class="simple">
+</dd>
 <dt><strong>systemd name</strong></dt><dd><p>The systemd unit name which will be used to (re)start the TFTP
 service during <strong>wwctl-configure(1)</strong>, if necessary.</p>
-</dd>
-</dl>
 <p>Default: tftp</p>
-<dl class="simple">
+</dd>
 <dt><strong>overlays</strong></dt><dd><p>A comma-separated list of host overlays which <strong>wwctl-configure(1)</strong>
 applies when configuring the TFTP service. Typically <strong>tftproot</strong>, or
 <strong>dnsmasq,tftproot</strong> where dnsmasq provides TFTP. See <strong>overlays</strong>
@@ -392,17 +370,18 @@ under <strong>DHCP</strong> above.</p>
 <p>The nfs parameter is a map of individual sub-parameters which inform how
 <strong>wwctl-configure(1)</strong> should configure the NFS service. (See the
 <strong>EXAMPLE</strong> section for overall structure.)</p>
-<dl class="simple">
+<dl>
 <dt><strong>enabled</strong></dt><dd><p>When false, the NFS service will not be configured by
 <strong>wwctl-configure(1)</strong>.</p>
-</dd>
-</dl>
 <p>Default: true</p>
-<dl>
+</dd>
 <dt><strong>export paths</strong></dt><dd><p>A list of paths to be exported by the NFS service. Each item in the
 list is, itself, a map of parameters for the export. (See the
 <strong>EXAMPLE</strong> section for overall structure.)</p>
-<dl class="simple">
+</dd>
+</dl>
+<blockquote>
+<div><dl>
 <dt><strong>path</strong></dt><dd><p>The path on the server to be exported via the NFS service.
 Provided to the host overlays as the variable
 <strong>.Nfs.ExportsExtended[].Path</strong>, typically for use in generating
@@ -412,16 +391,15 @@ Provided to the host overlays as the variable
 via the NFS service. Provided to the host overlays as the variable
 <strong>.Nfs.ExportsExtended[].ExportOptions</strong>, typically for use in
 generating /etc/exports or similar.</p>
-</dd>
-</dl>
 <p>Default: rw,sync,no_subtree_check</p>
 </dd>
+</dl>
+</div></blockquote>
+<dl>
 <dt><strong>systemd name</strong></dt><dd><p>The systemd unit name which will be used to (re)start the NFS service
 during <strong>wwctl-configure(1)</strong>, if necessary.</p>
-</dd>
-</dl>
 <p>Default: nfsd</p>
-<dl class="simple">
+</dd>
 <dt><strong>overlays</strong></dt><dd><p>A comma-separated list of host overlays which <strong>wwctl-configure(1)</strong>
 applies when configuring the NFS service. Typically <strong>nfsd</strong>. See
 <strong>overlays</strong> under <strong>DHCP</strong> above.</p>
@@ -433,14 +411,12 @@ applies when configuring the NFS service. Typically <strong>nfsd</strong>. See
 <p>The <strong>ssh</strong> parameter is a map of individual sub-parameters which inform
 how <strong>wwctl-configure(1)</strong> should configure ssh on the Warewulf server.
 (See the <strong>EXAMPLE</strong> section for overall structure.)</p>
-<dl class="simple">
+<dl>
 <dt><strong>key types</strong></dt><dd><p>The ssh key types for which <strong>wwctl-configure(1)</strong> generates cluster
 host keys. The first type listed is also used to generate user
 authentication keys.</p>
-</dd>
-</dl>
 <p>Default: ed25519, ecdsa, rsa</p>
-<dl class="simple">
+</dd>
 <dt><strong>overlays</strong></dt><dd><p>A comma-separated list of host overlays which <strong>wwctl-configure(1)</strong>
 applies when configuring ssh. Typically <strong>ssh.wwctl</strong>. See
 <strong>overlays</strong> under <strong>DHCP</strong> above.</p>
