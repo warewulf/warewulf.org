@@ -110,10 +110,8 @@ Warewulf thrives because of its community. We invite you to join us!
 - [Join our community discussions on Slack](https://warewulf.slack.com)
 - [Contribute on GitHub](https://github.com/warewulf/warewulf)
 
-### Social Media
+### Watch
 
-- [Follow us on X](https://x.com/warewulf)
-- [Follow us on BlueSky](https://bsky.app/profile/warewulf.bsky.social)
 - [Follow us on YouTube](https://www.youtube.com/@warewulfhpc)
 
 ### Commercial Support

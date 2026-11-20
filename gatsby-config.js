@@ -2,32 +2,17 @@ module.exports = {
   siteMetadata: {
     siteUrl: `https://warewulf.org`,
     title: `Warewulf`,
-    description: `A stateless and diskless container operating system provisioning system for large clusters of bare metal and/or virtual systems.`,
-    author: `@warewulf`,
+    description: `Stateless, image-based provisioning and management for bare metal and virtual HPC clusters, from a handful of nodes to tens of thousands.`,
   },
+  trailingSlash: `always`,
   plugins: [
-    `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
+      options: { name: `posts`, path: `${__dirname}/src/posts` },
     },
     {
       resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `posts`,
-        path: `${__dirname}/src/posts`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `static-pages`,
-        path: `${__dirname}/src/static-pages`,
-      },
+      options: { name: `static-pages`, path: `${__dirname}/src/static-pages` },
     },
     `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
@@ -35,13 +20,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Warewulf`,
+        short_name: `Warewulf`,
         start_url: `/`,
-        background_color: `#1D315F`,
-        theme_color: `#1D315F`,
+        background_color: `#ffffff`,
+        theme_color: `#1b6b25`,
         display: `minimal-ui`,
-        icon: `src/images/logo.png`, // This path is relative to the root of the site.
+        icon: `src/images/icon.png`,
       },
     },
     `gatsby-plugin-postcss`,
