@@ -260,6 +260,9 @@ default configuration includes all files with following pattern
 <code class="docutils literal notranslate"><span class="pre">/etc/dnsmasq.d/*conf</span></code> into its configuration. This configuration is created
 by the overlay templates <code class="docutils literal notranslate"><span class="pre">dnsmasq:/etc/dnsmasq.d/ww4-hosts.conf.ww</span></code> and
 <code class="docutils literal notranslate"><span class="pre">dnsmasq:/etc/dnsmasq.d/ww4-listen.conf.ww</span></code>.</p>
+<p>With iPXE network boot, the dnsmasq overlay uses the <code class="docutils literal notranslate"><span class="pre">00:00</span></code> entry in the
+<code class="docutils literal notranslate"><span class="pre">tftp:ipxe</span></code> map to select the boot file for legacy BIOS PXE clients. The
+default file is <code class="docutils literal notranslate"><span class="pre">undionly.kpxe</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In certain distributions, such as Rocky Linux 9, <code class="docutils literal notranslate"><span class="pre">dnsmasq</span></code> is configured to
