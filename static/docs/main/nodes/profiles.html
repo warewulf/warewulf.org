@@ -269,8 +269,8 @@ is added.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">wwctl</span> <span class="pre">node</span> <span class="pre">list</span> <span class="pre">--all</span></code> indicates which profile defines each field.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>n1<span class="w"> </span>--all
-<span class="go">NODE  FIELD             PROFILE  VALUE</span>
-<span class="go">----  -----             -------  -----</span>
+<span class="go">NODE  FIELD             SOURCE   VALUE</span>
+<span class="go">----  -----             ------   -----</span>
 <span class="go">n1    Profiles          --       default</span>
 <span class="go">n1    Comment           default  This profile is automatically included for each node</span>
 <span class="go">n1    Ipxe              default  default</span>
@@ -316,8 +316,8 @@ wwctl<span class="w"> </span>node<span class="w"> </span><span class="nb">set</s
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>n1<span class="w"> </span>--all
-<span class="go">NODE  FIELD                     PROFILE  VALUE</span>
-<span class="go">----  -----                     -------  -----</span>
+<span class="go">NODE  FIELD                     SOURCE   VALUE</span>
+<span class="go">----  -----                     ------   -----</span>
 <span class="go">n1    Profiles                  --       default,net,image</span>
 <span class="go">n1    Comment                   default  This profile is automatically included for each node</span>
 <span class="go">n1    ImageName                 image    rockylinux-9</span>
@@ -366,8 +366,8 @@ for a scalar field and <code class="docutils literal notranslate"><span class="p
 </div>
 <p>Next we filter the output a little to focus on one field at time.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>n1<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(NODE|----|Root)&#39;</span>
-<span class="go">  NODE  FIELD             PROFILE               VALUE</span>
-<span class="go">  ----  -----             -------               -----</span>
+<span class="go">  NODE  FIELD             SOURCE                VALUE</span>
+<span class="go">  ----  -----             ------                -----</span>
 <span class="go">  n1    Root              SUPERSEDED            root_from_node_profile</span>
 </pre></div>
 </div>
@@ -375,8 +375,8 @@ for a scalar field and <code class="docutils literal notranslate"><span class="p
 profile has highest precedence.</p>
 <p>Things are different for the list typed field <code class="docutils literal notranslate"><span class="pre">runtime</span> <span class="pre">overlay</span></code>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#  </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>n1<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(NODE|----|Runtime)&#39;</span>
-<span class="go">   NODE  FIELD             PROFILE     VALUE</span>
-<span class="go">   ----  -----             -------     -----</span>
+<span class="go">   NODE  FIELD             SOURCE      VALUE</span>
+<span class="go">   ----  -----             ------      -----</span>
 <span class="go">   n1    RuntimeOverlay    default,n1  runtime_overlay_from_default,runtime_overlay_from_node_profile</span>
 </pre></div>
 </div>
@@ -396,16 +396,16 @@ default profile.</p>
 <p>First we check the <code class="docutils literal notranslate"><span class="pre">root</span></code> field and see that it set from <code class="docutils literal notranslate"><span class="pre">profile_a</span></code>
 as <code class="docutils literal notranslate"><span class="pre">profile_a</span></code> is now the profile with highest precedence.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>n1<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(NODE|----|Root)&#39;</span>
-<span class="go">  NODE  FIELD             PROFILE               VALUE</span>
-<span class="go">  ----  -----             -------               -----</span>
+<span class="go">  NODE  FIELD             SOURCE                VALUE</span>
+<span class="go">  ----  -----             ------                -----</span>
 <span class="go">  n1    Root              profile_a             root_from_profile_a</span>
 </pre></div>
 </div>
 <p>The value of <code class="docutils literal notranslate"><span class="pre">runtime</span> <span class="pre">overlay</span></code> is now a combination of the values of
 all three profiles.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>wwctl<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span>n1<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;(NODE|----|Runtime)&#39;</span>
-<span class="go">NODE  FIELD             PROFILE               VALUE</span>
-<span class="go">----  -----             -------               -----</span>
+<span class="go">NODE  FIELD             SOURCE                VALUE</span>
+<span class="go">----  -----             ------                -----</span>
 <span class="go">n1    RuntimeOverlay    default,profile_a,n1  runtime_overlay_from_default,runtime_overlay_from_profile_a,runtime_overlay_from_node_profile</span>
 </pre></div>
 </div>
@@ -448,10 +448,10 @@ nodes:
 </div>
 <p>The value of <code class="docutils literal notranslate"><span class="pre">runtime</span> <span class="pre">overlay</span></code> is then just <code class="docutils literal notranslate"><span class="pre">runtime_overlay_from_p2</span></code>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># wwctl node list n2 --all</span>
-NODE<span class="w">  </span>FIELD<span class="w">           </span>PROFILE<span class="w">  </span>VALUE
-----<span class="w">  </span>-----<span class="w">           </span>-------<span class="w">  </span>-----
-n2<span class="w">    </span>Profiles<span class="w">        </span>--<span class="w">       </span>p2,~p1
-n2<span class="w">    </span>RuntimeOverlay<span class="w">  </span>p2<span class="w">       </span>runtime_overlay_from_p2
+NODE<span class="w">  </span>FIELD<span class="w">           </span>SOURCE<span class="w">  </span>VALUE
+----<span class="w">  </span>-----<span class="w">           </span>------<span class="w">  </span>-----
+n2<span class="w">    </span>Profiles<span class="w">        </span>--<span class="w">      </span>p2,~p1
+n2<span class="w">    </span>RuntimeOverlay<span class="w">  </span>p2<span class="w">      </span>runtime_overlay_from_p2
 </pre></div>
 </div>
 </section>
