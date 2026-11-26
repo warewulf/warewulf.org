@@ -259,7 +259,9 @@ content. This template format is documented at <a class="reference external" hre
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When the template is rendered within a built overlay image, the <code class="docutils literal notranslate"><span class="pre">.ww</span></code> will
-be dropped, so <code class="docutils literal notranslate"><span class="pre">/etc/hosts.ww</span></code> will end up being <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>.</p>
+be dropped, so <code class="docutils literal notranslate"><span class="pre">/etc/hosts.ww</span></code> will end up being <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>.
+Other characters in the filename are preserved, including literal backslashes
+in systemd unit names such as <code class="docutils literal notranslate"><span class="pre">mnt-test\x2dmount.mount</span></code>.</p>
 </div>
 <section id="non-overlay-templates">
 <h2>Non-Overlay Templates<a class="headerlink" href="#non-overlay-templates" title="Link to this heading"></a></h2>
